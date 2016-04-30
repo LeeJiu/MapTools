@@ -15,17 +15,23 @@ HRESULT gameStudy::init()
 {
 	gameNode::init(true);
 
+	_mapTool = new mapTool;
+	_mapTool->init();
 
 	return S_OK;
 }
 
 void gameStudy::release()
 {
+	_mapTool->release();
+	SAFE_DELETE(_mapTool);
+
 	gameNode::release();
 }
 
 void gameStudy::update()
 {
+	_mapTool->update();
 
 	gameNode::update();
 }
@@ -39,6 +45,7 @@ void gameStudy::render()
 	//======================
 	//이 사이에서 그려주면 됨.
 
+	_mapTool->render();
 
 	//======================
 	TIMEMANAGER->render(getMemDC());

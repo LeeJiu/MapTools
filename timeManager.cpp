@@ -44,7 +44,7 @@ void timeManager::render(HDC hdc)
 	SetBkMode(hdc, TRANSPARENT);
 
 	//글자 색상
-	SetTextColor(hdc, RGB(255, 255, 255));
+	SetTextColor(hdc, RGB(0, 0, 0));
 
 #ifdef _DEBUG
 	{
@@ -52,15 +52,15 @@ void timeManager::render(HDC hdc)
 		{
 			//프레임 찍어주자
 			sprintf_s(str, "framePerSec : %d", _timer->getFrameRate());
-			TextOut(hdc, 0, 0, str, strlen(str));
+			TextOut(hdc, WINSIZEX - 150, 0, str, strlen(str));
 
 			//월드 타임 찍어주자
 			sprintf_s(str, "worldTime : %f", _timer->getWorldTime());
-			TextOut(hdc, 0, 20, str, strlen(str));
+			TextOut(hdc, WINSIZEX - 150, 20, str, strlen(str));
 
 			//갱신 Tick 찍어주자
-			sprintf_s(str, "elapsedTime : %f", _timer->getElapsedTime());
-			TextOut(hdc, 0, 40, str, strlen(str));
+			sprintf_s(str, "elapsedTime : %.5f", _timer->getElapsedTime());
+			TextOut(hdc, WINSIZEX - 150, 40, str, strlen(str));
 		}
 	}
 #else
