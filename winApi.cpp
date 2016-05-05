@@ -9,6 +9,8 @@ HWND _hWnd, _hWndChild;
 POINT _ptMouse = { 0, 0 };
 bool _leftButtonDown = false;
 bool _rightButtonDown = false;
+int _scrollPosX = 0;
+int _scrollPosY = 0;
 
 gameStudy _gs;
 
@@ -52,9 +54,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	//윈도우 생성
 	_hWnd = CreateWindow(
-		WINNAME,    
-		WINNAME,    
-		WINSTYLE,   
+		WINNAME,
+		WINNAME,
+		WINSTYLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
 		WINSTARTX,  
 		WINSTARTY,  
 		WINSIZEX,   

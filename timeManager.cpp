@@ -50,6 +50,7 @@ void timeManager::render(HDC hdc)
 	{
 		if (_timer != NULL)
 		{
+<<<<<<< HEAD
 			//프레임 찍어주자
 			sprintf_s(str, "framePerSec : %d", _timer->getFrameRate());
 			TextOut(hdc, WINSIZEX - 150, 0, str, strlen(str));
@@ -61,6 +62,19 @@ void timeManager::render(HDC hdc)
 			//갱신 Tick 찍어주자
 			sprintf_s(str, "elapsedTime : %.5f", _timer->getElapsedTime());
 			TextOut(hdc, WINSIZEX - 150, 40, str, strlen(str));
+=======
+			////프레임 찍어주자
+			//sprintf_s(str, "framePerSec : %d", _timer->getFrameRate());
+			//TextOut(hdc, 0, 0, str, strlen(str));
+			//
+			////월드 타임 찍어주자
+			//sprintf_s(str, "worldTime : %f", _timer->getWorldTime());
+			//TextOut(hdc, 0, 20, str, strlen(str));
+			//
+			////갱신 Tick 찍어주자
+			//sprintf_s(str, "elapsedTime : %f", _timer->getElapsedTime());
+			//TextOut(hdc, 0, 40, str, strlen(str));
+>>>>>>> refs/remotes/origin/master
 		}
 	}
 #else

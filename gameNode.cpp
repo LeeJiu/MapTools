@@ -117,7 +117,42 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 		_ptMouse.x = LOWORD(lParam);
 		_ptMouse.y = HIWORD(lParam);
 		break;
+	case WM_MOUSEWHEEL:
+		if (KEYMANAGER->isStayKeyDown(VK_CONTROL))
+		{
+			
+		}
+		break;
+	case WM_HSCROLL:
+	{
+		if (KEYMANAGER->isStayKeyDown(VK_CONTROL))
+		{
+			switch (LOWORD(wParam))
+			{
+			case SB_LINELEFT:
+				_scrollPosY -= 1;
+				break;
+			case SB_LINERIGHT:
+				_scrollPosY += 1;
+				break;
+			default:
+				break;
+			}
+		}
 
+		switch (LOWORD(wParam))
+		{
+		case SB_LINELEFT:
+			_scrollPosX -= 1;
+			break;
+		case SB_LINERIGHT:
+			_scrollPosX += 1;
+			break;
+		default:
+			break;
+		}
+	}
+		break;
 	case WM_KEYDOWN:
 		switch (wParam)
 		{

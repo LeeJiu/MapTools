@@ -48,3 +48,11 @@ inline void EllipseMakeCenter(HDC hdc, int x, int y, int width, int height)
 {
 	Ellipse(hdc, x - width / 2, y - height / 2, x + width / 2, y + height / 2);
 }
+
+inline void IsoRender(HDC hdc, RECT rc)
+{
+	LineMake(hdc, (rc.right + rc.left) / 2, rc.top, rc.right, (rc.top + rc.bottom) / 2);
+	LineMake(hdc, rc.right, (rc.top + rc.bottom) / 2, (rc.left + rc.right) / 2, rc.bottom);
+	LineMake(hdc, (rc.left + rc.right) / 2, rc.bottom, rc.left, (rc.top + rc.bottom) / 2);
+	LineMake(hdc, rc.left, (rc.top + rc.bottom) / 2, (rc.right + rc.left) / 2, rc.top);
+}
