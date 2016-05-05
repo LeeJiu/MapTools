@@ -15,6 +15,7 @@ gameNode::~gameNode()
 HRESULT gameNode::init()
 {
 	_hdc = GetDC(_hWnd);
+	_hdcChild = GetDC(_hWndChild);
 	_managerInit = false;
 
 	return S_OK;
@@ -23,11 +24,13 @@ HRESULT gameNode::init()
 HRESULT gameNode::init(bool managerInit)
 {
 	_hdc = GetDC(_hWnd);
+	_hdcChild = GetDC(_hWndChild);
 	_managerInit = managerInit;
 
 	if (_managerInit)
 	{
 		SetTimer(_hWnd, 1, 10, NULL);
+		SetTimer(_hWndChild, 1, 10, NULL);
 
 		KEYMANAGER->init();
 		IMAGEMANAGER->init();
@@ -47,6 +50,7 @@ void gameNode::release()
 	if (_managerInit)
 	{
 		KillTimer(_hWnd, 1);
+		KillTimer(_hWndChild, 1);
 
 		KEYMANAGER->release();
 		KEYMANAGER->releaseSingleton();
@@ -68,11 +72,11 @@ void gameNode::release()
 
 	//받아온 DC 해제 해주자
 	ReleaseDC(_hWnd, _hdc);
+	ReleaseDC(_hWndChild, _hdcChild);
 }
 
 void gameNode::update()
 {
-	InvalidateRect(_hWnd, NULL, false);
 }
 
 void gameNode::render()
@@ -88,6 +92,11 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 
 	switch (iMessage)
 	{
+	case WM_SIZE:
+		MoveWindow(_hWnd, 0, 0, 800, WINSIZEY, TRUE);
+		MoveWindow(_hWndChild, 800, 0, WINSIZEX, WINSIZEY, TRUE);
+		break;
+
 	case WM_LBUTTONDOWN:
 		_leftButtonDown = true;
 		break;

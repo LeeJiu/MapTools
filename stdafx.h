@@ -35,6 +35,7 @@
 
 /* ===== 디파인문 ===== */
 #define WINNAME (LPTSTR)(TEXT("MapTool"))
+#define CHILDNAME (LPTSTR)(TEXT("MapTool_Child"))
 #define WINSTARTX 10
 #define WINSTARTY 10
 #define WINSIZEX 1000
@@ -60,7 +61,7 @@
 
 /* ===== 전역 변수 ===== */
 extern POINT _ptMouse;
-extern HWND _hWnd;
+extern HWND _hWnd, _hWndChild;
 extern HINSTANCE _hInstance;
 extern bool _leftButtonDown;
 extern bool _rightButtonDown;

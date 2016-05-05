@@ -94,7 +94,7 @@ void mapTool::keyControl()
 			index = y * TILENUM + x;
 			if (PtInRect(&rc[index], _ptMouse))
 			{
-				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+				if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 				{
 					inputTile(index);
 				}

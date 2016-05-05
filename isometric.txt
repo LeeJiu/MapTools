@@ -1,0 +1,7 @@
+isometric tile
+- index : x, y
+- pivot
+- width, height(=width/2)
+- type
+- image
+- rect(to draw image)
