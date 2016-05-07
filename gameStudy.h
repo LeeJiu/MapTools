@@ -6,11 +6,7 @@
 class gameStudy : public gameNode
 {
 private:
-<<<<<<< HEAD
-	mapTool* _mapTool;
-=======
 	mapTool* _map;
->>>>>>> refs/remotes/origin/master
 
 public:
 	gameStudy();

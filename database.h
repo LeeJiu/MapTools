@@ -8,12 +8,8 @@
 class elements
 {
 public:
-	const char* name;
-	float increaseSpeed;
-	float maxSpeed;
-	float angle;
-	int currentHP;
-	int maxHP;
+	int number;
+	int state;
 
 	elements() {};
 	~elements() {};
@@ -41,10 +37,7 @@ public:
 
 	elements* getElementData(string str) { return _mTotalElement.find(str)->second; }
 
-	void setElementDataIncreaseSpeed(string str, float is);
-	void setElementDataMaxSpeed(string str, float ms);
-	void setElementDataAngle(string str, float a);
-	void setElementDataCurrentHP(string str, float ch);
-	void setElementDataMaxHP(string str, float mh);
+	void setElementDataNumber(string str, int number);
+	void setElementDataState(string str, int state);
 };
 

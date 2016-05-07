@@ -61,7 +61,7 @@
 
 /* ===== 전역 변수 ===== */
 extern POINT _ptMouse;
-extern HWND _hWnd, _hWndChild;
+extern HWND _hWnd;
 extern HINSTANCE _hInstance;
 extern bool _leftButtonDown;
 extern bool _rightButtonDown;

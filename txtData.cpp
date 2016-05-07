@@ -27,30 +27,30 @@ void txtData::txtSave(const char* saveFileName, vector<string> vStr)
 {
 	HANDLE file;
 
-	char str[128];
+	char str[65536];
 	DWORD write;
 
-	strncpy_s(str, 128, vectorArrayCombine(vStr), 126);
+	strncpy_s(str, 65536, vectorArrayCombine(vStr), 65534);
 
 	//파일 생성
 	file = CreateFile(saveFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 		FILE_ATTRIBUTE_NORMAL, NULL);
 
 	//파일에 쓰기
-	WriteFile(file, str, 128, &write, NULL);
+	WriteFile(file, str, 65536, &write, NULL);
 
 	CloseHandle(file);
 }
 
 char* txtData::vectorArrayCombine(vector<string> vArray)
 {
-	char str[128];
+	char str[65536];
 
 	ZeroMemory(str, sizeof(str));
 
 	for (int i = 0; i < vArray.size(); i++)
 	{
-		strncat_s(str, 128, vArray[i].c_str(), 126);
+		strncat_s(str, 65536, vArray[i].c_str(), 65534);
 		if (i + 1 < vArray.size()) strcat_s(str, ",");
 	}
 
@@ -63,7 +63,7 @@ vector<string> txtData::txtLoad(const char* loadFileName)
 {
 	HANDLE file;
 
-	char str[128];
+	char str[65536];
 	DWORD read;
 
 	memset(str, 0, sizeof(str));
@@ -71,7 +71,7 @@ vector<string> txtData::txtLoad(const char* loadFileName)
 	file = CreateFile(loadFileName, GENERIC_READ, 0, NULL,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	ReadFile(file, str, 128, &read, NULL);
+	ReadFile(file, str, 65536, &read, NULL);
 	CloseHandle(file);
 
 	return charArraySeparation(str);

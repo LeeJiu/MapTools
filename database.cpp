@@ -13,7 +13,7 @@ database::~database()
 
 HRESULT database::init()
 {
-	loadDatabase("database.txt");
+	//loadDatabase("database.txt");
 
 	return S_OK;
 }
@@ -39,7 +39,7 @@ void database::loadDatabase(string name)
 	string str;
 	int count = 0;
 
-	//|,battle,0.3,2.0,0.0,2000,2000,|,carrier,0.4,1.0,0.0,3000,3000
+	//|,number,state,|,number,state,
 	for (unsigned int i = 0; i < vTemp.size(); i++)
 	{
 		if (vTemp[i] == "|")
@@ -47,48 +47,27 @@ void database::loadDatabase(string name)
 			elements* em = new elements;
 			str = vTemp[i + 1];
 			_mTotalElement.insert(pair<string, elements*>(vTemp[i + 1], em));
-			if (i != 0) count += 7;
+			if (i != 0) count += 3;
 			continue;
 		}
 
 		iterElement mIter = _mTotalElement.find(str);
-		if (i == count + 1) mIter->second->name = vTemp[i].c_str();
-		else if (i == count + 2) mIter->second->increaseSpeed = (float)atof(vTemp[i].c_str());
-		else if (i == count + 3) mIter->second->maxSpeed = (float)atof(vTemp[i].c_str());
-		else if (i == count + 4) mIter->second->angle = (float)atof(vTemp[i].c_str());
-		else if (i == count + 5) mIter->second->currentHP = atoi(vTemp[i].c_str());
-		else if (i == count + 6) mIter->second->maxHP = atoi(vTemp[i].c_str());
+		//읽어올 데이터들
+		if (i == count + 1) mIter->second->number = atoi(vTemp[i].c_str());
+		else if (i == count + 2) mIter->second->state = atoi(vTemp[i].c_str());
 	}
 
 	vTemp.clear();
 }
 
-void database::setElementDataIncreaseSpeed(string str, float is)
+void database::setElementDataNumber(string str, int number)
 {
 	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->increaseSpeed = is;
+	mIter->second->number = number;
 }
 
-void database::setElementDataMaxSpeed(string str, float ms)
+void database::setElementDataState(string str, int state)
 {
 	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->maxSpeed = ms;
-}
-
-void database::setElementDataAngle(string str, float a)
-{
-	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->angle = a;
-}
-
-void database::setElementDataCurrentHP(string str, float ch)
-{
-	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->currentHP = (int)ch;
-}
-
-void database::setElementDataMaxHP(string str, float mh)
-{
-	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->maxHP = (int)mh;
+	mIter->second->state = state;
 }

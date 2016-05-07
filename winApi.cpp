@@ -5,7 +5,7 @@
 #include "gameStudy.h"
 
 HINSTANCE _hInstance;
-HWND _hWnd, _hWndChild;
+HWND _hWnd;
 POINT _ptMouse = { 0, 0 };
 bool _leftButtonDown = false;
 bool _rightButtonDown = false;
@@ -16,7 +16,6 @@ gameStudy _gs;
 
 /* ==== 함수 프로토타입 선언 ===== */
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-LRESULT CALLBACK ChildRightProc(HWND, UINT, WPARAM, LPARAM);
 void setWindowSize(int x, int y, int width, int height);
 
 
@@ -44,14 +43,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//윈도우 클래스 등록
 	RegisterClass(&wndClass);
 
-	//윈도우 자식 클래스 구조체
-	wndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wndClass.lpfnWndProc = ChildRightProc;
-	wndClass.lpszMenuName = NULL;
-	wndClass.lpszClassName = CHILDNAME;
-
-	RegisterClass(&wndClass);
-
 	//윈도우 생성
 	_hWnd = CreateWindow(
 		WINNAME,
@@ -65,20 +56,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		(HMENU)NULL,
 		hInstance,  
 		NULL);      
-
-	//윈도우 자식 생성
-	_hWndChild = CreateWindow(
-		CHILDNAME,
-		NULL,
-		WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN, 
-		0, 
-		0, 
-		0, 
-		0, 
-		_hWnd, 
-		0, 
-		hInstance, 
-		NULL);
 
 	setWindowSize(WINSTARTX, WINSTARTY, WINSIZEX, WINSIZEY);
 
@@ -125,11 +102,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
 	return _gs.MainProc(hWnd, iMessage, wParam, lParam);
-}
-
-LRESULT CALLBACK ChildRightProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
-{
-	return LRESULT();
 }
 
 void setWindowSize(int x, int y, int width, int height)

@@ -7,7 +7,7 @@ static image* _backBuffer = IMAGEMANAGER->addImage("backBuffer", WINSIZEX, WINSI
 class gameNode
 {
 private:
-	HDC _hdc, _hdcChild;
+	HDC _hdc;
 	bool _managerInit;
 
 public:
