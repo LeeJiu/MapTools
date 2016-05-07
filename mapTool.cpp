@@ -91,47 +91,7 @@ void mapTool::release()
 
 void mapTool::update()
 {
-	// 마우스 클릭 된 위치 이미지 그리자
-	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
-	{
-		for (int i = 0; i < _vTile.size(); i++)
-		{
-			if (PtInRect(&_vTile[i].rc, _ptMouse))
-			{
-				//drawTile(i);
-			}
-		}
-	}
-
-	// 임시 맵스크롤 키 입력 만들자
-	if (KEYMANAGER->isStayKeyDown(VK_UP) && _vTile[0].rc.top < 0)
-	{
-		for (int i = 0; i < _vTile.size(); i++)
-		{
-			_vTile[i].rc = RectMake(_vTile[i].rc.left, _vTile[i].rc.top + 1, _vTile[i].width, _vTile[i].height);
-		}
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN) && _vTile[_vTile.size() - 1].rc.bottom > WINSIZEY - 15)
-	{
-		for (int i = 0; i < _vTile.size(); i++)
-		{
-			_vTile[i].rc = RectMake(_vTile[i].rc.left, _vTile[i].rc.top - 1, _vTile[i].width, _vTile[i].height);
-		}
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-	{
-		for (int i = 0; i < _vTile.size(); i++)
-		{
-			_vTile[i].rc = RectMake(_vTile[i].rc.left + 1, _vTile[i].rc.top, _vTile[i].width, _vTile[i].height);
-		}
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-		for (int i = 0; i < _vTile.size(); i++)
-		{
-			_vTile[i].rc = RectMake(_vTile[i].rc.left - 1, _vTile[i].rc.top, _vTile[i].width, _vTile[i].height);
-		}
-	}
+	keyControl();
 
 	//_button->update();
 }
@@ -175,6 +135,62 @@ void mapTool::render()
 }
 
 
+void mapTool::keyControl()
+{
+	// 마우스 클릭 된 위치 이미지 그리자
+	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+	{
+		for (int i = 0; i < _vTile.size(); i++)
+		{
+			if (PtInRect(&_vTile[i].rc, _ptMouse))
+			{
+				//drawTile(i);
+			}
+		}
+	}
+
+	// 임시 맵스크롤 키 입력 만들자
+	if (KEYMANAGER->isStayKeyDown(VK_UP) && _vTile[0].rc.top < 0)
+	{
+		for (int i = 0; i < _vTile.size(); i++)
+		{
+			_vTile[i].rc = RectMake(_vTile[i].rc.left, _vTile[i].rc.top + 1, _vTile[i].width, _vTile[i].height);
+		}
+	}
+	if (KEYMANAGER->isStayKeyDown(VK_DOWN) && _vTile[_vTile.size() - 1].rc.bottom > WINSIZEY - 15)
+	{
+		for (int i = 0; i < _vTile.size(); i++)
+		{
+			_vTile[i].rc = RectMake(_vTile[i].rc.left, _vTile[i].rc.top - 1, _vTile[i].width, _vTile[i].height);
+		}
+	}
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+	{
+		for (int i = 0; i < _vTile.size(); i++)
+		{
+			_vTile[i].rc = RectMake(_vTile[i].rc.left + 1, _vTile[i].rc.top, _vTile[i].width, _vTile[i].height);
+		}
+	}
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	{
+		for (int i = 0; i < _vTile.size(); i++)
+		{
+			_vTile[i].rc = RectMake(_vTile[i].rc.left - 1, _vTile[i].rc.top, _vTile[i].width, _vTile[i].height);
+		}
+	}
+
+	//맵 데이터를 세이브
+	if (KEYMANAGER->isOnceKeyDown('S'))
+	{
+		saveMapData();
+	}
+	//맵 데이터를 로드
+	if (KEYMANAGER->isOnceKeyDown('L'))
+	{
+		loadMapData();
+	}
+}
+
 void mapTool::selectMap()
 {
 	
@@ -186,6 +202,31 @@ void mapTool::drawTile(int index)
 	_vTile[index].number = selectedNum;
 	_vTile[index].image->setFrameX(_vTile[index].number % _vTile[index].image->getMaxFrameX());
 	_vTile[index].image->setFrameY(_vTile[index].number / _vTile[index].image->getMaxFrameY());
+}
+
+void mapTool::saveMapData()
+{
+	char temp[128];
+
+	vector<string> vStr;
+	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
+	{
+		vStr.push_back("|");							//구분자
+		vStr.push_back(itoa(_viTile->number, temp, 10));
+		vStr.push_back(itoa(_viTile->state, temp, 10));
+	}
+	TXTDATA->txtSave("database.txt", vStr);
+}
+
+void mapTool::loadMapData()
+{
+	DATABASE->loadDatabase("database.txt");
+	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
+	{
+		char temp[128];
+		_viTile->number = DATABASE->getElementData(itoa(_viTile->number, temp, 10))->number;
+		_viTile->state = (TILESTATE)DATABASE->getElementData(itoa(_viTile->number, temp, 10))->state;
+	}
 }
 
 void mapTool::nextTile()

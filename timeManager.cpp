@@ -40,11 +40,11 @@ void timeManager::render(HDC hdc)
 	char str[256];
 	string strFrame;
 
-	//글자 배경모드 변경 ( TRANSPARENT : 투명, QPAQUEL : 불투명 )
+	//글자 배경모드 변경 ( TRANSPARENT : 투명, OPAQUE : 불투명 )
 	SetBkMode(hdc, TRANSPARENT);
 
 	//글자 색상
-	SetTextColor(hdc, RGB(255, 255, 255));
+	SetTextColor(hdc, RGB(0, 0, 0));
 
 #ifdef _DEBUG
 	{
