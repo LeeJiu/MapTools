@@ -5,7 +5,7 @@
 class town : public gameNode
 {
 private:
-	image* _town;
+	image* _town;		//마을 맵 이미지 (통짜 맵)
 
 
 public:
