@@ -47,48 +47,48 @@ void database::loadDatabase(string name)
 			elements* em = new elements;
 			str = vTemp[i + 1];
 			_mTotalElement.insert(pair<string, elements*>(vTemp[i + 1], em));
-			if (i != 0) count += 7;
+			if (i != 0) count += 6;
 			continue;
 		}
 
 		iterElement mIter = _mTotalElement.find(str);
-		if (i == count + 1) mIter->second->name = vTemp[i].c_str();
-		else if (i == count + 2) mIter->second->increaseSpeed = (float)atof(vTemp[i].c_str());
-		else if (i == count + 3) mIter->second->maxSpeed = (float)atof(vTemp[i].c_str());
-		else if (i == count + 4) mIter->second->angle = (float)atof(vTemp[i].c_str());
-		else if (i == count + 5) mIter->second->currentHP = atoi(vTemp[i].c_str());
-		else if (i == count + 6) mIter->second->maxHP = atoi(vTemp[i].c_str());
+		if (i == count + 1) mIter->second->drawX = (float)atof(vTemp[i].c_str());
+		else if (i == count + 2) mIter->second->drawY = (float)atof(vTemp[i].c_str());
+		else if (i == count + 3) mIter->second->rectX = (float)atof(vTemp[i].c_str());
+		else if (i == count + 4) mIter->second->rectY = (float)atof(vTemp[i].c_str());
+		else if (i == count + 5) mIter->second->number = atoi(vTemp[i].c_str());
 	}
 
 	vTemp.clear();
 }
 
-void database::setElementDataIncreaseSpeed(string str, float is)
+void database::setElementDataDrawX(string str, float drX)
 {
 	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->increaseSpeed = is;
+	mIter->second->drawX = drX;
 }
 
-void database::setElementDataMaxSpeed(string str, float ms)
+void database::setElementDataDrawY(string str, float drY)
 {
 	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->maxSpeed = ms;
+	mIter->second->drawY = drY;
 }
 
-void database::setElementDataAngle(string str, float a)
+void database::setElementDataRectX(string str, float rcX)
 {
 	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->angle = a;
+	mIter->second->rectX = rcX;
 }
 
-void database::setElementDataCurrentHP(string str, float ch)
+void database::setElementDataRectY(string str, float rcY)
 {
 	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->currentHP = (int)ch;
+	mIter->second->rectY = rcY;
 }
 
-void database::setElementDataMaxHP(string str, float mh)
+void database::setElementDataNumber(string str, int number)
 {
 	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->maxHP = (int)mh;
+	mIter->second->number = number;
 }
+
