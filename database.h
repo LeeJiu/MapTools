@@ -10,6 +10,9 @@ class elements
 public:
 	int number;
 	int state;
+	int drawX;
+	int drawY;
+	int imageNum;
 
 	elements() {};
 	~elements() {};
@@ -39,5 +42,8 @@ public:
 
 	void setElementDataNumber(string str, int number);
 	void setElementDataState(string str, int state);
+	void setElementDataDrawX(string str, int drawX);
+	void setElementDataDrawY(string str, int drawY);
+	void setElementDataImageNum(string str, int imageNum);
 };
 

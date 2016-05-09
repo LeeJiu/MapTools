@@ -32,7 +32,8 @@ struct TagTile
 	int x, y;				// 타일의인덱스 x, y
 	int width;				// 타일의 폭
 	int height;				// 타일의 높이
-	int number;				// 타일의 넘버값 (여러가지 이미지가 합쳐진 이미지를 init해서 쓸꺼기때문에 이 넘버값으로 해당 이미지를 찾기위한 용도)
+	int imageNum;			//이미지 가져오기
+	int number;				// 타일의 고유 넘버값 
 	bool draw;				// 타일 그려진 유무 ( 이 타일위에 이미지가 그려져있는지 확인 유무)
 };								   
 
@@ -42,9 +43,15 @@ private:
 	vector<TagTile> _vTile;
 	vector<TagTile>::iterator _viTile;
 
+	vector<TagTile> _vIsoTile;
+	vector<TagTile>::iterator _viIsoTile;
+
 	button* _button;
 
 	bool _rectOn;
+
+	int tileNum;
+	int _pickNum;
 
 	int _drawX;
 	int _drawY;
@@ -82,7 +89,10 @@ public:
 	void drawTile(int index);
 	void saveMapData();
 	void loadMapData();
+	void resetMapData();
 
+
+	
 	static void nextTile();
 
 };
