@@ -32,13 +32,8 @@ struct TagTile
 	int x, y;				// 타일의인덱스 x, y
 	int width;				// 타일의 폭
 	int height;				// 타일의 높이
-<<<<<<< HEAD
-	int number;				// 타일의 고유넘버
-	int imageNum;			//이미지 부여할 넘버
-=======
 	int imageNum;			//이미지 가져오기
 	int number;				// 타일의 고유 넘버값 
->>>>>>> origin/development
 	bool draw;				// 타일 그려진 유무 ( 이 타일위에 이미지가 그려져있는지 확인 유무)
 };								   
 
