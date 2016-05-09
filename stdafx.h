@@ -38,8 +38,8 @@
 #define CHILDNAME (LPTSTR)(TEXT("MapTool_Child"))
 #define WINSTARTX 10
 #define WINSTARTY 10
-#define WINSIZEX 1100
-#define WINSIZEY 600
+#define WINSIZEX 1280
+#define WINSIZEY 720
 #define CENTERX (WINSIZEX / 2)
 #define CENTERY (WINSIZEY / 2)
 #define WINSTYLE WS_CAPTION | WS_SYSMENU

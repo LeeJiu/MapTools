@@ -24,6 +24,14 @@ enum MAPNAME
 
 struct TagTile
 {
+<<<<<<< HEAD
+=======
+	int x, y;				// 타일의인덱스 x, y
+	int width;				// 타일의 폭
+	int height;				// 타일의 높이
+	int imageNum;			//이미지 가져오기
+	int number;				// 타일의 고유 넘버값 
+>>>>>>> refs/remotes/origin/jihyun
 	image* image;			// 타일의 이미지
 	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
 	POINT pivot;			// 타일 렉트의 중심점
@@ -42,9 +50,15 @@ private:
 	vector<TagTile> _vTile;
 	vector<TagTile>::iterator _viTile;
 
+	vector<TagTile> _vIsoTile;
+	vector<TagTile>::iterator _viIsoTile;
+
 	button* _button;
 
 	bool _rectOn;
+
+	int tileNum;
+	int _pickNum;
 
 	int _drawX;
 	int _drawY;
@@ -82,7 +96,10 @@ public:
 	void drawTile(int index);
 	void saveMapData();
 	void loadMapData();
+	void resetMapData();
 
+
+	
 	static void nextTile();
 
 };
