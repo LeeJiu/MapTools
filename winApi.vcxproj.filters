@@ -249,13 +249,6 @@
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="catsaver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="numberData.h">
-      <Filter>헤더 파일</Filter>
-=======
     <ClInclude Include="numberData.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -264,7 +257,6 @@
     </ClInclude>
     <ClInclude Include="soundManager.h">
       <Filter>2D Framework\manager</Filter>
->>>>>>> origin/development
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -406,13 +398,6 @@
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="catsaver.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="numberData.cpp">
-      <Filter>소스 파일</Filter>
-=======
     <ClCompile Include="numberData.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -421,7 +406,6 @@
     </ClCompile>
     <ClCompile Include="soundManager.cpp">
       <Filter>2D Framework\manager</Filter>
->>>>>>> origin/development
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
