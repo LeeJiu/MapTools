@@ -84,15 +84,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 	}
 
-	/*
-	//메시지 큐에 메시지가 있으면 메시지 처리...
-	while (GetMessage(&message, 0, 0, 0)) //일반 프로그램용
-	{
-		TranslateMessage(&message);
-		DispatchMessage(&message);
-	}
-	*/
-
 	_gs.release();
 
 	return message.wParam;

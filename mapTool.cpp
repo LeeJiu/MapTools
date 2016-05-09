@@ -25,26 +25,26 @@ HRESULT mapTool::init()
 	POINT firstPivot = { (316 + WINSIZEX) / 2, WIDTH / 4 };
 
 	// 샘플타일
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < 9; j++)
+		for (int j = 0; j < 11; j++)
 		{
 			TagTile tile;
 			ZeroMemory(&tile, sizeof(TagTile));
 			tile.image = new image;
-			tile.image->init("image/isoTile.bmp", 1152, 576, 9, 9, true, 0xff00ff);
+			tile.image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
 			tile.width = WIDTH;
 			tile.height = WIDTH / 2;
-			tile.rc = RectMake(10/* + tile.image->getFrameWidth() * j*/, 10/* + tile.image->getFrameHeight() * i*/, tile.image->getFrameWidth(), tile.image->getFrameHeight());
+			tile.rc = RectMake(10, 10, tile.image->getFrameWidth(), tile.image->getFrameHeight());
 			tile.pivot.x = (tile.rc.left + tile.rc.right) / 2;
 			tile.pivot.y = (tile.rc.top + tile.rc.bottom) / 2;
-			tile.number = count;
+			tile.number = count; // imageNum으로 불러올수있는 샘플타일 인덱스
 			tile.state = S_NONE;
 			tile.mapName = M_NONE;
 			tile.draw = true;
 
-			tile.image->setFrameX(tile.number % 9);
-			tile.image->setFrameY(tile.number / 9);
+			tile.image->setFrameX(tile.number % 4);
+			tile.image->setFrameY(tile.number / 11);
 			_vIsoTile.push_back(tile);
 
 			count++;
@@ -60,10 +60,8 @@ HRESULT mapTool::init()
 			// 물론 알려줄수있을지는 의문임
 			TagTile tile;
 			ZeroMemory(&tile, sizeof(TagTile));
-			//tile.image = new image;
-			//tile.image = IMAGEMANAGER->findImage("isoTile");
-			//tile.image->setFrameX(0);
-			//tile.image->setFrameY(0);
+			tile.image = new image;
+			tile.image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
 			tile.width = WIDTH;
 			tile.height = WIDTH / 2;
 			tile.rc = RectMakeCenter(firstPivot.x + j * tile.width / 2 - i * tile.width / 2, firstPivot.y + j * tile.width / 4 + i * tile.width / 4, tile.width, tile.height);
@@ -71,8 +69,8 @@ HRESULT mapTool::init()
 			tile.pivot.y = (tile.rc.top + tile.rc.bottom) / 2;
 			tile.x = j;
 			tile.y = i;
-			tile.imageNum = 100;
-			tile.number = count;	//이미지 넘버.
+			tile.imageNum = 100;	//이미지 넘버.
+			tile.number = count;	
 			tile.state = S_NONE;
 			tile.mapName = M_NONE;
 			tile.draw = false;
@@ -84,7 +82,7 @@ HRESULT mapTool::init()
 	}
 
 	selectedNum = 0;
-	IMAGEMANAGER->addFrameImage("button", "image/button.bmp", 64, 32, 2, 1, true, RGB(255, 0, 255));
+	//IMAGEMANAGER->addFrameImage("button", "image/button.bmp", 64, 32, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("tile", "image/mapTile.bmp", 208, 156, 4, 3, false, false);
 
 	//_button = new button;
@@ -99,18 +97,6 @@ HRESULT mapTool::init()
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-	//// 가로 스크롤
-	//_hScrollHri = CreateWindow(TEXT("scrollbar"), NULL, WS_CHILD | WS_VISIBLE | SBS_HORZ, 
-	//	315, WINSIZEY - 15, WINSIZEX - 315, 15, _hWnd, (HMENU)100, _hInstance, NULL);
-	//SetScrollRange(_hScrollHri, SB_CTL, 0, 255, true);
-	//SetScrollPos(_hScrollHri, SB_CTL, 0, true);
-	//
-	//// 세로 스크롤
-	//_hScrollVer = CreateWindow(TEXT("scrollbar"), NULL, WS_CHILD | WS_VISIBLE | SBS_VERT, 
-	//	300, 0, 15, WINSIZEY - 15, _hWnd, (HMENU)101, _hInstance, NULL);
-	//SetScrollRange(_hScrollVer, SB_CTL, 0, 255, true);
-	//SetScrollPos(_hScrollVer, SB_CTL, 0, true);
 
 	tileNum = 0;	//샘플타일 타일넘버
 	_pickNum = 0;	//찍어줄 타일넘버
@@ -152,7 +138,7 @@ void mapTool::render()
 
 		if (_vTile[i].draw)
 		{
-			_vTile[i].image->frameRender(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top);
+			_vTile[i].image->frameRender(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].rc.right - _vTile[i].rc.left, _vTile[i].rc.bottom - _vTile[i].rc.top, _vTile[i].image->getFrameX(), _vTile[i].image->getFrameY());
 		}
 
 		sprintf_s(str, "%d", _vTile[i].number);
@@ -204,13 +190,19 @@ void mapTool::keyControl()
 
 	for (int i = 0; i < _vTile.size(); i++)
 	{
-		if (PtInRect(&_vTile[i].rc, _ptMouse) && _ptMouse.y < _vTile[i].pivot.y)
+		if (PtInRect(&_vTile[i].rc, _ptMouse))
 		{
-			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+			if ((_ptMouse.y - _vTile[i].pivot.y) >= -0.5 * (_ptMouse.x - _vTile[i].pivot.x) - WIDTH / 4 &&
+				(_ptMouse.y - _vTile[i].pivot.y) >= 0.5 * (_ptMouse.x - _vTile[i].pivot.x) - WIDTH / 4 &&
+				(_ptMouse.y - _vTile[i].pivot.y) <= -0.5 * (_ptMouse.x - _vTile[i].pivot.x) + WIDTH / 4 &&
+				(_ptMouse.y - _vTile[i].pivot.y) <= 0.5 * (_ptMouse.x - _vTile[i].pivot.x) + WIDTH / 4)
 			{
-				_vTile[i].draw = true;
-				_vTile[i].image = _vIsoTile[_pickNum].image;
-				_vTile[i].imageNum = _pickNum;
+				if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+				{
+					_vTile[i].draw = true;
+					//_vTile[i].image = _vIsoTile[_pickNum].image;
+					_vTile[i].imageNum = _pickNum;
+				}
 			}
 		}
 	}
@@ -251,7 +243,7 @@ void mapTool::keyControl()
 	}
 	if (KEYMANAGER->isOnceKeyDown('D'))
 	{
-		if (tileNum < 81) tileNum++;
+		if (tileNum < 44) tileNum++;
 	}
 
 	//각각의 렉트 출력
@@ -310,20 +302,20 @@ void mapTool::loadMapData()
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
 		char temp[128];
-		//_viTile->number 는 자료를 찾는 인덱스.
-		_viTile->state = (TILESTATE)DATABASE->getElementData(itoa(_viTile->number, temp, 10))->number;
+		//_viTile->number 는 자료를 찾는 인덱스. 고유번호
+		_viTile->number = DATABASE->getElementData(itoa(_viTile->number, temp, 10))->number;
 		_viTile->state = (TILESTATE)DATABASE->getElementData(itoa(_viTile->number, temp, 10))->state;
 		_viTile->rc = RectMake(DATABASE->getElementData(itoa(_viTile->number, temp, 10))->drawX,
 			DATABASE->getElementData(itoa(_viTile->number, temp, 10))->drawY,
 			WIDTH,
 			WIDTH / 2);
 		_viTile->imageNum = DATABASE->getElementData(itoa(_viTile->number, temp, 10))->imageNum;
-		if (_viTile->imageNum < 81)
+		if (_viTile->imageNum < 50)
 		{
 			_viTile->draw = true;
-			_viTile->image = _vIsoTile[_viTile->imageNum].image;
+			//_viTile->image = _vIsoTile[_viTile->imageNum].image;
 		}
-		
+
 	}
 }
 

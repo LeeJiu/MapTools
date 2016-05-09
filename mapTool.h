@@ -6,8 +6,8 @@
 #include <vector>
 #include "button.h"
 
-#define TILENUM 20
-#define WIDTH 128
+#define TILENUM 15
+#define WIDTH 192
 
 static int selectedNum = 0;
 static image* selectedImage = NULL;
@@ -24,14 +24,6 @@ enum MAPNAME
 
 struct TagTile
 {
-<<<<<<< HEAD
-=======
-	int x, y;				// 타일의인덱스 x, y
-	int width;				// 타일의 폭
-	int height;				// 타일의 높이
-	int imageNum;			//이미지 가져오기
-	int number;				// 타일의 고유 넘버값 
->>>>>>> refs/remotes/origin/jihyun
 	image* image;			// 타일의 이미지
 	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
 	POINT pivot;			// 타일 렉트의 중심점
@@ -40,7 +32,8 @@ struct TagTile
 	int x, y;				// 타일의인덱스 x, y
 	int width;				// 타일의 폭
 	int height;				// 타일의 높이
-	int number;				// 타일의 넘버값 (여러가지 이미지가 합쳐진 이미지를 init해서 쓸꺼기때문에 이 넘버값으로 해당 이미지를 찾기위한 용도)
+	int number;				// 타일의 고유넘버
+	int imageNum;			//이미지 부여할 넘버
 	bool draw;				// 타일 그려진 유무 ( 이 타일위에 이미지가 그려져있는지 확인 유무)
 };								   
 
@@ -53,8 +46,8 @@ private:
 	vector<TagTile> _vIsoTile;
 	vector<TagTile>::iterator _viIsoTile;
 
-	button* _button;
-
+	//button* _button;
+	
 	bool _rectOn;
 
 	int tileNum;
@@ -73,12 +66,6 @@ private:
 	RECT rcSelectTile;
 	RECT rcButton;
 
-	/*
-				Scrool Bar
-		위치 추가만 하고 아직 마우스랑 연동 안시킴 화팅!
-	*/
-	HWND _hScrollVer;
-	HWND _hScrollHri;
 
 public:
 	mapTool();
