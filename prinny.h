@@ -34,6 +34,7 @@ public:
 	virtual void keyControl();
 	virtual void battleKeyControl();
 	virtual void setImage();
+	virtual void setFrame();
 
 	virtual void saveData();
 	virtual void loadData();

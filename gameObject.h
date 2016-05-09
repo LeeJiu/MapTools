@@ -13,6 +13,7 @@ protected:
 	int _level, _counter, _mv, _jm;													//캐릭터 능력치 1
 	int _maxHp, _maxSp, _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp;			//캐릭터 능력치 2
 	int _curFrameX, _curFrameY, _count;
+	int _currentMoveCount;
 
 	image* _character;
 	image* _shadow;
@@ -28,6 +29,7 @@ protected:
 
 	int _idx;							// 이동시 vRoute에서 사용될 인덱스
 	int _moveSpeed;
+	int _attackCnt;						// 어텍 프레임이 2번 돌게 하기 위한 변수
 
 	bool _isUp, _isRight;
 	bool _isShow;

@@ -17,6 +17,10 @@ HRESULT battleManager::init()
 	_ui->init();
 
 	_isPlayerTurn = true;	//플레이어 먼저 시작
+	
+	_takeTurns = _onAction = false;
+	_action = IMAGEMANAGER->addImage("action", "image/ui/ui_action.bmp", 250, 150, false, false);
+	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
 
 	return S_OK;
 }
@@ -29,40 +33,62 @@ void battleManager::release()
 
 void battleManager::update()
 {
+	_ui->update();
+
 	if (!_setUI)
 	{
 		_ui->setCharList(_objectMgr->getVCharacter()[0]->getMercenary());
 		_setUI = true;
 	}
 
-	_ui->update();
-	
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
-	{
-		_ui->onAction(true);
-	}
+	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
 
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
-		if (_leftButtonDown && !_onUI)
+		//플레이어가 ui를 조작할 수 있다.
+		if (!_takeTurns)
 		{
-			tileControl();
+			if (_leftButtonDown && !_onUI)
+			{
+				_leftButtonDown = false;
+				tileControl();
+			}
+			else if (_leftButtonDown && _onUI)
+			{
+				_leftButtonDown = false;
+				UIControl();
+			}
+
+			//모든 ui창을 끈다.
+			if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+			{
+				_ui->onCharacterList(false);
+				_ui->onOrder(false);
+				_ui->onSummary(false);
+				_ui->onStatus(false);
+				_onAction = false;
+				_onUI = false;
+			}
+
+			if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+			{
+				if (_onAction)
+				{
+					_onAction = false;
+					_onUI = false;
+				}
+				else
+				{
+					_onAction = true;
+					_onUI = true;
+				}
+			}
 		}
-		else if (_leftButtonDown && _onUI)
+		//플레이어가 ui를 조작할 수 없다. / 턴 실행 중
+		else
 		{
-			UIControl();
-		}
-		
-		//모든 ui창을 끈다.
-		if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
-		{
-			_ui->onCharacterList(false);
-			_ui->onOrder(false);
-			_ui->onAction(false);
-			_ui->onSummary(false);
-			_ui->onStatus(false);
-			_onUI = false;
+			orderAction();
 		}
 	}
 	//에너미의 턴일 때
@@ -71,36 +97,35 @@ void battleManager::update()
 		//AI
 	}
 
-	_ui->update();
+	//실행창(턴종료, 중도포기)
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_takeTurns = true;
+		_onAction = false;
+		_onUI = false;
+	}
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		SCENEMANAGER->changeScene("selectStage");
+	}
 }
 
 void battleManager::render()
 {
 	_ui->render();
+
+	if (_onAction)
+		_action->render(getMemDC(), _rcAction.left, _rcAction.top);
 }
 
 void battleManager::tileControl()
 {
+	//캐릭터가 젠포인트 위에 있는지 없는지 확인
 	characterIsOnZenPoint();
-
-	// UI에서 클릭한것이 무브라면
-	if (_ui->getOrderNumber() == 1)
-	{
-		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
-		_ui->onOrder(false);
-		return;
-	}
-	// UI에서 클릭한것이 어택이라면
-	else if (_ui->getOrderNumber() == 2)
-	{
-		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
-		_ui->onOrder(false);
-		return;
-	}
 
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
 	{
-		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click) && !_onUI)
+		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click))
 		{
 			//아이소 타일 클릭 조건
 			if ((_click.y - _objectMgr->getVTile()[i]->pivotY) >= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
@@ -171,6 +196,23 @@ void battleManager::UIControl()
 			_onUI = false;
 		}
 	}
+
+	// UI에서 클릭한것이 무브라면
+	if (_ui->getOrderNumber() == 1)
+	{
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
+		_ui->onOrder(false);
+		_onUI = false;
+		return;
+	}
+	// UI에서 클릭한것이 어택이라면
+	else if (_ui->getOrderNumber() == 2)
+	{
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
+		_ui->onOrder(false);
+		_onUI = false;
+		return;
+	}
 }
 
 void battleManager::characterIsOnZenPoint()
@@ -191,6 +233,24 @@ void battleManager::characterIsOnZenPoint()
 	}
 
 	_isOnZenPonit = false;
+}
+
+void battleManager::orderAction()
+{
+	_camera->setIsJoomIn(true);
+
+	// 해당 케릭터가 명령을 수행중이라면 리턴시켜라
+	if (_objectMgr->getOrderList() == OL_ORDERING) return;
+	if (_objectMgr->getOrderList() == OL_END) return;
+
+	// 명령의 종류가 공격이라면 케릭터공격, 에너미 피격 함수를 호출한다
+	if (_vOrder[_orderNum].order == O_ATTACK)
+	{
+		_objectMgr->characterAttack(_vOrder[_orderNum].playerVIdx, _vOrder[_orderNum].enemyIdx.x, _vOrder[_orderNum].enemyIdx.y);
+		_objectMgr->enemyPain(_vOrder[_orderNum].enemyVIdx, _vOrder[_orderNum].playerIdx.x, _vOrder[_orderNum].playerIdx.y, _vOrder[_orderNum].damage);
+		_camera->setIsVibrate(true);
+	}
+	
 }
 
 void battleManager::clickZenPoint()
@@ -287,11 +347,28 @@ void battleManager::clickTile(int x, int y, int i)
 	if (_objectMgr->getVCharacter()[_selectCharIdx]->getIsShowPossibleMoveTile())
 	{
 		_objectMgr->characterMove(_selectCharIdx, x, y);
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(false);
 	}
 	//이동 가능 타일이 켜지지 않은 경우,
 	else
 	{
 		//카메라 포커스 맞춘다.
 		_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
+	}
+}
+
+void battleManager::increaseOrderNum()
+{
+	_orderNum++;
+
+	if (_vOrder.size() <= _orderNum)
+	{
+		_orderNum = 0;
+		_isPlayerTurn = false;
+		_vOrder.clear();
+
+		// 카메라 줌 아웃 호출
+		//_camera->setIsJoomIn(true);
+		_camera->setIsJoomOut(true);
 	}
 }

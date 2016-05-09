@@ -109,7 +109,11 @@ HRESULT gameStudy::init()
 	
 	//사운드
 	//배경음
+<<<<<<< HEAD
 	SOUNDMANAGER->addSound("town_bg", "sound/town_bg.mp3", true, true);
+=======
+	SOUNDMANAGER->addSound("town_bg", "sound/town.mp3", true, true);
+>>>>>>> refs/remotes/origin/development
 	SOUNDMANAGER->addSound("title_bg", "sound/title.mp3", true, true);
 	SOUNDMANAGER->addSound("battleScene_bg", "sound/battleScene.mp3", true, true);
 	SOUNDMANAGER->addSound("selectStage_bg", "sound/selectStage_bg.mp3", true, true);

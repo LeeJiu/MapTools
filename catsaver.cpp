@@ -108,7 +108,8 @@ void catsaver::setImage()
 		_character->init("image/character/catsaver_attack.bmp", 1295, 856, 5, 4, true, 0xff00ff);
 		break;
 	case PAIN:
-		_character->init("image/character/catsaver_pain.bmp", 101, 416, 1, 1, true, 0xff00ff);
+		_character->init("image/character/catsaver_pain.bmp", 101, 416, 1, 4, true, 0xff00ff);
+		break;
 	}
 }
 
@@ -139,18 +140,23 @@ void catsaver::setFrame()
 		break;
 	}
 
-	if (_count % 7 == 0)
+	if (_count % 10 == 0)
 	{
 		_curFrameX++;
 		if (_curFrameX > _character->getMaxFrameX())
 		{
 			_curFrameX = 0;
-			/*if (_characterState == ATTACK)
+			if (_characterState == ATTACK)
 			{
-			_characterState = IDLE;
-			_isOrdering = false;
-			return;
-			}*/
+				_characterState = IDLE;
+				_gameObjMgr->setOrderList(OL_END);
+				return;
+			}
+			else if (_characterState == PAIN)
+			{
+				_characterState = IDLE;
+				return;
+			}
 		}
 		_character->setFrameX(_curFrameX);
 	}

@@ -108,52 +108,58 @@ void orc::setImage()
 		_character->init("image/character/orc_attack.bmp", 1764, 668, 7, 4, true, 0xff00ff);
 		break;
 	case PAIN:
-		_character->init("image/character/orc_pain.bmp", 468, 528, 4, 4, true, 0xff00ff);
+		_character->init("image/character/orc_pain.bmp", 189, 596, 1, 4, true, 0xff00ff);
+		break;
 	}
 }
 
 void orc::setFrame()
 {
-		_count++;
+	_count++;
 
-		switch (_characterDir)
+	switch (_characterDir)
+	{
+	case LB:
+		_curFrameY = 0;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RB:
+		_curFrameY = 1;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RT:
+		_curFrameY = 2;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case LT:
+		_curFrameY = 3;
+		_character->setFrameY(_curFrameY);
+		break;
+	}
+
+	if (_count % 10 == 0)
+	{
+		_curFrameX++;
+		if (_curFrameX > _character->getMaxFrameX())
 		{
-		case LB:
-			_curFrameY = 0;
-			_character->setFrameY(_curFrameY);
-			break;
-
-		case RB:
-			_curFrameY = 1;
-			_character->setFrameY(_curFrameY);
-			break;
-
-		case RT:
-			_curFrameY = 2;
-			_character->setFrameY(_curFrameY);
-			break;
-
-		case LT:
-			_curFrameY = 3;
-			_character->setFrameY(_curFrameY);
-			break;
-		}
-
-		if (_count % 7 == 0)
-		{
-			_curFrameX++;
-			if (_curFrameX > _character->getMaxFrameX())
+			_curFrameX = 0;
+			if (_characterState == ATTACK)
 			{
-				_curFrameX = 0;
-				/*if (_characterState == ATTACK)
-				{
 				_characterState = IDLE;
-				_isOrdering = false;
+				_gameObjMgr->setOrderList(OL_END);
 				return;
-				}*/
 			}
-			_character->setFrameX(_curFrameX);
+			else if (_characterState == PAIN)
+			{
+				_characterState = IDLE;
+				return;
+			}
 		}
+		_character->setFrameX(_curFrameX);
+	}
 }
 
 void orc::setMercenary(const char * characterName)

@@ -30,8 +30,13 @@ private:
 
 	vector<tagOrder> _vOrder;	// 플레이어 명령 리스트
 
+	image* _action;
+	RECT _rcAction;
+	bool _onAction;
+
 	bool _setUI;
 	bool _isOnZenPonit;			// 캐릭터가 젠포인트 위에 있는지 여부
+	bool _takeTurns;			// 턴을 넘기면 true
 
 	int _selectCharIdx;			// 선택한 케릭터의 인덱스
 	int _orderNum;				// 명령 수행해야할 벡터 인덱스 넘버
@@ -40,7 +45,7 @@ private:
 	bool _isPlayerTurn;
 
 	//ui 상태 변수
-	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onAction, _onUI;
+	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onUI;
 
 public:
 	battleManager();
@@ -54,12 +59,15 @@ public:
 	void tileControl();
 	void UIControl();
 	void characterIsOnZenPoint();
+	void orderAction();								// vOrder에 담은 명령들을 수행할 함수
 
 	void clickZenPoint();
 	void clickCharacter(int x, int y, int i);
 	void clickEnemy(int x, int y, int i);			// 매개변수 타일의 인덱스
 	void clickObject(int i);
 	void clickTile(int x, int y, int i);
+
+	void increaseOrderNum();						// 게임오브젝트에서 호출할 함수. orderNum를 증가시켜줄 함수
 
 	void setObjectMgrMemoryLink(gameObjectManager* objectMgr) { _objectMgr = objectMgr; }
 	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }
