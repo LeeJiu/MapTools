@@ -84,6 +84,7 @@
     <ClInclude Include="actionManager.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="battle.h" />
+    <ClInclude Include="battleScene.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="commonMacroFunction.h" />
@@ -106,6 +107,7 @@
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="selectMap.h" />
     <ClInclude Include="selectStage.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="stdafx.h" />
@@ -123,6 +125,7 @@
     <ClCompile Include="actionManager.cpp" />
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="battle.cpp" />
+    <ClCompile Include="battleScene.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="database.cpp" />
@@ -143,6 +146,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
+    <ClCompile Include="selectMap.cpp" />
     <ClCompile Include="selectStage.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

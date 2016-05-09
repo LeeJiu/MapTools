@@ -201,6 +201,12 @@
     <ClInclude Include="objects.h">
       <Filter>gameStudy\gameObject\objects</Filter>
     </ClInclude>
+    <ClInclude Include="battleScene.h">
+      <Filter>gameStudy\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="selectMap.h">
+      <Filter>gameStudy\Battle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -304,6 +310,12 @@
     </ClCompile>
     <ClCompile Include="objects.cpp">
       <Filter>gameStudy\gameObject\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="battleScene.cpp">
+      <Filter>gameStudy\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="selectMap.cpp">
+      <Filter>gameStudy\Battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
