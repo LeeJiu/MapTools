@@ -188,6 +188,7 @@ image* imageManager::findImage(string strKey)
 	return NULL;
 }
 
+
 //이미지 지운다
 BOOL imageManager::deleteImage(string strKey)
 {

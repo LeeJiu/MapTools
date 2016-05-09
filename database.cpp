@@ -47,11 +47,13 @@ void database::loadDatabase(string name)
 			elements* em = new elements;
 			str = vTemp[i + 1];
 			_mTotalElement.insert(pair<string, elements*>(vTemp[i + 1], em));
-			if (i != 0) count += 3;
+			if (i != 0) count + 6;
+
 			continue;
 		}
 
 		iterElement mIter = _mTotalElement.find(str);
+
 		//읽어올 데이터들
 		if (i == count + 1) mIter->second->number = atoi(vTemp[i].c_str());
 		else if (i == count + 2) mIter->second->state = atoi(vTemp[i].c_str());
@@ -70,4 +72,22 @@ void database::setElementDataState(string str, int state)
 {
 	iterElement mIter = _mTotalElement.find(str);
 	mIter->second->state = state;
+}
+
+void database::setElementDataDrawX(string str, int drawX)
+{
+	iterElement mIter = _mTotalElement.find(str);
+	mIter->second->drawX = drawX;
+}
+
+void database::setElementDataDrawY(string str, int drawY)
+{
+	iterElement mIter = _mTotalElement.find(str);
+	mIter->second->drawY = drawY;
+}
+
+void database::setElementDataImageNum(string str, int imageNum)
+{
+	iterElement mIter = _mTotalElement.find(str);
+	mIter->second->number = imageNum;
 }
