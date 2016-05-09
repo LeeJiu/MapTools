@@ -20,6 +20,7 @@ public:
 	void render();
 
 	/*			함수 추가			*/
-
+	virtual void keyControl();
+	virtual void move();
 };
 

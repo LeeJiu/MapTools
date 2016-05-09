@@ -27,3 +27,11 @@ void character::update()
 void character::render()
 {
 }
+
+void character::keyControl()
+{
+}
+
+void character::move()
+{
+}
