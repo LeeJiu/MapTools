@@ -99,19 +99,6 @@ HRESULT mapTool::init()
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-	//// 가로 스크롤
-	//_hScrollHri = CreateWindow(TEXT("scrollbar"), NULL, WS_CHILD | WS_VISIBLE | SBS_HORZ, 
-	//	315, WINSIZEY - 15, WINSIZEX - 315, 15, _hWnd, (HMENU)100, _hInstance, NULL);
-	//SetScrollRange(_hScrollHri, SB_CTL, 0, 255, true);
-	//SetScrollPos(_hScrollHri, SB_CTL, 0, true);
-	//
-	//// 세로 스크롤
-	//_hScrollVer = CreateWindow(TEXT("scrollbar"), NULL, WS_CHILD | WS_VISIBLE | SBS_VERT, 
-	//	300, 0, 15, WINSIZEY - 15, _hWnd, (HMENU)101, _hInstance, NULL);
-	//SetScrollRange(_hScrollVer, SB_CTL, 0, 255, true);
-	//SetScrollPos(_hScrollVer, SB_CTL, 0, true);
-
 	tileNum = 0;	//샘플타일 타일넘버
 	_pickNum = 0;	//찍어줄 타일넘버
 
