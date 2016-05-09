@@ -2,6 +2,8 @@
 #include "mapTool.h"
 
 
+//저장-> 스테이트, 이미지, 넘버, 피벗, 맵네임
+
 mapTool::mapTool()
 {
 }
@@ -13,54 +15,55 @@ mapTool::~mapTool()
 
 HRESULT mapTool::init()
 {
-<<<<<<< HEAD
-	//background
-	for (int i = 0; i < MAPSIZEX; i++)
-	{
-		for (int j = 0; j < MAPSIZEY; j++)
-		{
-			rcArr[i][j] = RectMake(TILESIZE + TILESIZE * j, TILESIZE + TILESIZE * i, TILESIZE, TILESIZE);
-		}
-	}
+	//1152 x 576 / 9 x 9
+	IMAGEMANAGER->addFrameImage("isoTile", "image/isoTile.bmp", 1152, 576, 9, 9, true, 0xff00ff);
 
-	int num = 0;
-	for (int i = 0; i < TILEMAXY; i++)
-	{
-		for (int j = 0; j < TILEMAXX; j++)
-		{
-			tagTile tile;
-			ZeroMemory(&tile, sizeof(tagTile));
-			tile.number = num;
-			tile.image = new image;
-			tile.image->init("image/mapTile.bmp", 208, 156, false, false);
-			tile.rc = RectMake(TILESIZE * j, TILESIZE * i, TILESIZE, TILESIZE);
-			tile.realRc = tile.rc;
-			tile.x = tile.realRc.left + TILESIZE / 2;
-			tile.y = tile.realRc.top + TILESIZE / 2;
-			
-			_vTile.push_back(tile);
-			num++;
-		}
-	}
-
-	tileNum = 0;
-=======
 	int count = 0;
 
 	_drawX = _drawY = 0;
 
 	POINT firstPivot = { (316 + WINSIZEX) / 2, WIDTH / 4 };
 
-	for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
+	// 샘플타일
+	for (int i = 0; i < 9; i++)
 	{
-		for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 )
+		for (int j = 0; j < 9; j++)
+		{
+			TagTile tile;
+			ZeroMemory(&tile, sizeof(TagTile));
+			tile.image = new image;
+			tile.image->init("image/isoTile.bmp", 1152, 576, 9, 9, true, 0xff00ff);
+			tile.width = WIDTH;
+			tile.height = WIDTH / 2;
+			tile.rc = RectMake(10/* + tile.image->getFrameWidth() * j*/, 10/* + tile.image->getFrameHeight() * i*/, tile.image->getFrameWidth(), tile.image->getFrameHeight());
+			tile.pivot.x = (tile.rc.left + tile.rc.right) / 2;
+			tile.pivot.y = (tile.rc.top + tile.rc.bottom) / 2;
+			tile.number = count;
+			tile.state = S_NONE;
+			tile.mapName = M_NONE;
+			tile.draw = true;
+
+			tile.image->setFrameX(tile.number % 9);
+			tile.image->setFrameY(tile.number / 9);
+			_vIsoTile.push_back(tile);
+
+			count++;
+		}
+	}
+
+	count = 0;
+	for (int i = 0; i < 15; i++)		// 세로 ( 열 )
+	{
+		for (int j = 0; j < 15; j++)	// 가로 ( 행 )
 		{	
 			// 아래 초기화부분 이해안되면 물어보세용
 			// 물론 알려줄수있을지는 의문임
 			TagTile tile;
 			ZeroMemory(&tile, sizeof(TagTile));
 			//tile.image = new image;
-			//tile.image->init("image/mapTile.bmp", 208, 156, 4, 3, false, false);
+			//tile.image = IMAGEMANAGER->findImage("isoTile");
+			//tile.image->setFrameX(0);
+			//tile.image->setFrameY(0);
 			tile.width = WIDTH;
 			tile.height = WIDTH / 2;
 			tile.rc = RectMakeCenter(firstPivot.x + j * tile.width / 2 - i * tile.width / 2, firstPivot.y + j * tile.width / 4 + i * tile.width / 4, tile.width, tile.height);
@@ -68,9 +71,11 @@ HRESULT mapTool::init()
 			tile.pivot.y = (tile.rc.top + tile.rc.bottom) / 2;
 			tile.x = j;
 			tile.y = i;
-			tile.number = count;
+			tile.imageNum = 100;
+			tile.number = count;	//이미지 넘버.
 			tile.state = S_NONE;
 			tile.mapName = M_NONE;
+			tile.draw = false;
 
 			_vTile.push_back(tile);
 
@@ -95,58 +100,39 @@ HRESULT mapTool::init()
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-	// 가로 스크롤
-	_hScrollHri = CreateWindow(TEXT("scrollbar"), NULL, WS_CHILD | WS_VISIBLE | SBS_HORZ, 
-		315, WINSIZEY - 15, WINSIZEX - 315, 15, _hWnd, (HMENU)100, _hInstance, NULL);
-	SetScrollRange(_hScrollHri, SB_CTL, 0, 255, true);
-	SetScrollPos(_hScrollHri, SB_CTL, 0, true);
-	
-	// 세로 스크롤
-	_hScrollVer = CreateWindow(TEXT("scrollbar"), NULL, WS_CHILD | WS_VISIBLE | SBS_VERT, 
-		300, 0, 15, WINSIZEY - 15, _hWnd, (HMENU)101, _hInstance, NULL);
-	SetScrollRange(_hScrollVer, SB_CTL, 0, 255, true);
-	SetScrollPos(_hScrollVer, SB_CTL, 0, true);
->>>>>>> refs/remotes/origin/master
+	//// 가로 스크롤
+	//_hScrollHri = CreateWindow(TEXT("scrollbar"), NULL, WS_CHILD | WS_VISIBLE | SBS_HORZ, 
+	//	315, WINSIZEY - 15, WINSIZEX - 315, 15, _hWnd, (HMENU)100, _hInstance, NULL);
+	//SetScrollRange(_hScrollHri, SB_CTL, 0, 255, true);
+	//SetScrollPos(_hScrollHri, SB_CTL, 0, true);
+	//
+	//// 세로 스크롤
+	//_hScrollVer = CreateWindow(TEXT("scrollbar"), NULL, WS_CHILD | WS_VISIBLE | SBS_VERT, 
+	//	300, 0, 15, WINSIZEY - 15, _hWnd, (HMENU)101, _hInstance, NULL);
+	//SetScrollRange(_hScrollVer, SB_CTL, 0, 255, true);
+	//SetScrollPos(_hScrollVer, SB_CTL, 0, true);
+
+	tileNum = 0;	//샘플타일 타일넘버
+	_pickNum = 0;	//찍어줄 타일넘버
+
 
 	return S_OK;
 }
 
 void mapTool::release()
 {
-<<<<<<< HEAD
-	for (_viTile = _vTile.begin(); _viTile != _vTile.end();)
-	{
-		SAFE_DELETE(_viTile->image);
-		_viTile = _vTile.erase(_viTile);
-	}
-
-	_vTile.clear();
-
-	for (_viMap = _vMap.begin(); _viMap != _vMap.end();)
-	{
-		SAFE_DELETE(_viMap->image);
-		_viMap = _vMap.erase(_viMap);
-	}
-
-	_vMap.clear();
-=======
-	// 벡터 이미지 지우자
+	 //벡터 이미지 지우자
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
+		if (!_viTile->image)
 		SAFE_DELETE(_viTile->image);
 	}
-	// 벡터 클리어
+	 //벡터 클리어
 	_vTile.clear();
->>>>>>> refs/remotes/origin/master
 }
 
 void mapTool::update()
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-	keyControl();
-=======
-=======
 	keyControl();
 
 	//_button->update();
@@ -161,15 +147,23 @@ void mapTool::render()
 	for (int i = 0; i < _vTile.size(); i++)
 	{
 		//Rectangle(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].rc.right, _vTile[i].rc.bottom);
+		
 		IsoRender(getMemDC(), _vTile[i].rc);
 
 		if (_vTile[i].draw)
 		{
-			_vTile[i].image->frameRender(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].image->getFrameX(), _vTile[i].image->getFrameY());
+			_vTile[i].image->frameRender(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top);
 		}
 
 		sprintf_s(str, "%d", _vTile[i].number);
 		TextOut(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, str, strlen(str));
+		sprintf_s(str, "%d", _vTile[i].imageNum);
+		TextOut(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top + 15, str, strlen(str));
+
+		sprintf_s(str, "vTile size = %d, vIsoT size = %d", _vTile.size(), _vIsoTile.size());
+		TextOut(getMemDC(), CENTERX - 150, 10, str, strlen(str));
+		sprintf_s(str, "pickNum = %d", _pickNum);
+		TextOut(getMemDC(), CENTERX - 150, 25, str, strlen(str));
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -184,7 +178,11 @@ void mapTool::render()
 
 	// 선택될 타일이미지 출력
 	//IMAGEMANAGER->findImage("tile")->frameRender(getMemDC(), WINSIZEX - 200, 100, IMAGEMANAGER->findImage("tile")->getFrameX(), IMAGEMANAGER->findImage("tile")->getFrameY());
-
+	
+	Rectangle(getMemDC(), _vIsoTile[tileNum].rc.left, _vIsoTile[tileNum].rc.top, _vIsoTile[tileNum].rc.right, _vIsoTile[tileNum].rc.bottom);
+	_vIsoTile[tileNum].image->frameRender(getMemDC(), _vIsoTile[tileNum].rc.left, _vIsoTile[tileNum].rc.top);
+	sprintf_s(str, "tileNum = %d", tileNum);
+	TextOut(getMemDC(), _vIsoTile[tileNum].rc.left, _vIsoTile[tileNum].rc.top, str, strlen(str));
 
 	sprintf_s(str, "x : %d, y : %d", _ptMouse.x, _ptMouse.y);
 	TextOut(getMemDC(), _ptMouse.x, _ptMouse.y, str, strlen(str));
@@ -193,15 +191,26 @@ void mapTool::render()
 
 void mapTool::keyControl()
 {
->>>>>>> refs/remotes/origin/master
-	// 마우스 클릭 된 위치 이미지 그리자
-	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+	//샘플타일 픽업
+	if (PtInRect(&_vIsoTile[tileNum].rc, _ptMouse))
 	{
-		for (int i = 0; i < _vTile.size(); i++)
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			if (PtInRect(&_vTile[i].rc, _ptMouse))
+			_pickNum = tileNum;
+		}
+	}
+
+	// 마우스 클릭 된 위치 이미지 그리자
+
+	for (int i = 0; i < _vTile.size(); i++)
+	{
+		if (PtInRect(&_vTile[i].rc, _ptMouse) && _ptMouse.y < _vTile[i].pivot.y)
+		{
+			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
-				//drawTile(i);
+				_vTile[i].draw = true;
+				_vTile[i].image = _vIsoTile[_pickNum].image;
+				_vTile[i].imageNum = _pickNum;
 			}
 		}
 	}
@@ -211,51 +220,44 @@ void mapTool::keyControl()
 	{
 		for (int i = 0; i < _vTile.size(); i++)
 		{
-			_vTile[i].rc = RectMake(_vTile[i].rc.left, _vTile[i].rc.top + 1, _vTile[i].width, _vTile[i].height);
+			_vTile[i].rc = RectMake(_vTile[i].rc.left, _vTile[i].rc.top + 3, _vTile[i].width, _vTile[i].height);
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN) && _vTile[_vTile.size() - 1].rc.bottom > WINSIZEY - 15)
 	{
 		for (int i = 0; i < _vTile.size(); i++)
 		{
-			_vTile[i].rc = RectMake(_vTile[i].rc.left, _vTile[i].rc.top - 1, _vTile[i].width, _vTile[i].height);
+			_vTile[i].rc = RectMake(_vTile[i].rc.left, _vTile[i].rc.top - 3, _vTile[i].width, _vTile[i].height);
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		for (int i = 0; i < _vTile.size(); i++)
 		{
-			_vTile[i].rc = RectMake(_vTile[i].rc.left + 1, _vTile[i].rc.top, _vTile[i].width, _vTile[i].height);
+			_vTile[i].rc = RectMake(_vTile[i].rc.left + 3, _vTile[i].rc.top, _vTile[i].width, _vTile[i].height);
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		for (int i = 0; i < _vTile.size(); i++)
 		{
-			_vTile[i].rc = RectMake(_vTile[i].rc.left - 1, _vTile[i].rc.top, _vTile[i].width, _vTile[i].height);
+			_vTile[i].rc = RectMake(_vTile[i].rc.left - 3, _vTile[i].rc.top, _vTile[i].width, _vTile[i].height);
 		}
 	}
 
-<<<<<<< HEAD
-	//_button->update();
->>>>>>> refs/remotes/origin/master
-}
-
-void mapTool::render()
-{
-<<<<<<< HEAD
-	drawBg();
-	drawTile();
-=======
-	SetTextColor(getMemDC(), RGB(0, 0, 0));
-	char str[128];
+	if (KEYMANAGER->isOnceKeyDown('A'))
+	{
+		if(tileNum > 0) tileNum--;
+	}
+	if (KEYMANAGER->isOnceKeyDown('D'))
+	{
+		if (tileNum < 81) tileNum++;
+	}
 
 	//각각의 렉트 출력
 	for (int i = 0; i < _vTile.size(); i++)
-=======
-	//맵 데이터를 세이브
+		//맵 데이터를 세이브
 	if (KEYMANAGER->isOnceKeyDown('S'))
->>>>>>> refs/remotes/origin/master
 	{
 		saveMapData();
 	}
@@ -264,7 +266,13 @@ void mapTool::render()
 	{
 		loadMapData();
 	}
+	//맵 데이터를 리셋
+	if (KEYMANAGER->isOnceKeyDown('R'))
+	{
+		resetMapData();
+	}
 }
+
 
 void mapTool::selectMap()
 {
@@ -287,21 +295,43 @@ void mapTool::saveMapData()
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
 		vStr.push_back("|");							//구분자
-		vStr.push_back(itoa(_viTile->number, temp, 10));
-		vStr.push_back(itoa(_viTile->state, temp, 10));
+		vStr.push_back(itoa(_viTile->number, temp, 10));		//타일 넘버
+		vStr.push_back(itoa(_viTile->state, temp, 10));		//타일 상태
+		vStr.push_back(itoa(_viTile->rc.left, temp, 10));	//불러올때 위치정보를 갖고있을 피벗.
+		vStr.push_back(itoa(_viTile->rc.top, temp, 10));
+		vStr.push_back(itoa(_viTile->imageNum, temp, 10));	//타일 이미지 (_pickNum)
 	}
-	TXTDATA->txtSave("database.txt", vStr);
+	TXTDATA->txtSave("battleMap1.txt", vStr);
 }
 
 void mapTool::loadMapData()
 {
-	DATABASE->loadDatabase("database.txt");
+	DATABASE->loadDatabase("battleMap1.txt");
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
 		char temp[128];
-		_viTile->number = DATABASE->getElementData(itoa(_viTile->number, temp, 10))->number;
+		//_viTile->number 는 자료를 찾는 인덱스.
+		_viTile->state = (TILESTATE)DATABASE->getElementData(itoa(_viTile->number, temp, 10))->number;
 		_viTile->state = (TILESTATE)DATABASE->getElementData(itoa(_viTile->number, temp, 10))->state;
+		_viTile->rc = RectMake(DATABASE->getElementData(itoa(_viTile->number, temp, 10))->drawX,
+			DATABASE->getElementData(itoa(_viTile->number, temp, 10))->drawY,
+			WIDTH,
+			WIDTH / 2);
+		_viTile->imageNum = DATABASE->getElementData(itoa(_viTile->number, temp, 10))->imageNum;
+		if (_viTile->imageNum < 81)
+		{
+			_viTile->draw = true;
+			_viTile->image = _vIsoTile[_viTile->imageNum].image;
+		}
+		
 	}
+}
+
+//리셋
+void mapTool::resetMapData()
+{
+	release();
+	init();
 }
 
 void mapTool::nextTile()
@@ -312,132 +342,5 @@ void mapTool::nextTile()
 	
 	selectedImage->setFrameX(selectedNum % selectedImage->getMaxFrameX());
 	selectedImage->setFrameY(selectedNum / selectedImage->getMaxFrameY());
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/master
 }
 
-void mapTool::drawBg()
-{
-	for (int i = 0; i < MAPSIZEX; i++)
-	{
-		for (int j = 0; j < MAPSIZEY; j++)
-		{
-			Rectangle(getMemDC(), rcArr[i][j].left, rcArr[i][j].top, rcArr[i][j].right, rcArr[i][j].bottom);
-		}
-	}
-
-	char str[100];
-	sprintf_s(str, "x : %d ", _ptMouse.x);
-	TextOut(getMemDC(), _ptMouse.x, _ptMouse.y - 20, str, strlen(str));
-
-	sprintf_s(str, "y : %d", _ptMouse.y);
-	TextOut(getMemDC(), _ptMouse.x, _ptMouse.y , str, strlen(str));
-	
-	sprintf_s(str, "pickTile : %d  tileNum : %d", pickTile, tileNum);
-	TextOut(getMemDC(), 10, 10, str, strlen(str));
-}
-
-void mapTool::drawTile()
-{
-	//샘플타일.
-	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
-	{
-		if (_viTile->number == tileNum)
-		{
-			_viTile->image->render(getMemDC(), 700, CENTERY, _viTile->rc.left, _viTile->rc.top, TILESIZE, TILESIZE);
-			
-			char str[50];
-			sprintf_s(str, "%d", _viTile->number);
-			TextOut(getMemDC(), 700 + TILESIZE / 2, CENTERY + TILESIZE / 2, str, strlen(str));
-
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-			{
-				RECT rc = RectMake(700, CENTERY, TILESIZE, TILESIZE);
-				if (PtInRect(&rc, _ptMouse))
-				{
-					pickTile = _viTile->number;
-				}
-				
-			}
-		}
-	}
-
-	for (_viMap = _vMap.begin(); _viMap != _vMap.end(); ++_viMap)
-	{
-		_viMap->image->render(getMemDC(), _viMap->realRc.left, _viMap->realRc.top, _viMap->rc.left, _viMap->rc.top, TILESIZE, TILESIZE);
-		//_viMap->image->render(getMemDC(), _viMap->realRc.left, _viMap->realRc.right);
-
-
-		//char str[50];
-		//sprintf_s(str, "%d", _viMap->number);
-		//TextOut(getMemDC(), _viMap->realRc.left, _viMap->realRc.left, str, strlen(str));
-		//
-		//sprintf_s(str, "l %d t %d",_viMap->rc.left, _viMap->rc.top);
-		//TextOut(getMemDC(), _viMap->realRc.left, _viMap->realRc.left + 15, str, strlen(str));
-		//
-		//sprintf_s(str, "r %d b %d", _viMap->rc.right, _viMap->rc.bottom);
-		//TextOut(getMemDC(), _viMap->realRc.left, _viMap->realRc.left + 30, str, strlen(str));
-
-		//char str[50];
-		//sprintf_s(str, "%d", _viMap->number);
-		//TextOut(getMemDC(), _viMap->rc.left, _viMap->rc.left, str, strlen(str));
-		//
-		//sprintf_s(str, "l %d t %d",_viMap->rc.left, _viMap->rc.top);
-		//TextOut(getMemDC(), _viMap->rc.left, _viMap->rc.left + 15, str, strlen(str));
-		//
-		//sprintf_s(str, "r %d b %d", _viMap->rc.right, _viMap->rc.bottom);
-		//TextOut(getMemDC(), _viMap->rc.left, _viMap->rc.left + 30, str, strlen(str));
-	}
-}
-
-void mapTool::keyControl()
-{
-	if (KEYMANAGER->isOnceKeyDown(VK_LEFT)) if (tileNum > 0) tileNum--;
-	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT)) if (tileNum < TILEMAXX * TILEMAXY - 1) tileNum++;
-
-	
-	//타일위에
-	for (int i = 0; i < MAPSIZEX; i++)
-	{
-		for (int j = 0; j < MAPSIZEY; j++)
-		{
-			if (PtInRect(&rcArr[i][j], _ptMouse))//맵렉트
-			{
-				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-				{
-					tagTile map;
-					ZeroMemory(&map, sizeof(tagTile));
-					map.image = new image;
-					map.image->init("image/mapTile.bmp", 208, 156, false, false);
-					map.number = pickTile;
-					map.rc = _vTile[pickTile].rc;
-					map.realRc = rcArr[i][j];
-					map.x = map.realRc.left;
-
-					_vMap.push_back(map);
-				}
-			}
-		}
-	}
-}
-
-void mapTool::putTile(RECT* rc)
-{
-	// 넘버랑 같은 타일.
-		tagTile map;
-		ZeroMemory(&map, sizeof(tagTile));
-		map.image = new image;
-		map.image->init("image/mapTile.bmp", 208, 156, false, false);
-		map.number = pickTile;
-		map.rc = RectMake(_vTile[pickTile].rc.left, _vTile[pickTile].rc.top, TILESIZE, TILESIZE);
-		map.realRc = *rc;
-		map.x = rc->left;
-		map.y = rc->top;
-
-		_vMap.push_back(map);
-}
-
-//배경타일도 ?
-=======
-}
->>>>>>> refs/remotes/origin/master
