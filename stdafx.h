@@ -37,7 +37,7 @@
 #define WINNAME (LPTSTR)(TEXT("MapTool"))
 #define WINSTARTX 10
 #define WINSTARTY 10
-#define WINSIZEX 1000
+#define WINSIZEX 1100
 #define WINSIZEY 600
 #define CENTERX (WINSIZEX / 2)
 #define CENTERY (WINSIZEY / 2)
@@ -64,3 +64,5 @@ extern HWND _hWnd;
 extern HINSTANCE _hInstance;
 extern bool _leftButtonDown;
 extern bool _rightButtonDown;
+extern int _scrollPosX;
+extern int _scrollPosY;

@@ -2,7 +2,10 @@
 
 #include "gameNode.h"
 #include "mapTool.h"
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/master
 
 class gameStudy : public gameNode
 {
