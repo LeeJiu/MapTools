@@ -6,8 +6,8 @@
 #include <vector>
 #include "button.h"
 
-#define TILENUM 20
-#define WIDTH 128
+#define TILENUM 15
+#define WIDTH 192
 
 static int selectedNum = 0;
 static image* selectedImage = NULL;
@@ -46,8 +46,8 @@ private:
 	vector<TagTile> _vIsoTile;
 	vector<TagTile>::iterator _viIsoTile;
 
-	button* _button;
-
+	//button* _button;
+	
 	bool _rectOn;
 
 	int tileNum;
@@ -66,12 +66,6 @@ private:
 	RECT rcSelectTile;
 	RECT rcButton;
 
-	/*
-				Scrool Bar
-		위치 추가만 하고 아직 마우스랑 연동 안시킴 화팅!
-	*/
-	HWND _hScrollVer;
-	HWND _hScrollHri;
 
 public:
 	mapTool();

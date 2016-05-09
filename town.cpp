@@ -18,12 +18,15 @@ HRESULT town::init()
 
 void town::release()
 {
+
 }
 
 void town::update()
 {
+
 }
 
 void town::render()
 {
+
 }

@@ -110,6 +110,7 @@ public:
 	//«¡∑π¿” ∑ª¥ı
 	void frameRender(HDC hdc, int destX, int destY);
 	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
+	void frameRender(HDC hdc, int destX, int destY, int destWidth, int destHeight, int currentFrameX, int currentFrameY);
 
 	//∑Á«¡ ∑ª¥ı
 	void loopRender(HDC hdc, const LPRECT drawArea, int offsetX, int offsetY);
