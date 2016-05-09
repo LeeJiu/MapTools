@@ -35,6 +35,7 @@
 
 /* ===== 디파인문 ===== */
 #define WINNAME (LPTSTR)(TEXT("MapTool"))
+#define CHILDNAME (LPTSTR)(TEXT("MapTool_Child"))
 #define WINSTARTX 10
 #define WINSTARTY 10
 #define WINSIZEX 1100

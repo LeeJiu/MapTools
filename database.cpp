@@ -13,7 +13,7 @@ database::~database()
 
 HRESULT database::init()
 {
-	loadDatabase("database.txt");
+	//loadDatabase("database.txt");
 
 	return S_OK;
 }
@@ -39,7 +39,7 @@ void database::loadDatabase(string name)
 	string str;
 	int count = 0;
 
-	//|,battle,0.3,2.0,0.0,2000,2000,|,carrier,0.4,1.0,0.0,3000,3000
+	//|,number,state,|,number,state,
 	for (unsigned int i = 0; i < vTemp.size(); i++)
 	{
 		if (vTemp[i] == "|")
@@ -47,21 +47,32 @@ void database::loadDatabase(string name)
 			elements* em = new elements;
 			str = vTemp[i + 1];
 			_mTotalElement.insert(pair<string, elements*>(vTemp[i + 1], em));
+<<<<<<< HEAD
 			if (i != 0) count += 6;
+=======
+			if (i != 0) count += 3;
+>>>>>>> refs/remotes/origin/master
 			continue;
 		}
 
 		iterElement mIter = _mTotalElement.find(str);
+<<<<<<< HEAD
 		if (i == count + 1) mIter->second->drawX = (float)atof(vTemp[i].c_str());
 		else if (i == count + 2) mIter->second->drawY = (float)atof(vTemp[i].c_str());
 		else if (i == count + 3) mIter->second->rectX = (float)atof(vTemp[i].c_str());
 		else if (i == count + 4) mIter->second->rectY = (float)atof(vTemp[i].c_str());
 		else if (i == count + 5) mIter->second->number = atoi(vTemp[i].c_str());
+=======
+		//읽어올 데이터들
+		if (i == count + 1) mIter->second->number = atoi(vTemp[i].c_str());
+		else if (i == count + 2) mIter->second->state = atoi(vTemp[i].c_str());
+>>>>>>> refs/remotes/origin/master
 	}
 
 	vTemp.clear();
 }
 
+<<<<<<< HEAD
 void database::setElementDataDrawX(string str, float drX)
 {
 	iterElement mIter = _mTotalElement.find(str);
@@ -92,3 +103,16 @@ void database::setElementDataNumber(string str, int number)
 	mIter->second->number = number;
 }
 
+=======
+void database::setElementDataNumber(string str, int number)
+{
+	iterElement mIter = _mTotalElement.find(str);
+	mIter->second->number = number;
+}
+
+void database::setElementDataState(string str, int state)
+{
+	iterElement mIter = _mTotalElement.find(str);
+	mIter->second->state = state;
+}
+>>>>>>> refs/remotes/origin/master

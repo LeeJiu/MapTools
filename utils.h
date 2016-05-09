@@ -23,6 +23,7 @@
 #define FLOAT_EPSILON 0.001f 
 #define FLOAT_EQUAL(f1, f2)		(fabs(f1 - f2) <= FLOAT_EPSILON) //두 실수가 같은지 확인
 
+
 namespace MY_UTIL
 {
 	//거리 구하는 함수

@@ -143,8 +143,57 @@ void mapTool::release()
 void mapTool::update()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	keyControl();
 =======
+=======
+	keyControl();
+
+	//_button->update();
+}
+
+void mapTool::render()
+{
+	SetTextColor(getMemDC(), RGB(0, 0, 0));
+	char str[128];
+
+	//각각의 렉트 출력
+	for (int i = 0; i < _vTile.size(); i++)
+	{
+		//Rectangle(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].rc.right, _vTile[i].rc.bottom);
+		IsoRender(getMemDC(), _vTile[i].rc);
+
+		if (_vTile[i].draw)
+		{
+			_vTile[i].image->frameRender(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].image->getFrameX(), _vTile[i].image->getFrameY());
+		}
+
+		sprintf_s(str, "%d", _vTile[i].number);
+		TextOut(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, str, strlen(str));
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+
+	Rectangle(getMemDC(), rcUI.left, rcUI.top, rcUI.right, rcUI.bottom);
+	Rectangle(getMemDC(), rcSelectTile.left, rcSelectTile.top, rcSelectTile.right, rcSelectTile.bottom);
+
+	///////////////////////////////////////////////////////////////////////////////
+
+	// 버튼 랜더
+	//_button->render();
+
+	// 선택될 타일이미지 출력
+	//IMAGEMANAGER->findImage("tile")->frameRender(getMemDC(), WINSIZEX - 200, 100, IMAGEMANAGER->findImage("tile")->getFrameX(), IMAGEMANAGER->findImage("tile")->getFrameY());
+
+
+	sprintf_s(str, "x : %d, y : %d", _ptMouse.x, _ptMouse.y);
+	TextOut(getMemDC(), _ptMouse.x, _ptMouse.y, str, strlen(str));
+}
+
+
+void mapTool::keyControl()
+{
+>>>>>>> refs/remotes/origin/master
 	// 마우스 클릭 된 위치 이미지 그리자
 	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 	{
@@ -187,6 +236,7 @@ void mapTool::update()
 		}
 	}
 
+<<<<<<< HEAD
 	//_button->update();
 >>>>>>> refs/remotes/origin/master
 }
@@ -202,37 +252,19 @@ void mapTool::render()
 
 	//각각의 렉트 출력
 	for (int i = 0; i < _vTile.size(); i++)
+=======
+	//맵 데이터를 세이브
+	if (KEYMANAGER->isOnceKeyDown('S'))
+>>>>>>> refs/remotes/origin/master
 	{
-		//Rectangle(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].rc.right, _vTile[i].rc.bottom);
-		IsoRender(getMemDC(), _vTile[i].rc);
-
-		if (_vTile[i].draw)
-		{
-			_vTile[i].image->frameRender(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].image->getFrameX(), _vTile[i].image->getFrameY());
-		}
-
-		sprintf_s(str, "%d", _vTile[i].number);
-		TextOut(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, str, strlen(str));
+		saveMapData();
 	}
-
-	///////////////////////////////////////////////////////////////////////////////
-
-	Rectangle(getMemDC(), rcUI.left, rcUI.top, rcUI.right, rcUI.bottom);
-	Rectangle(getMemDC(), rcSelectTile.left, rcSelectTile.top, rcSelectTile.right, rcSelectTile.bottom);
-
-	///////////////////////////////////////////////////////////////////////////////
-
-	// 버튼 랜더
-	//_button->render();
-
-	// 선택될 타일이미지 출력
-	//IMAGEMANAGER->findImage("tile")->frameRender(getMemDC(), WINSIZEX - 200, 100, IMAGEMANAGER->findImage("tile")->getFrameX(), IMAGEMANAGER->findImage("tile")->getFrameY());
-
-
-	sprintf_s(str, "x : %d, y : %d", _ptMouse.x, _ptMouse.y);
-	TextOut(getMemDC(), _ptMouse.x, _ptMouse.y, str, strlen(str));
+	//맵 데이터를 로드
+	if (KEYMANAGER->isOnceKeyDown('L'))
+	{
+		loadMapData();
+	}
 }
-
 
 void mapTool::selectMap()
 {
@@ -247,6 +279,31 @@ void mapTool::drawTile(int index)
 	_vTile[index].image->setFrameY(_vTile[index].number / _vTile[index].image->getMaxFrameY());
 }
 
+void mapTool::saveMapData()
+{
+	char temp[128];
+
+	vector<string> vStr;
+	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
+	{
+		vStr.push_back("|");							//구분자
+		vStr.push_back(itoa(_viTile->number, temp, 10));
+		vStr.push_back(itoa(_viTile->state, temp, 10));
+	}
+	TXTDATA->txtSave("database.txt", vStr);
+}
+
+void mapTool::loadMapData()
+{
+	DATABASE->loadDatabase("database.txt");
+	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
+	{
+		char temp[128];
+		_viTile->number = DATABASE->getElementData(itoa(_viTile->number, temp, 10))->number;
+		_viTile->state = (TILESTATE)DATABASE->getElementData(itoa(_viTile->number, temp, 10))->state;
+	}
+}
+
 void mapTool::nextTile()
 {
 	selectedNum++;
@@ -255,6 +312,7 @@ void mapTool::nextTile()
 	
 	selectedImage->setFrameX(selectedNum % selectedImage->getMaxFrameX());
 	selectedImage->setFrameY(selectedNum / selectedImage->getMaxFrameY());
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/master
 }
 
@@ -380,3 +438,6 @@ void mapTool::putTile(RECT* rc)
 }
 
 //배경타일도 ?
+=======
+}
+>>>>>>> refs/remotes/origin/master
