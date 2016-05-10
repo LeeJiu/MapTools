@@ -24,18 +24,14 @@
 #define FLOAT_EQUAL(f1, f2)		(fabs(f1 - f2) <= FLOAT_EPSILON) //두 실수가 같은지 확인
 
 
-#define TILENUM 15
+#define TILENUM 10
 #define WIDTH 192
 
 enum TILESTATE
 {
-	S_NONE, S_ICE, S_FIRE
+	S_NONE, S_ONOBJ, S_WORKABLE
 };
 
-enum MAPNAME
-{
-	M_NONE, M_CAMP, M_FLOOPY, M_ICE
-};
 
 struct TagTile
 {
@@ -43,7 +39,6 @@ struct TagTile
 	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
 	POINT pivot;			// 타일 렉트의 중심점
 	TILESTATE state;		// 타일의 상태
-	MAPNAME mapName;		// 타일맵이름 (이건 변경해도 됨. 크아기준으로 만들었던거라 ice맵 캠프맵 이런식으로 있어서 나눠줬던것)
 	int x, y;				// 타일의인덱스 x, y
 	int width;				// 타일의 폭
 	int height;				// 타일의 높이
@@ -52,6 +47,18 @@ struct TagTile
 	bool draw;				// 타일 그려진 유무 ( 이 타일위에 이미지가 그려져있는지 확인 유무)
 };
 
+struct TagObject
+{
+	image* image;			// 타일의 이미지
+	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
+	POINT pivot;			// 타일 렉트의 중심점
+	int x, y;				// 타일의인덱스 x, y
+	int width;				// 타일의 폭
+	int height;				// 타일의 높이
+	int imageNum;			//이미지 가져오기
+	int number;				// 타일의 고유 넘버값 
+	bool draw;
+};
 
 
 namespace MY_UTIL
