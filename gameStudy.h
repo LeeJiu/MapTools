@@ -2,11 +2,11 @@
 
 #include "gameNode.h"
 #include "mapTool.h"
+#include "title.h"
 
 class gameStudy : public gameNode
 {
 private:
-	mapTool* _map;
 
 public:
 	gameStudy();
