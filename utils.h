@@ -23,17 +23,12 @@
 #define FLOAT_EPSILON 0.001f 
 #define FLOAT_EQUAL(f1, f2)		(fabs(f1 - f2) <= FLOAT_EPSILON) //두 실수가 같은지 확인
 
-#define TILENUM 15
+#define TILENUM 10
 #define WIDTH 192
 
 enum TILESTATE
 {
-	S_NONE, S_ICE, S_FIRE
-};
-
-enum MAPNAME
-{
-	M_NONE, M_CAMP, M_FLOOPY, M_ICE
+	S_NONE, S_ONOBJ
 };
 
 struct TagTile
@@ -42,7 +37,6 @@ struct TagTile
 	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
 	POINT pivot;			// 타일 렉트의 중심점
 	TILESTATE state;		// 타일의 상태
-	MAPNAME mapName;		// 타일맵이름 (이건 변경해도 됨. 크아기준으로 만들었던거라 ice맵 캠프맵 이런식으로 있어서 나눠줬던것)
 	TagTile* parent;		// A* 해당타일의 부모
 	int x, y;				// 타일의인덱스 x, y
 	int width;				// 타일의 폭

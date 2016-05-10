@@ -40,7 +40,6 @@ HRESULT mapTool::init()
 			tile.pivot.y = (tile.rc.top + tile.rc.bottom) / 2;
 			tile.number = count; // imageNum으로 불러올수있는 샘플타일 인덱스
 			tile.state = S_NONE;
-			tile.mapName = M_NONE;
 			tile.draw = true;
 
 			tile.image->setFrameX(tile.number % 4);
@@ -56,8 +55,6 @@ HRESULT mapTool::init()
 	{
 		for (int j = 0; j < 15; j++)	// 가로 ( 행 )
 		{	
-			// 아래 초기화부분 이해안되면 물어보세용
-			// 물론 알려줄수있을지는 의문임
 			TagTile tile;
 			ZeroMemory(&tile, sizeof(TagTile));
 			tile.image = new image;
@@ -72,7 +69,6 @@ HRESULT mapTool::init()
 			tile.imageNum = 100;	//이미지 넘버.
 			tile.number = count;	
 			tile.state = S_NONE;
-			tile.mapName = M_NONE;
 			tile.draw = false;
 
 			_vTile.push_back(tile);
