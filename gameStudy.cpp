@@ -15,17 +15,12 @@ HRESULT gameStudy::init()
 {
 	gameNode::init(true);
 
-<<<<<<< HEAD
-	SCENEMANAGER->addScene("store", new store);
-
-	SCENEMANAGER->changeScene("store");
-=======
 	SCENEMANAGER->addScene("title", new title);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 	SCENEMANAGER->addScene("aStar", new aStar);
+	SCENEMANAGER->addScene("store", new store);
 
-	SCENEMANAGER->changeScene("title");
->>>>>>> refs/remotes/origin/development
+	SCENEMANAGER->changeScene("store");
 
 	return S_OK;
 }
