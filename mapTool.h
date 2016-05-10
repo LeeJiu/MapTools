@@ -6,8 +6,10 @@
 #include <vector>
 #include "button.h"
 
+
 static int selectedNum = 0;
 static image* selectedImage = NULL;
+static bool _isTile = true;
 
 class mapTool : public gameNode
 {
@@ -15,10 +17,20 @@ private:
 	vector<TagTile> _vTile;
 	vector<TagTile>::iterator _viTile;
 
+	vector<TagObject> _vObj;
+	vector<TagObject>::iterator _viObj;
+
+
 	vector<TagTile> _vIsoTile;
 	vector<TagTile>::iterator _viIsoTile;
 
-	//button* _button;
+	vector<TagObject> _vIsoObj;
+	vector<TagObject>::iterator _viIsoObj;
+
+
+	button* _TileButton;
+	button* _ObjectButton;
+	button* _ExitButton;
 	
 	bool _rectOn;
 
@@ -59,7 +71,8 @@ public:
 
 
 	
-	static void nextTile();
-
+	static void onTile();
+	static void onObject();
+	static void goToMenu();
 };
 
