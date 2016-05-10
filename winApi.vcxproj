@@ -83,6 +83,7 @@
     <ClInclude Include="action.h" />
     <ClInclude Include="actionManager.h" />
     <ClInclude Include="animation.h" />
+    <ClInclude Include="aStar.h" />
     <ClInclude Include="battle.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="character.h" />
@@ -122,6 +123,7 @@
     <ClCompile Include="action.cpp" />
     <ClCompile Include="actionManager.cpp" />
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="aStar.cpp" />
     <ClCompile Include="battle.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="character.cpp" />

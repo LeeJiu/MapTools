@@ -15,9 +15,17 @@ HRESULT gameStudy::init()
 {
 	gameNode::init(true);
 
+<<<<<<< HEAD
 	SCENEMANAGER->addScene("store", new store);
 
 	SCENEMANAGER->changeScene("store");
+=======
+	SCENEMANAGER->addScene("title", new title);
+	SCENEMANAGER->addScene("mapTool", new mapTool);
+	SCENEMANAGER->addScene("aStar", new aStar);
+
+	SCENEMANAGER->changeScene("title");
+>>>>>>> refs/remotes/origin/development
 
 	return S_OK;
 }
@@ -41,7 +49,6 @@ void gameStudy::render()
 	//백버퍼에서 뿌려준다
 	
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
-	//IMAGEMANAGER->findImage("background")->render(getMemDC());
 	//======================
 	//이 사이에서 그려주면 됨.
 

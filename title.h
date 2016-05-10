@@ -4,7 +4,19 @@
 class title : public gameNode
 {
 private:
+	int _alpha;
+	int _x, _y;
 
+	bool _showAlpha;
+	bool _show;
+	bool _showMenu;
+
+	RECT _button[3];
+	RECT _draw[3];
+
+	bool _startButton;
+	bool _maptoolButton;
+	bool _exitButton;
 
 public:
 	title();
@@ -16,6 +28,8 @@ public:
 	void render();
 
 	/*			함수 추가			*/
-
+	void showLogo();
+	void showArrow();
+	void clickMenu();
 };
 
