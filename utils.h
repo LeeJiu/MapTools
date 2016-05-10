@@ -28,9 +28,14 @@
 
 enum TILESTATE
 {
+<<<<<<< HEAD
 	S_NONE, S_ONOBJ, S_ONENM, S_WORKABLE
 };
 
+=======
+	S_NONE, S_ONOBJ
+};
+>>>>>>> origin/development
 
 struct TagTile
 {
