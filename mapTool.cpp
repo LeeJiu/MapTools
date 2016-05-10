@@ -80,8 +80,6 @@ HRESULT mapTool::init()
 	{
 		for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 )
 		{	
-			// 아래 초기화부분 이해안되면 물어보세용
-			// 물론 알려줄수있을지는 의문임
 			TagTile tile;
 			ZeroMemory(&tile, sizeof(TagTile));
 			tile.image = new image;

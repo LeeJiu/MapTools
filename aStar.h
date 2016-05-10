@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+#include <algorithm>
 
 class aStar : public gameNode
 {
@@ -14,18 +15,28 @@ class aStar : public gameNode
 	vector<TagTile*> _vRoute;
 	vector<TagTile*>::iterator _viRoute;
 
+	POINT _start, _end;
+
+	bool _finish;
+
 public:
 	aStar();
 	~aStar();
 	
-	HRESULT init(int battleMapNumber);
+	HRESULT init();
 	void release();
 	void update();
 	void render();
 
-
 	void checkTile();
-	void celulateRoute(POINT start, POINT end);
 	void reset();
+
+	void eraseVector(int x, int y);
+
+	vector<TagTile*> moveCharacter(int startX, int startY, int endX, int endY);
+
+	void resultRoute(int x, int y);
+
+	static bool cmp(TagTile* start, TagTile* end) { return start->f < end->f; }
 };
 
