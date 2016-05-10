@@ -2,12 +2,10 @@
 
 #include "gameNode.h"
 #include "mapTool.h"
+#include "store.h"
 
 class gameStudy : public gameNode
 {
-private:
-	mapTool* _map;
-
 public:
 	gameStudy();
 	virtual ~gameStudy();

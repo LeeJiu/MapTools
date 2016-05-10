@@ -10,6 +10,13 @@ private:
 	//아이템 정보를 띄워줄 변수 추가 (atk, def, int, spd ...)
 
 
+	//ui rect
+	RECT _rcStoreTitle, _rcListTitle;
+	RECT _rcItemList;
+	RECT _rcItemStatus;
+	RECT _rcItemInfo;
+	RECT _rcItemImage;
+
 public:
 	store();
 	~store();

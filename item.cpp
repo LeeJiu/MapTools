@@ -29,7 +29,8 @@ void item::render()
 {
 }
 
-void item::setItem(char * imageName, char * itemName, char * itemInfo, int atk, int intel, int def, int spd, int hit, int buy, int sell)
+void item::setItem(char * imageName, char * itemName, char * itemInfo, 
+	int atk, int intel, int def, int spd, int hit, int res, int buy, int sell)
 {
 	tagItem item;
 	ZeroMemory(&item, sizeof(tagItem));
@@ -41,6 +42,7 @@ void item::setItem(char * imageName, char * itemName, char * itemInfo, int atk, 
 	item.def = def;
 	item.spd = spd;
 	item.hit = hit;
+	item.res = res;
 	item.buyPrice = buy;
 	item.sellPrice = sell;
 
