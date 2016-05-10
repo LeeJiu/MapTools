@@ -192,7 +192,8 @@ void mapTool::render()
 	//각각의 오브젝트 출력
 	for (int i = 0; i < _vObj.size(); i++)
 	{
-		Rectangle(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, _vObj[i].rc.right, _vObj[i].rc.bottom);
+		//Rectangle(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, _vObj[i].rc.right, _vObj[i].rc.bottom);
+		sort(_vObj.begin(), _vObj.end(), OBJ_Y_RENDER());
 
 		if (_vObj[i].draw)
 		{
@@ -233,7 +234,7 @@ void mapTool::render()
 	{
 		for (int i = 0; i < _vIsoObj.size(); i++)
 		{
-			Rectangle(getMemDC(), _vIsoObj[i].rc.left, _vIsoObj[i].rc.top, _vIsoObj[i].rc.right, _vIsoObj[i].rc.bottom);
+			//Rectangle(getMemDC(), _vIsoObj[i].rc.left, _vIsoObj[i].rc.top, _vIsoObj[i].rc.right, _vIsoObj[i].rc.bottom);
 			_vIsoObj[i].image->frameRender(getMemDC(), _vIsoObj[i].rc.left, _vIsoObj[i].rc.top);
 
 			sprintf_s(str, "objNum = %d", _vIsoObj[i].number);
@@ -306,13 +307,23 @@ void mapTool::keyControl()
 							TagObject obj;
 							ZeroMemory(&obj, sizeof(TagObject));
 							obj.image = new image;
-							obj.image->init("image/object_block.bmp", 192, 197, true, 0xff00ff);
-							obj.width = WIDTH;
-							obj.height = obj.image->getHeight();
-							//obj.rc = RectMake(_viTile[i].pivot.x, _viTile[i].rc.bottom - obj.height, obj.width, obj.height);
 							obj.x = _vTile[i].x;
 							obj.y = _vTile[i].y;
 							obj.imageNum = _pickNum;
+							switch (obj.imageNum)
+							{
+							case 0:
+								obj.image->init("image/object_block.bmp", 192, 197, true, 0xff00ff);
+								break;
+							case 1:
+								obj.image->init("image/object_block2.bmp", 192, 192, true, 0xff00ff);
+								break;
+							default:
+								break;
+							}
+							obj.width = WIDTH;
+							obj.height = obj.image->getHeight();
+							obj.rc = RectMake(_vTile[i].rc.left, _vTile[i].rc.bottom - obj.height, obj.width, obj.height);
 							obj.number = _vObj.size() + 1;
 							obj.draw = true;
 
@@ -504,5 +515,5 @@ void mapTool::onObject()
 
 void mapTool::goToMenu()
 {
-
+	SCENEMANAGER->changeScene("title");
 }

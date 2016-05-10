@@ -4,8 +4,17 @@
 
 #include "gameNode.h"
 #include <vector>
+#include <algorithm>
 #include "button.h"
 
+
+struct OBJ_Y_RENDER
+{
+	bool operator()(const TagObject& obj1, const TagObject& obj2)
+	{
+		return obj1.rc.bottom < obj2.rc.bottom;
+	}
+};
 
 static int selectedNum = 0;
 static image* selectedImage = NULL;

@@ -14,6 +14,8 @@ public:
 	int y;
 	int imageNum;
 
+	//오브젝트
+
 	elements() {};
 	~elements() {};
 };

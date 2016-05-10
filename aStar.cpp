@@ -31,7 +31,6 @@ HRESULT aStar::init(int battleMapNumber)
 			_tile[j][i].y = i;
 			_tile[j][i].number = count;
 			_tile[j][i].state = S_NONE;
-			_tile[j][i].mapName = M_NONE;
 			_tile[j][i].draw = false;
 
 		//	_vTile.push_back(tile);
