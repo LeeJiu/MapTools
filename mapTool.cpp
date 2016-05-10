@@ -25,9 +25,9 @@ HRESULT mapTool::init()
 	POINT firstPivot = { (316 + WINSIZEX) / 2, WIDTH / 4 };
 
 	// 샘플타일
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 11; i++)
 	{
-		for (int j = 0; j < 11; j++)
+		for (int j = 0; j < 4; j++)
 		{
 			TagTile tile;
 			ZeroMemory(&tile, sizeof(TagTile));
@@ -35,16 +35,15 @@ HRESULT mapTool::init()
 			tile.image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
 			tile.width = WIDTH;
 			tile.height = WIDTH / 2;
-			tile.rc = RectMake(10, 10, tile.image->getFrameWidth(), tile.image->getFrameHeight());
+			tile.rc = RectMake(10, 190 + tile.image->getFrameHeight() * j, tile.image->getFrameWidth(), tile.image->getFrameHeight());
 			tile.pivot.x = (tile.rc.left + tile.rc.right) / 2;
 			tile.pivot.y = (tile.rc.top + tile.rc.bottom) / 2;
 			tile.number = count; // imageNum으로 불러올수있는 샘플타일 인덱스
 			tile.state = S_NONE;
-			tile.mapName = M_NONE;
 			tile.draw = true;
 
 			tile.image->setFrameX(tile.number % 4);
-			tile.image->setFrameY(tile.number / 11);
+			tile.image->setFrameY(tile.number / 4);
 			_vIsoTile.push_back(tile);
 
 			count++;
@@ -72,7 +71,6 @@ HRESULT mapTool::init()
 			tile.imageNum = 100;	//이미지 넘버.
 			tile.number = count;	
 			tile.state = S_NONE;
-			tile.mapName = M_NONE;
 			tile.draw = false;
 
 			_vTile.push_back(tile);
@@ -165,10 +163,15 @@ void mapTool::render()
 	// 선택될 타일이미지 출력
 	//IMAGEMANAGER->findImage("tile")->frameRender(getMemDC(), WINSIZEX - 200, 100, IMAGEMANAGER->findImage("tile")->getFrameX(), IMAGEMANAGER->findImage("tile")->getFrameY());
 	
-	Rectangle(getMemDC(), _vIsoTile[tileNum].rc.left, _vIsoTile[tileNum].rc.top, _vIsoTile[tileNum].rc.right, _vIsoTile[tileNum].rc.bottom);
-	_vIsoTile[tileNum].image->frameRender(getMemDC(), _vIsoTile[tileNum].rc.left, _vIsoTile[tileNum].rc.top);
-	sprintf_s(str, "tileNum = %d", tileNum);
-	TextOut(getMemDC(), _vIsoTile[tileNum].rc.left, _vIsoTile[tileNum].rc.top, str, strlen(str));
+	for (int i = tileNum * 4; i < tileNum * 4 + 4; i++)
+	{
+		Rectangle(getMemDC(), _vIsoTile[i].rc.left, _vIsoTile[i].rc.top, _vIsoTile[i].rc.right, _vIsoTile[i].rc.bottom);
+		_vIsoTile[i].image->frameRender(getMemDC(), _vIsoTile[i].rc.left, _vIsoTile[i].rc.top);
+	
+		sprintf_s(str, "tileNum = %d", i);
+		TextOut(getMemDC(), _vIsoTile[i].rc.left, _vIsoTile[i].rc.top, str, strlen(str));
+	}
+
 
 	sprintf_s(str, "x : %d, y : %d", _ptMouse.x, _ptMouse.y);
 	TextOut(getMemDC(), _ptMouse.x, _ptMouse.y, str, strlen(str));
@@ -178,11 +181,14 @@ void mapTool::render()
 void mapTool::keyControl()
 {
 	//샘플타일 픽업
-	if (PtInRect(&_vIsoTile[tileNum].rc, _ptMouse))
+	for (int i = 0; i < _vIsoTile.size(); i++)
 	{
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		if (PtInRect(&_vIsoTile[i].rc, _ptMouse))
 		{
-			_pickNum = tileNum;
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				_pickNum = _vIsoTile[i].number;
+			}
 		}
 	}
 
@@ -200,8 +206,9 @@ void mapTool::keyControl()
 				if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 				{
 					_vTile[i].draw = true;
-					//_vTile[i].image = _vIsoTile[_pickNum].image;
 					_vTile[i].imageNum = _pickNum;
+					_vTile[i].image->setFrameX(_vIsoTile[_vTile[i].imageNum].image->getFrameX());
+					_vTile[i].image->setFrameY(_vIsoTile[_vTile[i].imageNum].image->getFrameY());
 				}
 			}
 		}
@@ -243,7 +250,7 @@ void mapTool::keyControl()
 	}
 	if (KEYMANAGER->isOnceKeyDown('D'))
 	{
-		if (tileNum < 44) tileNum++;
+		if (tileNum < 10) tileNum++;
 	}
 
 	//각각의 렉트 출력
@@ -289,8 +296,8 @@ void mapTool::saveMapData()
 		vStr.push_back("|");							//구분자
 		vStr.push_back(itoa(_viTile->number, temp, 10));		//타일 넘버
 		vStr.push_back(itoa(_viTile->state, temp, 10));		//타일 상태
-		vStr.push_back(itoa(_viTile->rc.left, temp, 10));	//불러올때 위치정보를 갖고있을 피벗.
-		vStr.push_back(itoa(_viTile->rc.top, temp, 10));
+		vStr.push_back(itoa(_viTile->x, temp, 10));	//불러올때 위치정보를 갖고있을 피벗.
+		vStr.push_back(itoa(_viTile->y, temp, 10));
 		vStr.push_back(itoa(_viTile->imageNum, temp, 10));	//타일 이미지 (_pickNum)
 	}
 	TXTDATA->txtSave("battleMap1.txt", vStr);
@@ -298,6 +305,8 @@ void mapTool::saveMapData()
 
 void mapTool::loadMapData()
 {
+	resetMapData();
+
 	DATABASE->loadDatabase("battleMap1.txt");
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
@@ -305,15 +314,15 @@ void mapTool::loadMapData()
 		//_viTile->number 는 자료를 찾는 인덱스. 고유번호
 		_viTile->number = DATABASE->getElementData(itoa(_viTile->number, temp, 10))->number;
 		_viTile->state = (TILESTATE)DATABASE->getElementData(itoa(_viTile->number, temp, 10))->state;
-		_viTile->rc = RectMake(DATABASE->getElementData(itoa(_viTile->number, temp, 10))->drawX,
-			DATABASE->getElementData(itoa(_viTile->number, temp, 10))->drawY,
-			WIDTH,
-			WIDTH / 2);
+
+		_viTile->x = DATABASE->getElementData(itoa(_viTile->number, temp, 10))->x;
+		_viTile->y = DATABASE->getElementData(itoa(_viTile->number, temp, 10))->y;
 		_viTile->imageNum = DATABASE->getElementData(itoa(_viTile->number, temp, 10))->imageNum;
 		if (_viTile->imageNum < 50)
 		{
 			_viTile->draw = true;
-			//_viTile->image = _vIsoTile[_viTile->imageNum].image;
+			_viTile->image->setFrameX(_vIsoTile[_viTile->imageNum].image->getFrameX());
+			_viTile->image->setFrameY(_vIsoTile[_viTile->imageNum].image->getFrameY());
 		}
 
 	}
