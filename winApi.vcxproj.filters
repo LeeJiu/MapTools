@@ -85,6 +85,9 @@
     <Filter Include="gameStudy\gameObject\objects">
       <UniqueIdentifier>{4988893b-edc8-4c26-849d-1c0bd15674b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameStudy\A%2a">
+      <UniqueIdentifier>{54bcce94-8a49-4935-9bc8-bd0d129c0d9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -201,6 +204,9 @@
     <ClInclude Include="objects.h">
       <Filter>gameStudy\gameObject\objects</Filter>
     </ClInclude>
+    <ClInclude Include="aStar.h">
+      <Filter>gameStudy\A%2a</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -304,6 +310,9 @@
     </ClCompile>
     <ClCompile Include="objects.cpp">
       <Filter>gameStudy\gameObject\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="aStar.cpp">
+      <Filter>gameStudy\A%2a</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

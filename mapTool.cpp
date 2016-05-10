@@ -44,7 +44,7 @@ HRESULT mapTool::init()
 			tile.draw = true;
 
 			tile.image->setFrameX(tile.number % 4);
-			tile.image->setFrameY(tile.number / 11);
+			tile.image->setFrameY(tile.number / 4);
 			_vIsoTile.push_back(tile);
 
 			count++;
@@ -96,7 +96,6 @@ HRESULT mapTool::init()
 	rcSelectTile = RectMake(5, 5, 290, 160);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 	tileNum = 0;	//샘플타일 타일넘버
 	_pickNum = 0;	//찍어줄 타일넘버
@@ -243,7 +242,7 @@ void mapTool::keyControl()
 	}
 	if (KEYMANAGER->isOnceKeyDown('D'))
 	{
-		if (tileNum < 44) tileNum++;
+		if (tileNum < 43) tileNum++;
 	}
 
 	//각각의 렉트 출력
