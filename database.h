@@ -10,8 +10,8 @@ class elements
 public:
 	int number;
 	int state;
-	int drawX;
-	int drawY;
+	int x;
+	int y;
 	int imageNum;
 
 	elements() {};
@@ -42,8 +42,8 @@ public:
 
 	void setElementDataNumber(string str, int number);
 	void setElementDataState(string str, int state);
-	void setElementDataDrawX(string str, int drawX);
-	void setElementDataDrawY(string str, int drawY);
+	void setElementDataX(string str, int x);
+	void setElementDataY(string str, int y);
 	void setElementDataImageNum(string str, int imageNum);
 };
 
