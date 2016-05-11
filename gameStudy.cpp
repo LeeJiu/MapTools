@@ -19,10 +19,9 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 	SCENEMANAGER->addScene("aStar", new aStar);
 	SCENEMANAGER->addScene("store", new store);
-
 	SCENEMANAGER->addScene("town", new town);
 
-	SCENEMANAGER->changeScene("store");
+	SCENEMANAGER->changeScene("title");
 
 	return S_OK;
 }

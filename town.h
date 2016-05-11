@@ -1,14 +1,13 @@
 #pragma once
 #include "gameNode.h"
-#include "inventory.h"
+#include "prinny.h"
 
 class town : public gameNode
 {
 private:
 	image* _town;		//마을 맵 이미지 (통짜 맵)
-	inventory* _inventory;
-
-	RECT _invenExit;
+	
+	prinny* _prinny;
 
 public:
 	town();
@@ -20,6 +19,6 @@ public:
 	void render();
 
 	/*			함수 추가			*/
-	void keyControl();
+
 };
 

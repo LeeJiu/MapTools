@@ -85,6 +85,15 @@
     <Filter Include="gameStudy\battle">
       <UniqueIdentifier>{e067cd68-6528-41df-ab16-ad00349bb31c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameStudy\gameObject\enemy">
+      <UniqueIdentifier>{7e0b8823-1df5-4bd4-859e-902e0fe6e59a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\gameObject\npc">
+      <UniqueIdentifier>{09b1c888-e044-4d54-a54a-32b5527e1229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\aStar">
+      <UniqueIdentifier>{42f0b6f3-d929-4bce-80ee-ef9c0cf56edf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -186,20 +195,23 @@
     <ClInclude Include="gameObject.h">
       <Filter>gameStudy\gameObject</Filter>
     </ClInclude>
+    <ClInclude Include="objects.h">
+      <Filter>gameStudy\gameObject\objects</Filter>
+    </ClInclude>
     <ClInclude Include="character.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
     <ClInclude Include="enemy.h">
-      <Filter>gameStudy\gameObject\character</Filter>
+      <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
     <ClInclude Include="npc.h">
-      <Filter>gameStudy\gameObject\character</Filter>
+      <Filter>gameStudy\gameObject\npc</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>gameStudy\gameObject\character</Filter>
+    <ClInclude Include="aStar.h">
+      <Filter>gameStudy\aStar</Filter>
     </ClInclude>
-    <ClInclude Include="objects.h">
-      <Filter>gameStudy\gameObject\objects</Filter>
+    <ClInclude Include="prinny.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -290,20 +302,23 @@
     <ClCompile Include="gameObject.cpp">
       <Filter>gameStudy\gameObject</Filter>
     </ClCompile>
+    <ClCompile Include="objects.cpp">
+      <Filter>gameStudy\gameObject\objects</Filter>
+    </ClCompile>
     <ClCompile Include="character.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
     <ClCompile Include="enemy.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
+      <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
     <ClCompile Include="npc.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
+      <Filter>gameStudy\gameObject\npc</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
+    <ClCompile Include="aStar.cpp">
+      <Filter>gameStudy\aStar</Filter>
     </ClCompile>
-    <ClCompile Include="objects.cpp">
-      <Filter>gameStudy\gameObject\objects</Filter>
+    <ClCompile Include="prinny.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

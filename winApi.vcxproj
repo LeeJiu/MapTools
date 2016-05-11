@@ -103,7 +103,7 @@
     <ClInclude Include="mapTool.h" />
     <ClInclude Include="npc.h" />
     <ClInclude Include="objects.h" />
-    <ClInclude Include="player.h" />
+    <ClInclude Include="prinny.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="sceneManager.h" />
@@ -142,7 +142,7 @@
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="npc.cpp" />
     <ClCompile Include="objects.cpp" />
-    <ClCompile Include="player.cpp" />
+    <ClCompile Include="prinny.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="selectStage.cpp" />

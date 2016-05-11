@@ -13,42 +13,24 @@ town::~town()
 
 HRESULT town::init()
 {
-	_inventory = new inventory;
-	_inventory->init();
+	_prinny = new prinny;
+	_prinny->init();
+
 
 	return S_OK;
 }
 
 void town::release()
 {
-	SAFE_DELETE(_inventory);
+	SAFE_DELETE(_prinny);
 }
 
 void town::update()
 {
-	keyControl();
+	_prinny->update();
 }
 
 void town::render()
 {
-	_inventory->render();
-}
-
-void town::keyControl()
-{
-	if (KEYMANAGER->isOnceKeyDown('I'))
-	{
-		_inventory->showInventory();
-		_invenExit = _inventory->getExit();
-	}
-
-	if (PtInRect(&_invenExit, _ptMouse))
-	{
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-		{
-			_inventory->closeInventory();
-			_invenExit = RectMake(0, 0, 0, 0);
-		}
-	}
-	
+	_prinny->render();
 }
