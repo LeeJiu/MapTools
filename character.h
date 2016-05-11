@@ -6,7 +6,7 @@ class character : public gameObject
 protected:
 	image* _character;
 	RECT _rc;
-	char _name[128];
+	char* _name;
 	int _level, _counter, _mv, _jm;
 	int _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp, _next;	//캐릭터 능력치
 

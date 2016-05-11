@@ -20,6 +20,8 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("aStar", new aStar);
 	SCENEMANAGER->addScene("store", new store);
 
+	SCENEMANAGER->addScene("town", new town);
+
 	SCENEMANAGER->changeScene("store");
 
 	return S_OK;

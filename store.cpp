@@ -151,7 +151,7 @@ void store::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			SCENEMANAGER->changeScene("title");		//현재 마을이 없어서 타이틀로
+			SCENEMANAGER->changeScene("town");		//현재 마을이 없어서 타이틀로
 		}
 	}
 }

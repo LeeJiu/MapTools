@@ -6,6 +6,8 @@
 #include "aStar.h"
 #include "store.h"
 
+#include "town.h"
+
 class gameStudy : public gameNode
 {
 private:
