@@ -47,7 +47,7 @@ void database::loadDatabase(string name)
 			elements* em = new elements;
 			str = vTemp[i + 1];
 			_mTotalElement.insert(pair<string, elements*>(vTemp[i + 1], em));
-			if (i != 0) count + 6;
+			if (i != 0) count += 6;
 
 			continue;
 		}

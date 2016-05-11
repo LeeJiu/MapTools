@@ -1,12 +1,14 @@
 #pragma once
 
 #include "gameNode.h"
-#include "selectMap.h"
+#include "selectStage.h"
+#include "battleScene.h"
+#include "town.h"
 
 class gameStudy : public gameNode
 {
 private:
-	selectMap* _selectMap;
+
 
 public:
 	gameStudy();

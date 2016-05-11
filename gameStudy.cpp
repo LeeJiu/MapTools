@@ -15,8 +15,10 @@ HRESULT gameStudy::init()
 {
 	gameNode::init(true);
 	
-	SCENEMANAGER->addScene("selectMap", new selectMap);
-	SCENEMANAGER->changeScene("selectMap");
+	SCENEMANAGER->addScene("town", new town);
+	SCENEMANAGER->addScene("selectStage", new selectStage);
+	SCENEMANAGER->addScene("battleScene", new battleScene);
+	SCENEMANAGER->changeScene("selectStage");
 
 	return S_OK;
 }

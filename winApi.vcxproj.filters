@@ -204,8 +204,8 @@
     <ClInclude Include="battleScene.h">
       <Filter>gameStudy\Battle</Filter>
     </ClInclude>
-    <ClInclude Include="selectMap.h">
-      <Filter>gameStudy\Battle</Filter>
+    <ClInclude Include="characterDatabase.h">
+      <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -314,8 +314,8 @@
     <ClCompile Include="battleScene.cpp">
       <Filter>gameStudy\Battle</Filter>
     </ClCompile>
-    <ClCompile Include="selectMap.cpp">
-      <Filter>gameStudy\Battle</Filter>
+    <ClCompile Include="characterDatabase.cpp">
+      <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
