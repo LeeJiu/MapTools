@@ -63,7 +63,7 @@ HRESULT mapTool::init()
 	obj.state = S_NOMAL;
 	obj.width = WIDTH;
 	obj.height = obj.image->getHeight();
-	obj.rc = RectMake(10, 190, obj.width, obj.height);
+	obj.rc = RectMake(10, 180, obj.width, obj.height);
 	obj.number = 0;
 	obj.draw = true;
 	_vIsoObj.push_back(obj);
@@ -75,7 +75,7 @@ HRESULT mapTool::init()
 	obj.state = S_NOMAL;
 	obj.width = WIDTH;
 	obj.height = obj.image->getHeight();
-	obj.rc = RectMake(10, 190 + obj.height, obj.width, obj.height);
+	obj.rc = RectMake(10, 180 + obj.height, obj.width, obj.height);
 	obj.number = 1;
 	obj.draw = true;
 
@@ -88,7 +88,7 @@ HRESULT mapTool::init()
 	obj.state = S_NOMAL;
 	obj.width = WIDTH;
 	obj.height = obj.image->getHeight();
-	obj.rc = RectMake(5, WINSIZEY - 150, obj.width, obj.height);
+	obj.rc = RectMake(5, WINSIZEY - 160, obj.width, obj.height);
 	obj.number = 2;
 	obj.draw = true;
 
@@ -101,8 +101,21 @@ HRESULT mapTool::init()
 	obj.state = S_NOMAL;
 	obj.width = WIDTH;
 	obj.height = obj.image->getHeight();
-	obj.rc = RectMake(150, WINSIZEY - 230, obj.width, obj.height);
+	obj.rc = RectMake(150, WINSIZEY - 240, obj.width, obj.height);
 	obj.number = 3;
+	obj.draw = true;
+
+	_vIsoObj.push_back(obj);
+
+	//Á¨Æ÷ÀÎÆ®
+	ZeroMemory(&obj, sizeof(TagObject));
+	obj.image = new image;
+	obj.image->init("image/object_zen.bmp", 1536, 62, 8, 1, true, 0xff00ff);
+	obj.state = S_ZEN;
+	obj.width = WIDTH;
+	obj.height = obj.image->getHeight();
+	obj.rc = RectMake(150, WINSIZEY - 50, obj.width, obj.height);
+	obj.number = 4;
 	obj.draw = true;
 
 	_vIsoObj.push_back(obj);
@@ -496,6 +509,12 @@ void mapTool::keyControl()
 									obj.image->init("image/object_tree.bmp", 192, 200, true, 0xff00ff);
 									obj.state = S_NOMAL;
 									break;
+								case 4:
+									obj.image->init("image/object_zen.bmp", 1536, 62, 8, 1, true, 0xff00ff);
+									obj.image->setFrameX(0);
+									obj.image->setFrameX(0);
+									obj.state = S_ZEN;
+									break;
 								default:
 									break;
 								}
@@ -507,7 +526,8 @@ void mapTool::keyControl()
 
 								_vObj.push_back(obj);
 								_vRender.push_back(obj);
-								_vTile[i].state = S_ONOBJ;
+								if (obj.state == S_ZEN) _vTile[i].state = ZEN_POINT;
+								else _vTile[i].state = S_ONOBJ;
 							}
 						}
 
@@ -845,6 +865,12 @@ void mapTool::loadMapData()
 		case 3:
 			obj.image->init("image/object_tree.bmp", 192, 200, true, 0xff00ff);
 			obj.state = S_NOMAL;
+			break;
+		case 4:
+			obj.image->init("image/object_zen.bmp", 1536, 62, 8, 1, true, 0xff00ff);
+			obj.image->setFrameX(0);
+			obj.image->setFrameX(0);
+			obj.state = S_ZEN;
 			break;
 		default:
 			break;
