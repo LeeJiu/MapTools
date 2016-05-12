@@ -95,4 +95,6 @@ void battleScene::render()
 
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
+
+
 }
