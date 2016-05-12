@@ -57,6 +57,9 @@ void database::loadDatabase(string name)
 		//읽어올 데이터들
 		if (i == count + 1) mIter->second->number = atoi(vTemp[i].c_str());
 		else if (i == count + 2) mIter->second->state = atoi(vTemp[i].c_str());
+		else if (i == count + 3) mIter->second->x = atoi(vTemp[i].c_str());
+		else if (i == count + 4) mIter->second->y = atoi(vTemp[i].c_str());
+		else if (i == count + 5) mIter->second->imageNum = atoi(vTemp[i].c_str());
 	}
 
 	vTemp.clear();
@@ -74,16 +77,16 @@ void database::setElementDataState(string str, int state)
 	mIter->second->state = state;
 }
 
-void database::setElementDataDrawX(string str, int drawX)
+void database::setElementDataX(string str, int x)
 {
 	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->drawX = drawX;
+	mIter->second->x = x;
 }
 
-void database::setElementDataDrawY(string str, int drawY)
+void database::setElementDataY(string str, int y)
 {
 	iterElement mIter = _mTotalElement.find(str);
-	mIter->second->drawY = drawY;
+	mIter->second->y = y;
 }
 
 void database::setElementDataImageNum(string str, int imageNum)

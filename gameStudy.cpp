@@ -14,18 +14,30 @@ gameStudy::~gameStudy()
 HRESULT gameStudy::init()
 {
 	gameNode::init(true);
+<<<<<<< HEAD
 	
 	SCENEMANAGER->addScene("town", new town);
 	SCENEMANAGER->addScene("selectStage", new selectStage);
 	SCENEMANAGER->addScene("battleScene", new battleScene);
 	SCENEMANAGER->changeScene("battleScene");
+=======
+
+	SCENEMANAGER->addScene("title", new title);
+	SCENEMANAGER->addScene("mapTool", new mapTool);
+	SCENEMANAGER->addScene("aStar", new aStar);
+
+	SCENEMANAGER->changeScene("title");
+>>>>>>> refs/remotes/origin/development
 
 	return S_OK;
 }
 
 void gameStudy::release()
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/development
 	SCENEMANAGER->release();
 
 	gameNode::release();
