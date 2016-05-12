@@ -85,9 +85,6 @@
     <Filter Include="gameStudy\gameObject\objects">
       <UniqueIdentifier>{4988893b-edc8-4c26-849d-1c0bd15674b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gameStudy\A%2a">
-      <UniqueIdentifier>{54bcce94-8a49-4935-9bc8-bd0d129c0d9a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -205,15 +202,21 @@
       <Filter>gameStudy\gameObject\objects</Filter>
     </ClInclude>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/backup-Jaejun
     <ClInclude Include="battleScene.h">
       <Filter>gameStudy\Battle</Filter>
     </ClInclude>
     <ClInclude Include="battleUI.h">
       <Filter>gameStudy\Battle</Filter>
+<<<<<<< HEAD
 =======
     <ClInclude Include="aStar.h">
       <Filter>gameStudy\A%2a</Filter>
 >>>>>>> refs/remotes/origin/development
+=======
+>>>>>>> refs/remotes/origin/backup-Jaejun
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -320,15 +323,21 @@
       <Filter>gameStudy\gameObject\objects</Filter>
     </ClCompile>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/backup-Jaejun
     <ClCompile Include="battleScene.cpp">
       <Filter>gameStudy\Battle</Filter>
     </ClCompile>
     <ClCompile Include="battleUI.cpp">
       <Filter>gameStudy\Battle</Filter>
+<<<<<<< HEAD
 =======
     <ClCompile Include="aStar.cpp">
       <Filter>gameStudy\A%2a</Filter>
 >>>>>>> refs/remotes/origin/development
+=======
+>>>>>>> refs/remotes/origin/backup-Jaejun
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
