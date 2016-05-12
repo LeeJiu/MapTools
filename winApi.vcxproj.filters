@@ -201,22 +201,11 @@
     <ClInclude Include="objects.h">
       <Filter>gameStudy\gameObject\objects</Filter>
     </ClInclude>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/backup-Jaejun
     <ClInclude Include="battleScene.h">
       <Filter>gameStudy\Battle</Filter>
     </ClInclude>
     <ClInclude Include="battleUI.h">
       <Filter>gameStudy\Battle</Filter>
-<<<<<<< HEAD
-=======
-    <ClInclude Include="aStar.h">
-      <Filter>gameStudy\A%2a</Filter>
->>>>>>> refs/remotes/origin/development
-=======
->>>>>>> refs/remotes/origin/backup-Jaejun
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -322,22 +311,11 @@
     <ClCompile Include="objects.cpp">
       <Filter>gameStudy\gameObject\objects</Filter>
     </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/backup-Jaejun
     <ClCompile Include="battleScene.cpp">
       <Filter>gameStudy\Battle</Filter>
     </ClCompile>
     <ClCompile Include="battleUI.cpp">
       <Filter>gameStudy\Battle</Filter>
-<<<<<<< HEAD
-=======
-    <ClCompile Include="aStar.cpp">
-      <Filter>gameStudy\A%2a</Filter>
->>>>>>> refs/remotes/origin/development
-=======
->>>>>>> refs/remotes/origin/backup-Jaejun
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
