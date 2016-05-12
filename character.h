@@ -18,7 +18,7 @@ enum ARTIFACT_TYPE
 
 class character : public gameObject
 {
-protected:
+public:
 	const char* _fileName;
 	image* _character;
 	RECT _rc;
@@ -40,6 +40,6 @@ public:
 	void update();
 	void render();
 
-	RECT getCharacterRect() { return _rc; }
+
 };
 
