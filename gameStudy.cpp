@@ -14,42 +14,23 @@ gameStudy::~gameStudy()
 HRESULT gameStudy::init()
 {
 	gameNode::init(true);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/backup-Jaejun
 	
 	SCENEMANAGER->addScene("town", new town);
 	SCENEMANAGER->addScene("selectStage", new selectStage);
 	SCENEMANAGER->addScene("battleScene", new battleScene);
 	SCENEMANAGER->changeScene("battleScene");
-<<<<<<< HEAD
-=======
-=======
->>>>>>> refs/remotes/origin/backup-Jaejun
 
 	SCENEMANAGER->addScene("title", new title);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 	SCENEMANAGER->addScene("aStar", new aStar);
 
 	SCENEMANAGER->changeScene("title");
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/development
-=======
->>>>>>> refs/remotes/origin/backup-Jaejun
 
 	return S_OK;
 }
 
 void gameStudy::release()
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/development
-=======
->>>>>>> refs/remotes/origin/backup-Jaejun
 	SCENEMANAGER->release();
 
 	gameNode::release();
