@@ -18,7 +18,7 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("town", new town);
 	SCENEMANAGER->addScene("selectStage", new selectStage);
 	SCENEMANAGER->addScene("battleScene", new battleScene);
-	SCENEMANAGER->changeScene("selectStage");
+	SCENEMANAGER->changeScene("battleScene");
 
 	return S_OK;
 }
