@@ -27,3 +27,19 @@ void gameObject::update()
 void gameObject::render()
 {
 }
+
+void gameObject::keyControl()
+{
+}
+
+void gameObject::move()
+{
+}
+
+void gameObject::setImage()
+{
+}
+
+void gameObject::setFrame()
+{
+}

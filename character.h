@@ -1,6 +1,7 @@
 #pragma once
 #include "gameObject.h"
 
+
 enum WEAPON_TYPE
 {
 	WEAPON_NONE, WEAPON_SWORD, WEAPON_WAND, WEAPON_STAFT, WEAPON_BOW
@@ -20,10 +21,9 @@ enum CHARACTER_DIRECTION
 class character : public gameObject
 {
 protected:
-	const char* _fileName;
-	image* _character;
+	/*image* _character;
 	RECT _rc;
-	int _x, _y;
+	int _x, _y;*/
 	char* _name;				//캐릭터 이름
 	int _level, _counter, _mv, _jm;									//캐릭터 능력치 1
 	int _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp, _next;  //캐릭터 능력치 2
@@ -50,5 +50,7 @@ public:
 	virtual void move();
 	virtual void setImage();
 	virtual void setFrame();
+
+	virtual RECT getRect() { return _rc; }
 };
 
