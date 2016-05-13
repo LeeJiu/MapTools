@@ -207,6 +207,15 @@
     <ClInclude Include="battleUI.h">
       <Filter>gameStudy\Battle</Filter>
     </ClInclude>
+    <ClInclude Include="battleMapLoad.h">
+      <Filter>gameStudy\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="aStar.h">
+      <Filter>gameStudy\Battle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -317,8 +326,19 @@
     <ClCompile Include="battleUI.cpp">
       <Filter>gameStudy\Battle</Filter>
     </ClCompile>
+    <ClCompile Include="battleMapLoad.cpp">
+      <Filter>gameStudy\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="aStar.cpp">
+      <Filter>gameStudy\Battle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="winApi.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -6,7 +6,6 @@
 #include "town.h"
 #include "mapTool.h"
 #include "title.h"
-#include "aStar.h"
 
 class gameStudy : public gameNode
 {

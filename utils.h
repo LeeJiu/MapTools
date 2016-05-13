@@ -28,7 +28,12 @@
 
 enum TILESTATE
 {
-	S_NONE, S_ONOBJ, S_ONENM, S_WORKABLE
+	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT
+};
+
+enum OBJSTATE
+{
+	S_NOMAL, S_ZEN, E_NORMAL, E_BOSS
 };
 
 struct TagTile
@@ -59,8 +64,24 @@ struct TagObject
 	int imageNum;			//이미지 가져오기
 	int number;				// 타일의 고유 넘버값 
 	bool draw;
+	OBJSTATE state;
 };
 
+struct OBJ_Y_RENDER
+{
+	bool operator()(const TagObject& obj1, const TagObject& obj2)
+	{
+		return obj1.rc.bottom < obj2.rc.bottom;
+	}
+};
+
+struct OBJ_NUM
+{
+	bool operator()(const TagObject& obj1, const TagObject& obj2)
+	{
+		return obj1.number < obj2.number;
+	}
+};
 
 namespace MY_UTIL
 {
@@ -70,3 +91,5 @@ namespace MY_UTIL
 	//각도 구하는 함수
 	float getAngle(float startX, float startY, float endX, float endY);
 }
+
+

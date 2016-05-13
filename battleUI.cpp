@@ -90,12 +90,12 @@ HRESULT battleUI::init()
 	_rcUnitOrderListBottom = RectMake(WINSIZEX - 300, _rcUnitOrderListBody[_unitOrderListSize - 1].bottom, _imageUnitOrderListBottom->getWidth(), _imageUnitOrderListBottom->getHeight());
 
 
-	_isOnStatus = true;				//
-	_isOnCharacterList = true;		//
-	_isOnSkillTitle = false;		//
-	_isOnBottomStatus = false;		//
-	_isOnOrderList = false;			//
-	_isOnUnitOrderList = false;		//
+	_isOnStatus = true;				//캐릭터 상태 창
+	_isOnCharacterList = true;		//캐릭터 리스트 창
+	_isOnSkillTitle = false;		//스킬 타이틀
+	_isOnBottomStatus = false;		//캐릭터 상태 창(바닥)
+	_isOnOrderList = false;			//일반 명령창
+	_isOnUnitOrderList = false;		//유닛 명령창
 	
 
 	return S_OK;
@@ -129,6 +129,7 @@ void battleUI::update()
 			}
 		}
 
+		//유닛의 명령창을 선택했는지 체크하자
 		for (int i = 0; i < _unitOrderListSize; i++)
 		{
 			if (PtInRect(&_rcUnitOrderListBody[i], _ptMouse))
@@ -242,6 +243,8 @@ void battleUI::orderListClick(int orderNumber)
 	case 7:
 
 		break;
+	default:
+		break;
 	}
 }
 
@@ -249,6 +252,27 @@ void battleUI::unitOrderListClick(int unitOrderNumber)
 {
 	switch (unitOrderNumber)
 	{
+	case 1:
+
+		break;
+	case 2:
+
+		break;
+	case 3:
+
+		break;
+	case 4:
+
+		break;
+	case 5:
+
+		break;
+	case 6:
+
+		break;
+	case 7:
+
+		break;
 	default:
 		break;
 	}

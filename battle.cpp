@@ -13,7 +13,9 @@ battle::~battle()
 
 HRESULT battle::init()
 {
-	return E_NOTIMPL;
+
+
+	return S_OK;
 }
 
 void battle::release()
