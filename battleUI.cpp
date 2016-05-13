@@ -200,11 +200,56 @@ void battleUI::render()
 	DeleteObject(font);
 }
 
+//_vOrderList.push_back("공격개시");
+//_vOrderList.push_back("턴 종료");
+//_vOrderList.push_back("보너스 표");
+//_vOrderList.push_back("캐릭터 명단");
+//_vOrderList.push_back("전투지식");
+//_vOrderList.push_back("포기");
+//_vOrderList.push_back("설정");
+//
+//_vUnitOrderList.push_back("이동");
+//_vUnitOrderList.push_back("공격");
+//_vUnitOrderList.push_back("특수기술");
+//_vUnitOrderList.push_back("? ? ? ?");
+//_vUnitOrderList.push_back("방어");
+//_vUnitOrderList.push_back("아이템");
+//_vUnitOrderList.push_back("장비");
+//_vUnitOrderList.push_back("스테이터스");
+
 void battleUI::orderListClick(int orderNumber)
 {
+	switch (orderNumber)
+	{
+	case 1:
 
+		break;
+	case 2:
+		
+		break;
+	case 3:
+
+		break;
+	case 4:
+
+		break;
+	case 5:
+
+		break;
+	case 6:
+
+		break;
+	case 7:
+
+		break;
+	}
 }
 
-void battleUI::unitOrderListClick(int orderNumber)
+void battleUI::unitOrderListClick(int unitOrderNumber)
 {
+	switch (unitOrderNumber)
+	{
+	default:
+		break;
+	}
 }

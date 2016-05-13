@@ -24,7 +24,7 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 	SCENEMANAGER->addScene("aStar", new aStar);
 
-	SCENEMANAGER->changeScene("title");
+	SCENEMANAGER->changeScene("battleScene");
 
 	return S_OK;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "character.h"
+#include "button.h"
 
 class battleUI : public gameNode
 {
@@ -40,6 +41,8 @@ private:
 
 	vector<character*> _vCharacter;
 
+
+
 	int _unitOrderListSize;
 	int _characterSize;
 	int _orderListSize;
@@ -61,6 +64,6 @@ public:
 	void render();
 
 	void orderListClick(int orderNumber);
-	void unitOrderListClick(int orderNumber);
+	void unitOrderListClick(int unitOrderNumber);
 };
 
