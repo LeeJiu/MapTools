@@ -7,9 +7,15 @@ class town : public gameNode
 private:
 	image* _town;		//마을 맵 이미지 (통짜 맵)
 	image* _townPixel;
+	image* _battlePortal;
+	image* _storePortal;
+	image* _etcPortal;
+
+	RECT _rcStore, _rcBattle;
 
 	int _proveX, _proveY;
 	int _sourX, _sourY;
+	int _count;
 	
 	gameObject* _prinny;
 
@@ -25,5 +31,7 @@ public:
 	/*			함수 추가			*/
 	void keyControl();
 	void pixelCollision(RECT rc);
+	void enterEntrance();
+	void setFrame();
 };
 

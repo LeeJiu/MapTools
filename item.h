@@ -1,22 +1,6 @@
 #pragma once
 #include "gameNode.h"
 
-struct tagItem
-{
-	image* image;
-	RECT rc;
-	char* name;
-	char* info;
-	int atk;
-	int intel;
-	int def;
-	int spd;
-	int hit;
-	int res;
-	int buyPrice;	//플레이어가 살 때 가격
-	int sellPrice;	//플레이어가 팔 때 가격
-};
-
 
 class item : public gameNode
 {

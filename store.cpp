@@ -16,12 +16,6 @@ HRESULT store::init()
 	//스토어 배경 이미지 추가
 	IMAGEMANAGER->addImage("store_background", "image/background/store_background.bmp", WINSIZEX, WINSIZEY, false, false);
 
-	//아이템 이미지 추가
-	IMAGEMANAGER->addImage("sword", "image/item/sword.bmp", 256, 256, true, 0xff00ff);
-	IMAGEMANAGER->addImage("staff", "image/item/staff.bmp", 256, 256, true, 0xff00ff);
-	IMAGEMANAGER->addImage("wand", "image/item/wand.bmp", 256, 256, true, 0xff00ff);
-	IMAGEMANAGER->addImage("bow", "image/item/bow.bmp", 256, 256, true, 0xff00ff);
-
 	//판매할 아이템을 세팅
 	_item.setItem("sword", "sword", "검이다.", 100, 0, 0, 0, 0, 0, 100, 10);
 	_item.setItem("staff", "staff", "스태프다.", 0, 100, 0, 0, 0, 0, 150, 15);
@@ -68,7 +62,9 @@ HRESULT store::init()
 		_item.getVItem()[i].rc = RectMake(_rcItemList.left + 20, (_rcItemList.top + 20) + (i * 50) , 200, 50);
 	}
 
-	char temp[128];
+	//플레이어를 정보를 받아온다.
+	_prinny = new prinny;
+	_prinny->init();
 
 	_itemImage = IMAGEMANAGER->findImage("sword");
 	_name = _item.getVItem().begin()->name;
@@ -80,16 +76,20 @@ HRESULT store::init()
 	_hit = std::to_string(_item.getVItem().begin()->hit);
 	_res = std::to_string(_item.getVItem().begin()->res);
 	_price = std::to_string(_item.getVItem().begin()->buyPrice);
+	_hell = std::to_string(_prinny->getHell());
 
 	return S_OK;
 }
 
 void store::release()
 {
+	_item.getVItem().clear();
 }
 
 void store::update()
 {
+	_prinny->update();
+
 	keyControl();
 }
 
@@ -129,9 +129,24 @@ void store::render()
 	DrawText(getMemDC(), _hit.c_str(), -1, &_rcHit, DT_LEFT | DT_VCENTER);
 	DrawText(getMemDC(), _res.c_str(), -1, &_rcRes, DT_LEFT | DT_VCENTER);
 	DrawText(getMemDC(), _price.c_str(), -1, &_rcPrice, DT_LEFT | DT_VCENTER);
+	DrawText(getMemDC(), _hell.c_str(), -1,
+		&RectMake(_rcHell.left + 20, _rcHell.top + 10, 220, 50), DT_RIGHT | DT_VCENTER);
 
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
+
+	_prinny->render();
+}
+
+void store::buyItem(tagItem item)
+{
+	int remainHell = atoi(_hell.c_str()) - atoi(_price.c_str());
+	if (remainHell >= 0)
+	{
+		_prinny->setHell(remainHell);
+		_prinny->setItem(item);
+		_hell = std::to_string(remainHell);
+	}
 }
 
 void store::keyControl()
@@ -144,7 +159,16 @@ void store::keyControl()
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
 				showItemInfoAll(i);
+				_buyItemIdx = i;
+				break;
 			}
+		}
+	}
+	if (PtInRect(&_rcBuy, _ptMouse))
+	{
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		{
+			buyItem(_item.getVItem()[_buyItemIdx]);
 		}
 	}
 	if (PtInRect(&_rcExit, _ptMouse))

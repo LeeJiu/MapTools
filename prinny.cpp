@@ -27,6 +27,7 @@ HRESULT prinny::init()
 	/*			character status setting			*/
 	//character 정보를 load 해오기
 
+	_hell = 1000;
 
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
@@ -47,6 +48,7 @@ void prinny::release()
 
 void prinny::update()
 {
+	_inventory->update();
 	keyControl();
 	setImage();
 }
@@ -54,6 +56,8 @@ void prinny::update()
 void prinny::render()
 {
 	_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+
+	//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 
 	_inventory->render();
 }
@@ -136,6 +140,10 @@ void prinny::keyControl()
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
 		_inventory->showInventory();
+		_inventory->setName(_name);
+		_inventory->setHell(_hell);
+		_inventory->setClassStates(_level, _counter, _mv, _jm);
+		_inventory->setCharacterStates(_hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp, _next);
 		_invenExit = _inventory->getExit();
 	}
 
@@ -217,4 +225,9 @@ void prinny::setFrame()
 		}
 		_character->setFrameX(_curFrameX);
 	}
+}
+
+void prinny::setItem(tagItem item)
+{
+	_inventory->setItem(item);
 }
