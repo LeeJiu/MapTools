@@ -46,4 +46,3 @@ public:
 	void setElementDataY(string str, int y);
 	void setElementDataImageNum(string str, int imageNum);
 };
-
