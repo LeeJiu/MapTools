@@ -4,38 +4,21 @@
 
 #include "gameNode.h"
 #include <vector>
+#include <algorithm>
 #include "button.h"
 
-#define TILENUM 20
-#define WIDTH 128
+
+struct OBJ_Y_RENDER
+{
+	bool operator()(const TagObject& obj1, const TagObject& obj2)
+	{
+		return obj1.rc.bottom < obj2.rc.bottom;
+	}
+};
 
 static int selectedNum = 0;
 static image* selectedImage = NULL;
-
-enum TILESTATE
-{
-	S_NONE, S_ICE, S_FIRE
-};
-
-enum MAPNAME
-{
-	M_NONE, M_CAMP, M_FLOOPY, M_ICE
-};
-
-struct TagTile
-{
-	image* image;			// 타일의 이미지
-	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
-	POINT pivot;			// 타일 렉트의 중심점
-	TILESTATE state;		// 타일의 상태
-	MAPNAME mapName;		// 타일맵이름 (이건 변경해도 됨. 크아기준으로 만들었던거라 ice맵 캠프맵 이런식으로 있어서 나눠줬던것)
-	int x, y;				// 타일의인덱스 x, y
-	int width;				// 타일의 폭
-	int height;				// 타일의 높이
-	int imageNum;			//이미지 가져오기
-	int number;				// 타일의 고유 넘버값 
-	bool draw;				// 타일 그려진 유무 ( 이 타일위에 이미지가 그려져있는지 확인 유무)
-};								   
+static bool _isTile = true;
 
 class mapTool : public gameNode
 {
@@ -43,11 +26,21 @@ private:
 	vector<TagTile> _vTile;
 	vector<TagTile>::iterator _viTile;
 
+	vector<TagObject> _vObj;
+	vector<TagObject>::iterator _viObj;
+
+
 	vector<TagTile> _vIsoTile;
 	vector<TagTile>::iterator _viIsoTile;
 
-	button* _button;
+	vector<TagObject> _vIsoObj;
+	vector<TagObject>::iterator _viIsoObj;
 
+
+	button* _TileButton;
+	button* _ObjectButton;
+	button* _ExitButton;
+	
 	bool _rectOn;
 
 	int tileNum;
@@ -66,12 +59,6 @@ private:
 	RECT rcSelectTile;
 	RECT rcButton;
 
-	/*
-				Scrool Bar
-		위치 추가만 하고 아직 마우스랑 연동 안시킴 화팅!
-	*/
-	HWND _hScrollVer;
-	HWND _hScrollHri;
 
 public:
 	mapTool();
@@ -93,7 +80,8 @@ public:
 
 
 	
-	static void nextTile();
-
+	static void onTile();
+	static void onObject();
+	static void goToMenu();
 };
 

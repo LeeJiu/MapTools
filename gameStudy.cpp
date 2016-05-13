@@ -19,13 +19,21 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("selectStage", new selectStage);
 	SCENEMANAGER->addScene("battleScene", new battleScene);
 	SCENEMANAGER->changeScene("battleScene");
+<<<<<<< HEAD
+=======
+
+	SCENEMANAGER->addScene("title", new title);
+	SCENEMANAGER->addScene("mapTool", new mapTool);
+	SCENEMANAGER->addScene("aStar", new aStar);
+
+	SCENEMANAGER->changeScene("title");
+>>>>>>> origin/Jaejun
 
 	return S_OK;
 }
 
 void gameStudy::release()
 {
-
 	SCENEMANAGER->release();
 
 	gameNode::release();
