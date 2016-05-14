@@ -49,6 +49,15 @@ void title::update()
 	clickMenu();
 
 	if (_showMenu) showArrow();
+
+	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
+	{
+		_alpha = 255;
+		_showAlpha = false;
+		_show = true;
+		_y = 0;
+		_showMenu = true;
+	}
 }
 
 void title::render()
@@ -152,7 +161,7 @@ void title::clickMenu()
 	{
 		if (_startButton)
 		{
-			SCENEMANAGER->changeScene("town");
+			SCENEMANAGER->changeScene("aStar");
 		}
 		else if (_maptoolButton)
 		{

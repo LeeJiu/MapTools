@@ -22,21 +22,19 @@ class aStar : public gameNode
 public:
 	aStar();
 	~aStar();
-	
-	HRESULT init();
+
+	HRESULT init(vector<TagTile*> tile);
 	void release();
 	void update();
 	void render();
 
+	/*           추가 함수          */
 	void checkTile();
 	void reset();
-
 	void eraseVector(int x, int y);
+	void resultRoute(int x, int y);
 
 	vector<TagTile*> moveCharacter(int startX, int startY, int endX, int endY);
 
-	void resultRoute(int x, int y);
-
 	static bool cmp(TagTile* start, TagTile* end) { return start->f < end->f; }
 };
-
