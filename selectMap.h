@@ -1,6 +1,6 @@
 #pragma once
 #include "gameNode.h"
-class selectStage : public gameNode
+class selectMap : public gameNode
 {
 private:
 	image* _imageListTop;
@@ -28,17 +28,17 @@ private:
 
 	vector<char*> _vMapList;
 	vector<RECT> _vRcMapListStr;
-
+	
 	image* _imageShortcutStart;
 	image* _imageShortcutSkip;
 	image* _imageShortcutExit;
-
+	
 	int _mapListSize;
 	int _selectMapNumber;
 
 public:
-	selectStage();
-	~selectStage();
+	selectMap();
+	~selectMap();
 
 	HRESULT init();
 	void release();
@@ -49,3 +49,4 @@ public:
 
 	void setMapListSize(int mapListSize) { _mapListSize = mapListSize; }
 };
+

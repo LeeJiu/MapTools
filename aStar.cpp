@@ -11,30 +11,11 @@ aStar::~aStar()
 {
 }
 
-HRESULT aStar::init()
+HRESULT aStar::init(vector<TagTile*> tile)
 {
-	POINT firstPivot = { CENTERX, WIDTH / 4 };
-
-	int count = 0;
-	// 맵에 따른 정보와 오브젝트 받아오자
-	for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
+	for (int i = 0; i < 100; i++)
 	{
-		for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 )
-		{
-			_tile[j][i].width = WIDTH;
-			_tile[j][i].height = WIDTH / 2;
-			_tile[j][i].rc = RectMakeCenter(firstPivot.x + j * _tile[j][i].width / 2 - i * _tile[j][i].width / 2,
-											firstPivot.y + j * _tile[j][i].width / 4 + i * _tile[j][i].width / 4, _tile[j][i].width, _tile[j][i].height);
-			_tile[j][i].pivot.x = (_tile[j][i].rc.left + _tile[j][i].rc.right) / 2;
-			_tile[j][i].pivot.y = (_tile[j][i].rc.top + _tile[j][i].rc.bottom) / 2;
-			_tile[j][i].x = j;
-			_tile[j][i].y = i;
-			_tile[j][i].number = count;
-			_tile[j][i].state = S_NONE;
-			_tile[j][i].draw = false;
-
-			count++;
-		}
+		_tile[i % TILENUM][i / TILENUM] = *tile[i];
 	}
 
 	_finish = false;
@@ -52,13 +33,53 @@ void aStar::update()
 
 void aStar::render()
 {
-	for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
+	//SetTextColor(getMemDC(), RGB(255, 0, 0));
+
+	//char str[128];
+
+	//sprintf_s(str, "closeSize : %d", _vCloseList.size());
+	//TextOut(getMemDC(), 10, 10, str, strlen(str));
+	//sprintf_s(str, "openSize : %d", _vOpenList.size());
+	//TextOut(getMemDC(), 10, 30, str, strlen(str));
+	//sprintf_s(str, "routeSize : %d", _vRoute.size());
+	//TextOut(getMemDC(), 10, 50, str, strlen(str));
+	//
+	/*for (int i = 0; i < _vCloseList.size(); i++)
 	{
-		for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 ) 
-		{
-			IsoRender(getMemDC(), _tile[j][i].rc);
-		}
+	IMAGEMANAGER->findImage("tile_blue")->render(getMemDC(), _vCloseList[i]->rc.left, _vCloseList[i]->rc.top);
 	}
+
+	for (int i = 0; i < _vOpenList.size(); i++)
+	{
+	IMAGEMANAGER->findImage("tile_red")->render(getMemDC(), _vOpenList[i]->rc.left, _vOpenList[i]->rc.top);
+	}
+
+	for (int i = 0; i < _vRoute.size(); i++)
+	{
+	IMAGEMANAGER->findImage("tile_green")->render(getMemDC(), _vRoute[i]->rc.left, _vRoute[i]->rc.top);
+	}*/
+
+
+	//for (int i = 0; i < TILENUM; i++)      // 세로 ( 열 )
+	//{
+	//   for (int j = 0; j < TILENUM; j++)   // 가로 ( 행 ) 
+	//   {
+	//      sprintf_s(str, "%d", _tile[j][i].f);
+	//      TextOut(getMemDC(), _tile[j][i].pivotX - 50, _tile[j][i].pivotY - 10, str, strlen(str));
+
+	//      sprintf_s(str, "%d", _tile[j][i].g);
+	//      TextOut(getMemDC(), _tile[j][i].pivotX, _tile[j][i].pivotY - 10, str, strlen(str));
+
+	//      sprintf_s(str, "%d", _tile[j][i].h);
+	//      TextOut(getMemDC(), _tile[j][i].pivotX + 30, _tile[j][i].pivotY - 10, str, strlen(str));
+	//   }
+	//}
+
+	//sprintf_s(str, "startX : %d, startY : %d", _start.x, _start.y);
+	//TextOut(getMemDC(), 900, 10, str, strlen(str));
+
+	//sprintf_s(str, "endX : %d, endY : %d", _end.x, _end.y);
+	//TextOut(getMemDC(), 900, 30, str, strlen(str));
 }
 
 void aStar::checkTile()
@@ -69,7 +90,7 @@ void aStar::checkTile()
 		for (_viRoute = _vRoute.begin(); _viRoute != _vRoute.end(); )
 		{
 			(*_viRoute)->parent = NULL;
-			_viRoute = _vOpenList.erase(_viRoute);
+			_viRoute = _vRoute.erase(_viRoute);
 		}
 		_vOpenList.clear();
 
@@ -91,7 +112,7 @@ void aStar::checkTile()
 
 
 	// 8방향 검사
-	for (int i = _vCloseList[lastCloseTile]->x - 1; i <= _vCloseList[lastCloseTile]->y + 1; i++)
+	for (int i = _vCloseList[lastCloseTile]->x - 1; i <= _vCloseList[lastCloseTile]->x + 1; i++)
 	{
 		// 장애물이 좌우에 있을시 패스하자
 		if (_tile[_vCloseList[lastCloseTile]->x + 1][_vCloseList[lastCloseTile]->y].state == S_ONOBJ && i == _vCloseList[lastCloseTile]->x + 1) continue;
@@ -112,9 +133,13 @@ void aStar::checkTile()
 			// 검사할 타일 허들이면 컨티뉴
 			else if (_tile[i][j].state == S_ONOBJ) continue;
 
-			// 대각선 거리 14
+
+			////////////////////////////////////////////// openList 추가 위치 ///////////////////////////////////////////////////
+
+			// 대각선 거리 17
 			else if (abs(i - _vCloseList[lastCloseTile]->x) == 1 && abs(j - _vCloseList[lastCloseTile]->y) == 1)
 			{
+				//continue;
 				// 임시값을 구해놓고 있는 f값과 비교하자
 				int tempH = abs(_end.x - i) * 10 + abs(_end.y - j) * 10;
 				int tempG = _vCloseList[lastCloseTile]->g + 17;
@@ -162,6 +187,11 @@ void aStar::checkTile()
 	std::sort(_vOpenList.begin(), _vOpenList.end(), cmp);
 
 	// 정렬 후 f가 가장 작은 값을 클로즈리스트에 추가하고 오픈리스트에는 지워주자
+	if (_vOpenList.size() <= 0)
+	{
+		_finish = true;
+		return;
+	}
 	_vCloseList.push_back(_vOpenList[0]);
 	_vOpenList.erase(_vOpenList.begin());
 }
@@ -177,8 +207,8 @@ vector<TagTile*> aStar::moveCharacter(int startX, int startY, int endX, int endY
 	}
 
 	_finish = false;
-	reset();
 	resultRoute(endX, endY);
+	reset();
 
 	return _vRoute;
 }
@@ -193,7 +223,8 @@ void aStar::resultRoute(int x, int y)
 	_viRoute = _vRoute.begin();
 	_vRoute.insert(_viRoute, &_tile[x][y]);
 
-	resultRoute(_tile[x][y].parent->x, _tile[x][y].parent->y);
+	if (_tile[x][y].parent == NULL) return;
+	else resultRoute(_tile[x][y].parent->x, _tile[x][y].parent->y);
 }
 
 
@@ -215,6 +246,16 @@ void aStar::reset()
 		_viOpenList = _vOpenList.erase(_viOpenList);
 	}
 	_vOpenList.clear();
+
+	for (int j = 0; j < TILENUM; j++)      // 세로 ( 열 )
+	{
+		for (int i = 0; i < TILENUM; i++)   // 가로 ( 행 )
+		{
+			_tile[i][j].f = 9999;
+			_tile[i][j].g = 0;
+			_tile[i][j].h = 0;
+		}
+	}
 }
 
 void aStar::eraseVector(int x, int y)
