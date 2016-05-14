@@ -37,8 +37,8 @@ HRESULT mapTool::init()
 			tile.width = WIDTH;
 			tile.height = WIDTH / 2;
 			tile.rc = RectMake(10, 190 + tile.image->getFrameHeight() * j, tile.image->getFrameWidth(), tile.image->getFrameHeight());
-			tile.pivot.x = (tile.rc.left + tile.rc.right) / 2;
-			tile.pivot.y = (tile.rc.top + tile.rc.bottom) / 2;
+			tile.pivotX = (tile.rc.left + tile.rc.right) / 2;
+			tile.pivotY = (tile.rc.top + tile.rc.bottom) / 2;
 			tile.number = count; // imageNum으로 불러올수있는 샘플타일 인덱스
 			tile.state = S_NONE;
 			tile.draw = true;
@@ -87,8 +87,8 @@ HRESULT mapTool::init()
 			tile.width = WIDTH;
 			tile.height = WIDTH / 2;
 			tile.rc = RectMakeCenter(firstPivot.x + j * tile.width / 2 - i * tile.width / 2, firstPivot.y + j * tile.width / 4 + i * tile.width / 4, tile.width, tile.height);
-			tile.pivot.x = (tile.rc.left + tile.rc.right) / 2;
-			tile.pivot.y = (tile.rc.top + tile.rc.bottom) / 2;
+			tile.pivotX = (tile.rc.left + tile.rc.right) / 2;
+			tile.pivotY = (tile.rc.top + tile.rc.bottom) / 2;
 			tile.x = j;
 			tile.y = i;
 			tile.imageNum = 100;	//이미지 넘버.
@@ -284,10 +284,10 @@ void mapTool::keyControl()
 	{
 		if (PtInRect(&_vTile[i].rc, _ptMouse))
 		{
-			if ((_ptMouse.y - _vTile[i].pivot.y) >= -0.5 * (_ptMouse.x - _vTile[i].pivot.x) - WIDTH / 4 &&
-				(_ptMouse.y - _vTile[i].pivot.y) >= 0.5 * (_ptMouse.x - _vTile[i].pivot.x) - WIDTH / 4 &&
-				(_ptMouse.y - _vTile[i].pivot.y) <= -0.5 * (_ptMouse.x - _vTile[i].pivot.x) + WIDTH / 4 &&
-				(_ptMouse.y - _vTile[i].pivot.y) <= 0.5 * (_ptMouse.x - _vTile[i].pivot.x) + WIDTH / 4)
+			if ((_ptMouse.y - _vTile[i].pivotY) >= -0.5 * (_ptMouse.x - _vTile[i].pivotX) - WIDTH / 4 &&
+				(_ptMouse.y - _vTile[i].pivotY) >=  0.5 * (_ptMouse.x - _vTile[i].pivotX) - WIDTH / 4 &&
+				(_ptMouse.y - _vTile[i].pivotY) <= -0.5 * (_ptMouse.x - _vTile[i].pivotX) + WIDTH / 4 &&
+				(_ptMouse.y - _vTile[i].pivotY) <=  0.5 * (_ptMouse.x - _vTile[i].pivotX) + WIDTH / 4)
 			{
 				if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 				{
@@ -475,8 +475,8 @@ void mapTool::resetMapData()
 			tile.width = WIDTH;
 			tile.height = WIDTH / 2;
 			tile.rc = RectMakeCenter(firstPivot.x + j * tile.width / 2 - i * tile.width / 2, firstPivot.y + j * tile.width / 4 + i * tile.width / 4, tile.width, tile.height);
-			tile.pivot.x = (tile.rc.left + tile.rc.right) / 2;
-			tile.pivot.y = (tile.rc.top + tile.rc.bottom) / 2;
+			tile.pivotX = (tile.rc.left + tile.rc.right) / 2;
+			tile.pivotY = (tile.rc.top + tile.rc.bottom) / 2;
 			tile.x = j;
 			tile.y = i;
 			tile.imageNum = 100;	//이미지 넘버.

@@ -32,7 +32,11 @@ void character::keyControl()
 {
 }
 
-void character::move()
+void character::battleKeyControl()
+{
+}
+
+void character::move(int endX, int endY)
 {
 }
 

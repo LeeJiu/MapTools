@@ -47,7 +47,8 @@ public:
 
 	/*			함수 추가			*/
 	virtual void keyControl();
-	virtual void move();
+	virtual void battleKeyControl();
+	virtual void move(int endX, int endY);
 	virtual void setImage();
 	virtual void setFrame();
 
