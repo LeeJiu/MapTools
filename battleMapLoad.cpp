@@ -29,8 +29,8 @@ HRESULT battleMapLoad::init()
 			_tile[i][j].width = WIDTH;
 			_tile[i][j].height = WIDTH / 2;
 			_tile[i][j].rc = RectMakeCenter(firstPivot.x + i * _tile[i][j].width / 2 - j * _tile[i][j].width / 2, firstPivot.y + i * _tile[i][j].width / 4 + j * _tile[i][j].width / 4, _tile[i][j].width, _tile[i][j].height);
-			_tile[i][j].pivot.x = (_tile[i][j].rc.left + _tile[i][j].rc.right) / 2;
-			_tile[i][j].pivot.y = (_tile[i][j].rc.top + _tile[i][j].rc.bottom) / 2;
+			_tile[i][j].pivotX = (_tile[i][j].rc.left + _tile[i][j].rc.right) / 2;
+			_tile[i][j].pivotY = (_tile[i][j].rc.top + _tile[i][j].rc.bottom) / 2;
 			_tile[i][j].x = i;
 			_tile[i][j].y = j;
 			_tile[i][j].imageNum = 100;   //이미지 넘버.
@@ -57,8 +57,8 @@ HRESULT battleMapLoad::init()
 			tile.width = WIDTH;
 			tile.height = WIDTH / 2;
 			tile.rc = RectMake(10, 190 + tile.image->getFrameHeight() * j, tile.image->getFrameWidth(), tile.image->getFrameHeight());
-			tile.pivot.x = (tile.rc.left + tile.rc.right) / 2;
-			tile.pivot.y = (tile.rc.top + tile.rc.bottom) / 2;
+			tile.pivotX = (tile.rc.left + tile.rc.right) / 2;
+			tile.pivotY = (tile.rc.top + tile.rc.bottom) / 2;
 			tile.number = count; // imageNum으로 불러올수있는 샘플타일 인덱스
 			tile.state = S_NONE;
 			tile.draw = true;

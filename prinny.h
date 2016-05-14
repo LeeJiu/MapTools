@@ -15,20 +15,21 @@ public:
 	prinny();
 	~prinny();
 
-	HRESULT init();
-	void release();
-	void update();
-	void render();
-
-	/*			함수 추가			*/
-	void keyControl();
-	void move();
-	void setImage();
-	void setFrame();
-
-	void setItem(tagItem item);
-	void setHell(int hell) { _hell = hell; }
-
-	int getHell() { return _hell; }
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	virtual void render();
+	 
+	 /*			함수 추가			*/
+	virtual void keyControl();
+	virtual void battleKeyControl();
+	virtual void move(int endX, int endY);
+	virtual void setImage();
+	virtual void setFrame();
+	 
+	virtual void setItem(tagItem item);
+	virtual void setHell(int hell) { _hell = hell; }
+	 
+	virtual int getHell() { return _hell; }
 };
 

@@ -157,7 +157,11 @@ void prinny::keyControl()
 	}
 }
 
-void prinny::move()
+void prinny::battleKeyControl()
+{
+}
+
+void prinny::move(int endX, int endY)
 {
 }
 

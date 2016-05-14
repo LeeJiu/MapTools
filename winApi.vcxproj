@@ -94,6 +94,8 @@
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="Etna.h" />
+    <ClInclude Include="Flonne.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameObjectManager.h" />
@@ -106,9 +108,11 @@
     <ClInclude Include="mapTool.h" />
     <ClInclude Include="npc.h" />
     <ClInclude Include="objects.h" />
+    <ClInclude Include="orc.h" />
     <ClInclude Include="prinny.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
+    <ClInclude Include="Raspberyl.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="selectStage.h" />
@@ -137,6 +141,8 @@
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="Etna.cpp" />
+    <ClCompile Include="Flonne.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="gameObjectManager.cpp" />
@@ -149,8 +155,10 @@
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="npc.cpp" />
     <ClCompile Include="objects.cpp" />
+    <ClCompile Include="orc.cpp" />
     <ClCompile Include="prinny.cpp" />
     <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="Raspberyl.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="selectStage.cpp" />
     <ClCompile Include="stdafx.cpp">
