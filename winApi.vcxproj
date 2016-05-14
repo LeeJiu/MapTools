@@ -84,7 +84,6 @@
     <ClInclude Include="actionManager.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="aStar.h" />
-    <ClInclude Include="battle.h" />
     <ClInclude Include="battleMapLoad.h" />
     <ClInclude Include="battleScene.h" />
     <ClInclude Include="battleUI.h" />
@@ -106,7 +105,7 @@
     <ClInclude Include="mapTool.h" />
     <ClInclude Include="npc.h" />
     <ClInclude Include="objects.h" />
-    <ClInclude Include="player.h" />
+    <ClInclude Include="prinny.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="resource.h" />
@@ -128,7 +127,6 @@
     <ClCompile Include="actionManager.cpp" />
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="aStar.cpp" />
-    <ClCompile Include="battle.cpp" />
     <ClCompile Include="battleMapLoad.cpp" />
     <ClCompile Include="battleScene.cpp" />
     <ClCompile Include="battleUI.cpp" />
@@ -149,7 +147,7 @@
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="npc.cpp" />
     <ClCompile Include="objects.cpp" />
-    <ClCompile Include="player.cpp" />
+    <ClCompile Include="prinny.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="selectStage.cpp" />

@@ -15,15 +15,21 @@ HRESULT gameStudy::init()
 {
 	gameNode::init(true);
 	
+	//공통으로 사용하는 아이템 이미지 추가
+	IMAGEMANAGER->addImage("sword", "image/item/sword.bmp", 256, 256, true, 0xff00ff);
+	IMAGEMANAGER->addImage("staff", "image/item/staff.bmp", 256, 256, true, 0xff00ff);
+	IMAGEMANAGER->addImage("wand", "image/item/wand.bmp", 256, 256, true, 0xff00ff);
+	IMAGEMANAGER->addImage("bow", "image/item/bow.bmp", 256, 256, true, 0xff00ff);
+
+	//씬 추가
 	SCENEMANAGER->addScene("town", new town);
 	SCENEMANAGER->addScene("selectStage", new selectStage);
 	SCENEMANAGER->addScene("battleScene", new battleScene);
-	SCENEMANAGER->changeScene("battleScene");
-
 	SCENEMANAGER->addScene("title", new title);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
+	SCENEMANAGER->addScene("store", new store);
 
-	SCENEMANAGER->changeScene("battleScene");
+	SCENEMANAGER->changeScene("title");
 
 	return S_OK;
 }

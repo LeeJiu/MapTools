@@ -419,10 +419,10 @@ void mapTool::saveMapData()
 	vector<string> vStr;
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
-		vStr.push_back("|");							//구분자
-		vStr.push_back(itoa(_viTile->number, temp, 10));		//타일 넘버
+		vStr.push_back("|");								//구분자
+		vStr.push_back(itoa(_viTile->number, temp, 10));	//타일 넘버
 		vStr.push_back(itoa(_viTile->state, temp, 10));		//타일 상태
-		vStr.push_back(itoa(_viTile->x, temp, 10));	//불러올때 위치정보를 갖고있을 피벗.
+		vStr.push_back(itoa(_viTile->x, temp, 10));			//불러올때 위치정보를 갖고있을 피벗.
 		vStr.push_back(itoa(_viTile->y, temp, 10));
 		vStr.push_back(itoa(_viTile->imageNum, temp, 10));	//타일 이미지 (_pickNum)
 	}

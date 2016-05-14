@@ -6,10 +6,11 @@
 #include "town.h"
 #include "mapTool.h"
 #include "title.h"
+#include "store.h"
+
 
 class gameStudy : public gameNode
 {
-private:
 public:
 	gameStudy();
 	virtual ~gameStudy();
