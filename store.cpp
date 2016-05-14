@@ -13,6 +13,9 @@ store::~store()
 
 HRESULT store::init()
 {
+<<<<<<< HEAD
+	return E_NOTIMPL;
+=======
 	//스토어 배경 이미지 추가
 	IMAGEMANAGER->addImage("store_background", "image/background/store_background.bmp", WINSIZEX, WINSIZEY, false, false);
 
@@ -79,22 +82,31 @@ HRESULT store::init()
 	_hell = std::to_string(_prinny->getHell());
 
 	return S_OK;
+>>>>>>> refs/remotes/origin/development
 }
 
 void store::release()
 {
+<<<<<<< HEAD
+=======
 	_item.getVItem().clear();
+>>>>>>> refs/remotes/origin/development
 }
 
 void store::update()
 {
+<<<<<<< HEAD
+=======
 	_prinny->update();
 
 	keyControl();
+>>>>>>> refs/remotes/origin/development
 }
 
 void store::render()
 {
+<<<<<<< HEAD
+=======
 	IMAGEMANAGER->findImage("store_background")->render(getMemDC(), 0, 0);
 
 	Rectangle(getMemDC(), _rcExit.left, _rcExit.top, _rcExit.right, _rcExit.bottom);
@@ -193,4 +205,5 @@ void store::showItemInfoAll(int arrNum)
 	_hit = std::to_string(_item.getVItem()[arrNum].hit);
 	_res = std::to_string(_item.getVItem()[arrNum].res);
 	_price = std::to_string(_item.getVItem()[arrNum].buyPrice);
+>>>>>>> refs/remotes/origin/development
 }

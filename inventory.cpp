@@ -13,6 +13,9 @@ inventory::~inventory()
 
 HRESULT inventory::init()
 {
+<<<<<<< HEAD
+	return E_NOTIMPL;
+=======
 	_invenOpen = false;
 
 	//인벤토리 이미지 추가
@@ -26,6 +29,7 @@ HRESULT inventory::init()
 	_itemImage = IMAGEMANAGER->findImage("none");
 
 	return S_OK;
+>>>>>>> refs/remotes/origin/development
 }
 
 void inventory::release()
@@ -35,11 +39,16 @@ void inventory::release()
 
 void inventory::update()
 {
+<<<<<<< HEAD
+=======
 	keyControl();
+>>>>>>> refs/remotes/origin/development
 }
 
 void inventory::render()
 {
+<<<<<<< HEAD
+=======
 	if (_invenOpen)
 	{
 		IMAGEMANAGER->findImage("inven_ch_status")->render(getMemDC(), _rcStatus.left, _rcStatus.top);
@@ -234,4 +243,5 @@ void inventory::setCharacterStates(int hp, int sp, int atk, int intel, int def, 
 	_res = std::to_string(res);
 	_exp = std::to_string(exp);
 	_next = std::to_string(next);
+>>>>>>> refs/remotes/origin/development
 }

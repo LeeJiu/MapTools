@@ -1,6 +1,16 @@
 #pragma once
 #include "gameObject.h"
 
+<<<<<<< HEAD
+class character : public gameObject
+{
+protected:
+	image* _character;
+	RECT _rc;
+	char _name[128];
+	int _level, _counter, _mv, _jm;
+	int _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp, _next;	//캐릭터 능력치
+=======
 
 enum WEAPON_TYPE
 {
@@ -35,6 +45,7 @@ protected:
 	//WEAPON_TYPE _weaponType;	//장착 무기 타입
 	
 	int _curFrameX, _curFrameY, _count;
+>>>>>>> refs/remotes/origin/development
 
 public:
 	character();
@@ -46,6 +57,9 @@ public:
 	void render();
 
 	/*			함수 추가			*/
+<<<<<<< HEAD
+
+=======
 	virtual void keyControl();
 	virtual void battleKeyControl();
 	virtual void move(int endX, int endY);
@@ -60,5 +74,6 @@ public:
 
 	virtual RECT getRect() { return _rc; }
 	virtual int getHell() = 0;
+>>>>>>> refs/remotes/origin/development
 };
 
