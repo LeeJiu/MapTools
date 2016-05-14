@@ -22,6 +22,7 @@ HRESULT battleScene::init()
 	_aStar = new aStar;
 	//_aStar->init(_battleMapLoad->getTileVector());
 
+	
 	return S_OK;
 }
 

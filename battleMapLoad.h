@@ -33,6 +33,6 @@ public:
 	void render();
 
 	void loadMapData();
-	vector<TagTile> getTileVector() { return _vTile; }
+	vector<TagTile> getTileVector() { return _vTile; }	
 };
 
