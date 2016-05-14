@@ -161,7 +161,7 @@ void title::clickMenu()
 	{
 		if (_startButton)
 		{
-			SCENEMANAGER->changeScene("aStar");
+			SCENEMANAGER->changeScene("town");
 		}
 		else if (_maptoolButton)
 		{

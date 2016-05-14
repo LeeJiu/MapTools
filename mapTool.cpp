@@ -190,7 +190,8 @@ void mapTool::render()
 	//각각의 오브젝트 출력
 	for (int i = 0; i < _vObj.size(); i++)
 	{
-		Rectangle(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, _vObj[i].rc.right, _vObj[i].rc.bottom);
+		//Rectangle(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, _vObj[i].rc.right, _vObj[i].rc.bottom);
+		sort(_vObj.begin(), _vObj.end(), OBJ_Y_RENDER());
 
 		if (_vObj[i].draw)
 		{
@@ -231,7 +232,7 @@ void mapTool::render()
 	{
 		for (int i = 0; i < _vIsoObj.size(); i++)
 		{
-			Rectangle(getMemDC(), _vIsoObj[i].rc.left, _vIsoObj[i].rc.top, _vIsoObj[i].rc.right, _vIsoObj[i].rc.bottom);
+			//Rectangle(getMemDC(), _vIsoObj[i].rc.left, _vIsoObj[i].rc.top, _vIsoObj[i].rc.right, _vIsoObj[i].rc.bottom);
 			_vIsoObj[i].image->frameRender(getMemDC(), _vIsoObj[i].rc.left, _vIsoObj[i].rc.top);
 
 			sprintf_s(str, "objNum = %d", _vIsoObj[i].number);
@@ -304,13 +305,23 @@ void mapTool::keyControl()
 							TagObject obj;
 							ZeroMemory(&obj, sizeof(TagObject));
 							obj.image = new image;
-							obj.image->init("image/object_block.bmp", 192, 197, true, 0xff00ff);
-							obj.width = WIDTH;
-							obj.height = obj.image->getHeight();
-							//obj.rc = RectMake(_viTile[i].pivot.x, _viTile[i].rc.bottom - obj.height, obj.width, obj.height);
 							obj.x = _vTile[i].x;
 							obj.y = _vTile[i].y;
 							obj.imageNum = _pickNum;
+							switch (obj.imageNum)
+							{
+							case 0:
+								obj.image->init("image/object_block.bmp", 192, 197, true, 0xff00ff);
+								break;
+							case 1:
+								obj.image->init("image/object_block2.bmp", 192, 192, true, 0xff00ff);
+								break;
+							default:
+								break;
+							}
+							obj.width = WIDTH;
+							obj.height = obj.image->getHeight();
+							obj.rc = RectMake(_vTile[i].rc.left, _vTile[i].rc.bottom - obj.height, obj.width, obj.height);
 							obj.number = _vObj.size() + 1;
 							obj.draw = true;
 
@@ -408,10 +419,10 @@ void mapTool::saveMapData()
 	vector<string> vStr;
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
-		vStr.push_back("|");							//구분자
-		vStr.push_back(itoa(_viTile->number, temp, 10));		//타일 넘버
+		vStr.push_back("|");								//구분자
+		vStr.push_back(itoa(_viTile->number, temp, 10));	//타일 넘버
 		vStr.push_back(itoa(_viTile->state, temp, 10));		//타일 상태
-		vStr.push_back(itoa(_viTile->x, temp, 10));	//불러올때 위치정보를 갖고있을 피벗.
+		vStr.push_back(itoa(_viTile->x, temp, 10));			//불러올때 위치정보를 갖고있을 피벗.
 		vStr.push_back(itoa(_viTile->y, temp, 10));
 		vStr.push_back(itoa(_viTile->imageNum, temp, 10));	//타일 이미지 (_pickNum)
 	}
@@ -502,5 +513,5 @@ void mapTool::onObject()
 
 void mapTool::goToMenu()
 {
-
+	SCENEMANAGER->changeScene("title");
 }

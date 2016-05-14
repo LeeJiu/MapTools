@@ -527,11 +527,11 @@ void image::render(HDC hdc, int destX, int destY, int sourX, int sourY, int sour
 			destX,				//복사될 좌표 시작X
 			destY,				//복사될 좌표 시작Y
 			sourWidth,			//복사될 크기 width
-			sourHeight,			//복사될 크기 height
-			_imageInfo->hMemDC,	//복사할 DC
+			sourHeight,         //복사될 크기 height
+			_imageInfo->hMemDC, //복사할 DC
 			sourX, sourY,		//복사 시작지점 x, y
 			sourWidth,			//복사할 크기 width
-			sourHeight,			//복사할 크기 height
+			sourHeight,         //복사할 크기 height
 			_transColor);		//복사에서 제외할 색상
 	}
 	else

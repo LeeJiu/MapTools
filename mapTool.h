@@ -4,8 +4,8 @@
 
 #include "gameNode.h"
 #include <vector>
+#include <algorithm>
 #include "button.h"
-
 
 static int selectedNum = 0;
 static image* selectedImage = NULL;

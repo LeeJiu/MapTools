@@ -3,7 +3,38 @@
 class selectStage : public gameNode
 {
 private:
+	image* _imageListTop;
+	vector<image*> _imageListBody;
+	image* _imageListBottom;
 
+	image* _imageTitleBack;
+	image* _imageBottomBack;
+	image* _imageGoingBack;
+	image* _imageArrow;
+
+	RECT _rcListTop;
+	vector<RECT> _rcListBody;
+	RECT _rcListBottom;
+
+	RECT _rcTitle;
+	RECT _rcBottom;
+	RECT _rcGoing;
+	RECT _rcArrow;
+
+	RECT _rcTitleStr;
+	RECT _rcGoingStart;
+	RECT _rcGoingSkip;
+	RECT _rcGoingExit;
+
+	vector<char*> _vMapList;
+	vector<RECT> _vRcMapListStr;
+
+	image* _imageShortcutStart;
+	image* _imageShortcutSkip;
+	image* _imageShortcutExit;
+
+	int _mapListSize;
+	int _selectMapNumber;
 
 public:
 	selectStage();
@@ -14,7 +45,7 @@ public:
 	void update();
 	void render();
 
-	/*			함수 추가			*/
+	void mapListInit();
 
+	void setMapListSize(int mapListSize) { _mapListSize = mapListSize; }
 };
-

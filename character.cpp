@@ -13,7 +13,7 @@ character::~character()
 
 HRESULT character::init()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 void character::release()
@@ -21,9 +21,25 @@ void character::release()
 }
 
 void character::update()
-{
+{	
 }
 
 void character::render()
+{
+}
+
+void character::keyControl()
+{
+}
+
+void character::move()
+{
+}
+
+void character::setImage()
+{
+}
+
+void character::setFrame()
 {
 }
