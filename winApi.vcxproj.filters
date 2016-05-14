@@ -222,6 +222,9 @@
     <ClInclude Include="battleUI.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
+    <ClInclude Include="gameObjectManager.h">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -334,6 +337,9 @@
     </ClCompile>
     <ClCompile Include="battleMapLoad.cpp">
       <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObjectManager.cpp">
+      <Filter>gameStudy\gameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
