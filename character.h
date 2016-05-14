@@ -27,12 +27,12 @@ protected:
 	char* _name;				//캐릭터 이름
 	int _level, _counter, _mv, _jm;									//캐릭터 능력치 1
 	int _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp, _next;  //캐릭터 능력치 2
-	bool _isWeaponEquip;		//장비 장착여부
+	//bool _isWeaponEquip;		//장비 장착여부
 	bool _isUp, _isRight, isShow;
 
 	CHARACTER_STATE _characterState;
 	CHARACTER_DIRECTION _characterDir;
-	WEAPON_TYPE _weaponType;	//장착 무기 타입
+	//WEAPON_TYPE _weaponType;	//장착 무기 타입
 	
 	int _curFrameX, _curFrameY, _count;
 

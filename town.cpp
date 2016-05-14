@@ -154,19 +154,21 @@ void town::enterEntrance()
 	_rcBattle = RectMake(2061 - _sourX, 1012 - _sourY, _battlePortal->getFrameWidth(), _battlePortal->getFrameHeight());
 	_rcStore = RectMake(1595 - _sourX, 371 - _sourY, _storePortal->getFrameWidth(), _storePortal->getFrameHeight());
 
-	//if (IntersectRect(&RectMake(0, 0, 0, 0), &_prinny->getRect(), &_rcBattle))
-	//{
-	//	if (_prinny->getRect().bottom >  (_rcBattle.top + _rcBattle.bottom) / 2)
-	//	{
-	//		SCENEMANAGER->changeScene("selectBattle");
-	//	}
-	//}
+	if (IntersectRect(&RectMake(0, 0, 0, 0), &_prinny->getRect(), &_rcBattle))
+	{
+		if (_prinny->getRect().bottom > (_rcBattle.top + _rcBattle.bottom) / 2)
+		{
+			SCENEMANAGER->changeScene("selectStage");
+			return;
+		}
+	}
 
 	if (IntersectRect(&RectMake(0, 0, 0, 0), &_prinny->getRect(), &_rcStore))
 	{
 		if (_prinny->getRect().top < (_rcStore.top + _rcStore.bottom) / 2 + 30)
 		{
 			SCENEMANAGER->changeScene("store");
+			return;
 		}
 	}
 }
