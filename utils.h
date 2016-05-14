@@ -81,7 +81,7 @@ struct tagItem
 {
 	image* image;
 	RECT rc;
-	char* name;
+	const char* name;
 	char* info;
 	int atk;
 	int intel;

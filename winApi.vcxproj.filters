@@ -70,9 +70,6 @@
     <Filter Include="gameStudy\mapTool">
       <UniqueIdentifier>{9f35cf64-8f62-495e-ae09-361557e7e2bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gameStudy\selectStage">
-      <UniqueIdentifier>{36a15745-eabb-466f-8260-308e4c9ad48f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="gameStudy\store">
       <UniqueIdentifier>{b442965c-48ee-443a-9347-d40bd4f9f75e}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,9 @@
     </Filter>
     <Filter Include="gameStudy\aStar">
       <UniqueIdentifier>{42f0b6f3-d929-4bce-80ee-ef9c0cf56edf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\selectStage">
+      <UniqueIdentifier>{36a15745-eabb-466f-8260-308e4c9ad48f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

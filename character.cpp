@@ -47,3 +47,11 @@ void character::setImage()
 void character::setFrame()
 {
 }
+
+void character::saveData()
+{
+}
+
+void character::loadData()
+{
+}

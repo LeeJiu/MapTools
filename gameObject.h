@@ -40,7 +40,10 @@ public:
 	virtual void setImage();
 	virtual void setFrame();
 
-	virtual void setItem(tagItem item) = 0;
+	virtual void saveData();
+	virtual void loadData();
+
+	virtual void setItem(const char* itemName) = 0;
 	virtual void setHell(int hell) = 0;
 
 	virtual RECT getRect() { return _rc; }
