@@ -222,17 +222,8 @@
     <ClInclude Include="battleUI.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
-    <ClInclude Include="Flonne.h">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClInclude>
-    <ClInclude Include="Etna.h">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClInclude>
-    <ClInclude Include="Raspberyl.h">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClInclude>
-    <ClInclude Include="orc.h">
-      <Filter>gameStudy\gameObject\enemy</Filter>
+    <ClInclude Include="gameObjectManager.h">
+      <Filter>gameStudy\gameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -347,17 +338,8 @@
     <ClCompile Include="battleMapLoad.cpp">
       <Filter>gameStudy\battle</Filter>
     </ClCompile>
-    <ClCompile Include="Etna.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClCompile>
-    <ClCompile Include="Flonne.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClCompile>
-    <ClCompile Include="Raspberyl.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClCompile>
-    <ClCompile Include="orc.cpp">
-      <Filter>gameStudy\gameObject\enemy</Filter>
+    <ClCompile Include="gameObjectManager.cpp">
+      <Filter>gameStudy\gameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
