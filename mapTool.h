@@ -8,38 +8,22 @@
 #include "button.h"
 
 
-
 struct OBJ_Y_RENDER
 {
-	bool operator()(const TagObject& obj1, const TagObject& obj2)
+	bool operator()(const TagObject* obj1, const TagObject* obj2)
 	{
-		return obj1.rc.bottom < obj2.rc.bottom;
-	}
-};
-
-struct ENM_Y_RENDER
-{
-	bool operator()(const TagEnemy& enm1, const TagEnemy& enm2)
-	{
-		return enm1.rc.bottom < enm2.rc.bottom;
+		return obj1->rc.bottom < obj2->rc.bottom;
 	}
 };
 
 struct OBJ_NUM
 {
-	bool operator()(const TagObject& obj1, const TagObject& obj2)
+	bool operator()(const TagObject* obj1, const TagObject* obj2)
 	{
-		return obj1.number < obj2.number;
+		return obj1->number < obj2->number;
 	}
 };
 
-struct ENM_NUM
-{
-	bool operator()(const TagEnemy& enm1, const TagEnemy& enm2)
-	{
-		return enm1.number < enm2.number;
-	}
-};
 
 enum STATE
 {
@@ -54,29 +38,29 @@ class mapTool : public gameNode
 {
 private:
 	//맵
-	vector<TagTile> _vTile;
-	vector<TagTile>::iterator _viTile;
+	vector<TagTile*> _vTile;
+	vector<TagTile*>::iterator _viTile;
 
-	vector<TagObject> _vObj;
-	vector<TagObject>::iterator _viObj;
+	vector<TagObject*> _vObj;
+	vector<TagObject*>::iterator _viObj;
 
-	vector<TagObject> _vEnemy;
-	vector<TagObject>::iterator _viEnemy;
+	vector<TagObject*> _vEnemy;
+	vector<TagObject*>::iterator _viEnemy;
 
 
 	//샘플
-	vector<TagTile> _vIsoTile;
-	vector<TagTile>::iterator _viIsoTile;
+	vector<TagTile*> _vIsoTile;
+	vector<TagTile*>::iterator _viIsoTile;
 
-	vector<TagObject> _vIsoObj;
-	vector<TagObject>::iterator _viIsoObj;
+	vector<TagObject*> _vIsoObj;
+	vector<TagObject*>::iterator _viIsoObj;
 
-	vector<TagObject> _vIsoEnemy;
-	vector<TagObject>::iterator _viIsoEnemy;
+	vector<TagObject*> _vIsoEnemy;
+	vector<TagObject*>::iterator _viIsoEnemy;
 
 	//랜더
-	vector<TagObject> _vRender;
-	vector<TagObject>::iterator _viRender;
+	vector<TagObject*> _vRender;
+	vector<TagObject*>::iterator _viRender;
 
 	button* _TileButton;
 	button* _ObjectButton;
@@ -89,8 +73,6 @@ private:
 	int tileNum;
 	int _pickNum;
 
-	int _drawX;
-	int _drawY;
 
 	/* 
 				UI Rect
@@ -102,7 +84,6 @@ private:
 	RECT rcSelectTile;
 	RECT rcButton;
 
-	RECT cam;
 
 public:
 	mapTool();
@@ -114,6 +95,12 @@ public:
 	void render();
 
 	//=====================추가할 함수=====================
+
+	void setSampleTile();
+	void setSampleObject();
+	void setSampleEnemy();
+
+	void setTile();
 
 	void keyControl();
 	void selectMap();

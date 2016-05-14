@@ -28,7 +28,7 @@
 
 enum TILESTATE
 {
-	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT
+	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS
 };
 
 enum OBJSTATE
@@ -36,10 +36,6 @@ enum OBJSTATE
 	S_NOMAL, S_ZEN, E_NORMAL, E_BOSS
 };
 
-enum ENEMYSTATE
-{
-	NORMAL, BOSS
-};
 
 struct TagTile
 {
@@ -72,20 +68,6 @@ struct TagObject
 	bool draw;
 };
 
-
-struct TagEnemy
-{
-	image* image;			// 타일의 이미지
-	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
-	POINT pivot;			// 타일 렉트의 중심점
-	ENEMYSTATE state;
-	int x, y;				// 타일의인덱스 x, y
-	int width;				// 타일의 폭
-	int height;				// 타일의 높이
-	int imageNum;			//이미지 가져오기
-	int number;				// 타일의 고유 넘버값 
-	bool draw;
-};
 
 
 namespace MY_UTIL
