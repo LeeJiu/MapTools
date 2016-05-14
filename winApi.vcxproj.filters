@@ -52,24 +52,6 @@
     <Filter Include="2D Framework\action">
       <UniqueIdentifier>{871f14ef-c28f-4271-bee8-5e817dc909a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gameStudy\MapTool">
-      <UniqueIdentifier>{9f35cf64-8f62-495e-ae09-361557e7e2bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\Title">
-      <UniqueIdentifier>{bc7778c8-82d3-44f5-acab-bc2269eb2666}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\Town">
-      <UniqueIdentifier>{486f0fce-e6c3-46c4-ae77-eed2d81e2097}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\Store">
-      <UniqueIdentifier>{b442965c-48ee-443a-9347-d40bd4f9f75e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\SelectStage">
-      <UniqueIdentifier>{36a15745-eabb-466f-8260-308e4c9ad48f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\Battle">
-      <UniqueIdentifier>{e067cd68-6528-41df-ab16-ad00349bb31c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="gameStudy\gameObject">
       <UniqueIdentifier>{99284ba3-ec4e-448c-87ab-f3eaa23887b0}</UniqueIdentifier>
     </Filter>
@@ -85,9 +67,11 @@
     <Filter Include="gameStudy\gameObject\objects">
       <UniqueIdentifier>{4988893b-edc8-4c26-849d-1c0bd15674b1}</UniqueIdentifier>
     </Filter>
-<<<<<<< HEAD
     <Filter Include="gameStudy\mapTool">
       <UniqueIdentifier>{9f35cf64-8f62-495e-ae09-361557e7e2bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\selectStage">
+      <UniqueIdentifier>{36a15745-eabb-466f-8260-308e4c9ad48f}</UniqueIdentifier>
     </Filter>
     <Filter Include="gameStudy\store">
       <UniqueIdentifier>{b442965c-48ee-443a-9347-d40bd4f9f75e}</UniqueIdentifier>
@@ -109,13 +93,6 @@
     </Filter>
     <Filter Include="gameStudy\aStar">
       <UniqueIdentifier>{42f0b6f3-d929-4bce-80ee-ef9c0cf56edf}</UniqueIdentifier>
-=======
-    <Filter Include="gameStudy\A%2a">
-      <UniqueIdentifier>{54bcce94-8a49-4935-9bc8-bd0d129c0d9a}</UniqueIdentifier>
->>>>>>> origin/development
-    </Filter>
-    <Filter Include="gameStudy\selectStage">
-      <UniqueIdentifier>{36a15745-eabb-466f-8260-308e4c9ad48f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -192,25 +169,22 @@
       <Filter>2D Framework\manager</Filter>
     </ClInclude>
     <ClInclude Include="mapTool.h">
-      <Filter>gameStudy\MapTool</Filter>
-    </ClInclude>
-    <ClInclude Include="battle.h">
-      <Filter>gameStudy\Battle</Filter>
+      <Filter>gameStudy\mapTool</Filter>
     </ClInclude>
     <ClInclude Include="title.h">
-      <Filter>gameStudy\Title</Filter>
+      <Filter>gameStudy\title</Filter>
     </ClInclude>
     <ClInclude Include="town.h">
-      <Filter>gameStudy\Town</Filter>
+      <Filter>gameStudy\town</Filter>
     </ClInclude>
     <ClInclude Include="inventory.h">
       <Filter>gameStudy\Inventory</Filter>
     </ClInclude>
     <ClInclude Include="store.h">
-      <Filter>gameStudy\Store</Filter>
+      <Filter>gameStudy\store</Filter>
     </ClInclude>
     <ClInclude Include="selectStage.h">
-      <Filter>gameStudy\SelectStage</Filter>
+      <Filter>gameStudy\selectStage</Filter>
     </ClInclude>
     <ClInclude Include="item.h">
       <Filter>gameStudy\Item</Filter>
@@ -218,23 +192,32 @@
     <ClInclude Include="gameObject.h">
       <Filter>gameStudy\gameObject</Filter>
     </ClInclude>
+    <ClInclude Include="objects.h">
+      <Filter>gameStudy\gameObject\objects</Filter>
+    </ClInclude>
     <ClInclude Include="character.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
     <ClInclude Include="enemy.h">
-      <Filter>gameStudy\gameObject\character</Filter>
+      <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
     <ClInclude Include="npc.h">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClInclude>
-    <ClInclude Include="objects.h">
-      <Filter>gameStudy\gameObject\objects</Filter>
+      <Filter>gameStudy\gameObject\npc</Filter>
     </ClInclude>
     <ClInclude Include="aStar.h">
-      <Filter>gameStudy\A%2a</Filter>
+      <Filter>gameStudy\aStar</Filter>
+    </ClInclude>
+    <ClInclude Include="battleManager.h">
+      <Filter>gameStudy\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="battleMapLoad.h">
+      <Filter>gameStudy\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="battleScene.h">
+      <Filter>gameStudy\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="battleUI.h">
+      <Filter>gameStudy\battle</Filter>
     </ClInclude>
     <ClInclude Include="Etna.h">
       <Filter>gameStudy\gameObject\character</Filter>
@@ -242,11 +225,17 @@
     <ClInclude Include="Flonne.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
+    <ClInclude Include="prinny.h">
+      <Filter>gameStudy\gameObject\character</Filter>
+    </ClInclude>
     <ClInclude Include="Raspberyl.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
     <ClInclude Include="orc.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObjectManager.h">
+      <Filter>gameStudy\gameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -311,25 +300,22 @@
       <Filter>2D Framework\manager</Filter>
     </ClCompile>
     <ClCompile Include="mapTool.cpp">
-      <Filter>gameStudy\MapTool</Filter>
-    </ClCompile>
-    <ClCompile Include="battle.cpp">
-      <Filter>gameStudy\Battle</Filter>
+      <Filter>gameStudy\mapTool</Filter>
     </ClCompile>
     <ClCompile Include="title.cpp">
-      <Filter>gameStudy\Title</Filter>
+      <Filter>gameStudy\title</Filter>
     </ClCompile>
     <ClCompile Include="town.cpp">
-      <Filter>gameStudy\Town</Filter>
+      <Filter>gameStudy\town</Filter>
     </ClCompile>
     <ClCompile Include="inventory.cpp">
       <Filter>gameStudy\Inventory</Filter>
     </ClCompile>
     <ClCompile Include="store.cpp">
-      <Filter>gameStudy\Store</Filter>
+      <Filter>gameStudy\store</Filter>
     </ClCompile>
     <ClCompile Include="selectStage.cpp">
-      <Filter>gameStudy\SelectStage</Filter>
+      <Filter>gameStudy\selectStage</Filter>
     </ClCompile>
     <ClCompile Include="item.cpp">
       <Filter>gameStudy\Item</Filter>
@@ -337,23 +323,32 @@
     <ClCompile Include="gameObject.cpp">
       <Filter>gameStudy\gameObject</Filter>
     </ClCompile>
+    <ClCompile Include="objects.cpp">
+      <Filter>gameStudy\gameObject\objects</Filter>
+    </ClCompile>
     <ClCompile Include="character.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
     <ClCompile Include="enemy.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
+      <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
     <ClCompile Include="npc.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClCompile>
-    <ClCompile Include="objects.cpp">
-      <Filter>gameStudy\gameObject\objects</Filter>
+      <Filter>gameStudy\gameObject\npc</Filter>
     </ClCompile>
     <ClCompile Include="aStar.cpp">
-      <Filter>gameStudy\A%2a</Filter>
+      <Filter>gameStudy\aStar</Filter>
+    </ClCompile>
+    <ClCompile Include="battleManager.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="battleMapLoad.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="battleScene.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="battleUI.cpp">
+      <Filter>gameStudy\battle</Filter>
     </ClCompile>
     <ClCompile Include="Etna.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
@@ -361,11 +356,17 @@
     <ClCompile Include="Flonne.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
+    <ClCompile Include="prinny.cpp">
+      <Filter>gameStudy\gameObject\character</Filter>
+    </ClCompile>
     <ClCompile Include="Raspberyl.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
     <ClCompile Include="orc.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObjectManager.cpp">
+      <Filter>gameStudy\gameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

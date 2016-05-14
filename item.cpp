@@ -12,13 +12,8 @@ item::~item()
 }
 
 HRESULT item::init()
-{
-<<<<<<< HEAD
-	return E_NOTIMPL;
-=======
-	
+{	
 	return S_OK;
->>>>>>> refs/remotes/origin/development
 }
 
 void item::release()
@@ -32,8 +27,6 @@ void item::update()
 void item::render()
 {
 }
-<<<<<<< HEAD
-=======
 
 void item::setItem(const char * imageName/*, char * itemName, char * itemInfo,
 	int atk, int intel, int def, int spd, int hit, int res, int buy, int sell*/)
@@ -117,4 +110,3 @@ void item::setItem(const char * imageName/*, char * itemName, char * itemInfo,
 
 	_vItem.push_back(item);
 }
->>>>>>> refs/remotes/origin/development

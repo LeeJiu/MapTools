@@ -106,7 +106,6 @@ void gameObject::setImage()
 void gameObject::setFrame()
 {
 }
-<<<<<<< HEAD
 
 void gameObject::saveData()
 {

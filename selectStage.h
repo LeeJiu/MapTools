@@ -3,9 +3,6 @@
 class selectStage : public gameNode
 {
 private:
-<<<<<<< HEAD
-
-=======
 	image* _imageListTop;
 	vector<image*> _imageListBody;
 	image* _imageListBottom;
@@ -38,7 +35,6 @@ private:
 
 	int _mapListSize;
 	int _selectMapNumber;
->>>>>>> refs/remotes/origin/development
 
 public:
 	selectStage();
@@ -49,14 +45,7 @@ public:
 	void update();
 	void render();
 
-<<<<<<< HEAD
 	/*			함수 추가			*/
-
-};
-
-=======
 	void mapListInit();
-
 	void setMapListSize(int mapListSize) { _mapListSize = mapListSize; }
 };
->>>>>>> refs/remotes/origin/development

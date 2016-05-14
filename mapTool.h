@@ -7,8 +7,6 @@
 #include <algorithm>
 #include "button.h"
 
-<<<<<<< HEAD
-
 struct OBJ_Y_RENDER
 {
 	bool operator()(const TagObject* obj1, const TagObject* obj2)
@@ -25,7 +23,6 @@ struct OBJ_NUM
 	}
 };
 
-
 enum STATE
 {
 	SET_TILE, SET_OBJ, SET_ENM
@@ -34,11 +31,6 @@ enum STATE
 static int selectedNum = 0;
 static image* selectedImage = NULL;
 static STATE _state = SET_TILE;
-=======
-static int selectedNum = 0;
-static image* selectedImage = NULL;
-static bool _isTile = true;
->>>>>>> refs/remotes/origin/development
 
 class mapTool : public gameNode
 {
@@ -53,7 +45,6 @@ private:
 	vector<TagObject*> _vEnemy;
 	vector<TagObject*>::iterator _viEnemy;
 
-<<<<<<< HEAD
 
 	//샘플
 	vector<TagTile*> _vIsoTile;
@@ -74,33 +65,17 @@ private:
 	button* _EnemyButton;
 	button* _ExitButton;
 
-=======
-	vector<TagObject> _vObj;
-	vector<TagObject>::iterator _viObj;
 
-
-	vector<TagTile> _vIsoTile;
-	vector<TagTile>::iterator _viIsoTile;
-
-	vector<TagObject> _vIsoObj;
-	vector<TagObject>::iterator _viIsoObj;
-
-
-	button* _TileButton;
-	button* _ObjectButton;
-	button* _ExitButton;
->>>>>>> refs/remotes/origin/development
-	
 	bool _rectOn;
 
 	int tileNum;
 	int _pickNum;
 
 
-	/* 
-				UI Rect
-		아래부분은 UI렉트 
-		그냥 깔끔하게 보일려고 만든 렉트
+	/*
+	UI Rect
+	아래부분은 UI렉트
+	그냥 깔끔하게 보일려고 만든 렉트
 	*/
 	RECT rcDrawMap;
 	RECT rcUI;
@@ -127,19 +102,15 @@ public:
 
 	void keyControl();
 	void selectMap();
-	void drawTile(int index);
-	void setObjectsRender();
+	//void drawTile(int index);
+	//void setObjectsRender();
 	void saveMapData();
 	void loadMapData();
 	void resetMapData();
 
-	
+
 	static void onTile();
 	static void onObject();
-<<<<<<< HEAD
 	static void onEnemy();
-=======
->>>>>>> refs/remotes/origin/development
 	static void goToMenu();
 };
-
