@@ -12,7 +12,10 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
-	_turnCount = 0;
+	_turnCount = 0;	
+	_turnType = true;	//Turn Type = PLAYER(TRUE) || ENEMY(FALSE)
+	
+	
 
 	return S_OK;
 }
@@ -36,7 +39,7 @@ void gameObjectManager::setActionAttack()
 
 void gameObjectManager::setChangeTurn()
 {
-	if (_turnType == TURN_ENEMY) _turnType = TURN_PLAYER;
-	if (_turnType == TURN_PLAYER) _turnType = TURN_ENEMY;
+	if (_turnType == TRUE) _turnType = FALSE;
+	if (_turnType == FALSE) _turnType = TRUE;
 	_turnCount++;
 }

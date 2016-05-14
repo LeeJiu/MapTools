@@ -1,22 +1,13 @@
 #pragma once
 #include "gameNode.h"
 
-enum TURN_TYPE
-{
-	TURN_ENEMY, TURN_PLAYER
-};
-
 class battleUI;
 class gameObjectManager : public gameNode
 {
 private:
 	int _turnCount;
-	TURN_TYPE _turnType;
+	bool _turnType;
 
-	RECT _rcTurnBack;
-	RECT _rcTurnStr;
-	image* _imageTurn;
-	bool _isTurnCenter;
 
 	RECT _rcSummon;
 
@@ -40,8 +31,10 @@ public:
 
 	void setActionAttack();
 	void setChangeTurn();
+	
 
-
+	int getTurnCount() { return _turnCount; }
+	bool getTurnType() { return _turnType; }
 	RECT getSummonRect() { return _rcSummon; }
 };
 

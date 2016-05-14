@@ -98,6 +98,21 @@ HRESULT battleUI::init()
 	_isOnUnitOrderList = false;		//유닛 명령창
 	
 
+	IMAGEMANAGER->addImage("turnStart", "image/ui_turnback_start.bmp", 461, 54, true, 0xff00ff);	   //TURN IMAGE STAGE START
+	IMAGEMANAGER->addImage("turnPlayer", "image/ui_turnback_start.bmp", 489, 53, true, 0xff00ff);	   //TURN IMAGE PLAYER TURN
+	IMAGEMANAGER->addImage("turnEnemy", "image/ui_turnback_start.bmp", 476, 53, true, 0xff00ff);	   //TURN IMAGE ENEMY TURN
+	IMAGEMANAGER->addImage("turnBackground", "image/ui_turnback_black.bmp", 1280, 100, false, false);
+
+	_isTurnShow = true;																				   //TURN SHOW를 해야하는가 말아야하는가에 대한 BOOL 값
+	_isFirstShow = true;																			   //처음 전투에 들어왔을 시 = TRUE	
+	_turnBackPosX = 0 - WINSIZEX;																	   //TURN IMAGE용 POS X 값
+	_rcTurnBack = RectMake(_turnBackPosX, CENTERY - 50, WINSIZEX, 100);								   //출력 할 글자의 배경 RECT
+	_imageTurnStr = IMAGEMANAGER->findImage("turnStart");											   //출력 할 글자 Image
+	_imageTurnBack = IMAGEMANAGER->findImage("turnBackground");										   //출력 할 글자의 배경 Image
+	_isTurnBackCenter = false;																		   //TURN IMAGE가 전부 출력 됐는가에 대한 BOOL 값
+	_turnShowTime = 0;																				   //TURN IMAGE가 중앙까지 도착 했을 시 1초간 지연시키기 위한 TIME 값
+
+
 	return S_OK;
 }
 
@@ -107,6 +122,10 @@ void battleUI::release()
 
 void battleUI::update()
 {
+	// 첫 턴이면 STAGE START를 한번 출력하자
+	if (_isFirstShow) turnChange(true);
+	
+
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		//소환 타일을 선택했는지 체크하자
@@ -211,48 +230,48 @@ void battleUI::render()
 	
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
+
+	if (_isTurnShow)
+	{
+		//Rectangle(getMemDC(), _rcTurnBack.left, _rcTurnBack.top, _rcTurnBack.right, _rcTurnBack.bottom);
+		_imageTurnBack->alphaRender(getMemDC(), _rcTurnBack.left, _rcTurnBack.top, 170);
+		_imageTurnStr->render(getMemDC(), _rcTurnBack.left + 450, _rcTurnBack.top + 25);
+	}
+
+	
 }
 
-//_vOrderList.push_back("공격개시");
-//_vOrderList.push_back("턴 종료");
-//_vOrderList.push_back("보너스 표");
-//_vOrderList.push_back("캐릭터 명단");
-//_vOrderList.push_back("전투지식");
-//_vOrderList.push_back("포기");
-//_vOrderList.push_back("설정");
-//
-//_vUnitOrderList.push_back("이동");
-//_vUnitOrderList.push_back("공격");
-//_vUnitOrderList.push_back("특수기술");
-//_vUnitOrderList.push_back("? ? ? ?");
-//_vUnitOrderList.push_back("방어");
-//_vUnitOrderList.push_back("아이템");
-//_vUnitOrderList.push_back("장비");
-//_vUnitOrderList.push_back("스테이터스");
+//_isOnStatus = false;
+//_isOnSkillTitle = false;
+//_isOnBottomStatus = false;
+//_isOnCharacterList = false;
+//_isOnOrderList = false;
+//_isOnUnitOrderList = false;
 
 void battleUI::orderListClick(int orderNumber)
 {
 	switch (orderNumber)
 	{
-	case 1:
-
-		break;
-	case 2:
+	case 1:	//공격개시
 		
 		break;
-	case 3:
+	case 2:	//턴 종료
+		
+		turnChange(false);
+		break;
+	case 3:	//보너스 표
 
 		break;
-	case 4:
+	case 4:	//캐릭터 명단
 
 		break;
-	case 5:
+	case 5:	//전투 지식
 
 		break;
-	case 6:
+	case 6:	//포기
 
 		break;
-	case 7:
+	case 7:	//설정
 
 		break;
 	default:
@@ -264,28 +283,113 @@ void battleUI::unitOrderListClick(int unitOrderNumber)
 {
 	switch (unitOrderNumber)
 	{
-	case 1:
+	case 1:	//이동
 
 		break;
-	case 2:
+	case 2:	//공격
 
 		break;
-	case 3:
+	case 3:	//특수기술
 
 		break;
-	case 4:
+	case 4:	//? ? ? ?
 
 		break;
-	case 5:
+	case 5:	//방어
 
 		break;
-	case 6:
+	case 6:	//아이템
 
 		break;
-	case 7:
+	case 7:	//장비
+
+		break;
+	case 8:	//스테이터스
 
 		break;
 	default:
 		break;
 	}
+}
+
+void battleUI::turnChange(bool turn)
+{
+	_isTurnShow = true;
+
+	//첫 턴이 아닐 때
+	if (!_isFirstShow)
+	{
+		//TURN TRUE = PLAYER TURN
+		if (turn == TRUE)
+		{
+			_imageTurnStr = IMAGEMANAGER->findImage("turnPlayer");
+			if (!_isTurnBackCenter)
+			{
+				_turnBackPosX += 20;
+				_rcTurnBack = RectMake(_turnBackPosX, CENTERY - 50, WINSIZEX, 100);
+				if (_turnBackPosX >= 0) _isTurnBackCenter = true;
+			}
+
+			if (_isTurnBackCenter)
+			{
+				_turnShowTime += TIMEMANAGER->getElapsedTime();
+				if (_turnShowTime > 1)
+				{
+					_turnBackPosX += 20;
+					_rcTurnBack = RectMake(_turnBackPosX, CENTERY - 50, WINSIZEX, 100);
+					if (_turnBackPosX > WINSIZEX) _isTurnShow = false;
+				}
+			}
+		}
+
+		//TURN FALSE = ENEMY TURN
+		if (turn == FALSE)
+		{
+			_imageTurnStr = IMAGEMANAGER->findImage("turnEnemy");
+			if (!_isTurnBackCenter)
+			{
+				_turnBackPosX += 20;
+				_rcTurnBack = RectMake(_turnBackPosX, CENTERY - 50, WINSIZEX, 100);
+				if (_turnBackPosX >= 0) _isTurnBackCenter = true;
+			}
+
+			if (_isTurnBackCenter)
+			{
+				_turnShowTime += TIMEMANAGER->getElapsedTime();
+				if (_turnShowTime > 1)
+				{
+					_turnBackPosX += 20;
+					_rcTurnBack = RectMake(_turnBackPosX, CENTERY - 50, WINSIZEX, 100);
+					if (_turnBackPosX > WINSIZEX) _isTurnShow = false;
+				}
+			}
+		}
+	}
+
+	//처음 턴일 때 STAGE START 출력
+	if (_isFirstShow)
+	{
+		if (!_isTurnBackCenter)
+		{
+			_turnBackPosX += 20;
+			_rcTurnBack = RectMake(_turnBackPosX, CENTERY - 50, WINSIZEX, 100);
+			if (_turnBackPosX >= 0) _isTurnBackCenter = true;
+		}
+
+		if (_isTurnBackCenter)
+		{
+			_turnShowTime += TIMEMANAGER->getElapsedTime();
+			if (_turnShowTime > 1)
+			{
+				_turnBackPosX += 20;
+				_rcTurnBack = RectMake(_turnBackPosX, CENTERY - 50, WINSIZEX, 100);
+				if (_turnBackPosX > WINSIZEX)
+				{
+					_isFirstShow = false;
+					_isTurnShow = false;
+				}
+			}
+		}
+	}
+
 }

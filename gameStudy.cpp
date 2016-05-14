@@ -29,7 +29,7 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 	SCENEMANAGER->addScene("store", new store);
 
-	SCENEMANAGER->changeScene("title");
+	SCENEMANAGER->changeScene("battleScene");
 
 	return S_OK;
 }
