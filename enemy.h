@@ -1,6 +1,11 @@
 #pragma once
+<<<<<<< HEAD
 #include "character.h"
 class enemy : public character
+=======
+#include "gameObject.h"
+class enemy : public gameObject
+>>>>>>> refs/remotes/origin/development
 {
 private:
 
