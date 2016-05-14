@@ -6,11 +6,19 @@
 #include "town.h"
 #include "mapTool.h"
 #include "title.h"
+<<<<<<< HEAD
+
+class gameStudy : public gameNode
+{
+private:
+
+=======
 #include "store.h"
 
 
 class gameStudy : public gameNode
 {
+>>>>>>> refs/remotes/origin/development
 public:
 	gameStudy();
 	virtual ~gameStudy();

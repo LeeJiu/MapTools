@@ -1,5 +1,9 @@
 #pragma once
 #include "gameNode.h"
+<<<<<<< HEAD
+class town : public gameNode
+{
+=======
 #include "prinny.h"
 
 class town : public gameNode
@@ -19,6 +23,7 @@ private:
 	
 	gameObject* _prinny;
 
+>>>>>>> refs/remotes/origin/development
 public:
 	town();
 	~town();
@@ -29,9 +34,13 @@ public:
 	void render();
 
 	/*			함수 추가			*/
+<<<<<<< HEAD
+
+=======
 	void keyControl();
 	void pixelCollision(RECT rc);
 	void enterEntrance();
 	void setFrame();
+>>>>>>> refs/remotes/origin/development
 };
 

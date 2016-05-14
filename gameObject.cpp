@@ -13,6 +13,9 @@ gameObject::~gameObject()
 
 HRESULT gameObject::init()
 {
+<<<<<<< HEAD
+	return E_NOTIMPL;
+=======
 	_mapLoad = new battleMapLoad;
 	_mapLoad->init();
 
@@ -22,12 +25,16 @@ HRESULT gameObject::init()
 	_moveSpeed = 3;
 
 	return S_OK;
+>>>>>>> refs/remotes/origin/development
 }
 
 void gameObject::release()
 {
+<<<<<<< HEAD
+=======
 	SAFE_DELETE(_mapLoad);
 	SAFE_DELETE(_aStar);
+>>>>>>> refs/remotes/origin/development
 }
 
 void gameObject::update()
@@ -37,6 +44,8 @@ void gameObject::update()
 void gameObject::render()
 {
 }
+<<<<<<< HEAD
+=======
 
 void gameObject::keyControl()
 {
@@ -106,3 +115,4 @@ void gameObject::setImage()
 void gameObject::setFrame()
 {
 }
+>>>>>>> refs/remotes/origin/development

@@ -11,6 +11,37 @@ aStar::~aStar()
 {
 }
 
+<<<<<<< HEAD
+HRESULT aStar::init(int battleMapNumber)
+{
+	POINT firstPivot = { (316 + WINSIZEX) / 2, WIDTH / 4 };
+
+	int count = 0;
+	// 맵에 따른 정보와 오브젝트 받아오자
+	for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
+	{
+		for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 )
+		{
+			_tile[j][i].width = WIDTH;
+			_tile[j][i].height = WIDTH / 2;
+			_tile[j][i].rc = RectMakeCenter(firstPivot.x + j * _tile[j][i].width / 2 - i * _tile[j][i].width / 2,
+											firstPivot.y + j * _tile[j][i].width / 4 + i * _tile[j][i].width / 4, _tile[j][i].width, _tile[j][i].height);
+			_tile[j][i].pivot.x = (_tile[j][i].rc.left + _tile[j][i].rc.right) / 2;
+			_tile[j][i].pivot.y = (_tile[j][i].rc.top + _tile[j][i].rc.bottom) / 2;
+			_tile[j][i].x = j;
+			_tile[j][i].y = i;
+			_tile[j][i].number = count;
+			_tile[j][i].state = S_NONE;
+			_tile[j][i].draw = false;
+
+		//	_vTile.push_back(tile);
+
+			count++;
+		}
+	}
+
+	
+=======
 HRESULT aStar::init(vector<TagTile*> tile)
 {
 	for (int i = 0; i < 100; i++)
@@ -20,6 +51,7 @@ HRESULT aStar::init(vector<TagTile*> tile)
 
 	_finish = false;
 
+>>>>>>> refs/remotes/origin/development
 	return S_OK;
 }
 
@@ -33,6 +65,8 @@ void aStar::update()
 
 void aStar::render()
 {
+<<<<<<< HEAD
+=======
 	//SetTextColor(getMemDC(), RGB(255, 0, 0));
 
 	//char str[128];
@@ -80,10 +114,17 @@ void aStar::render()
 
 	//sprintf_s(str, "endX : %d, endY : %d", _end.x, _end.y);
 	//TextOut(getMemDC(), 900, 30, str, strlen(str));
+>>>>>>> refs/remotes/origin/development
 }
 
 void aStar::checkTile()
 {
+<<<<<<< HEAD
+}
+
+void aStar::celulateRoute(POINT start, POINT end)
+{
+=======
 	// 처음만 넣어줘라
 	if (_vCloseList.size() == 0)
 	{
@@ -225,6 +266,7 @@ void aStar::resultRoute(int x, int y)
 
 	if (_tile[x][y].parent == NULL) return;
 	else resultRoute(_tile[x][y].parent->x, _tile[x][y].parent->y);
+>>>>>>> refs/remotes/origin/development
 }
 
 
@@ -247,6 +289,15 @@ void aStar::reset()
 	}
 	_vOpenList.clear();
 
+<<<<<<< HEAD
+	for (_viRoute = _vRoute.begin(); _viRoute != _vRoute.end(); )
+	{
+		(*_viRoute)->parent = NULL;
+		_viRoute = _vOpenList.erase(_viRoute);
+	}
+	_vOpenList.clear();
+}
+=======
 	for (int j = 0; j < TILENUM; j++)      // 세로 ( 열 )
 	{
 		for (int i = 0; i < TILENUM; i++)   // 가로 ( 행 )
@@ -269,3 +320,4 @@ void aStar::eraseVector(int x, int y)
 		}
 	}
 }
+>>>>>>> refs/remotes/origin/development

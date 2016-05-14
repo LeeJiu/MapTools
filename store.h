@@ -1,5 +1,11 @@
 #pragma once
 #include "gameNode.h"
+<<<<<<< HEAD
+class store : public gameNode
+{
+private:
+
+=======
 #include "item.h"
 #include "prinny.h"
 
@@ -28,6 +34,7 @@ private:
 	RECT _rcItemInfo;
 	RECT _rcItemImage;
 	RECT _rcBuy;
+>>>>>>> refs/remotes/origin/development
 
 public:
 	store();
@@ -39,8 +46,12 @@ public:
 	void render();
 
 	/*			함수 추가			*/
+<<<<<<< HEAD
+
+=======
 	void buyItem(tagItem item);
 	void keyControl();
 	void showItemInfoAll(int arrNum);		//아이템 정보창 갱신
+>>>>>>> refs/remotes/origin/development
 };
 

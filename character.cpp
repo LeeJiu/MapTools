@@ -13,7 +13,11 @@ character::~character()
 
 HRESULT character::init()
 {
+<<<<<<< HEAD
+	return E_NOTIMPL;
+=======
 	return S_OK;
+>>>>>>> refs/remotes/origin/development
 }
 
 void character::release()
@@ -21,12 +25,18 @@ void character::release()
 }
 
 void character::update()
+<<<<<<< HEAD
+{
+=======
 {	
+>>>>>>> refs/remotes/origin/development
 }
 
 void character::render()
 {
 }
+<<<<<<< HEAD
+=======
 
 void character::keyControl()
 {
@@ -47,3 +57,4 @@ void character::setImage()
 void character::setFrame()
 {
 }
+>>>>>>> refs/remotes/origin/development

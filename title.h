@@ -1,6 +1,9 @@
 #pragma once
 #include "gameNode.h"
+<<<<<<< HEAD
+=======
 
+>>>>>>> refs/remotes/origin/development
 class title : public gameNode
 {
 private:

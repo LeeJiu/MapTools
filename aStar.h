@@ -1,6 +1,9 @@
 #pragma once
 #include "gameNode.h"
+<<<<<<< HEAD
+=======
 #include <algorithm>
+>>>>>>> refs/remotes/origin/development
 
 class aStar : public gameNode
 {
@@ -15,6 +18,13 @@ class aStar : public gameNode
 	vector<TagTile*> _vRoute;
 	vector<TagTile*>::iterator _viRoute;
 
+<<<<<<< HEAD
+public:
+	aStar();
+	~aStar();
+	
+	HRESULT init(int battleMapNumber);
+=======
 	POINT _start, _end;
 
 	bool _finish;
@@ -24,10 +34,19 @@ public:
 	~aStar();
 
 	HRESULT init(vector<TagTile*> tile);
+>>>>>>> refs/remotes/origin/development
 	void release();
 	void update();
 	void render();
 
+<<<<<<< HEAD
+
+	void checkTile();
+	void celulateRoute(POINT start, POINT end);
+	void reset();
+};
+
+=======
 	/*           추가 함수          */
 	void checkTile();
 	void reset();
@@ -38,3 +57,4 @@ public:
 
 	static bool cmp(TagTile* start, TagTile* end) { return start->f < end->f; }
 };
+>>>>>>> refs/remotes/origin/development

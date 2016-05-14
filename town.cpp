@@ -13,6 +13,9 @@ town::~town()
 
 HRESULT town::init()
 {
+<<<<<<< HEAD
+	return E_NOTIMPL;
+=======
 	IMAGEMANAGER->addImage("town_background", "image/background/town_background.bmp", 4155, 1704, true, 0xff00ff);
 	IMAGEMANAGER->addImage("town_background_pixel", "image/background/town_background_pixel.bmp", 4155, 1704, false, false);
 
@@ -38,15 +41,23 @@ HRESULT town::init()
 	//_sourY = 60;
 
 	return S_OK;
+>>>>>>> refs/remotes/origin/development
 }
 
 void town::release()
 {
+<<<<<<< HEAD
+
+=======
 	SAFE_DELETE(_prinny);
+>>>>>>> refs/remotes/origin/development
 }
 
 void town::update()
 {
+<<<<<<< HEAD
+
+=======
 	_prinny->update();
 
 	keyControl();
@@ -54,10 +65,14 @@ void town::update()
 	setFrame();
 
 	enterEntrance();
+>>>>>>> refs/remotes/origin/development
 }
 
 void town::render()
 {
+<<<<<<< HEAD
+
+=======
 	_town->render(getMemDC(), 0, 0, _sourX, _sourY, WINSIZEX, WINSIZEY);
 	//_townPixel->render(getMemDC(), 0, 0, _sourX, _sourY, WINSIZEX, WINSIZEY);
 	
@@ -203,4 +218,5 @@ void town::setFrame()
 			_etcPortal->setFrameX(0);
 		}
 	}
+>>>>>>> refs/remotes/origin/development
 }

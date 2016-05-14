@@ -1,5 +1,11 @@
 #pragma once
 #include "gameNode.h"
+<<<<<<< HEAD
+class gameObject : public gameNode
+{
+private:
+
+=======
 #include "aStar.h"
 #include "battleMapLoad.h"
 
@@ -22,6 +28,7 @@ protected:
 	int _moveSpeed;
 
 	bool _isMove;
+>>>>>>> refs/remotes/origin/development
 
 public:
 	gameObject();
@@ -33,6 +40,11 @@ public:
 	void render();
 
 	/*			함수 추가			*/
+<<<<<<< HEAD
+
+};
+
+=======
 	virtual void keyControl();
 	virtual void battleKeyControl();
 	virtual void move(int endX, int endY);
@@ -46,3 +58,4 @@ public:
 	virtual RECT getRect() { return _rc; }
 	virtual int getHell() = 0;
 };
+>>>>>>> refs/remotes/origin/development
