@@ -1,17 +1,17 @@
 #include "stdafx.h"
-#include "selectStage.h"
+#include "selectMap.h"
 
 
-selectStage::selectStage()
+selectMap::selectMap()
 {
 }
 
 
-selectStage::~selectStage()
+selectMap::~selectMap()
 {
 }
 
-HRESULT selectStage::init()
+HRESULT selectMap::init()
 {
 	_mapListSize = 3;
 
@@ -51,7 +51,7 @@ HRESULT selectStage::init()
 	_rcGoingStart = RectMakeCenter(WINSIZEX - 195, _rcBottom.top - 90, _imageGoingBack->getWidth(), _imageGoingBack->getHeight() / 3);
 	_rcGoingSkip = RectMakeCenter(WINSIZEX - 195, _rcBottom.top - 60, _imageGoingBack->getWidth(), _imageGoingBack->getHeight() / 3);
 	_rcGoingExit = RectMakeCenter(WINSIZEX - 195, _rcBottom.top - 30, _imageGoingBack->getWidth(), _imageGoingBack->getHeight() / 3);
-
+	
 	_imageShortcutStart = IMAGEMANAGER->addImage("shortcut_start", "image/shortcut_key_1.bmp", 30, 30, true, 0xff00ff);
 	_imageShortcutSkip = IMAGEMANAGER->addImage("shortcut_skip", "image/shortcut_key_2.bmp", 30, 30, true, 0xff00ff);
 	_imageShortcutExit = IMAGEMANAGER->addImage("shortcut_exit", "image/shortcut_key_Q.bmp", 30, 30, true, 0xff00ff);
@@ -61,7 +61,7 @@ HRESULT selectStage::init()
 	return S_OK;
 }
 
-void selectStage::release()
+void selectMap::release()
 {
 	for (int i = 0; i < _imageListBody.size(); i++)
 	{
@@ -70,7 +70,7 @@ void selectStage::release()
 	_imageListBody.clear();
 }
 
-void selectStage::update()
+void selectMap::update()
 {
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
@@ -93,7 +93,7 @@ void selectStage::update()
 		//SKIP STORY BUTTON
 		if (PtInRect(&_rcGoingSkip, _ptMouse))
 		{
-
+			
 		}
 
 		//EXIT BUTTON
@@ -104,7 +104,7 @@ void selectStage::update()
 	}
 }
 
-void selectStage::render()
+void selectMap::render()
 {
 	IMAGEMANAGER->findImage("selectScene")->render(getMemDC());
 
@@ -139,19 +139,19 @@ void selectStage::render()
 	DrawText(getMemDC(), TEXT("Skip Story"), -1, &_rcGoingSkip, DT_LEFT | DT_VCENTER);
 	DrawText(getMemDC(), TEXT("Exit"), -1, &_rcGoingExit, DT_LEFT | DT_VCENTER);
 
-	_imageShortcutStart->render(getMemDC(), _rcGoingStart.left - 35, _rcGoingStart.top - 3);
+	_imageShortcutStart->render(getMemDC(), _rcGoingStart.left - 35, _rcGoingStart.top -3);
 	_imageShortcutSkip->render(getMemDC(), _rcGoingSkip.left - 35, _rcGoingSkip.top - 3);
 	_imageShortcutExit->render(getMemDC(), _rcGoingExit.left - 35, _rcGoingExit.top - 3);
 
 	for (int i = 0; i < _mapListSize; i++) DrawText(getMemDC(), TEXT(_vMapList[i]), -1, &_vRcMapListStr[i], DT_LEFT | DT_VCENTER);
-
+	
 
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
-
+	
 }
 
-void selectStage::mapListInit()
+void selectMap::mapListInit()
 {
 	for (int i = 0; i < _mapListSize; i++)
 	{
