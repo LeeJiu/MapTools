@@ -171,9 +171,6 @@
     <ClInclude Include="mapTool.h">
       <Filter>gameStudy\mapTool</Filter>
     </ClInclude>
-    <ClInclude Include="battle.h">
-      <Filter>gameStudy\battle</Filter>
-    </ClInclude>
     <ClInclude Include="title.h">
       <Filter>gameStudy\title</Filter>
     </ClInclude>
@@ -212,6 +209,18 @@
     </ClInclude>
     <ClInclude Include="prinny.h">
       <Filter>gameStudy\gameObject\character</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="battleScene.h">
+      <Filter>gameStudy\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="battleMapLoad.h">
+      <Filter>gameStudy\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="battleUI.h">
+      <Filter>gameStudy\battle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,9 +287,6 @@
     <ClCompile Include="mapTool.cpp">
       <Filter>gameStudy\mapTool</Filter>
     </ClCompile>
-    <ClCompile Include="battle.cpp">
-      <Filter>gameStudy\battle</Filter>
-    </ClCompile>
     <ClCompile Include="title.cpp">
       <Filter>gameStudy\title</Filter>
     </ClCompile>
@@ -320,8 +326,22 @@
     <ClCompile Include="prinny.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
+    <ClCompile Include="battleScene.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="battleUI.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="battleMapLoad.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="winApi.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

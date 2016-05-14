@@ -75,7 +75,6 @@ struct OBJ_Y_RENDER
 	}
 };
 
-<<<<<<< HEAD
 struct tagItem
 {
 	image* image;
@@ -90,14 +89,14 @@ struct tagItem
 	int res;
 	int buyPrice;	//플레이어가 살 때 가격
 	int sellPrice;	//플레이어가 팔 때 가격
-=======
+};
+
 struct OBJ_NUM
 {
 	bool operator()(const TagObject& obj1, const TagObject& obj2)
 	{
 		return obj1.number < obj2.number;
 	}
->>>>>>> refs/remotes/origin/backup-Jaejun
 };
 
 namespace MY_UTIL
