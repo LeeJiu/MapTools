@@ -4,10 +4,14 @@
 #include "mapTool.h"
 #include "title.h"
 #include "aStar.h"
+#include "store.h"
+
+#include "town.h"
 
 class gameStudy : public gameNode
 {
 private:
+
 
 public:
 	gameStudy();

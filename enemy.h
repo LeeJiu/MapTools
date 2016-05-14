@@ -1,6 +1,6 @@
 #pragma once
-#include "character.h"
-class enemy : public character
+#include "gameObject.h"
+class enemy : public gameObject
 {
 private:
 
