@@ -47,3 +47,11 @@ void Raspberyl::setImage()
 void Raspberyl::setFrame()
 {
 }
+
+void Raspberyl::saveData()
+{
+}
+
+void Raspberyl::loadData()
+{
+}

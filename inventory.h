@@ -9,14 +9,14 @@ private:
 	bool _invenOpen;
 
 	//캐릭터 정보 세팅
-	char* _name;
+	const char* _name;
 	string _hell;
 	string _level, _counter, _mv, _jm;
 	string _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp, _next;
 
 	//아이템 정보 세팅
 	image* _itemImage;
-	char* _itemName;
+	const char* _itemName;
 	string _itmeAtk, _itemInt, _itemDef, _itemSpd, _itemHit, _itemRes, _itemPrice;
 	
 
@@ -48,13 +48,14 @@ public:
 	void showUI();
 	void closeInventory();
 
-	void setItem(tagItem item);
-	void setName(char* name) { _name = name; }
+	void setItem(const char* itemName);
+	void setName(const char* name) { _name = name; }
 	void setHell(int hell) { _hell = std::to_string(hell); };
 	void setClassStates(int level, int counter, int mv, int jm);
 	void setCharacterStates(int hp, int sp, int atk, int intel, int def,
 		int spd, int hit, int res, int exp, int next);
 
 	RECT getExit() { return _rcExit; }
+	item* getItem() { return &_item; }
 };
 

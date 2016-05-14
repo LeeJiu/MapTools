@@ -158,6 +158,7 @@ void town::enterEntrance()
 	{
 		if (_prinny->getRect().bottom > (_rcBattle.top + _rcBattle.bottom) / 2)
 		{
+			_prinny->saveData();
 			SCENEMANAGER->changeScene("selectStage");
 			return;
 		}
@@ -167,6 +168,7 @@ void town::enterEntrance()
 	{
 		if (_prinny->getRect().top < (_rcStore.top + _rcStore.bottom) / 2 + 30)
 		{
+			_prinny->saveData();
 			SCENEMANAGER->changeScene("store");
 			return;
 		}

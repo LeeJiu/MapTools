@@ -18,5 +18,8 @@ public:
 	virtual void move(int endX, int endY);
 	virtual void setImage();
 	virtual void setFrame();
+
+	virtual void saveData();
+	virtual void loadData();
 };
 

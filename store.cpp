@@ -17,10 +17,10 @@ HRESULT store::init()
 	IMAGEMANAGER->addImage("store_background", "image/background/store_background.bmp", WINSIZEX, WINSIZEY, false, false);
 
 	//판매할 아이템을 세팅
-	_item.setItem("sword", "sword", "검이다.", 100, 0, 0, 0, 0, 0, 100, 10);
-	_item.setItem("staff", "staff", "스태프다.", 0, 100, 0, 0, 0, 0, 150, 15);
-	_item.setItem("wand", "wand", "완드다.", 0, 100, 0, 0, 0, 0, 160, 16);
-	_item.setItem("bow", "bow", "활이다.", 0, 0, 0, 0, 100, 0, 130, 13);
+	_item.setItem("sword");
+	_item.setItem("staff");
+	_item.setItem("wand");
+	_item.setItem("bow");
 	
 	/*			store ui			*/
 	
@@ -138,13 +138,13 @@ void store::render()
 	_prinny->render();
 }
 
-void store::buyItem(tagItem item)
+void store::buyItem(const char* itemName)
 {
 	int remainHell = atoi(_hell.c_str()) - atoi(_price.c_str());
 	if (remainHell >= 0)
 	{
 		_prinny->setHell(remainHell);
-		_prinny->setItem(item);
+		_prinny->setItem(itemName);
 		_hell = std::to_string(remainHell);
 	}
 }
@@ -168,14 +168,15 @@ void store::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			buyItem(_item.getVItem()[_buyItemIdx]);
+			buyItem(_item.getVItem()[_buyItemIdx].name);
 		}
 	}
 	if (PtInRect(&_rcExit, _ptMouse))
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			SCENEMANAGER->changeScene("town");		//현재 마을이 없어서 타이틀로
+			_prinny->saveData();
+			SCENEMANAGER->changeScene("town");
 		}
 	}
 }

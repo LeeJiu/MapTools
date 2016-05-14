@@ -47,3 +47,11 @@ void Etna::setImage()
 void Etna::setFrame()
 {
 }
+
+void Etna::saveData()
+{
+}
+
+void Etna::loadData()
+{
+}

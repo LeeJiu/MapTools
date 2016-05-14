@@ -47,3 +47,11 @@ void Flonne::setImage()
 void Flonne::setFrame()
 {
 }
+
+void Flonne::saveData()
+{
+}
+
+void Flonne::loadData()
+{
+}

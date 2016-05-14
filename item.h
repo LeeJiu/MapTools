@@ -18,8 +18,8 @@ public:
 	void render();
 
 	/*			함수 추가			*/
-	void setItem(char* imageName, char* itemName, char* itemInfo, 
-		int atk, int intel, int def, int spd, int hit, int res, int buy, int sell);
+	void setItem(const char* imageName/*, char* itemName, char* itemInfo,
+		int atk, int intel, int def, int spd, int hit, int res, int buy, int sell*/);
 	vector<tagItem>& getVItem() { return _vItem; }
 };
 

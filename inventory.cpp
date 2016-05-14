@@ -30,6 +30,7 @@ HRESULT inventory::init()
 
 void inventory::release()
 {
+	_item.getVItem().clear();
 }
 
 void inventory::update()
@@ -153,7 +154,7 @@ void inventory::updateItemInfo(tagItem item)
 	_itemRes = std::to_string(item.res);
 	_itemPrice = std::to_string(item.sellPrice);
 
-	_itemImage = IMAGEMANAGER->findImage(item.name);
+	_itemImage = IMAGEMANAGER->findImage(_itemName);
 }
 
 void inventory::showUI()
@@ -208,11 +209,9 @@ void inventory::closeInventory()
 	}
 }
 
-void inventory::setItem(tagItem item)
+void inventory::setItem(const char* itemName)
 {
-	_item.setItem(item.name, item.name, item.info, 
-		item.atk, item.intel, item.def, item.spd, item.hit, item.res, 
-		item.buyPrice, item.sellPrice);
+	_item.setItem(itemName);
 }
 
 void inventory::setClassStates(int level, int counter, int mv, int jm)
