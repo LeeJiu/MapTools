@@ -22,6 +22,9 @@ HRESULT battleScene::init()
 	_battleUI->setObjectManagerMemoryLink(_gameObjMgr);
 	_gameObjMgr->setbattleUIMemoryLink(_battleUI);
 
+	_gameObjMgr->setTile();
+	_gameObjMgr->setCharacter();
+
 	return S_OK;
 }
 

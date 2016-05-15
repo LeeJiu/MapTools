@@ -42,6 +42,31 @@ HRESULT prinny::init()
 	return S_OK;
 }
 
+HRESULT prinny::init(vector<TagTile*>& tile)
+{
+	_name = "prinny";
+
+	loadData();
+
+	_character = IMAGEMANAGER->findImage("prinny_idle");
+	_characterState = IDLE;
+	_characterDir = LB;
+	_curFrameX = 0;
+	_count = 0;
+
+	_indexX = 4;
+	_indexY = 9;
+
+	_isShow = false;
+
+	_aStar = new aStar;
+	_aStar->init(tile); //이것은 지현이가 TagTile* 로 변경하면 주석 풀것
+
+	_moveSpeed = 3;
+
+	return S_OK;
+}
+
 void prinny::release()
 {
 	SAFE_DELETE(_inventory);
