@@ -4,6 +4,7 @@
 
 #include "battleUI.h"
 #include "gameObjectManager.h"
+#include "battleManager.h"
 
 
 class battleScene : public gameNode
@@ -11,6 +12,7 @@ class battleScene : public gameNode
 private:
 	battleUI* _battleUI;
 	gameObjectManager* _gameObjMgr;
+	battleManager* _battleMgr;
 
 public:
 	battleScene();

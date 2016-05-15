@@ -222,9 +222,6 @@
     <ClInclude Include="orc.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="gameObjectManager.h">
-      <Filter>gameStudy\gameObject</Filter>
-    </ClInclude>
     <ClInclude Include="etna.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
@@ -233,6 +230,12 @@
     </ClInclude>
     <ClInclude Include="raspberyl.h">
       <Filter>gameStudy\gameObject\character</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObjectManager.h">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="gameObjectManager.h">
       <Filter>gameStudy\gameObject</Filter>
@@ -353,9 +356,6 @@
     <ClCompile Include="orc.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="gameObjectManager.cpp">
-      <Filter>gameStudy\gameObject</Filter>
-    </ClCompile>
     <ClCompile Include="etna.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
@@ -368,8 +368,16 @@
     <ClCompile Include="gameObjectManager.cpp">
       <Filter>gameStudy\gameObject</Filter>
     </ClCompile>
+    <ClCompile Include="gameObjectManager.cpp">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="winApi.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
