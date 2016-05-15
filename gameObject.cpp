@@ -117,5 +117,4 @@ void gameObject::previousState()
 
 void gameObject::showPossibleMoveTile()
 {
-
 }
