@@ -34,7 +34,7 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("store", new store);
 
 
-	SCENEMANAGER->changeScene("selectStage");
+	SCENEMANAGER->changeScene("battleScene");
 
 	return S_OK;
 }

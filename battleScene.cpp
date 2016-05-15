@@ -18,23 +18,25 @@ HRESULT battleScene::init()
 
 	_battleMgr = new battleManager;
 	_battleMgr->init();
+	
+	_gameObjMgr->setTile();
+	_gameObjMgr->setCharacter();
 
 	_battleUI = new battleUI;
 	_battleUI->init();
 
 
-
-	_battleUI->setObjectManagerMemoryLink(_gameObjMgr);
-	_battleUI->setBattleManagerMemoryLink(_battleMgr);
 	_gameObjMgr->setBattleUIMemoryLink(_battleUI);
 	_gameObjMgr->setBattleManagerMemoryLink(_battleMgr);
 	_battleMgr->setBattleUIMemoryLink(_battleUI);
 	_battleMgr->setGameObjectManagerMemoryLink(_gameObjMgr);
 
+	_battleUI->setObjectManagerMemoryLink(_gameObjMgr);
+	_battleUI->setBattleManagerMemoryLink(_battleMgr);
+	_battleUI->setCharacterList();
+
 	
 
-	_gameObjMgr->setTile();
-	_gameObjMgr->setCharacter();
 
 	return S_OK;
 }

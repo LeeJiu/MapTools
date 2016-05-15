@@ -33,12 +33,7 @@ HRESULT battleUI::init()
 
 	_unitOrderListSize = _vUnitOrderList.size();
 	_orderListSize = _vOrderList.size();
-	_characterSize = _gameObjMgr->getCharacter().size();
-
-	for (int i = 0; i < _characterSize; i++)
-	{
-		//_vCharacterList.push_back(_gameObjMgr->getCharacter()[i]->getName());
-	}
+	_characterSize = 0;
 
 	_imageStatusBack = IMAGEMANAGER->addImage("character_status", "image/ui_characterstatus_back.bmp", 300, 500, true, 0xff00ff);
 	_imageBottomStatusBack = IMAGEMANAGER->addImage("bottom_status", "image/ui_battle_bottom_status.bmp", 314, 110, true, 0xff00ff);
@@ -46,7 +41,7 @@ HRESULT battleUI::init()
 	_imageIconCharacter = IMAGEMANAGER->addImage("icon_character", "image/icon_character_fuka.bmp", 96, 96, false, false);
 
 	_imageCharacterListTop = IMAGEMANAGER->addImage("character_list_top", "image/ui_characterList_top.bmp", 250, 50, false, false);			  //캐릭터 소환 목록 창 BACKGROUND IMAGE TOP
-	for (int i = 0; i < _gameObjMgr->getCharacter().size(); i++)																			  //캐릭터 소환 목록 창 BACKGROUND IMAGE BODY~
+	for (int i = 0; i < _characterSize; i++)																								  //캐릭터 소환 목록 창 BACKGROUND IMAGE BODY~
 	{																																		  //
 		image* tempBody = new image;																										  //
 		tempBody->init("image/ui_characterList_body.bmp", 250, 30, false, false);															  //
@@ -82,7 +77,7 @@ HRESULT battleUI::init()
 
 
 	_rcCharacterListTop = RectMake(WINSIZEX - 400, 50, _imageCharacterListTop->getWidth(), _imageCharacterListTop->getHeight());
-	for (int i = 0; i < _gameObjMgr->getCharacter().size(); i++)
+	for (int i = 0; i < _characterSize; i++)
 	{
 		RECT tempBody = RectMake(_rcCharacterListTop.left, _rcCharacterListTop.bottom + (30 * i), 250, 30);						
 		_rcCharacterListBody.push_back(tempBody);																				
@@ -90,7 +85,14 @@ HRESULT battleUI::init()
 		RECT tempRect = RectMake(_rcCharacterListBody[i].left + 20, _rcCharacterListBody[i].top + 5, 250, 30);
 		_rcCharacterListStr.push_back(tempRect);
 	}
-	_rcCharacterListBottom = RectMake(WINSIZEX - 400, _rcCharacterListBody[_characterSize - 1].bottom, _imageCharacterListBottom->getWidth(), _imageCharacterListBottom->getHeight());
+	if (_characterSize > 0)
+	{
+		_rcCharacterListBottom = RectMake(WINSIZEX - 400, _rcCharacterListBody[_characterSize - 1].bottom, _imageCharacterListBottom->getWidth(), _imageCharacterListBottom->getHeight());
+	}
+	else
+	{
+		_rcCharacterListBottom = RectMake(WINSIZEX - 400, _rcCharacterListTop.bottom, _imageCharacterListBottom->getWidth(), _imageCharacterListBottom->getHeight());
+	}
 
 
 	_rcOrderListTop = RectMake(WINSIZEX - 300, 100, _imageOrderListTop->getWidth(), _imageOrderListTop->getHeight());													//일반 명령 창 TOP RECT
@@ -263,7 +265,7 @@ void battleUI::render()
 		_imageCharacterListTop->render(getMemDC(), _rcCharacterListTop.left, _rcCharacterListTop.top);
 		for (int i = 0; i < _characterSize; i++) _imageCharacterListBody[i]->render(getMemDC(), _rcCharacterListBody[i].left, _rcCharacterListBody[i].top);
 		_imageCharacterListBottom->render(getMemDC(), _rcCharacterListBottom.left, _rcCharacterListBottom.top);
-		for (int i = 0; i < _characterSize; i++) DrawText(getMemDC(), TEXT(_vCharacterList[i]), -1, &_rcCharacterListStr[i], DT_LEFT | DT_VCENTER);
+		for (int i = 0; i < _characterSize; i++) DrawText(getMemDC(), TEXT(_vCharacterList[i].c_str()), -1, &_rcCharacterListStr[i], DT_LEFT | DT_VCENTER);
 	}
 
 	if (_isOnOrderList)
@@ -296,6 +298,15 @@ void battleUI::render()
 	}
 
 	
+}
+
+void battleUI::setCharacterList()
+{
+	_characterSize = _gameObjMgr->getCharacter().size();
+	for (int i = 0; i < _characterSize; i++)
+	{
+		_vCharacterList.push_back(_gameObjMgr->getCharacter()[i]->getName());
+	}
 }
 
 void battleUI::orderListClick(int orderNumber)

@@ -46,7 +46,7 @@ private:
 	RECT _rcIconCharacter;					 //캐릭터 상태 창(바닥) 캐릭터 사진
 	vector<char*> _vOrderList;				 //일반 명령 창 char*
 	vector<char*> _vUnitOrderList;			 //유닛 명령 창 char*
-	vector<char*> _vCharacterList;			 //캐릭터 소환 리스트 char*
+	vector<string> _vCharacterList;			 //캐릭터 소환 리스트 char*
 	vector<RECT> _rcOrderListStr;			 //일반 명령 창 STR용 RECT
 	vector<RECT> _rcUnitOrderListStr;		 //유닛 명령 창 STR용 RECT
 	vector<RECT> _rcCharacterListStr;		 //캐릭터 소환 리스트 STR용 RECT
@@ -94,6 +94,8 @@ public:
 	void update();
 	void render();
 
+
+	void setCharacterList();
 	void setTurnShow() { _isTurnShow = true; }
 
 	void orderListClick(int orderNumber);
