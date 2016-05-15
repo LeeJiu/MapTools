@@ -49,7 +49,6 @@ public:
 
 	void setbattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
 
-
 	void setUnitMove();
 	void setUnitAttack();
 	void setUnitDefence();
@@ -67,6 +66,9 @@ public:
 
 	void loadMapData();
 
-
+	vector<TagTile*> getTile() { return _vTile; }
+	vector<gameObject*> getCharacter() { return _vCharacter; }
+	vector<gameObject*> getEnemy() { return _vEnemy; }
+	vector<gameObject*> getGameObject() { return _vGameObject; }
 };
 
