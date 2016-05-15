@@ -101,7 +101,7 @@ void gameObjectManager::setCharacter()
 	gameObject* _prinny1 = new prinny;
 	_vCharacter.push_back(_prinny1);
 	_vGameObject.push_back(_prinny1);
-	_vCharacter[0]->init(_vTile);
+	_vCharacter[1]->init(_vTile);
 
 	//_vCharacter[0]->겟용병개수백터;
 	

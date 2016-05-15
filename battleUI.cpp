@@ -33,13 +33,22 @@ HRESULT battleUI::init()
 
 	_unitOrderListSize = _vUnitOrderList.size();
 	_orderListSize = _vOrderList.size();
-	_characterSize = _vCharacter.size();
+	_characterSize = 0;
 
 	_imageStatusBack = IMAGEMANAGER->addImage("character_status", "image/ui_characterstatus_back.bmp", 300, 500, true, 0xff00ff);
 	_imageBottomStatusBack = IMAGEMANAGER->addImage("bottom_status", "image/ui_battle_bottom_status.bmp", 314, 110, true, 0xff00ff);
 	_imageSkillTitleBack = IMAGEMANAGER->addImage("skill_title", "image/dialog_type_title.bmp", 162, 65, false, false);
-	_imageCharacterListBack = IMAGEMANAGER->addImage("character_list", "image/ui_battle_summon.bmp", 250, 300, true, 0xff00ff);
 	_imageIconCharacter = IMAGEMANAGER->addImage("icon_character", "image/icon_character_fuka.bmp", 96, 96, false, false);
+
+	_imageCharacterListTop = IMAGEMANAGER->addImage("character_list_top", "image/ui_characterList_top.bmp", 250, 50, false, false);			  //캐릭터 소환 목록 창 BACKGROUND IMAGE TOP
+	for (int i = 0; i < _characterSize; i++)																								  //캐릭터 소환 목록 창 BACKGROUND IMAGE BODY~
+	{																																		  //
+		image* tempBody = new image;																										  //
+		tempBody->init("image/ui_characterList_body.bmp", 250, 30, false, false);															  //
+		_imageCharacterListBody.push_back(tempBody);																						  //
+	}																																		  //~캐릭터 소환 목록 창 BACKGROUND IMAGE BODY
+	_imageCharacterListBottom = IMAGEMANAGER->addImage("character_list_bottom", "image/ui_characterList_bottom.bmp", 250, 30, false, false);  //캐릭터 소환 목록 창 BACKGROUND IMAGE BOTTOM
+
 
 	_imageOrderListTop = IMAGEMANAGER->addImage("orderlist_top", "image/ui_orderlist_top.bmp", 254, 29, false, false);				  //일반 명령 창 리스트 BACKGROUND IMAGE TOP
 	for (int i = 0; i < _vOrderList.size(); i++)																					  //일반 명령 창 리스트 BACKGROUND IMAGE BODY
@@ -64,8 +73,27 @@ HRESULT battleUI::init()
 	_rcStatus = RectMake(50, 100, _imageStatusBack->getWidth(), _imageStatusBack->getHeight());										  //캐릭터 상태 창 RECT
 	_rcBottomStatus = RectMake(50, WINSIZEY - 150, _imageBottomStatusBack->getWidth(), _imageBottomStatusBack->getHeight());		  //캐릭터 상태 창(바닥) RECT
 	_rcSkillTitle = RectMakeCenter(CENTERX, 50, _imageSkillTitleBack->getWidth(), _imageSkillTitleBack->getHeight());				  //스킬 타이틀 RECT
-	_rcCharacterList = RectMake(WINSIZEX - 400, 100, _imageCharacterListBack->getWidth(), _imageCharacterListBack->getHeight());	  //캐릭터 목록 RECT
 	_rcIconCharacter = RectMake(_rcBottomStatus.left + 7, _rcBottomStatus.top + 7, 96, 96);											  //캐릭터 상태 창(캐릭터 사진-바닥)
+
+
+	_rcCharacterListTop = RectMake(WINSIZEX - 400, 50, _imageCharacterListTop->getWidth(), _imageCharacterListTop->getHeight());
+	for (int i = 0; i < _characterSize; i++)
+	{
+		RECT tempBody = RectMake(_rcCharacterListTop.left, _rcCharacterListTop.bottom + (30 * i), 250, 30);						
+		_rcCharacterListBody.push_back(tempBody);																				
+																																
+		RECT tempRect = RectMake(_rcCharacterListBody[i].left + 20, _rcCharacterListBody[i].top + 5, 250, 30);
+		_rcCharacterListStr.push_back(tempRect);
+	}
+	if (_characterSize > 0)
+	{
+		_rcCharacterListBottom = RectMake(WINSIZEX - 400, _rcCharacterListBody[_characterSize - 1].bottom, _imageCharacterListBottom->getWidth(), _imageCharacterListBottom->getHeight());
+	}
+	else
+	{
+		_rcCharacterListBottom = RectMake(WINSIZEX - 400, _rcCharacterListTop.bottom, _imageCharacterListBottom->getWidth(), _imageCharacterListBottom->getHeight());
+	}
+
 
 	_rcOrderListTop = RectMake(WINSIZEX - 300, 100, _imageOrderListTop->getWidth(), _imageOrderListTop->getHeight());													//일반 명령 창 TOP RECT
 	for (int i = 0; i < _orderListSize; i++)																															//일반 명령 창 BODY RECT~
@@ -97,7 +125,7 @@ HRESULT battleUI::init()
 	_isOnBottomStatus = false;		//캐릭터 상태 창(바닥)
 	_isOnOrderList = false;			//일반 명령창
 	_isOnUnitOrderList = false;		//유닛 명령창
-	
+
 
 	IMAGEMANAGER->addImage("turnStart", "image/ui_turnback_start.bmp", 461, 54, true, 0xff00ff);	   //TURN IMAGE STAGE START
 	IMAGEMANAGER->addImage("turnPlayer", "image/ui_turnback_start.bmp", 489, 53, true, 0xff00ff);	   //TURN IMAGE PLAYER TURN
@@ -116,7 +144,7 @@ HRESULT battleUI::init()
 
 
 	_imageSelectTile = IMAGEMANAGER->addImage("selectTile", "image/ui_selectTile.bmp", 192, 96, true, 0xff00ff);
-	_rcSelectTile = RectMake(0,0,0,0);
+	_rcSelectTile = RectMake(0, 0, 0, 0);
 
 	_imageTurnCountBackground = IMAGEMANAGER->addImage("turnBackground", "image/ui_dialog_total", 300, 67, false, false);
 	_rcTurnCountBack = RectMake(_rcOrderListTop.left, _rcOrderListTop.top - _imageTurnCountBackground->getHeight(), _imageTurnCountBackground->getWidth(), _imageTurnCountBackground->getHeight());
@@ -143,26 +171,39 @@ void battleUI::update()
 		turnChange();
 		return;
 	}
-	
+
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		//그냥 타일을 선택했는지 검사하자
-		//for (int i = 0; i < 100; i++)
-		//{
-		//	if(PtInRect(&_gameObjMgr->get))                          ------- SELECT TILE 작업해야됨..
-			
-		//}
+		//소환 타일을 클릭했는지 체크하자
+		for (int i = 0; i < _gameObjMgr->getTile().size(); i++)
+		{
+			if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
+			{
+				if ((_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
+					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
+				{
 
-		//캐릭터를 선택했는지 체크하자
-		//for (int i = 0; i < _characterSize; i++)
-		//{
-		//	if (PtInRect(&_vCharacter[i]->getCharacterRect(), _ptMouse))
-		//	{
-		//		_isOnCharacterList = true;
-		//		break;
-		//	}
-		//}
+					if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
+					{
+						_isOnStatus = true;
+						_isOnCharacterList = true;
+					}
+				}
+			}
+		}
 
+		//캐릭터 리스트 중에 어떤 것을 선택했는지 체크하자
+		for (int i = 0; i < _characterSize; i++)
+		{
+			if (PtInRect(&_rcCharacterListBody[i], _ptMouse))
+			{
+				
+			}
+		}
+
+		
 		//일반 명령창을 선택했는지 체크하자
 		for (int i = 0; i < _orderListSize; i++)
 		{
@@ -187,9 +228,12 @@ void battleUI::update()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
-		
-
-
+		_isOnStatus = false;
+		_isOnCharacterList = false;
+		_isOnSkillTitle = false;
+		_isOnBottomStatus = false;
+		_isOnOrderList = false;
+		_isOnUnitOrderList = false;
 	}
 
 
@@ -216,7 +260,13 @@ void battleUI::render()
 	if(_isOnBottomStatus) _imageBottomStatusBack->render(getMemDC(), _rcBottomStatus.left, _rcBottomStatus.top);
 	if(_isOnBottomStatus) _imageIconCharacter->render(getMemDC(), _rcIconCharacter.left, _rcIconCharacter.top);
 	if(_isOnSkillTitle) _imageSkillTitleBack->render(getMemDC(), _rcSkillTitle.left, _rcSkillTitle.top);
-	if(_isOnCharacterList) _imageCharacterListBack->render(getMemDC(), _rcCharacterList.left, _rcCharacterList.top);
+	if (_isOnCharacterList)
+	{
+		_imageCharacterListTop->render(getMemDC(), _rcCharacterListTop.left, _rcCharacterListTop.top);
+		for (int i = 0; i < _characterSize; i++) _imageCharacterListBody[i]->render(getMemDC(), _rcCharacterListBody[i].left, _rcCharacterListBody[i].top);
+		_imageCharacterListBottom->render(getMemDC(), _rcCharacterListBottom.left, _rcCharacterListBottom.top);
+		for (int i = 0; i < _characterSize; i++) DrawText(getMemDC(), TEXT(_vCharacterList[i].c_str()), -1, &_rcCharacterListStr[i], DT_LEFT | DT_VCENTER);
+	}
 
 	if (_isOnOrderList)
 	{
@@ -248,6 +298,15 @@ void battleUI::render()
 	}
 
 	
+}
+
+void battleUI::setCharacterList()
+{
+	_characterSize = _gameObjMgr->getCharacter().size();
+	for (int i = 0; i < _characterSize; i++)
+	{
+		_vCharacterList.push_back(_gameObjMgr->getCharacter()[i]->getName());
+	}
 }
 
 void battleUI::orderListClick(int orderNumber)
