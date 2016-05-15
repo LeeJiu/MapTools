@@ -9,12 +9,23 @@ protected:
 	TagTile _tile[TILENUM][TILENUM];
 	vector<TagTile*> _vRoute;
 
+	char* _name;				//캐릭터 이름
+	int _level, _counter, _mv, _jm;									//캐릭터 능력치 1
+	int _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp;
+
 	image* _character;
 	RECT _rc;
 	int _x, _y;					// 이미지(렉트) 센터x 센터y
+<<<<<<< HEAD
 	int _idxX, _idxY;			// 전투맵의 x, y 인덱스
 	int _destX, _destY;
 	vector<string> _mercenary;
+=======
+	
+	int _oldX, _oldY;			// 전투맵의 이전 x, y 인덱스
+	int _indexX, _indexY;		// 전투맵의 x, y 인덱스
+	int _destX, _destY;			// 전투맵의 이동 목적이 인덱스
+>>>>>>> refs/remotes/origin/moobin
 
 	aStar* _aStar;
 	battleMapLoad* _mapLoad;
@@ -23,6 +34,8 @@ protected:
 	int _moveSpeed;
 
 	bool _isMove;
+	bool _isShowMoveTile;
+	bool _isOrdering;			// 명령수행중이다.
 
 public:
 	gameObject();
@@ -37,9 +50,11 @@ public:
 	virtual void keyControl();
 	virtual void battleKeyControl();
 	virtual void move(int endX, int endY);
-	virtual void attack();
+	virtual void attack(int targetX, int targetY);
 	virtual void setImage();
 	virtual void setFrame();
+	virtual void previousState();
+	virtual void showPossibleMoveTile();
 
 	virtual void saveData();
 	virtual void loadData();

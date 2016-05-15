@@ -11,11 +11,12 @@ aStar::~aStar()
 {
 }
 
-HRESULT aStar::init(vector<TagTile*> tile)
+HRESULT aStar::init(vector<TagTile*>* tile)
 {
 	for (int i = 0; i < 100; i++)
 	{
-		_tile[i % TILENUM][i / TILENUM] = *tile[i];
+		_tile[i % TILENUM][i / TILENUM] = *(*tile)[i];
+		_tile[i % TILENUM][i / TILENUM].f = 9999;
 	}
 
 	_finish = false;
@@ -33,6 +34,10 @@ void aStar::update()
 
 void aStar::render()
 {
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/moobin
 }
 
 void aStar::checkTile()

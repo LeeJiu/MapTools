@@ -17,7 +17,7 @@ HRESULT gameObject::init()
 	_mapLoad->init();
 
 	_aStar = new aStar;
-	//_aStar->init(_mapLoad->getTileVector()); 이것은 지현이가 TagTile* 로 변경하면 주석 풀것
+	_aStar->init(); //이것은 지현이가 TagTile* 로 변경하면 주석 풀것
 
 	_moveSpeed = 3;
 
@@ -95,6 +95,10 @@ void gameObject::move(int endX, int endY)
 	_rc = RectMakeCenter(_x, _y, _character->getFrameWidth(), _character->getFrameHeight());
 }
 
+void gameObject::attack(int targetX, int targetY)
+{
+}
+
 void gameObject::attack()
 {
 }
@@ -107,6 +111,7 @@ void gameObject::setFrame()
 {
 }
 
+<<<<<<< HEAD
 void gameObject::saveData()
 {
 }
@@ -114,3 +119,12 @@ void gameObject::saveData()
 void gameObject::loadData()
 {
 }
+=======
+void gameObject::previousState()
+{
+}
+
+void gameObject::showPossibleMoveTile()
+{
+}
+>>>>>>> refs/remotes/origin/moobin

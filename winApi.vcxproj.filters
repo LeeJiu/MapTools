@@ -237,6 +237,12 @@
     <ClInclude Include="raspberyl.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
+    <ClInclude Include="battleCamera.h">
+      <Filter>gameStudy\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObjectManager.h">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -367,6 +373,12 @@
     </ClCompile>
     <ClCompile Include="raspberyl.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
+    </ClCompile>
+    <ClCompile Include="battleCamera.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObjectManager.cpp">
+      <Filter>gameStudy\gameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

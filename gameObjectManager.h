@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+<<<<<<< HEAD
 
 enum TURN_TYPE
 {
@@ -21,6 +22,32 @@ private:
 	RECT _rcSummon;
 
 	battleUI* _battleUI;
+=======
+#include "prinny.h"
+#include "Etna.h"
+#include "Flonne.h"
+#include "Raspberyl.h"
+#include "orc.h"
+#include "objects.h"
+
+class gameObjectManager : public gameNode
+{
+	TagTile _tile[TILENUM][TILENUM];
+
+	vector<TagTile*> _vTile;
+	vector<TagTile*>::iterator _viTile;
+
+	vector<gameObject*> _vCharacter;
+
+	vector<gameObject*> _vEnemy;
+	
+	vector<gameObject*> _vGameObject;
+
+	int vObjSize;
+	int vEnmSize;
+
+	bool isCharacterTurn;
+>>>>>>> refs/remotes/origin/moobin
 
 public:
 	gameObjectManager();
@@ -30,6 +57,7 @@ public:
 	void release();
 	void update();
 	void render();
+<<<<<<< HEAD
 
 	void setbattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
 
@@ -43,5 +71,16 @@ public:
 
 
 	RECT getSummonRect() { return _rcSummon; }
+=======
+	
+	void setTile();
+	void setCharacter();
+	void setEnemy();
+	void setObject();
+
+	void loadMapData();
+
+
+>>>>>>> refs/remotes/origin/moobin
 };
 
