@@ -21,6 +21,10 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addImage("wand", "image/item/wand.bmp", 256, 256, true, 0xff00ff);
 	IMAGEMANAGER->addImage("bow", "image/item/bow.bmp", 256, 256, true, 0xff00ff);
 
+	//배틀씬에서 사용될 이미지 추가
+	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 192, 96, true, 0xff00ff);
+	IMAGEMANAGER->addImage("attackable", "image/battle/attackable_tile.bmp", 192, 96, true, 0xff00ff);
+	
 	//씬 추가
 	SCENEMANAGER->addScene("town", new town);
 	SCENEMANAGER->addScene("selectStage", new selectStage);
@@ -28,6 +32,7 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("title", new title);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 	SCENEMANAGER->addScene("store", new store);
+
 
 	SCENEMANAGER->changeScene("selectStage");
 

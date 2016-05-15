@@ -8,11 +8,10 @@ class battleManager : public singletonBase<battleManager>
 private:
 	int _turnCount;
 	bool _isTurnType;
-	
-	
 
 	battleUI* _battleUI;
 	gameObjectManager* _gameObjMgr;
+
 public:
 	battleManager();
 	~battleManager();
