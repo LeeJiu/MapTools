@@ -23,7 +23,7 @@ public:
 	aStar();
 	~aStar();
 
-	HRESULT init(vector<TagTile*> tile);
+	HRESULT init(vector<TagTile*>* tile);
 	void release();
 	void update();
 	void render();

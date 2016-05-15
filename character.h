@@ -14,11 +14,9 @@ protected:
 	/*image* _character;
 	RECT _rc;
 	int _x, _y;*/
-	char* _name;				//캐릭터 이름
-	int _level, _counter, _mv, _jm;									//캐릭터 능력치 1
-	int _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp, _next;  //캐릭터 능력치 2
+	int _next;  //캐릭터 능력치 2
 	bool _isWeaponEquip;		//장비 장착여부
-	bool _isUp, _isRight, isShow;
+	bool _isUp, _isRight, _isShow;
 
 	CHARACTER_STATE _characterState;
 	CHARACTER_DIRECTION _characterDir;

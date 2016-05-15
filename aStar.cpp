@@ -11,11 +11,12 @@ aStar::~aStar()
 {
 }
 
-HRESULT aStar::init(vector<TagTile*> tile)
+HRESULT aStar::init(vector<TagTile*>* tile)
 {
 	for (int i = 0; i < 100; i++)
 	{
-		_tile[i % TILENUM][i / TILENUM] = *tile[i];
+		_tile[i % TILENUM][i / TILENUM] = *(*tile)[i];
+		_tile[i % TILENUM][i / TILENUM].f = 9999;
 	}
 
 	_finish = false;
@@ -33,53 +34,7 @@ void aStar::update()
 
 void aStar::render()
 {
-	//SetTextColor(getMemDC(), RGB(255, 0, 0));
 
-	//char str[128];
-
-	//sprintf_s(str, "closeSize : %d", _vCloseList.size());
-	//TextOut(getMemDC(), 10, 10, str, strlen(str));
-	//sprintf_s(str, "openSize : %d", _vOpenList.size());
-	//TextOut(getMemDC(), 10, 30, str, strlen(str));
-	//sprintf_s(str, "routeSize : %d", _vRoute.size());
-	//TextOut(getMemDC(), 10, 50, str, strlen(str));
-	//
-	/*for (int i = 0; i < _vCloseList.size(); i++)
-	{
-	IMAGEMANAGER->findImage("tile_blue")->render(getMemDC(), _vCloseList[i]->rc.left, _vCloseList[i]->rc.top);
-	}
-
-	for (int i = 0; i < _vOpenList.size(); i++)
-	{
-	IMAGEMANAGER->findImage("tile_red")->render(getMemDC(), _vOpenList[i]->rc.left, _vOpenList[i]->rc.top);
-	}
-
-	for (int i = 0; i < _vRoute.size(); i++)
-	{
-	IMAGEMANAGER->findImage("tile_green")->render(getMemDC(), _vRoute[i]->rc.left, _vRoute[i]->rc.top);
-	}*/
-
-
-	//for (int i = 0; i < TILENUM; i++)      // 세로 ( 열 )
-	//{
-	//   for (int j = 0; j < TILENUM; j++)   // 가로 ( 행 ) 
-	//   {
-	//      sprintf_s(str, "%d", _tile[j][i].f);
-	//      TextOut(getMemDC(), _tile[j][i].pivotX - 50, _tile[j][i].pivotY - 10, str, strlen(str));
-
-	//      sprintf_s(str, "%d", _tile[j][i].g);
-	//      TextOut(getMemDC(), _tile[j][i].pivotX, _tile[j][i].pivotY - 10, str, strlen(str));
-
-	//      sprintf_s(str, "%d", _tile[j][i].h);
-	//      TextOut(getMemDC(), _tile[j][i].pivotX + 30, _tile[j][i].pivotY - 10, str, strlen(str));
-	//   }
-	//}
-
-	//sprintf_s(str, "startX : %d, startY : %d", _start.x, _start.y);
-	//TextOut(getMemDC(), 900, 10, str, strlen(str));
-
-	//sprintf_s(str, "endX : %d, endY : %d", _end.x, _end.y);
-	//TextOut(getMemDC(), 900, 30, str, strlen(str));
 }
 
 void aStar::checkTile()
