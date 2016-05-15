@@ -103,6 +103,7 @@ HRESULT battleUI::init()
 	IMAGEMANAGER->addImage("turnEnemy", "image/ui_turnback_start.bmp", 476, 53, true, 0xff00ff);	   //TURN IMAGE ENEMY TURN
 	IMAGEMANAGER->addImage("turnBackground", "image/ui_turnback_black.bmp", 1280, 100, false, false);
 
+	_isTurnType = true;
 	_isTurnShow = true;																				   //TURN SHOW를 해야하는가 말아야하는가에 대한 BOOL 값
 	_isFirstShow = true;																			   //처음 전투에 들어왔을 시 = TRUE	
 	_turnBackPosX = 0 - WINSIZEX;																	   //TURN IMAGE용 POS X 값
@@ -132,7 +133,7 @@ void battleUI::update()
 	// 첫 턴이면 STAGE START를 한번 출력하자
 	if (_isFirstShow)
 	{
-		turnChange(true);
+		turnChange();
 		return;
 	}
 
@@ -146,6 +147,7 @@ void battleUI::update()
 		//for (int i = 0; i < 100; i++)
 		//{
 		//	if(PtInRect(&_gameObjMgr->get))                          ------- SELECT TILE 작업해야됨..
+			
 		//}
 
 		//캐릭터를 선택했는지 체크하자
@@ -182,12 +184,9 @@ void battleUI::update()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
-		_isOnStatus = false;
-		_isOnSkillTitle = false;
-		_isOnBottomStatus = false;
-		_isOnCharacterList = false;
-		_isOnOrderList = false;
-		_isOnUnitOrderList = false;
+		
+
+
 	}
 
 
@@ -248,13 +247,6 @@ void battleUI::render()
 	
 }
 
-//_isOnStatus = false;
-//_isOnSkillTitle = false;
-//_isOnBottomStatus = false;
-//_isOnCharacterList = false;
-//_isOnOrderList = false;
-//_isOnUnitOrderList = false;
-
 void battleUI::orderListClick(int orderNumber)
 {
 	_isOnOrderList = false;
@@ -265,7 +257,7 @@ void battleUI::orderListClick(int orderNumber)
 		break;
 	case 2:	//턴 종료
 		
-		turnChange(false);
+		turnChange();
 		break;
 	case 3:	//보너스 표
 
@@ -320,7 +312,7 @@ void battleUI::unitOrderListClick(int unitOrderNumber)
 	}
 }
 
-void battleUI::turnChange(bool turn)
+void battleUI::turnChange()
 {
 	_isTurnShow = true;
 
@@ -328,7 +320,7 @@ void battleUI::turnChange(bool turn)
 	if (!_isFirstShow)
 	{
 		//TURN TRUE = PLAYER TURN
-		if (turn == TRUE)
+		if (_isTurnType)
 		{
 			_imageTurnStr = IMAGEMANAGER->findImage("turnPlayer");
 			if (!_isTurnBackCenter)
@@ -351,7 +343,7 @@ void battleUI::turnChange(bool turn)
 		}
 
 		//TURN FALSE = ENEMY TURN
-		if (turn == FALSE)
+		if (! _isTurnType)
 		{
 			_imageTurnStr = IMAGEMANAGER->findImage("turnEnemy");
 			if (!_isTurnBackCenter)
@@ -373,7 +365,7 @@ void battleUI::turnChange(bool turn)
 			}
 		}
 	}
-
+	_isTurnType = !_isTurnType;
 	//처음 턴일 때 STAGE START 출력
 	if (_isFirstShow)
 	{

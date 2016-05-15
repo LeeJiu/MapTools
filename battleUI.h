@@ -88,7 +88,7 @@ public:
 
 	void orderListClick(int orderNumber);
 	void unitOrderListClick(int unitOrderNumber);
-	void turnChange(bool turn);
+	void turnChange();
 
 	void setObjectManagerMemoryLink(gameObjectManager* gameObjMgr) { _gameObjMgr = gameObjMgr; }
 };
