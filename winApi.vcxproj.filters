@@ -234,11 +234,11 @@
     <ClInclude Include="gameObjectManager.h">
       <Filter>gameStudy\gameObject</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="gameObjectManager.h">
       <Filter>gameStudy\gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="battleCamera.h">
+      <Filter>gameStudy\battle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -371,13 +371,11 @@
     <ClCompile Include="gameObjectManager.cpp">
       <Filter>gameStudy\gameObject</Filter>
     </ClCompile>
+    <ClCompile Include="battleCamera.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="winApi.rc">
-      <Filter>리소스 파일</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -56,14 +56,11 @@ public:
 
 	virtual void setItem(const char* itemName) = 0;
 	virtual void setHell(int hell) = 0;
-
-	virtual RECT getRect() { return _rc; }
-	virtual int getHell() = 0;
-
-	//int _level, _counter, _mv, _jm;									//캐릭터 능력치 1
-	//int _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp;
+	virtual void setIsShowPossibleMoveTile(bool isShowPossibleMoveTile) { _isShowPossibleMoveTile = isShowPossibleMoveTile; }
 
 	virtual const char* getName() { return _name; }
+	virtual RECT getRect() { return _rc; }
+	virtual int getHell() = 0;
 	virtual int getLevel() { return _level; }
 	virtual int getCounter() { return _counter; }
 	virtual int getMv() { return _mv; }
