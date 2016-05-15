@@ -37,13 +37,10 @@ class gameObjectManager : public gameNode
 	int vObjSize;
 	int vEnmSize;
 
-<<<<<<< HEAD
-=======
 	bool isCharacterTurn;
 
 	battleUI* _battleUI;
 	battleManager* _battleMgr;
->>>>>>> refs/remotes/origin/backup-Jaejun
 public:
 	gameObjectManager();
 	~gameObjectManager();
@@ -72,7 +69,5 @@ public:
 	void setObject();
 
 	void loadMapData();
-
-
 };
 
