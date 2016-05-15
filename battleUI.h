@@ -12,7 +12,7 @@ private:
 	image* _imageSkillTitleBack;			 //스킬 타이틀 BACKGROUND IMAGE
 	image* _imageStatusBack;				 //캐릭터 상태 창 BACKGROUND IMAGE
 	image* _imageBottomStatusBack;			 //캐릭터 상태 창(바닥) BACKGROUND IMAGE
-	image* _imageCharacterListBack;			 //캐릭터 소환 창 리스트 BACKGROUND IMAGE
+	
 	image* _imageIconCharacter;				 //캐릭터 상태 창(바닥) 캐릭터 아이콘 IMAGE
 
 	image* _imageOrderListTop;				 //일반 오더 리스트 BACKGROUND IMAGE TOP
@@ -23,31 +23,37 @@ private:
 	vector<image*> _imageUnitOrderListBody;	 //캐릭터 오더 리스트 BACKGROUND IMAGE BODY
 	image* _imageUnitOrderListBottom;		 //캐릭터 오더 리스트 BACKGROUND IMAGE BOTTOM
 
+	image* _imageCharacterListTop;			 //캐릭터 소환 리스트 BACKGROUND IMAGE TOP
+	vector<image*> _imageCharacterListBody;	 //캐릭터 소환 리스트 BACKGROUND IMAGE BODY
+	image* _imageCharacterListBottom;		 //캐릭터 소환 리스트 BACKGROUND IMAGE BOTTOM
+
 	RECT _rcStatus;							 //캐릭터 상태 창(좌)
 	RECT _rcBottomStatus;					 //캐릭터 상태 창(바닥)
 	RECT _rcSkillTitle;						 //캐릭터 스킬 타이틀(스킬 사용 시 나타남)
-	RECT _rcCharacterList;					 //캐릭터 소환 리스트
 
-	RECT _rcOrderListTop;					 //일반 명령 리스트 RECT
-	vector<RECT> _rcOrderListBody;			 //일반 명령 리스트 RECT
-	RECT _rcOrderListBottom;				 //일반 명령 리스트 RECT
+	RECT _rcCharacterListTop;				 //캐릭터 소환 리스트 TOP
+	vector<RECT> _rcCharacterListBody;		 //캐릭터 소환 리스트 BODY
+	RECT _rcCharacterListBottom;			 //캐릭터 소환 리스트 BOTTOM
 
-	RECT _rcUnitOrderListTop;				 //캐릭터 명령 리스트 RECT
-	vector<RECT> _rcUnitOrderListBody;		 //캐릭터 명령 리스트 RECT
-	RECT _rcUnitOrderListBottom;			 //캐릭터 명령 리스트 RECT
+	RECT _rcOrderListTop;					 //일반 명령 리스트 RECT TOP
+	vector<RECT> _rcOrderListBody;			 //일반 명령 리스트 RECT BODY
+	RECT _rcOrderListBottom;				 //일반 명령 리스트 RECT BOTTOM
+
+	RECT _rcUnitOrderListTop;				 //캐릭터 명령 리스트 RECT TOP
+	vector<RECT> _rcUnitOrderListBody;		 //캐릭터 명령 리스트 RECT BODY
+	RECT _rcUnitOrderListBottom;			 //캐릭터 명령 리스트 RECT BOTTOM
 
 	RECT _rcIconCharacter;					 //캐릭터 상태 창(바닥) 캐릭터 사진
 	vector<char*> _vOrderList;				 //일반 명령 창 char*
 	vector<char*> _vUnitOrderList;			 //유닛 명령 창 char*
+	vector<char*> _vCharacterList;			 //캐릭터 소환 리스트 char*
 	vector<RECT> _rcOrderListStr;			 //일반 명령 창 STR용 RECT
 	vector<RECT> _rcUnitOrderListStr;		 //유닛 명령 창 STR용 RECT
+	vector<RECT> _rcCharacterListStr;		 //캐릭터 소환 리스트 STR용 RECT
 
 	image* _imageTurnCountBackground;		 //현재 턴 표기용 BACKGROUND IMAGE
 	RECT _rcTurnCountBack;					 //현재 턴 표기용 RECT
 	char* _strTurnCount;					 //현재 턴 표기용 char*
-
-	vector<character*> _vCharacter;			//character vector
-	vector<enemy*> _vEnemy;					//Enemy vector
 
 	int _characterSize;				  //캐릭터 Vector Size
 	int _enemySize;					  //Enemy Vector Size
