@@ -42,6 +42,7 @@ public:
 	virtual void saveData();
 	virtual void loadData();
 
+	virtual void setIsShow(bool isShow) { _isShow = isShow; }
 	virtual void setItem(const char* itemName) = 0;
 	virtual void setHell(int hell) = 0;
 
