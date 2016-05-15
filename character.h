@@ -2,22 +2,6 @@
 #include "gameObject.h"
 
 
-enum WEAPON_TYPE
-{
-	WEAPON_NONE, WEAPON_SWORD, WEAPON_WAND, WEAPON_STAFT, WEAPON_BOW
-};
-
-enum CHARACTER_STATE
-{
-	IDLE, WALK, ATTACK, LIFT, ETC
-};
-
-enum CHARACTER_DIRECTION
-{
-	LB, RB, RT, LT
-};
-
-
 class character : public gameObject
 {
 protected:

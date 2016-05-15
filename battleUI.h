@@ -3,6 +3,7 @@
 #include "character.h"
 #include "button.h"
 
+class gameObjectManager;
 class battleUI : public gameNode
 {
 private:
@@ -54,6 +55,8 @@ private:
 	bool _isOnOrderList;			  //명령 창 On/Off
 	bool _isOnUnitOrderList;		  //캐릭터 명령 창 On/Off
 
+	gameObjectManager* _gameObjMgr;
+
 public:
 	battleUI();
 	~battleUI();
@@ -65,5 +68,7 @@ public:
 
 	void orderListClick(int orderNumber);
 	void unitOrderListClick(int unitOrderNumber);
+
+	void setObjectManagerMemoryLink(gameObjectManager* gameObjMgr) { _gameObjMgr = gameObjMgr; }
 };
 

@@ -86,18 +86,18 @@ void battleMapLoad::update()
 
 void battleMapLoad::render()
 {
-	int _vTileSize = _vTile.size();
-	for (int i = 0; i < _vTileSize; i++)
-	{
-		_vTile[i].image->frameRender(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].image->getFrameX(), _vTile[i].image->getFrameY());
-	}
-	
-	sort(_vRender.begin(), _vRender.end(), OBJ_Y_RENDER());
-	int _vRenderSize = _vRender.size();
-	for (int i = 0; i < _vRenderSize; i++)
-	{
-		_vRender[i].image->frameRender(getMemDC(), _vRender[i].rc.left, _vRender[i].rc.top, _vRender[i].image->getFrameX(), _vRender[i].image->getFrameY());
-	}
+	//int _vTileSize = _vTile.size();
+	//for (int i = 0; i < _vTileSize; i++)
+	//{
+	//	_vTile[i].image->frameRender(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].image->getFrameX(), _vTile[i].image->getFrameY());
+	//}
+	//
+	//sort(_vRender.begin(), _vRender.end(), OBJ_Y_RENDER());
+	//int _vRenderSize = _vRender.size();
+	//for (int i = 0; i < _vRenderSize; i++)
+	//{
+	//	_vRender[i].image->frameRender(getMemDC(), _vRender[i].rc.left, _vRender[i].rc.top, _vRender[i].image->getFrameX(), _vRender[i].image->getFrameY());
+	//}
 
 }
 void battleMapLoad::loadMapData()

@@ -1,8 +1,7 @@
 #pragma once
+#pragma warning(disable : 4996)
 #include "gameNode.h"
 #include <algorithm>
-
-
 
 class battleMapLoad : public gameNode
 {

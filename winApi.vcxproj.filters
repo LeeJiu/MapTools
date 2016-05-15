@@ -70,6 +70,9 @@
     <Filter Include="gameStudy\mapTool">
       <UniqueIdentifier>{9f35cf64-8f62-495e-ae09-361557e7e2bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameStudy\selectStage">
+      <UniqueIdentifier>{36a15745-eabb-466f-8260-308e4c9ad48f}</UniqueIdentifier>
+    </Filter>
     <Filter Include="gameStudy\store">
       <UniqueIdentifier>{b442965c-48ee-443a-9347-d40bd4f9f75e}</UniqueIdentifier>
     </Filter>
@@ -90,9 +93,6 @@
     </Filter>
     <Filter Include="gameStudy\aStar">
       <UniqueIdentifier>{42f0b6f3-d929-4bce-80ee-ef9c0cf56edf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\selectStage">
-      <UniqueIdentifier>{36a15745-eabb-466f-8260-308e4c9ad48f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -207,31 +207,34 @@
     <ClInclude Include="aStar.h">
       <Filter>gameStudy\aStar</Filter>
     </ClInclude>
-    <ClInclude Include="prinny.h">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="battleScene.h">
+    <ClInclude Include="battleManager.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
     <ClInclude Include="battleMapLoad.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
+    <ClInclude Include="battleScene.h">
+      <Filter>gameStudy\battle</Filter>
+    </ClInclude>
     <ClInclude Include="battleUI.h">
       <Filter>gameStudy\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="prinny.h">
+      <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
     <ClInclude Include="orc.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="gameObjectManager.h">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClInclude>
     <ClInclude Include="etna.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
-    <ClInclude Include="raspberyl.h">
+    <ClInclude Include="flonne.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
-    <ClInclude Include="flonne.h">
+    <ClInclude Include="raspberyl.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
   </ItemGroup>
@@ -335,8 +338,11 @@
     <ClCompile Include="aStar.cpp">
       <Filter>gameStudy\aStar</Filter>
     </ClCompile>
-    <ClCompile Include="prinny.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
+    <ClCompile Include="battleManager.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="battleMapLoad.cpp">
+      <Filter>gameStudy\battle</Filter>
     </ClCompile>
     <ClCompile Include="battleScene.cpp">
       <Filter>gameStudy\battle</Filter>
@@ -344,28 +350,26 @@
     <ClCompile Include="battleUI.cpp">
       <Filter>gameStudy\battle</Filter>
     </ClCompile>
-    <ClCompile Include="battleMapLoad.cpp">
-      <Filter>gameStudy\battle</Filter>
+    <ClCompile Include="prinny.cpp">
+      <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
     <ClCompile Include="orc.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="etna.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
+    <ClCompile Include="gameObjectManager.cpp">
+      <Filter>gameStudy\gameObject</Filter>
     </ClCompile>
-    <ClCompile Include="raspberyl.cpp">
+    <ClCompile Include="etna.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
     <ClCompile Include="flonne.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
+    <ClCompile Include="raspberyl.cpp">
+      <Filter>gameStudy\gameObject\character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="winApi.rc">
-      <Filter>리소스 파일</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

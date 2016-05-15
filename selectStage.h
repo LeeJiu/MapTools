@@ -45,7 +45,7 @@ public:
 	void update();
 	void render();
 
+	/*			함수 추가			*/
 	void mapListInit();
-
 	void setMapListSize(int mapListSize) { _mapListSize = mapListSize; }
 };

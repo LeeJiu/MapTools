@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include <algorithm>
 
+
 class aStar : public gameNode
 {
 	TagTile _tile[TILENUM][TILENUM];
@@ -14,6 +15,7 @@ class aStar : public gameNode
 
 	vector<TagTile*> _vRoute;
 	vector<TagTile*>::iterator _viRoute;
+
 
 	POINT _start, _end;
 

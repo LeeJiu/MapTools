@@ -12,8 +12,7 @@ item::~item()
 }
 
 HRESULT item::init()
-{
-	
+{	
 	return S_OK;
 }
 
