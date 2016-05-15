@@ -1,57 +1,57 @@
 #include "stdafx.h"
-#include "Etna.h"
+#include "etna.h"
 
 
-Etna::Etna()
+etna::etna()
 {
 }
 
 
-Etna::~Etna()
+etna::~etna()
 {
 }
 
-HRESULT Etna::init()
+HRESULT etna::init()
 {
 	return E_NOTIMPL;
 }
 
-void Etna::release()
+void etna::release()
 {
 }
 
-void Etna::update()
+void etna::update()
 {
 }
 
-void Etna::render()
+void etna::render()
 {
 }
 
-void Etna::keyControl()
+void etna::keyControl()
 {
 }
 
-void Etna::battleKeyControl()
+void etna::battleKeyControl()
 {
 }
 
-void Etna::move(int endX, int endY)
+void etna::move(int endX, int endY)
 {
 }
 
-void Etna::setImage()
+void etna::setImage()
 {
 }
 
-void Etna::setFrame()
+void etna::setFrame()
 {
 }
 
-void Etna::saveData()
+void etna::saveData()
 {
 }
 
-void Etna::loadData()
+void etna::loadData()
 {
 }

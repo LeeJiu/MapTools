@@ -14,6 +14,7 @@ protected:
 	int _x, _y;					// 이미지(렉트) 센터x 센터y
 	int _idxX, _idxY;			// 전투맵의 x, y 인덱스
 	int _destX, _destY;
+	vector<string> _mercenary;
 
 	aStar* _aStar;
 	battleMapLoad* _mapLoad;
@@ -48,4 +49,6 @@ public:
 
 	virtual RECT getRect() { return _rc; }
 	virtual int getHell() = 0;
+
+	virtual vector<string>& getMercenary() { return _mercenary; }
 };
