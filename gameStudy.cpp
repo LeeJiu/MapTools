@@ -34,7 +34,11 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("store", new store);
 
 
+<<<<<<< HEAD
 	SCENEMANAGER->changeScene("battleScene");
+=======
+	SCENEMANAGER->changeScene("title");
+>>>>>>> refs/remotes/origin/moobin
 
 	return S_OK;
 }

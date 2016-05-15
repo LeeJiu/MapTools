@@ -84,6 +84,7 @@
     <ClInclude Include="actionManager.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="aStar.h" />
+    <ClInclude Include="battleCamera.h" />
     <ClInclude Include="battleManager.h" />
     <ClInclude Include="battleScene.h" />
     <ClInclude Include="battleUI.h" />
@@ -131,6 +132,7 @@
     <ClCompile Include="actionManager.cpp" />
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="aStar.cpp" />
+    <ClCompile Include="battleCamera.cpp" />
     <ClCompile Include="battleManager.cpp" />
     <ClCompile Include="battleScene.cpp" />
     <ClCompile Include="battleUI.cpp" />

@@ -28,9 +28,6 @@ HRESULT flonne::init(vector<TagTile*>& tile)
 	_curFrameX = 0;
 	_count = 0;
 
-	_aStar = new aStar;
-	_aStar->init(tile); //이것은 지현이가 TagTile* 로 변경하면 주석 풀것
-
 	_moveSpeed = 3;
 
 	return S_OK;

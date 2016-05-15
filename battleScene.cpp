@@ -37,6 +37,12 @@ HRESULT battleScene::init()
 
 	
 
+<<<<<<< HEAD
+=======
+	_gameObjMgr->setTile();
+	_gameObjMgr->setCharacter();
+	_gameObjMgr->setAstar();
+>>>>>>> refs/remotes/origin/moobin
 
 	return S_OK;
 }

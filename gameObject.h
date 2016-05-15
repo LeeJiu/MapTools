@@ -1,11 +1,10 @@
 #pragma once
 #include "gameNode.h"
-#include "aStar.h"
 
 class gameObject : public gameNode
 {
 protected:
-	TagTile _tile[TILENUM][TILENUM];
+	TagTile* _tile[TILENUM][TILENUM];
 	vector<TagTile*> _vTile;
 	vector<TagTile*> _vRoute;
 
@@ -21,8 +20,6 @@ protected:
 	int _destX, _destY;
 
 	vector<string> _mercenary;
-
-	aStar* _aStar;
 
 	int _idx;					// 이동시 vRoute에서 사용될 인덱스
 	int _moveSpeed;
@@ -54,10 +51,12 @@ public:
 	virtual void saveData();
 	virtual void loadData();
 
+	// set함수
 	virtual void setItem(const char* itemName) = 0;
 	virtual void setHell(int hell) = 0;
 	virtual void setIsShowPossibleMoveTile(bool isShowPossibleMoveTile) { _isShowPossibleMoveTile = isShowPossibleMoveTile; }
 
+	// get함수
 	virtual const char* getName() { return _name; }
 	virtual RECT getRect() { return _rc; }
 	virtual int getHell() = 0;
@@ -74,6 +73,5 @@ public:
 	virtual int getHit() { return _hit; }
 	virtual int getRes() { return _res; }
 	virtual int getExp() { return _exp; }
-
 	virtual vector<string>& getMercenary() { return _mercenary; }
 };

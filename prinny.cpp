@@ -50,24 +50,22 @@ HRESULT prinny::init(vector<TagTile*>& tile)
 
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
-	_characterDir = LB;
+	_characterDir = RB;
 	_curFrameX = 0;
 	_count = 0;
 
 	_indexX = 4;
 	_indexY = 9;
+	_mv = 4;
 
 	_isShow = false;
 
 	for (int i = 0; i < 100; i++)
 	{
-		_tile[i % TILENUM][i / TILENUM] = *(tile[i]);
+		_tile[i % TILENUM][i / TILENUM] = tile[i];
 	}
 
 	_vTile = tile;
-
-	_aStar = new aStar;
-	_aStar->init(tile); //이것은 지현이가 TagTile* 로 변경하면 주석 풀것
 
 	_moveSpeed = 3;
 
@@ -91,9 +89,6 @@ void prinny::render()
 	if (!_isbattle)
 	{
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-
-		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-
 		_inventory->render();
 	}
 	else
@@ -316,11 +311,6 @@ void prinny::loadData()
 	
 	vStr = TXTDATA->txtLoad("prinny.txt");
 	
-	//_currentHP = atoi(vStr[0].c_str());
-	//_maxHP = atoi(vStr[1].c_str());
-	//_ship->setX((float)atof(vStr[2].c_str()));
-	//_ship->setY((float)atof(vStr[3].c_str()));
-
 	int idx = 0;
 
 	_level = atoi(vStr[idx++].c_str());
