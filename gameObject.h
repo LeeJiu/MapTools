@@ -1,7 +1,6 @@
 #pragma once
 #include "gameNode.h"
 #include "aStar.h"
-#include "battleMapLoad.h"
 
 class gameObject : public gameNode
 {
@@ -16,19 +15,13 @@ protected:
 	image* _character;
 	RECT _rc;
 	int _x, _y;					// 이미지(렉트) 센터x 센터y
-<<<<<<< HEAD
-	int _idxX, _idxY;			// 전투맵의 x, y 인덱스
-	int _destX, _destY;
-	vector<string> _mercenary;
-=======
-	
 	int _oldX, _oldY;			// 전투맵의 이전 x, y 인덱스
 	int _indexX, _indexY;		// 전투맵의 x, y 인덱스
-	int _destX, _destY;			// 전투맵의 이동 목적이 인덱스
->>>>>>> refs/remotes/origin/moobin
+	int _destX, _destY;
+	vector<string> _mercenary;
+	
 
 	aStar* _aStar;
-	battleMapLoad* _mapLoad;
 
 	int _idx;					// 이동시 vRoute에서 사용될 인덱스
 	int _moveSpeed;

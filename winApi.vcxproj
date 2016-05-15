@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -85,7 +85,6 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="aStar.h" />
     <ClInclude Include="battleManager.h" />
-    <ClInclude Include="battleMapLoad.h" />
     <ClInclude Include="battleScene.h" />
     <ClInclude Include="battleUI.h" />
     <ClInclude Include="button.h" />
@@ -133,7 +132,6 @@
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="aStar.cpp" />
     <ClCompile Include="battleManager.cpp" />
-    <ClCompile Include="battleMapLoad.cpp" />
     <ClCompile Include="battleScene.cpp" />
     <ClCompile Include="battleUI.cpp" />
     <ClCompile Include="button.cpp" />

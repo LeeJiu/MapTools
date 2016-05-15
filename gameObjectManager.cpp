@@ -1,10 +1,7 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
 
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/moobin
 gameObjectManager::gameObjectManager()
 {
 }
@@ -16,11 +13,8 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
-<<<<<<< HEAD
 	_turnCount = 0;
 
-=======
->>>>>>> refs/remotes/origin/moobin
 	return S_OK;
 }
 
@@ -34,7 +28,6 @@ void gameObjectManager::update()
 
 void gameObjectManager::render()
 {
-<<<<<<< HEAD
 }
 
 void gameObjectManager::setActionAttack()
@@ -47,7 +40,6 @@ void gameObjectManager::setChangeTurn()
 	if (_turnType == TURN_ENEMY) _turnType = TURN_PLAYER;
 	if (_turnType == TURN_PLAYER) _turnType = TURN_ENEMY;
 	_turnCount++;
-=======
 	int _vTileSize = _vTile.size();
 	for (int i = 0; i < _vTileSize; i++)
 	{
@@ -155,5 +147,4 @@ void gameObjectManager::loadMapData()
 		if ((*_viTile)->state == S_ONOBJ) vObjSize++;
 		if ((*_viTile)->state == S_ONENM) vEnmSize++;
 	}
->>>>>>> refs/remotes/origin/moobin
 }

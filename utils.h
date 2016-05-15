@@ -28,11 +28,7 @@
 
 enum TILESTATE
 {
-<<<<<<< HEAD
-	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS
-=======
 	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS, S_ONCHAR
->>>>>>> refs/remotes/origin/moobin
 };
 
 enum OBJSTATE
@@ -60,16 +56,6 @@ struct TagTile
 
 struct TagObject
 {
-<<<<<<< HEAD
-	image* image;         // 타일의 이미지
-	RECT rc;            // 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
-	POINT pivot;         // 타일 렉트의 중심점
-	int x, y;            // 타일의인덱스 x, y
-	int width;            // 타일의 폭
-	int height;            // 타일의 높이
-	int imageNum;         //이미지 가져오기
-	int number;            // 타일의 고유 넘버값 
-=======
 	image* image;			// 타일의 이미지
 	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
 	POINT pivot;			// 타일 렉트의 중심점
@@ -78,12 +64,10 @@ struct TagObject
 	int height;				// 타일의 높이
 	int imageNum;			// 이미지 가져오기
 	int number;				// 타일의 고유 넘버값 
->>>>>>> refs/remotes/origin/moobin
 	bool draw;
 	OBJSTATE state;
 };
 
-<<<<<<< HEAD
 //struct OBJ_Y_RENDER
 //{
 //	bool operator()(const TagObject& obj1, const TagObject& obj2)
@@ -92,8 +76,6 @@ struct TagObject
 //	}
 //};
 
-=======
->>>>>>> refs/remotes/origin/moobin
 struct tagItem
 {
 	image* image;
@@ -110,7 +92,6 @@ struct tagItem
 	int sellPrice;   //플레이어가 팔 때 가격
 };
 
-<<<<<<< HEAD
 //struct OBJ_NUM
 //{
 //	bool operator()(const TagObject& obj1, const TagObject& obj2)
@@ -118,8 +99,6 @@ struct tagItem
 //		return obj1.number < obj2.number;
 //	}
 //};
-=======
->>>>>>> refs/remotes/origin/moobin
 
 namespace MY_UTIL
 {
@@ -138,8 +117,4 @@ enum CHARACTER_STATE
 enum CHARACTER_DIRECTION
 {
 	LB, RB, RT, LT
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> refs/remotes/origin/moobin

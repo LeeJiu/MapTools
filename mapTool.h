@@ -7,10 +7,6 @@
 #include <algorithm>
 #include "button.h"
 
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/moobin
 struct OBJ_Y_RENDER
 {
 	bool operator()(const TagObject* obj1, const TagObject* obj2)
@@ -27,10 +23,7 @@ struct OBJ_NUM
 	}
 };
 
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/moobin
 enum STATE
 {
 	SET_TILE, SET_OBJ, SET_ENM
@@ -46,7 +39,6 @@ private:
 	//맵
 	vector<TagTile*> _vTile;
 	vector<TagTile*>::iterator _viTile;
-<<<<<<< HEAD
 
 	vector<TagObject*> _vObj;
 	vector<TagObject*>::iterator _viObj;
@@ -65,26 +57,6 @@ private:
 	vector<TagObject*> _vIsoEnemy;
 	vector<TagObject*>::iterator _viIsoEnemy;
 
-=======
-
-	vector<TagObject*> _vObj;
-	vector<TagObject*>::iterator _viObj;
-
-	vector<TagObject*> _vEnemy;
-	vector<TagObject*>::iterator _viEnemy;
-
-
-	//샘플
-	vector<TagTile*> _vIsoTile;
-	vector<TagTile*>::iterator _viIsoTile;
-
-	vector<TagObject*> _vIsoObj;
-	vector<TagObject*>::iterator _viIsoObj;
-
-	vector<TagObject*> _vIsoEnemy;
-	vector<TagObject*>::iterator _viIsoEnemy;
-
->>>>>>> refs/remotes/origin/moobin
 	//랜더
 	vector<TagObject*> _vRender;
 	vector<TagObject*>::iterator _viRender;
@@ -131,13 +103,8 @@ public:
 
 	void keyControl();
 	void selectMap();
-<<<<<<< HEAD
 	//void drawTile(int index);
 	//void setObjectsRender();
-=======
-	void drawTile(int index);
-	void setObjectsRender();
->>>>>>> refs/remotes/origin/moobin
 	void saveMapData();
 	void loadMapData();
 	void resetMapData();

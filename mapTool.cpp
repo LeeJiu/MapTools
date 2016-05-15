@@ -53,28 +53,15 @@ HRESULT mapTool::init()
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-<<<<<<< HEAD
 	tileNum = 0;   //샘플타일 타일넘버
 	_pickNum = 0;   //찍어줄 타일넘버
-=======
-	tileNum = 0;	//샘플타일 타일넘버
-	_pickNum = 0;	//찍어줄 타일넘버
->>>>>>> refs/remotes/origin/moobin
+
 
 	return S_OK;
 }
 ///////////////////////////////////////////////////////////인잇 끝////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
 
 
-
-
-=======
-
-
-
-
->>>>>>> refs/remotes/origin/moobin
 ///////////////////////////////////////////////////////////릴리즈////////////////////////////////////////////////////////////////////
 void mapTool::release()
 {
@@ -116,13 +103,9 @@ void mapTool::release()
 
 }
 ///////////////////////////////////////////////////////////릴리즈 끝////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
 
 
-=======
 
-
->>>>>>> refs/remotes/origin/moobin
 ///////////////////////////////////////////////////////////업데이트////////////////////////////////////////////////////////////////////
 void mapTool::update()
 {
@@ -181,7 +164,6 @@ void mapTool::render()
 	//각각의 오브젝트 출력
 	//for (int i = 0; i < _vObj.size(); i++)
 	//{
-<<<<<<< HEAD
 	//   //Rectangle(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, _vObj[i].rc.right, _vObj[i].rc.bottom);
 	//   sort(_vObj.begin(), _vObj.end(), OBJ_Y_RENDER());
 
@@ -192,7 +174,6 @@ void mapTool::render()
 	//      sprintf_s(str, "number = %d", _vObj[i].number);
 	//      TextOut(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, str, strlen(str));
 	//   }
-=======
 	//	//Rectangle(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, _vObj[i].rc.right, _vObj[i].rc.bottom);
 	//	sort(_vObj.begin(), _vObj.end(), OBJ_Y_RENDER());
 
@@ -203,13 +184,11 @@ void mapTool::render()
 	//		sprintf_s(str, "number = %d", _vObj[i].number);
 	//		TextOut(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, str, strlen(str));
 	//	}
->>>>>>> refs/remotes/origin/moobin
 	//}
 
 	////각각의 적 출력
 	//for (int i = 0; i < _vEnemy.size(); i++)
 	//{
-<<<<<<< HEAD
 	//   //Rectangle(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top, _vEnemy[i].rc.right, _vEnemy[i].rc.bottom);
 	//   sort(_vEnemy.begin(), _vEnemy.end(), OBJ_Y_RENDER());
 
@@ -217,7 +196,6 @@ void mapTool::render()
 	//   {
 	//      _vEnemy[i].image->frameRender(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top);
 	//   }
-=======
 	//	//Rectangle(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top, _vEnemy[i].rc.right, _vEnemy[i].rc.bottom);
 	//	sort(_vEnemy.begin(), _vEnemy.end(), OBJ_Y_RENDER());
 
@@ -225,7 +203,6 @@ void mapTool::render()
 	//	{
 	//		_vEnemy[i].image->frameRender(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top);
 	//	}
->>>>>>> refs/remotes/origin/moobin
 	//}
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -285,12 +262,7 @@ void mapTool::render()
 ///////////////////////////////////////////////////////////랜더 끝////////////////////////////////////////////////////////////////////
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> refs/remotes/origin/moobin
-
-///////////////////////////////////////////////////////////키컨트롤 시작////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////키컨트롤 시작////////////////////////////////////////////////////////////////////
 
@@ -349,15 +321,9 @@ void mapTool::keyControl()
 			if (PtInRect(&_vTile[i]->rc, _ptMouse))
 			{
 				if ((_ptMouse.y - _vTile[i]->pivotY) >= -0.5 * (_ptMouse.x - _vTile[i]->pivotX) - WIDTH / 4 &&
-<<<<<<< HEAD
-					(_ptMouse.y - _vTile[i]->pivotY) >= 0.5 * (_ptMouse.x - _vTile[i]->pivotX) - WIDTH / 4 &&
-					(_ptMouse.y - _vTile[i]->pivotY) <= -0.5 * (_ptMouse.x - _vTile[i]->pivotX) + WIDTH / 4 &&
-					(_ptMouse.y - _vTile[i]->pivotY) <= 0.5 * (_ptMouse.x - _vTile[i]->pivotX) + WIDTH / 4)
-=======
 					(_ptMouse.y - _vTile[i]->pivotY) >=  0.5 * (_ptMouse.x - _vTile[i]->pivotX) - WIDTH / 4 &&
 					(_ptMouse.y - _vTile[i]->pivotY) <= -0.5 * (_ptMouse.x - _vTile[i]->pivotX) + WIDTH / 4 &&
 					(_ptMouse.y - _vTile[i]->pivotY) <=  0.5 * (_ptMouse.x - _vTile[i]->pivotX) + WIDTH / 4)
->>>>>>> refs/remotes/origin/moobin
 				{
 					if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 					{
@@ -458,15 +424,9 @@ void mapTool::keyControl()
 
 					//삭제
 					if ((_ptMouse.y - _vTile[i]->pivotY) >= -0.5 * (_ptMouse.x - _vTile[i]->pivotX) - WIDTH / 4 &&
-<<<<<<< HEAD
-						(_ptMouse.y - _vTile[i]->pivotY) >= 0.5 * (_ptMouse.x - _vTile[i]->pivotX) - WIDTH / 4 &&
-						(_ptMouse.y - _vTile[i]->pivotY) <= -0.5 * (_ptMouse.x - _vTile[i]->pivotX) + WIDTH / 4 &&
-						(_ptMouse.y - _vTile[i]->pivotY) <= 0.5 * (_ptMouse.x - _vTile[i]->pivotX) + WIDTH / 4)
-=======
 						(_ptMouse.y - _vTile[i]->pivotY) >=  0.5 * (_ptMouse.x - _vTile[i]->pivotX) - WIDTH / 4 &&
 						(_ptMouse.y - _vTile[i]->pivotY) <= -0.5 * (_ptMouse.x - _vTile[i]->pivotX) + WIDTH / 4 &&
 						(_ptMouse.y - _vTile[i]->pivotY) <=  0.5 * (_ptMouse.x - _vTile[i]->pivotX) + WIDTH / 4)
->>>>>>> refs/remotes/origin/moobin
 					{
 						if (KEYMANAGER->isStayKeyDown(VK_RBUTTON))
 						{
@@ -591,21 +551,12 @@ void mapTool::saveMapData()
 	vector<string> vStr;
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
-<<<<<<< HEAD
 		vStr.push_back("|");                     //구분자
 		vStr.push_back(itoa((*_viTile)->number, temp, 10));      //타일 넘버
 		vStr.push_back(itoa((*_viTile)->state, temp, 10));      //타일 상태
 		vStr.push_back(itoa((*_viTile)->x, temp, 10));   //불러올때 위치정보를 갖고있을 피벗.
 		vStr.push_back(itoa((*_viTile)->y, temp, 10));
 		vStr.push_back(itoa((*_viTile)->imageNum, temp, 10));   //타일 이미지 (_pickNum)
-=======
-		vStr.push_back("|");							//구분자
-		vStr.push_back(itoa((*_viTile)->number, temp, 10));		//타일 넘버
-		vStr.push_back(itoa((*_viTile)->state, temp, 10));		//타일 상태
-		vStr.push_back(itoa((*_viTile)->x, temp, 10));	//불러올때 위치정보를 갖고있을 피벗.
-		vStr.push_back(itoa((*_viTile)->y, temp, 10));
-		vStr.push_back(itoa((*_viTile)->imageNum, temp, 10));	//타일 이미지 (_pickNum)
->>>>>>> refs/remotes/origin/moobin
 	}
 	TXTDATA->txtSave("battleMap1.txt", vStr);
 
@@ -666,7 +617,6 @@ void mapTool::loadMapData()
 			(*_viTile)->image->setFrameX(_vIsoTile[(*_viTile)->imageNum]->image->getFrameX());
 			(*_viTile)->image->setFrameY(_vIsoTile[(*_viTile)->imageNum]->image->getFrameY());
 		}
-<<<<<<< HEAD
 
 		if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == ZEN_POINT) vObjSize++;
 		if ((*_viTile)->state == S_ONENM || (*_viTile)->state == BOSS) vEnmSize++;
@@ -678,8 +628,6 @@ void mapTool::loadMapData()
 	{
 		char temp[128];
 
-=======
-
 		if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == ZEN_POINT) vObjSize++;
 		if ((*_viTile)->state == S_ONENM || (*_viTile)->state == BOSS) vEnmSize++;
 	}
@@ -690,7 +638,6 @@ void mapTool::loadMapData()
 	{
 		char temp[128];
 
->>>>>>> refs/remotes/origin/moobin
 		TagObject* obj;
 		obj = new TagObject;
 		obj->image = new image;
@@ -699,7 +646,6 @@ void mapTool::loadMapData()
 		obj->imageNum = DATABASE->getElementData(itoa(i, temp, 10))->imageNum;;
 		obj->state = (OBJSTATE)DATABASE->getElementData(itoa(i, temp, 10))->state;
 		switch (obj->imageNum)
-<<<<<<< HEAD
 		{
 		case 0:
 			obj->image->init("image/object_block.bmp", 192, 197, true, 0xff00ff);
@@ -725,33 +671,6 @@ void mapTool::loadMapData()
 		obj->height = obj->image->getHeight();
 		for (int j = 0; j < _vTile.size(); j++)
 		{
-=======
-		{
-		case 0:
-			obj->image->init("image/object_block.bmp", 192, 197, true, 0xff00ff);
-			break;
-		case 1:
-			obj->image->init("image/object_block2.bmp", 192, 192, true, 0xff00ff);
-			break;
-		case 2:
-			obj->image->init("image/object_woods.bmp", 192, 125, true, 0xff00ff);
-			break;
-		case 3:
-			obj->image->init("image/object_tree.bmp", 192, 200, true, 0xff00ff);
-			break;
-		case 4:
-			obj->image->init("image/object_zen.bmp", 1536, 62, 8, 1, true, 0xff00ff);
-			obj->image->setFrameX(0);
-			obj->image->setFrameX(0);
-			break;
-		default:
-			break;
-		}
-		obj->width = WIDTH;
-		obj->height = obj->image->getHeight();
-		for (int j = 0; j < _vTile.size(); j++)
-		{
->>>>>>> refs/remotes/origin/moobin
 			if (obj->x == _vTile[j]->x && obj->y == _vTile[j]->y)
 			{
 				obj->rc = RectMake(_vTile[j]->rc.left, _vTile[j]->rc.bottom - obj->height, obj->width, obj->height);
@@ -841,11 +760,7 @@ void mapTool::setTile()
 	//전체 깔아둔타일
 	int count = 0;
 	POINT firstPivot = { (316 + WINSIZEX) / 2, WIDTH / 4 };
-<<<<<<< HEAD
 	for (int i = 0; i < TILENUM; i++)      // 세로 ( 열 )
-=======
-	for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
->>>>>>> refs/remotes/origin/moobin
 	{
 		for (int j = 0; j < TILENUM; j++)   // 가로 ( 행 )
 		{
@@ -862,11 +777,7 @@ void mapTool::setTile()
 			tile->pivotY = (tile->rc.top + tile->rc.bottom) / 2;
 			tile->x = j;
 			tile->y = i;
-<<<<<<< HEAD
-			tile->imageNum = 100;   //이미지 넘버.
-=======
 			tile->imageNum = 100;	//이미지 넘버.
->>>>>>> refs/remotes/origin/moobin
 			tile->number = count;
 			tile->state = S_NONE;
 			tile->draw = false;

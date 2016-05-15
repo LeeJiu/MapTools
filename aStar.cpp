@@ -34,10 +34,7 @@ void aStar::update()
 
 void aStar::render()
 {
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/moobin
 }
 
 void aStar::checkTile()
