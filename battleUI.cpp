@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "battleUI.h"
 #include "gameObjectManager.h"
+#include "battleManager.h"
 
 battleUI::battleUI()
 {
@@ -101,7 +102,7 @@ HRESULT battleUI::init()
 	IMAGEMANAGER->addImage("turnStart", "image/ui_turnback_start.bmp", 461, 54, true, 0xff00ff);	   //TURN IMAGE STAGE START
 	IMAGEMANAGER->addImage("turnPlayer", "image/ui_turnback_start.bmp", 489, 53, true, 0xff00ff);	   //TURN IMAGE PLAYER TURN
 	IMAGEMANAGER->addImage("turnEnemy", "image/ui_turnback_start.bmp", 476, 53, true, 0xff00ff);	   //TURN IMAGE ENEMY TURN
-	IMAGEMANAGER->addImage("turnBackground", "image/ui_turnback_black.bmp", 1280, 100, false, false);
+	IMAGEMANAGER->addImage("turnBackground", "image/ui_turnback_black.bmp", 1280, 100, false, false);  //TURN BACKGROUND(ALPHA BLACK) IMAGE
 
 	_isTurnType = true;
 	_isTurnShow = true;																				   //TURN SHOW를 해야하는가 말아야하는가에 대한 BOOL 값
@@ -137,10 +138,12 @@ void battleUI::update()
 		return;
 	}
 
-	//마우스 커서가 캐릭터가 올려져 있는 타일에 충돌했는지 체크하자
+	if (_isTurnShow)
+	{
+		turnChange();
+		return;
+	}
 	
-
-
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		//그냥 타일을 선택했는지 검사하자
@@ -253,11 +256,10 @@ void battleUI::orderListClick(int orderNumber)
 	switch (orderNumber)
 	{
 	case 1:	//공격개시
-		
+		_battleMgr->setActionAttack();
 		break;
 	case 2:	//턴 종료
-		
-		turnChange();
+		_battleMgr->setTurnChange();
 		break;
 	case 3:	//보너스 표
 

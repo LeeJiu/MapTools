@@ -4,6 +4,7 @@
 #include "button.h"
 #include "enemy.h"
 
+class battleManager;
 class gameObjectManager;
 class battleUI : public gameNode
 {
@@ -76,6 +77,7 @@ private:
 
 
 	gameObjectManager* _gameObjMgr;
+	battleManager* _battleMgr;
 
 public:
 	battleUI();
@@ -86,10 +88,13 @@ public:
 	void update();
 	void render();
 
+	void setTurnShow() { _isTurnShow = true; }
+
 	void orderListClick(int orderNumber);
 	void unitOrderListClick(int unitOrderNumber);
 	void turnChange();
 
 	void setObjectManagerMemoryLink(gameObjectManager* gameObjMgr) { _gameObjMgr = gameObjMgr; }
+	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
 };
 
