@@ -53,6 +53,18 @@ void character::setFrame()
 {
 }
 
+void character::previousState()
+{
+}
+
+void character::showPossibleMoveTile()
+{
+	for (int i = 0; i < 100; i++)
+	{
+
+	}
+}
+
 void character::saveData()
 {
 }
