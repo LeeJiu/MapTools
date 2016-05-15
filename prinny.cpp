@@ -46,7 +46,7 @@ HRESULT prinny::init(vector<TagTile*>& tile)
 {
 	_name = "prinny";
 
-	loadData();
+	//loadData();
 
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
