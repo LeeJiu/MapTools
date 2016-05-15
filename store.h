@@ -14,7 +14,7 @@ private:
 	//아이템 정보를 띄워줄 변수 추가 (atk, def, int, spd ...)
 	image* _itemImage;
 	string _atk, _int, _def, _spd, _hit, _res, _price, _hell;
-	char* _name;
+	const char* _name;
 	char* _info;
 	int _buyItemIdx;
 
@@ -39,7 +39,7 @@ public:
 	void render();
 
 	/*			함수 추가			*/
-	void buyItem(tagItem item);
+	void buyItem(const char* itemName);
 	void keyControl();
 	void showItemInfoAll(int arrNum);		//아이템 정보창 갱신
 };

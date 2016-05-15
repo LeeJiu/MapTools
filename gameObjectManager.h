@@ -7,8 +7,26 @@
 #include "orc.h"
 #include "objects.h"
 
+enum TURN_TYPE
+{
+	TURN_ENEMY, TURN_PLAYER
+};
+
+class battleUI;
+
 class gameObjectManager : public gameNode
 {
+	int _turnCount;
+	TURN_TYPE _turnType;
+
+	RECT _rcTurnBack;
+	RECT _rcTurnStr;
+	image* _imageTurn;
+	bool _isTurnCenter;
+
+	RECT _rcSummon;
+
+	battleUI* _battleUI;
 	TagTile _tile[TILENUM][TILENUM];
 
 	vector<TagTile*> _vTile;
@@ -33,6 +51,19 @@ public:
 	void release();
 	void update();
 	void render();
+
+	void setbattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
+
+
+	void setUnitMove();
+	void setUnitAttack();
+	void setUnitDefence();
+
+	void setActionAttack();
+	void setChangeTurn();
+
+
+	RECT getSummonRect() { return _rcSummon; }
 	
 	void setTile();
 	void setCharacter();

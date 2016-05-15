@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable : 4996)
 #include "character.h"
 #include "inventory.h"
 
@@ -26,8 +27,11 @@ public:
 	virtual void move(int endX, int endY);
 	virtual void setImage();
 	virtual void setFrame();
+
+	virtual void saveData();
+	virtual void loadData();
 	 
-	virtual void setItem(tagItem item);
+	virtual void setItem(const char* itemName);
 	virtual void setHell(int hell) { _hell = hell; }
 	 
 	virtual int getHell() { return _hell; }

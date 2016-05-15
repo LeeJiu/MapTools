@@ -7,7 +7,6 @@
 #include <algorithm>
 #include "button.h"
 
-
 struct OBJ_Y_RENDER
 {
 	bool operator()(const TagObject* obj1, const TagObject* obj2)
@@ -104,8 +103,8 @@ public:
 
 	void keyControl();
 	void selectMap();
-	void drawTile(int index);
-	void setObjectsRender();
+	//void drawTile(int index);
+	//void setObjectsRender();
 	void saveMapData();
 	void loadMapData();
 	void resetMapData();
@@ -116,4 +115,3 @@ public:
 	static void onEnemy();
 	static void goToMenu();
 };
-

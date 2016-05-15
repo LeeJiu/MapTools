@@ -1,49 +1,61 @@
 #include "stdafx.h"
-#include "Raspberyl.h"
+#include "raspberyl.h"
 
 
-Raspberyl::Raspberyl()
+raspberyl::raspberyl()
 {
 }
 
 
-Raspberyl::~Raspberyl()
+raspberyl::~raspberyl()
 {
 }
 
-HRESULT Raspberyl::init()
+HRESULT raspberyl::init()
 {
 	return E_NOTIMPL;
 }
 
-void Raspberyl::release()
+void raspberyl::release()
 {
 }
 
-void Raspberyl::update()
+void raspberyl::update()
 {
 }
 
-void Raspberyl::render()
+void raspberyl::render()
 {
 }
 
-void Raspberyl::keyControl()
+void raspberyl::keyControl()
 {
 }
 
-void Raspberyl::battleKeyControl()
+void raspberyl::battleKeyControl()
 {
 }
 
-void Raspberyl::move(int endX, int endY)
+void raspberyl::move(int endX, int endY)
 {
 }
 
-void Raspberyl::setImage()
+void raspberyl::setImage()
 {
 }
 
-void Raspberyl::setFrame()
+void raspberyl::setFrame()
+{
+}
+
+void raspberyl::saveData()
+{
+}
+
+void raspberyl::loadData()
+{
+}
+
+void raspberyl::setItem(const char * itemName)
 {
 }

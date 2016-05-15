@@ -1,49 +1,61 @@
 #include "stdafx.h"
-#include "Flonne.h"
+#include "flonne.h"
 
 
-Flonne::Flonne()
+flonne::flonne()
 {
 }
 
 
-Flonne::~Flonne()
+flonne::~flonne()
 {
 }
 
-HRESULT Flonne::init()
+HRESULT flonne::init()
 {
 	return E_NOTIMPL;
 }
 
-void Flonne::release()
+void flonne::release()
 {
 }
 
-void Flonne::update()
+void flonne::update()
 {
 }
 
-void Flonne::render()
+void flonne::render()
 {
 }
 
-void Flonne::keyControl()
+void flonne::keyControl()
 {
 }
 
-void Flonne::battleKeyControl()
+void flonne::battleKeyControl()
 {
 }
 
-void Flonne::move(int endX, int endY)
+void flonne::move(int endX, int endY)
 {
 }
 
-void Flonne::setImage()
+void flonne::setImage()
 {
 }
 
-void Flonne::setFrame()
+void flonne::setFrame()
+{
+}
+
+void flonne::saveData()
+{
+}
+
+void flonne::loadData()
+{
+}
+
+void flonne::setItem(const char * itemName)
 {
 }

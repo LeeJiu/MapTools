@@ -13,6 +13,8 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
+	_turnCount = 0;
+
 	return S_OK;
 }
 
@@ -26,6 +28,18 @@ void gameObjectManager::update()
 
 void gameObjectManager::render()
 {
+}
+
+void gameObjectManager::setActionAttack()
+{
+
+}
+
+void gameObjectManager::setChangeTurn()
+{
+	if (_turnType == TURN_ENEMY) _turnType = TURN_PLAYER;
+	if (_turnType == TURN_PLAYER) _turnType = TURN_ENEMY;
+	_turnCount++;
 	int _vTileSize = _vTile.size();
 	for (int i = 0; i < _vTileSize; i++)
 	{

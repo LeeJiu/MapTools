@@ -84,8 +84,7 @@
     <ClInclude Include="actionManager.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="aStar.h" />
-    <ClInclude Include="battleCamera.h" />
-    <ClInclude Include="battleMapLoad.h" />
+    <ClInclude Include="battleManager.h" />
     <ClInclude Include="battleScene.h" />
     <ClInclude Include="battleUI.h" />
     <ClInclude Include="button.h" />
@@ -95,8 +94,8 @@
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="enemy.h" />
-    <ClInclude Include="Etna.h" />
-    <ClInclude Include="Flonne.h" />
+    <ClInclude Include="etna.h" />
+    <ClInclude Include="flonne.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameObjectManager.h" />
@@ -113,8 +112,7 @@
     <ClInclude Include="prinny.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
-    <ClInclude Include="Raspberyl.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="raspberyl.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="selectStage.h" />
     <ClInclude Include="singletonBase.h" />
@@ -133,8 +131,7 @@
     <ClCompile Include="actionManager.cpp" />
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="aStar.cpp" />
-    <ClCompile Include="battleCamera.cpp" />
-    <ClCompile Include="battleMapLoad.cpp" />
+    <ClCompile Include="battleManager.cpp" />
     <ClCompile Include="battleScene.cpp" />
     <ClCompile Include="battleUI.cpp" />
     <ClCompile Include="button.cpp" />
@@ -143,8 +140,8 @@
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="Etna.cpp" />
-    <ClCompile Include="Flonne.cpp" />
+    <ClCompile Include="etna.cpp" />
+    <ClCompile Include="flonne.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="gameObjectManager.cpp" />
@@ -160,7 +157,7 @@
     <ClCompile Include="orc.cpp" />
     <ClCompile Include="prinny.cpp" />
     <ClCompile Include="progressBar.cpp" />
-    <ClCompile Include="Raspberyl.cpp" />
+    <ClCompile Include="raspberyl.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="selectStage.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -178,9 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="winApi.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

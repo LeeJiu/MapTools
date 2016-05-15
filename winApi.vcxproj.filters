@@ -207,35 +207,32 @@
     <ClInclude Include="aStar.h">
       <Filter>gameStudy\aStar</Filter>
     </ClInclude>
-    <ClInclude Include="prinny.h">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="battleScene.h">
+    <ClInclude Include="battleManager.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
-    <ClInclude Include="battleMapLoad.h">
+    <ClInclude Include="battleScene.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
     <ClInclude Include="battleUI.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
-    <ClInclude Include="Flonne.h">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClInclude>
-    <ClInclude Include="Etna.h">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClInclude>
-    <ClInclude Include="Raspberyl.h">
+    <ClInclude Include="prinny.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
     <ClInclude Include="orc.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="battleCamera.h">
-      <Filter>gameStudy\battle</Filter>
+    <ClInclude Include="gameObjectManager.h">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="etna.h">
+      <Filter>gameStudy\gameObject\character</Filter>
+    </ClInclude>
+    <ClInclude Include="flonne.h">
+      <Filter>gameStudy\gameObject\character</Filter>
+    </ClInclude>
+    <ClInclude Include="raspberyl.h">
+      <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
     <ClInclude Include="gameObjectManager.h">
       <Filter>gameStudy\gameObject</Filter>
@@ -341,8 +338,8 @@
     <ClCompile Include="aStar.cpp">
       <Filter>gameStudy\aStar</Filter>
     </ClCompile>
-    <ClCompile Include="prinny.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
+    <ClCompile Include="battleManager.cpp">
+      <Filter>gameStudy\battle</Filter>
     </ClCompile>
     <ClCompile Include="battleScene.cpp">
       <Filter>gameStudy\battle</Filter>
@@ -350,23 +347,23 @@
     <ClCompile Include="battleUI.cpp">
       <Filter>gameStudy\battle</Filter>
     </ClCompile>
-    <ClCompile Include="battleMapLoad.cpp">
-      <Filter>gameStudy\battle</Filter>
-    </ClCompile>
-    <ClCompile Include="Etna.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClCompile>
-    <ClCompile Include="Flonne.cpp">
-      <Filter>gameStudy\gameObject\character</Filter>
-    </ClCompile>
-    <ClCompile Include="Raspberyl.cpp">
+    <ClCompile Include="prinny.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
     <ClCompile Include="orc.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="battleCamera.cpp">
-      <Filter>gameStudy\battle</Filter>
+    <ClCompile Include="gameObjectManager.cpp">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="etna.cpp">
+      <Filter>gameStudy\gameObject\character</Filter>
+    </ClCompile>
+    <ClCompile Include="flonne.cpp">
+      <Filter>gameStudy\gameObject\character</Filter>
+    </ClCompile>
+    <ClCompile Include="raspberyl.cpp">
+      <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
     <ClCompile Include="gameObjectManager.cpp">
       <Filter>gameStudy\gameObject</Filter>
@@ -374,10 +371,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="winApi.rc">
-      <Filter>리소스 파일</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

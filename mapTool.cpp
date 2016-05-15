@@ -53,14 +53,13 @@ HRESULT mapTool::init()
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-	tileNum = 0;	//샘플타일 타일넘버
-	_pickNum = 0;	//찍어줄 타일넘버
+	tileNum = 0;   //샘플타일 타일넘버
+	_pickNum = 0;   //찍어줄 타일넘버
+
 
 	return S_OK;
 }
 ///////////////////////////////////////////////////////////인잇 끝////////////////////////////////////////////////////////////////////
-
-
 
 
 ///////////////////////////////////////////////////////////릴리즈////////////////////////////////////////////////////////////////////
@@ -104,6 +103,7 @@ void mapTool::release()
 
 }
 ///////////////////////////////////////////////////////////릴리즈 끝////////////////////////////////////////////////////////////////////
+
 
 
 ///////////////////////////////////////////////////////////업데이트////////////////////////////////////////////////////////////////////
@@ -164,6 +164,16 @@ void mapTool::render()
 	//각각의 오브젝트 출력
 	//for (int i = 0; i < _vObj.size(); i++)
 	//{
+	//   //Rectangle(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, _vObj[i].rc.right, _vObj[i].rc.bottom);
+	//   sort(_vObj.begin(), _vObj.end(), OBJ_Y_RENDER());
+
+	//   if (_vObj[i].draw)
+	//   {
+	//      _vObj[i].image->render(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top);
+	//      
+	//      sprintf_s(str, "number = %d", _vObj[i].number);
+	//      TextOut(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, str, strlen(str));
+	//   }
 	//	//Rectangle(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, _vObj[i].rc.right, _vObj[i].rc.bottom);
 	//	sort(_vObj.begin(), _vObj.end(), OBJ_Y_RENDER());
 
@@ -179,6 +189,13 @@ void mapTool::render()
 	////각각의 적 출력
 	//for (int i = 0; i < _vEnemy.size(); i++)
 	//{
+	//   //Rectangle(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top, _vEnemy[i].rc.right, _vEnemy[i].rc.bottom);
+	//   sort(_vEnemy.begin(), _vEnemy.end(), OBJ_Y_RENDER());
+
+	//   if (_vEnemy[i].draw)
+	//   {
+	//      _vEnemy[i].image->frameRender(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top);
+	//   }
 	//	//Rectangle(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top, _vEnemy[i].rc.right, _vEnemy[i].rc.bottom);
 	//	sort(_vEnemy.begin(), _vEnemy.end(), OBJ_Y_RENDER());
 
@@ -534,12 +551,12 @@ void mapTool::saveMapData()
 	vector<string> vStr;
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
-		vStr.push_back("|");							//구분자
-		vStr.push_back(itoa((*_viTile)->number, temp, 10));		//타일 넘버
-		vStr.push_back(itoa((*_viTile)->state, temp, 10));		//타일 상태
-		vStr.push_back(itoa((*_viTile)->x, temp, 10));	//불러올때 위치정보를 갖고있을 피벗.
+		vStr.push_back("|");                     //구분자
+		vStr.push_back(itoa((*_viTile)->number, temp, 10));      //타일 넘버
+		vStr.push_back(itoa((*_viTile)->state, temp, 10));      //타일 상태
+		vStr.push_back(itoa((*_viTile)->x, temp, 10));   //불러올때 위치정보를 갖고있을 피벗.
 		vStr.push_back(itoa((*_viTile)->y, temp, 10));
-		vStr.push_back(itoa((*_viTile)->imageNum, temp, 10));	//타일 이미지 (_pickNum)
+		vStr.push_back(itoa((*_viTile)->imageNum, temp, 10));   //타일 이미지 (_pickNum)
 	}
 	TXTDATA->txtSave("battleMap1.txt", vStr);
 
@@ -600,6 +617,16 @@ void mapTool::loadMapData()
 			(*_viTile)->image->setFrameX(_vIsoTile[(*_viTile)->imageNum]->image->getFrameX());
 			(*_viTile)->image->setFrameY(_vIsoTile[(*_viTile)->imageNum]->image->getFrameY());
 		}
+
+		if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == ZEN_POINT) vObjSize++;
+		if ((*_viTile)->state == S_ONENM || (*_viTile)->state == BOSS) vEnmSize++;
+	}
+
+	//오브젝트 로드
+	DATABASE->loadDatabase("battleMap1_obj.txt");
+	for (int i = 0; i < vObjSize; i++)
+	{
+		char temp[128];
 
 		if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == ZEN_POINT) vObjSize++;
 		if ((*_viTile)->state == S_ONENM || (*_viTile)->state == BOSS) vEnmSize++;
@@ -733,9 +760,9 @@ void mapTool::setTile()
 	//전체 깔아둔타일
 	int count = 0;
 	POINT firstPivot = { (316 + WINSIZEX) / 2, WIDTH / 4 };
-	for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
+	for (int i = 0; i < TILENUM; i++)      // 세로 ( 열 )
 	{
-		for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 )
+		for (int j = 0; j < TILENUM; j++)   // 가로 ( 행 )
 		{
 			// 아래 초기화부분 이해안되면 물어보세용
 			// 물론 알려줄수있을지는 의문임

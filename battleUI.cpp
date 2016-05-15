@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "battleUI.h"
-
+#include "gameObjectManager.h"
 
 battleUI::battleUI()
 {
@@ -109,6 +109,12 @@ void battleUI::update()
 {
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
+		//소환 타일을 선택했는지 체크하자
+		if (PtInRect(&_gameObjMgr->getSummonRect(), _ptMouse))
+		{
+			
+		}
+
 		//캐릭터를 선택했는지 체크하자
 		//for (int i = 0; i < _characterSize; i++)
 		//{
@@ -139,6 +145,7 @@ void battleUI::update()
 			}
 		}
 
+
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
@@ -151,6 +158,11 @@ void battleUI::update()
 		_isOnUnitOrderList = false;
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('K'))
+	{
+		_isOnStatus = true;
+		_isOnCharacterList = true;
+	}
 	
 
 }
