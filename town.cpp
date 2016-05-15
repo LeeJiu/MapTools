@@ -159,7 +159,8 @@ void town::enterEntrance()
 		if (_prinny->getRect().bottom > (_rcBattle.top + _rcBattle.bottom) / 2)
 		{
 			_prinny->saveData();
-			SCENEMANAGER->changeScene("selectStage");
+			//SCENEMANAGER->changeScene("selectStage");
+			SCENEMANAGER->changeScene("mercenaryStore");	//임시로 용병 상점으로
 			return;
 		}
 	}

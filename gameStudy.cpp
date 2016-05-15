@@ -21,6 +21,34 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addImage("wand", "image/item/wand.bmp", 256, 256, true, 0xff00ff);
 	IMAGEMANAGER->addImage("bow", "image/item/bow.bmp", 256, 256, true, 0xff00ff);
 
+	//스토어 배경 이미지 추가
+	IMAGEMANAGER->addImage("store_background", "image/background/store_background.bmp", WINSIZEX, WINSIZEY, false, false);
+
+	//스토어 ui 이미지 추가
+	IMAGEMANAGER->addImage("store_title", "image/ui/store_title.bmp", 162, 65, false, false);
+	IMAGEMANAGER->addImage("store_exit", "image/ui/store_exit.bmp", 162, 65, false, false);
+	IMAGEMANAGER->addImage("store_list_title", "image/ui/store_list_title.bmp", 100, 50, true, 0xff00ff);
+	IMAGEMANAGER->addImage("store_list", "image/ui/dialog_type_List.bmp", 300, 389, false, false);
+	IMAGEMANAGER->addImage("store_status", "image/ui/store_ui_item_status.bmp", 700, 389, false, false);
+	IMAGEMANAGER->addImage("store_info", "image/ui/dialog_type_bottom.bmp", 1182, 65, false, false);
+	IMAGEMANAGER->addImage("store_hell", "image/ui/store_hell.bmp", 300, 50, false, false);
+	IMAGEMANAGER->addImage("store_buy", "image/ui/store_buy.bmp", 200, 50, false, false);
+	
+	//용병 상점 ui
+	IMAGEMANAGER->addImage("store_list_mercenary", "image/ui/store_ui_mercenary.bmp", 300, 389, false, false);
+	IMAGEMANAGER->addImage("store_status_mercenary", "image/ui/store_character_status.bmp", 400, 389, false, false);
+	IMAGEMANAGER->addImage("store_character_title", "image/ui/store_character_title.bmp", 200, 50, true, 0xff00ff);
+	IMAGEMANAGER->addImage("store_hire", "image/ui/store_hire.bmp", 200, 50, false, false);
+	IMAGEMANAGER->addImage("store_mylist", "image/ui/store_ui_mylist.bmp", 300, 389, false, false);
+
+	//용병 이미지 추가
+	//flonne
+	IMAGEMANAGER->addFrameImage("flonne_idle", "image/character/flonne_idle.bmp", 588, 664, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("flonne_walk", "image/character/flonne_walk.bmp", 624, 664, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("flonne_attack", "image/character/flonne_attack.bmp", 824, 612, 4, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("flonne_lift", "image/character/flonne_lift.bmp", 396, 664, 4, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("flonne_etc", "image/character/flonne_etc.bmp", 236, 620, 2, 4, true, 0xff00ff);
+
 	//씬 추가
 	SCENEMANAGER->addScene("town", new town);
 	SCENEMANAGER->addScene("selectStage", new selectStage);
@@ -28,6 +56,7 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("title", new title);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 	SCENEMANAGER->addScene("store", new store);
+	SCENEMANAGER->addScene("mercenaryStore", new mercenaryStore);
 
 	SCENEMANAGER->changeScene("title");
 

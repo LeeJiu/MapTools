@@ -28,23 +28,8 @@ void item::render()
 {
 }
 
-void item::setItem(const char * imageName/*, char * itemName, char * itemInfo,
-	int atk, int intel, int def, int spd, int hit, int res, int buy, int sell*/)
+void item::setItem(const char * imageName)
 {
-	//tagItem item;
-	//ZeroMemory(&item, sizeof(tagItem));
-	//item.image = IMAGEMANAGER->findImage(imageName);
-	//item.name = itemName;
-	//item.info = itemInfo;
-	//item.atk = atk;
-	//item.intel = intel;
-	//item.def = def;
-	//item.spd = spd;
-	//item.hit = hit;
-	//item.res = res;
-	//item.buyPrice = buy;
-	//item.sellPrice = sell;
-
 	tagItem item;
 	if (strcmp(imageName, "sword") == 0)
 	{

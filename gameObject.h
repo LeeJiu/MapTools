@@ -45,6 +45,7 @@ public:
 	virtual void loadData();
 
 	virtual void setItem(const char* itemName) = 0;
+	virtual void setMercenary(const char* characterName) = 0;
 	virtual void setHell(int hell) = 0;
 
 	virtual RECT getRect() { return _rc; }
