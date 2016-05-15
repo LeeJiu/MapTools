@@ -45,8 +45,11 @@ void battleManager::render()
 {
 }
 
+void battleManager::setActionAttack()
+{
+}
+
 void battleManager::setTurnChange()
 {
-	_isTurnFinish = true;
 	_isTurnType = !_isTurnType;
 }

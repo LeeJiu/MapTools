@@ -24,14 +24,14 @@ HRESULT battleScene::init()
 
 
 
-	_gameObjMgr->setBattleUIMemoryLink(_battleUI);
-	_gameObjMgr->setBattleManagerMemoryLink(_battleMgr);
-
 	_battleUI->setObjectManagerMemoryLink(_gameObjMgr);
 	_battleUI->setBattleManagerMemoryLink(_battleMgr);
-	
+	_gameObjMgr->setBattleUIMemoryLink(_battleUI);
+	_gameObjMgr->setBattleManagerMemoryLink(_battleMgr);
 	_battleMgr->setBattleUIMemoryLink(_battleUI);
 	_battleMgr->setGameObjectManagerMemoryLink(_gameObjMgr);
+
+	
 
 	return S_OK;
 }
