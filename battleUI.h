@@ -27,19 +27,23 @@ private:
 	RECT _rcSkillTitle;						 //캐릭터 스킬 타이틀(스킬 사용 시 나타남)
 	RECT _rcCharacterList;					 //캐릭터 소환 리스트
 
-	RECT _rcOrderListTop;					 //일반 오더 리스트 RECT
-	vector<RECT> _rcOrderListBody;			 //일반 오더 리스트 RECT
-	RECT _rcOrderListBottom;				 //일반 오더 리스트 RECT
+	RECT _rcOrderListTop;					 //일반 명령 리스트 RECT
+	vector<RECT> _rcOrderListBody;			 //일반 명령 리스트 RECT
+	RECT _rcOrderListBottom;				 //일반 명령 리스트 RECT
 
-	RECT _rcUnitOrderListTop;				 //캐릭터 오더 리스트 RECT
-	vector<RECT> _rcUnitOrderListBody;		 //캐릭터 오더 리스트 RECT
-	RECT _rcUnitOrderListBottom;			 //캐릭터 오더 리스트 RECT
+	RECT _rcUnitOrderListTop;				 //캐릭터 명령 리스트 RECT
+	vector<RECT> _rcUnitOrderListBody;		 //캐릭터 명령 리스트 RECT
+	RECT _rcUnitOrderListBottom;			 //캐릭터 명령 리스트 RECT
 
 	RECT _rcIconCharacter;					 //캐릭터 상태 창(바닥) 캐릭터 사진
 	vector<char*> _vOrderList;				 //일반 명령 창 char*
 	vector<char*> _vUnitOrderList;			 //유닛 명령 창 char*
 	vector<RECT> _rcOrderListStr;			 //일반 명령 창 STR용 RECT
 	vector<RECT> _rcUnitOrderListStr;		 //유닛 명령 창 STR용 RECT
+
+	image* _imageTurnCountBackground;		 //현재 턴 표기용 BACKGROUND IMAGE
+	RECT _rcTurnCountBack;					 //현재 턴 표기용 RECT
+	char* _strTurnCount;					 //현재 턴 표기용 char*
 
 	vector<character*> _vCharacter;			//character vector
 	vector<enemy*> _vEnemy;					//Enemy vector
@@ -60,11 +64,16 @@ private:
 	bool _isTurnShow;				  //TURN IMAGE를 SHOW 해줘야 하는가 말아야하는가?
 	bool _isFirstShow;				  //BATTLE SCENE에 처음 들어왔는가?
 	bool _isTurnBackCenter;			  //TURN IMAGE가 중앙까지 왔는가?
-	RECT _rcTurnBack;				  //
-	image* _imageTurnStr;			  //
-	image* _imageTurnBack;			  //
-	int _turnBackPosX;				  //
-	float _turnShowTime;			  //
+	RECT _rcTurnBack;				  //TURN IMAGE의 뒷 배경 RECT
+	image* _imageTurnStr;			  //TURN IMAGE STR
+	image* _imageTurnBack;			  //TURN IMAGE BACKGROUND
+	int _turnBackPosX;				  //TURN RECT의 LEFT 위치
+	float _turnShowTime;			  //TURN IMAGE가 중앙까지 왔을 때 1초간 지연 시킬 용도의 TIME
+
+
+	image* _imageSelectTile;		  //선택 한 타일의 테두리 이미지
+	RECT _rcSelectTile;				  //선택 한 타일의 테두리 출력용 RECT
+
 
 	gameObjectManager* _gameObjMgr;
 
