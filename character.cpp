@@ -16,9 +16,9 @@ HRESULT character::init()
 	return S_OK;
 }
 
-HRESULT character::init(vector<TagTile*>& tile)
+HRESULT character::init(vector<TagTile*> tile)
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 void character::release()

@@ -16,7 +16,7 @@ HRESULT flonne::init()
 	return E_NOTIMPL;
 }
 
-HRESULT flonne::init(vector<TagTile*>& tile)
+HRESULT flonne::init(vector<TagTile*> tile)
 {
 	_name = "flonne";
 

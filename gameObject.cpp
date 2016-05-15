@@ -16,7 +16,7 @@ HRESULT gameObject::init()
 	return S_OK;
 }
 
-HRESULT gameObject::init(vector<TagTile*>& tile)
+HRESULT gameObject::init(vector<TagTile*> tile)
 {
 	return S_OK;
 }
