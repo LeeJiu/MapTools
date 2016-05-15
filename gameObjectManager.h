@@ -7,13 +7,9 @@
 #include "orc.h"
 #include "objects.h"
 
-enum TURN_TYPE
-{
-	TURN_ENEMY, TURN_PLAYER
-};
-
 class battleUI;
 class battleManager;
+
 class gameObjectManager : public gameNode
 {
 	RECT _rcTurnBack;
@@ -50,12 +46,9 @@ public:
 	void update();
 	void render();
 
-<<<<<<< HEAD
 	void setBattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
 	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
-=======
 	void setbattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
->>>>>>> refs/remotes/origin/moobin
 
 	void setUnitMove();
 	void setUnitAttack();
@@ -73,13 +66,11 @@ public:
 	void setObject();
 
 	void loadMapData();
-<<<<<<< HEAD
-=======
+
 
 	vector<TagTile*> getTile() { return _vTile; }
 	vector<gameObject*> getCharacter() { return _vCharacter; }
 	vector<gameObject*> getEnemy() { return _vEnemy; }
 	vector<gameObject*> getGameObject() { return _vGameObject; }
->>>>>>> refs/remotes/origin/moobin
 };
 
