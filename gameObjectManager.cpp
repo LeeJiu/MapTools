@@ -13,7 +13,6 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
-	_turnCount = 0;
 
 	return S_OK;
 }
@@ -28,6 +27,11 @@ void gameObjectManager::update()
 
 void gameObjectManager::render()
 {
+	int _vTileSize = _vTile.size();
+	for (int i = 0; i < _vTileSize; i++)
+	{
+		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
+	}
 }
 
 void gameObjectManager::setActionAttack()
@@ -37,14 +41,6 @@ void gameObjectManager::setActionAttack()
 
 void gameObjectManager::setChangeTurn()
 {
-	if (_turnType == TURN_ENEMY) _turnType = TURN_PLAYER;
-	if (_turnType == TURN_PLAYER) _turnType = TURN_ENEMY;
-	_turnCount++;
-	int _vTileSize = _vTile.size();
-	for (int i = 0; i < _vTileSize; i++)
-	{
-		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
-	}
 }
 
 void gameObjectManager::setTile()
@@ -86,7 +82,13 @@ void gameObjectManager::setCharacter()
 	gameObject* _prinny = new prinny;
 	_vCharacter.push_back(_prinny);
 	_vGameObject.push_back(_prinny);
-	_vCharacter[0]->init();
+	_vCharacter[0]->init(_vTile);
+
+	gameObject* _prinny1 = new prinny;
+	_vCharacter.push_back(_prinny1);
+	_vGameObject.push_back(_prinny1);
+	_vCharacter[0]->init(_vTile);
+
 	//_vCharacter[0]->겟용병개수백터;
 	
 	//for (int i = 0; i < 용병개수; i++)

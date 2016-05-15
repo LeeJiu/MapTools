@@ -1,9 +1,9 @@
 #pragma once
 #include "gameNode.h"
 #include "prinny.h"
-#include "Etna.h"
-#include "Flonne.h"
-#include "Raspberyl.h"
+#include "etna.h"
+#include "flonne.h"
+#include "raspberyl.h"
 #include "orc.h"
 #include "objects.h"
 
@@ -16,9 +16,6 @@ class battleUI;
 class battleManager;
 class gameObjectManager : public gameNode
 {
-	int _turnCount;
-	TURN_TYPE _turnType;
-
 	RECT _rcTurnBack;
 	RECT _rcTurnStr;
 	image* _imageTurn;
@@ -72,7 +69,5 @@ public:
 	void setObject();
 
 	void loadMapData();
-
-
 };
 

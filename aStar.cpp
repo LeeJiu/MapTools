@@ -11,14 +11,14 @@ aStar::~aStar()
 {
 }
 
-HRESULT aStar::init(vector<TagTile*>* tile)
+HRESULT aStar::init(vector<TagTile*>& tile)
 {
 	for (int i = 0; i < 100; i++)
 	{
-		_tile[i % TILENUM][i / TILENUM] = *(*tile)[i];
+		_tile[i % TILENUM][i / TILENUM] = *(tile[i]);
 		_tile[i % TILENUM][i / TILENUM].f = 9999;
 	}
-
+	
 	_finish = false;
 
 	return S_OK;
