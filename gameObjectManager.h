@@ -20,7 +20,7 @@ class gameObjectManager : public gameNode
 
 	RECT _rcSummon;
 
-	TagTile _tile[TILENUM][TILENUM];
+	TagTile* _tile[TILENUM][TILENUM];
 
 	vector<TagTile*> _vTile;
 	vector<TagTile*>::iterator _viTile;
