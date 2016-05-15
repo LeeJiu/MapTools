@@ -12,6 +12,8 @@ protected:
 	image* _character;
 	RECT _rc;
 	int _x, _y;					// 이미지(렉트) 센터x 센터y
+	
+	int _
 	int _idxX, _idxY;			// 전투맵의 x, y 인덱스
 	int _destX, _destY;
 

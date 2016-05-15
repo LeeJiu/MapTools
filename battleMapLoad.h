@@ -23,6 +23,9 @@ private:
 
 	vector<TagTile> _vIsoTile;
 
+	int vObjSize;
+	int vEnmSize;
+
 public:
 	battleMapLoad();
 	~battleMapLoad();

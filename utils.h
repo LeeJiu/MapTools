@@ -28,7 +28,7 @@
 
 enum TILESTATE
 {
-	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT
+	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS, S_ONCHAR
 };
 
 enum OBJSTATE
@@ -54,7 +54,6 @@ struct TagTile
 	bool draw;				// 타일 그려진 유무 ( 이 타일위에 이미지가 그려져있는지 확인 유무)
 };
 
-
 struct TagObject
 {
 	image* image;			// 타일의 이미지
@@ -63,18 +62,10 @@ struct TagObject
 	int x, y;				// 타일의인덱스 x, y
 	int width;				// 타일의 폭
 	int height;				// 타일의 높이
-	int imageNum;			//이미지 가져오기
+	int imageNum;			// 이미지 가져오기
 	int number;				// 타일의 고유 넘버값 
 	bool draw;
 	OBJSTATE state;
-};
-
-struct OBJ_Y_RENDER
-{
-	bool operator()(const TagObject& obj1, const TagObject& obj2)
-	{
-		return obj1.rc.bottom < obj2.rc.bottom;
-	}
 };
 
 struct tagItem
@@ -93,13 +84,6 @@ struct tagItem
 	int sellPrice;	//플레이어가 팔 때 가격
 };
 
-struct OBJ_NUM
-{
-	bool operator()(const TagObject& obj1, const TagObject& obj2)
-	{
-		return obj1.number < obj2.number;
-	}
-};
 
 namespace MY_UTIL
 {
@@ -110,4 +94,12 @@ namespace MY_UTIL
 	float getAngle(float startX, float startY, float endX, float endY);
 }
 
+enum CHARACTER_STATE
+{
+	IDLE, WALK, ATTACK, LIFT, PAIN, ETC
+};
 
+enum CHARACTER_DIRECTION
+{
+	LB, RB, RT, LT
+};

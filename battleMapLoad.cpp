@@ -71,6 +71,9 @@ HRESULT battleMapLoad::init()
 		}
 	}
 
+	vObjSize = 0;
+	vEnmSize = 0;
+
 	loadMapData();
 
 	return S_OK;
@@ -86,7 +89,7 @@ void battleMapLoad::update()
 
 void battleMapLoad::render()
 {
-	int _vTileSize = _vTile.size();
+	/*int _vTileSize = _vTile.size();
 	for (int i = 0; i < _vTileSize; i++)
 	{
 		_vTile[i].image->frameRender(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].image->getFrameX(), _vTile[i].image->getFrameY());
@@ -97,15 +100,11 @@ void battleMapLoad::render()
 	for (int i = 0; i < _vRenderSize; i++)
 	{
 		_vRender[i].image->frameRender(getMemDC(), _vRender[i].rc.left, _vRender[i].rc.top, _vRender[i].image->getFrameX(), _vRender[i].image->getFrameY());
-	}
-
+	}*/
 }
+
 void battleMapLoad::loadMapData()
 {
-
-	int vObjSize = 0;
-	int vEnmSize = 0;
-
 	//타일로드
 	DATABASE->loadDatabase("battleMap1.txt");
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
@@ -224,5 +223,4 @@ void battleMapLoad::loadMapData()
 		_vEnemy.push_back(enemy);
 		_vRender.push_back(enemy);
 	}
-
 }
