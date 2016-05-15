@@ -31,6 +31,7 @@ void character::update()
 
 void character::render()
 {
+	if(_isShowPossibleMoveTile) showPossibleMoveTile();
 }
 
 void character::keyControl()
@@ -39,10 +40,12 @@ void character::keyControl()
 
 void character::battleKeyControl()
 {
+
 }
 
 void character::move(int endX, int endY)
 {
+
 }
 
 void character::setImage()
@@ -61,7 +64,10 @@ void character::showPossibleMoveTile()
 {
 	for (int i = 0; i < 100; i++)
 	{
-
+		if (abs(_indexX - _vTile[i]->x) <= _mv && abs(_indexY - _vTile[i]->y) <= _mv)
+		{
+			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+		}
 	}
 }
 

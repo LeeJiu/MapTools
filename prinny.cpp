@@ -64,6 +64,8 @@ HRESULT prinny::init(vector<TagTile*>& tile)
 		_tile[i % TILENUM][i / TILENUM] = *(tile[i]);
 	}
 
+	_vTile = tile;
+
 	_aStar = new aStar;
 	_aStar->init(tile); //이것은 지현이가 TagTile* 로 변경하면 주석 풀것
 
@@ -86,11 +88,18 @@ void prinny::update()
 
 void prinny::render()
 {
-	_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+	if (!_isbattle)
+	{
+		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 
-	//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 
-	_inventory->render();
+		_inventory->render();
+	}
+	else
+	{
+		if (_isShowPossibleMoveTile) character::render();
+	}
 }
 
 void prinny::keyControl()
@@ -260,6 +269,14 @@ void prinny::setFrame()
 		}
 		_character->setFrameX(_curFrameX);
 	}
+}
+
+void prinny::previousState()
+{
+}
+
+void prinny::showPossibleMoveTile()
+{
 }
 
 void prinny::saveData()
