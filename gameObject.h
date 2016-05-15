@@ -18,8 +18,8 @@ protected:
 	int _oldX, _oldY;			// 전투맵의 이전 x, y 인덱스
 	int _indexX, _indexY;		// 전투맵의 x, y 인덱스
 	int _destX, _destY;
+
 	vector<string> _mercenary;
-	
 
 	aStar* _aStar;
 
@@ -35,6 +35,7 @@ public:
 	~gameObject();
 
 	HRESULT init();
+	HRESULT init(vector<TagTile*>& tile);
 	void release();
 	void update();
 	void render();
@@ -46,8 +47,8 @@ public:
 	virtual void attack(int targetX, int targetY);
 	virtual void setImage();
 	virtual void setFrame();
-	virtual void previousState();
-	virtual void showPossibleMoveTile();
+	virtual void previousState();								// 이전으로 돌아가는 함수
+	virtual void showPossibleMoveTile();						// 이동가능한 타일 보여주는 함수
 
 	virtual void saveData();
 	virtual void loadData();

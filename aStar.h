@@ -25,7 +25,7 @@ public:
 	aStar();
 	~aStar();
 
-	HRESULT init(vector<TagTile*>* tile);
+	HRESULT init(vector<TagTile*>& tile);
 	void release();
 	void update();
 	void render();
@@ -35,6 +35,7 @@ public:
 	void reset();
 	void eraseVector(int x, int y);
 	void resultRoute(int x, int y);
+
 
 	vector<TagTile*> moveCharacter(int startX, int startY, int endX, int endY);
 
