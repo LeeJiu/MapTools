@@ -13,11 +13,9 @@ gameObject::~gameObject()
 
 HRESULT gameObject::init()
 {
-	_mapLoad = new battleMapLoad;
-	_mapLoad->init();
 
 	_aStar = new aStar;
-	//_aStar->init(_mapLoad->getTileVector()); 이것은 지현이가 TagTile* 로 변경하면 주석 풀것
+	//_aStar->init(); //이것은 지현이가 TagTile* 로 변경하면 주석 풀것
 
 	_moveSpeed = 3;
 
@@ -26,7 +24,6 @@ HRESULT gameObject::init()
 
 void gameObject::release()
 {
-	SAFE_DELETE(_mapLoad);
 	SAFE_DELETE(_aStar);
 }
 
@@ -54,8 +51,8 @@ void gameObject::move(int endX, int endY)
 	{
 		if (_vRoute[_idx]->x == _destX && _vRoute[_idx]->y == _destY)
 		{
-			_idxX = _destX;
-			_idxY = _destY;
+			_indexX = _destX;
+			_indexY = _destY;
 			_isMove = false;
 			_idx = 0;
 			_aStar->reset();
@@ -95,7 +92,7 @@ void gameObject::move(int endX, int endY)
 	_rc = RectMakeCenter(_x, _y, _character->getFrameWidth(), _character->getFrameHeight());
 }
 
-void gameObject::attack()
+void gameObject::attack(int targetX, int targetY)
 {
 }
 
@@ -104,5 +101,20 @@ void gameObject::setImage()
 }
 
 void gameObject::setFrame()
+{
+}
+
+void gameObject::saveData()
+{
+}
+
+void gameObject::loadData()
+{
+}
+void gameObject::previousState()
+{
+}
+
+void gameObject::showPossibleMoveTile()
 {
 }

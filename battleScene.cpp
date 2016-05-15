@@ -13,12 +13,6 @@ battleScene::~battleScene()
 
 HRESULT battleScene::init()
 {	
-	_battleMapLoad = new battleMapLoad;
-	_battleMapLoad->init();
-
-	_aStar = new aStar;
-	//_aStar->init(_battleMapLoad->getTileVector());
-
 	_gameObjMgr = new gameObjectManager;
 	_gameObjMgr->init();
 
@@ -33,21 +27,18 @@ HRESULT battleScene::init()
 
 void battleScene::release()
 {
-	_battleMapLoad->release();
 	_gameObjMgr->release();
 	_battleUI->release();
 }
 
 void battleScene::update()
 {
-	_battleMapLoad->update();
 	_gameObjMgr->update();
 	_battleUI->update();
 }
 
 void battleScene::render()
 {
-	_battleMapLoad->render();
 	_gameObjMgr->render();
 	_battleUI->render();
 }

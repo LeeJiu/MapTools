@@ -115,14 +115,14 @@
   <Class Name="elements" Collapsed="true">
     <Position X="23" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAAQBAAAAAAAAAAAEAAAAAEAABgAAAAAAA=</HashCode>
+      <HashCode>AAAIAAAAAAAAQBAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>database.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="database" Collapsed="true">
     <Position X="9.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EABAAAAABABAAAhEAAAAAAAAAAAAAAMAEAAIAAAAAAA=</HashCode>
+      <HashCode>EAAAAAAABAAAAAhEAAAAAAAAAAAAAAMAEAAIAAAAAAA=</HashCode>
       <FileName>database.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -136,35 +136,35 @@
   <Class Name="gameStudy" Collapsed="true">
     <Position X="9.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAgAAAAAAAAgAAAAAAAAAAAIAAAAAAAAUAAA=</HashCode>
+      <HashCode>EAAAAAAAAgAAAAAAAAgAAAAAAAAAAAIAAEAAAAAUAAA=</HashCode>
       <FileName>gameStudy.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="mapTool" Collapsed="true">
     <Position X="5.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>UFAAAIQABAAAACAAgECIACAISwRAEAIiACECBBAUAAQ=</HashCode>
+      <HashCode>UFAAAAAABAAACAAAgACIAAAACIBAAAICACEABBAVAAA=</HashCode>
       <FileName>mapTool.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="title" Collapsed="true">
     <Position X="1.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAABAAIQAQBAAAMBCCAIAAQAIAAgAIQAAAAAAAUAgA=</HashCode>
+      <HashCode>EAAAAAAAQAABAAAAAAAAAAAAAAAAAAIAAAAAAAAUAAA=</HashCode>
       <FileName>title.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="town" Collapsed="true">
     <Position X="3" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAIAAAIAAcAgAACAAAAAAAAQAIABACAPAAVAAs=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAAAAAAAUAAI=</HashCode>
       <FileName>town.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="store" Collapsed="true">
     <Position X="4.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EwETMAGEEABAAQACAAYCAAICABAgEQJJABYgBAAUAMA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIBAAAAAAAUAAA=</HashCode>
       <FileName>store.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -185,14 +185,14 @@
   <Class Name="gameObject" Collapsed="true">
     <Position X="10" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAgAAAAMACQAAEGAAQAAAAAAEAAAAAIAAiAABAAUAIA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAEAAAAAIAAgAAAAAUAAA=</HashCode>
       <FileName>gameObject.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="character" Collapsed="true">
     <Position X="9" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EEgIcACEECAQAAGAAQAAAQIAMIEgwAIgAASgDCAUUIA=</HashCode>
+      <HashCode>EAAIAAAAAAAAAAAAAAAAAAAAIAAAAAIAAAAAAAAUAAA=</HashCode>
       <FileName>character.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -210,6 +210,13 @@
       <FileName>npc.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="player" Collapsed="true">
+    <Position X="7.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAQAAAAAAAAAAAAAAIBAAAAAAAUAAA=</HashCode>
+      <FileName>player.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="objects" Collapsed="true">
     <Position X="10.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
@@ -220,56 +227,21 @@
   <Class Name="item" Collapsed="true">
     <Position X="11" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAEAAAAAAAAAAQAAAAAACAAAAIAEgAAAAAUAAg=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAAAAAQAAAAAACAAAAIAAAAAAAAUAAA=</HashCode>
       <FileName>item.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="inventory" Collapsed="true">
     <Position X="12.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EQ0xcACEEAAAAQAAEAQAAQJAABlgEQJqAARACEAc0II=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJCAAAAAAAUAAA=</HashCode>
       <FileName>inventory.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="prinny" Collapsed="true">
-    <Position X="7" Y="6.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>EAgAAAAEBAAAAAGAAQAAAAAABAAAAAKJAAAABAAUAIA=</HashCode>
-      <FileName>prinny.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="aStar" Collapsed="true">
-    <Position X="10.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ECAEAQAEAAFAgAQAABAAAgAAAgAAAAJAAAAFAIQVAEA=</HashCode>
-      <FileName>aStar.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="TagTile" Collapsed="true">
     <Position X="21.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAABAAAQARAQAIAAAAAEEAAAAAcQABgAAAAAAA=</HashCode>
-      <FileName>utils.h</FileName>
-    </TypeIdentifier>
-  </Struct>
-  <Struct Name="TagObject" Collapsed="true">
-    <Position X="13" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgAAAAABAAAQAQAQAIAAAAAEEAAAAAAAABgAAAAAAA=</HashCode>
-      <FileName>utils.h</FileName>
-    </TypeIdentifier>
-  </Struct>
-  <Struct Name="tagItem" Collapsed="true">
-    <Position X="14.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgAAAAABAAAAgAAAAIAgAAAEAAEAAAAwAAQgAAAgAA=</HashCode>
-      <FileName>utils.h</FileName>
-    </TypeIdentifier>
-  </Struct>
-  <Struct Name="OBJ_Y_RENDER" Collapsed="true">
-    <Position X="13" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAgAAAAABAAAQAQAQAIAAAAAEAAAAAAUAABgAAAAAAA=</HashCode>
       <FileName>mapTool.h</FileName>
     </TypeIdentifier>
   </Struct>
@@ -297,29 +269,15 @@
   <Enum Name="TILESTATE" Collapsed="true">
     <Position X="21.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAIAAAAAAAAAAAAAAAAgAAABAAAAAAA=</HashCode>
-      <FileName>utils.h</FileName>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAI=</HashCode>
+      <FileName>mapTool.h</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="WEAPON_TYPE" Collapsed="true">
-    <Position X="13" Y="3.5" Width="1.5" />
+  <Enum Name="MAPNAME" Collapsed="true">
+    <Position X="23" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAACABAAAAAgAAAAACAAAAAAAAAAQAAAA=</HashCode>
-      <FileName>character.h</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="CHARACTER_STATE" Collapsed="true">
-    <Position X="14.75" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgEAAAAAAAAAAAAAAAAgIAACAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>character.h</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="CHARACTER_DIRECTION" Collapsed="true">
-    <Position X="13" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAEAA=</HashCode>
-      <FileName>character.h</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAARAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>mapTool.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="맑은 고딕" Size="9" />
