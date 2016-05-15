@@ -30,7 +30,7 @@
 #include "database.h"
 #include "actionManager.h"
 
-//using namespace MY_UTIL;
+using namespace MY_UTIL;
 
 /* ===== 디파인문 ===== */
 #define WINNAME (LPTSTR)(TEXT("MapTool"))

@@ -21,6 +21,7 @@ HRESULT battleScene::init()
 	
 	_gameObjMgr->setTile();
 	_gameObjMgr->setCharacter();
+	_gameObjMgr->setAstar();
 
 	_battleUI = new battleUI;
 	_battleUI->init();
@@ -34,8 +35,6 @@ HRESULT battleScene::init()
 	_battleUI->setObjectManagerMemoryLink(_gameObjMgr);
 	_battleUI->setBattleManagerMemoryLink(_battleMgr);
 	_battleUI->setCharacterList();
-
-	
 
 
 	return S_OK;

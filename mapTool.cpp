@@ -628,16 +628,6 @@ void mapTool::loadMapData()
 	{
 		char temp[128];
 
-		if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == ZEN_POINT) vObjSize++;
-		if ((*_viTile)->state == S_ONENM || (*_viTile)->state == BOSS) vEnmSize++;
-	}
-
-	//오브젝트 로드
-	DATABASE->loadDatabase("battleMap1_obj.txt");
-	for (int i = 0; i < vObjSize; i++)
-	{
-		char temp[128];
-
 		TagObject* obj;
 		obj = new TagObject;
 		obj->image = new image;
@@ -660,7 +650,7 @@ void mapTool::loadMapData()
 			obj->image->init("image/object_tree.bmp", 192, 200, true, 0xff00ff);
 			break;
 		case 4:
-			obj->image->init("image/object_zen.bmp", 1536, 62, 8, 1, true, 0xff00ff);
+			obj->image->init("image/object_zen.bmp", 2583, 76, 8, 1, true, 0xff00ff);
 			obj->image->setFrameX(0);
 			obj->image->setFrameX(0);
 			break;
