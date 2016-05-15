@@ -13,6 +13,8 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
+	_aStar = new aStar;
+	_aStar->init();
 
 	return S_OK;
 }
@@ -32,6 +34,18 @@ void gameObjectManager::render()
 	{
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
 	}
+}
+
+void gameObjectManager::setUnitMove()
+{
+}
+
+void gameObjectManager::setUnitAttack()
+{
+}
+
+void gameObjectManager::setUnitDefence()
+{
 }
 
 void gameObjectManager::setActionAttack()
@@ -105,6 +119,10 @@ void gameObjectManager::setCharacter()
 
 void gameObjectManager::setEnemy()
 {
+	//DATABASE->getElementData(std::to_string(i))->;
+
+	//---------------------------------------------------------------------------------
+
 	//|,0,2,2,5,0,|,1,2,3,5,0,|,2,2,4,5,0
 	// 
 	// 에너미파일 로드
@@ -112,17 +130,71 @@ void gameObjectManager::setEnemy()
 	DATABASE->loadDatabase("battleMap1_enm.txt");
 
 
-	for (int i = 0; i < vEnmSize; i++)
-	{
+	//for (int i = 0; i < vEnmSize; i++)
+	//{
+		// 지현아 내가 물어볼것들
+
+		// 위에 보면 에너미저장된 데이터는 저렇게 되어있음 구분자 "|" 를 기준으로 3개가 있는데
+		// 0번째가 DATABASE의 맵 키값이 되는거?
+		// 그리고 몬스터를 구분할려면 어떤걸 쓰는거?
+		// 그리고 사이즈가 3이면 포문을 돌리면서 벡터에 넣어줄려고하는데 어떤식으로 포문을 돌아야하는지
+		
+		// 아래는 예시 이렇게 할 생각임
+
+	//for (int i = 0; i < vEnmSize; i++)
+	//{
+	//	switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
+	//	{
+	//	case 0:
+	//		gameObject* _orc = new orc;
+	//		_orc->init();
+	//		_vEnemy.push_back(_orc);
+	//		_vGameObject.push_back(_orc);
+	//		break;
+	//	case 1:
+	//		gameObject* _boss = new boss;
+	//		_boss->init();
+	//		_vEnemy.push_back(_boss);
+	//		_vGameObject.push_back(_boss);
+	//		break;
+	//	}
+	//}
+
+	//---------------------------------------------------------------------------------
 		//DATABASE->getElementData(std::to_string(i))->;
 		//_vStr[4] -> 몹 구별 넘버값이면 이걸로 스위치 돌리고
 		//_vStr[3] _vStr[2]-> x, y 타일 넘버 넘겨주면서 인잇하고 벡터 넣어준다.
 
-	}
+	//}
 }
 
 void gameObjectManager::setObject()
 {
+	//DATABASE->loadDatabase("battleMap1_obj.txt");
+
+	//for (int i = 0; i < vObjSize; i++)
+	//{
+	//	switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
+	//	{
+	//	case 0:
+	//		gameObject* _orc = new orc;
+	//		_orc->init();
+	//		_vEnemy.push_back(_orc);
+	//		_vGameObject.push_back(_orc);
+	//		break;
+	//	case 1:
+	//		gameObject* _boss = new boss;
+	//		_boss->init();
+	//		_vEnemy.push_back(_boss);
+	//		_vGameObject.push_back(_boss);
+	//		break;
+	//	}
+	//}
+}
+
+void gameObjectManager::setAstar()
+{
+	_aStar->setTile(_vTile);
 }
 
 void gameObjectManager::loadMapData()

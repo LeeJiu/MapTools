@@ -1,4 +1,5 @@
 #pragma once
+#include "aStar.h"
 #include "gameNode.h"
 #include "prinny.h"
 #include "etna.h"
@@ -35,6 +36,7 @@ class gameObjectManager : public gameNode
 
 	bool isCharacterTurn;
 
+	aStar* _aStar;
 	battleUI* _battleUI;
 	battleManager* _battleMgr;
 public:
@@ -64,6 +66,7 @@ public:
 	void setCharacter();
 	void setEnemy();
 	void setObject();
+	void setAstar();
 
 	void loadMapData();
 

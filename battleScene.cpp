@@ -35,6 +35,7 @@ HRESULT battleScene::init()
 
 	_gameObjMgr->setTile();
 	_gameObjMgr->setCharacter();
+	_gameObjMgr->setAstar();
 
 	return S_OK;
 }
