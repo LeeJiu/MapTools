@@ -13,7 +13,7 @@ enum TURN_TYPE
 };
 
 class battleUI;
-
+class battleManager;
 class gameObjectManager : public gameNode
 {
 	RECT _rcTurnBack;
@@ -23,7 +23,6 @@ class gameObjectManager : public gameNode
 
 	RECT _rcSummon;
 
-	battleUI* _battleUI;
 	TagTile _tile[TILENUM][TILENUM];
 
 	vector<TagTile*> _vTile;
@@ -38,6 +37,13 @@ class gameObjectManager : public gameNode
 	int vObjSize;
 	int vEnmSize;
 
+<<<<<<< HEAD
+=======
+	bool isCharacterTurn;
+
+	battleUI* _battleUI;
+	battleManager* _battleMgr;
+>>>>>>> refs/remotes/origin/backup-Jaejun
 public:
 	gameObjectManager();
 	~gameObjectManager();
@@ -47,8 +53,8 @@ public:
 	void update();
 	void render();
 
-	void setbattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
-
+	void setBattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
+	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
 
 	void setUnitMove();
 	void setUnitAttack();
