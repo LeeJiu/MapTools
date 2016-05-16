@@ -62,9 +62,6 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("store", new store);
 	SCENEMANAGER->addScene("mercenaryStore", new mercenaryStore);
 
-<<<<<<< HEAD
-	SCENEMANAGER->changeScene("title");
-=======
 	//케릭터 이미지 추가
 	IMAGEMANAGER->addFrameImage("prinny_idle", "image/character/prinny_idle.bmp", 714, 484, 7, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("prinny_walk", "image/character/prinny_walk.bmp", 776, 492, 8, 4, true, 0xff00ff);
@@ -74,7 +71,6 @@ HRESULT gameStudy::init()
 
 
 	SCENEMANAGER->changeScene("battleScene");
->>>>>>> refs/remotes/origin/moobin
 
 	return S_OK;
 }

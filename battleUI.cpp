@@ -218,9 +218,7 @@ void battleUI::render()
 	if (_isOnCharacterList)
 	{
 		_imageCharacterListTop->render(getMemDC(), _rcCharacterListTop.left, _rcCharacterListTop.top);
-<<<<<<< HEAD
 		if(_characterSize > 0) for (int i = 0; i < _characterSize; i++) _imageCharacterListBody[i]->render(getMemDC(), _rcCharacterListBody[i].left, _rcCharacterListBody[i].top); 
-=======
 
 		for (int i = 0; i < _characterSize; i++)
 		{
@@ -228,7 +226,6 @@ void battleUI::render()
 			Rectangle(getMemDC(), _rcCharacterListBody[i].left, _rcCharacterListBody[i].top, _rcCharacterListBody[i].right, _rcCharacterListBody[i].bottom);
 		}
 
->>>>>>> refs/remotes/origin/moobin
 		_imageCharacterListBottom->render(getMemDC(), _rcCharacterListBottom.left, _rcCharacterListBottom.top);
 		for (int i = 0; i < _characterSize; i++) DrawText(getMemDC(), TEXT(_vCharacterList[i].c_str()), -1, &_rcCharacterListStr[i], DT_LEFT | DT_VCENTER);
 	}
