@@ -153,6 +153,7 @@ void town::enterEntrance()
 {
 	_rcBattle = RectMake(2061 - _sourX, 1012 - _sourY, _battlePortal->getFrameWidth(), _battlePortal->getFrameHeight());
 	_rcStore = RectMake(1595 - _sourX, 371 - _sourY, _storePortal->getFrameWidth(), _storePortal->getFrameHeight());
+	_rcMercenary = RectMake(1134 - _sourX, 478 - _sourY, _etcPortal->getFrameWidth() / 2, _etcPortal->getFrameHeight() / 2);
 
 	if (IntersectRect(&RectMake(0, 0, 0, 0), &_prinny->getRect(), &_rcBattle))
 	{
@@ -172,6 +173,13 @@ void town::enterEntrance()
 			SCENEMANAGER->changeScene("store");
 			return;
 		}
+	}
+
+	if (IntersectRect(&RectMake(0, 0, 0, 0), &_prinny->getRect(), &_rcMercenary))
+	{
+		_prinny->saveData();
+		SCENEMANAGER->changeScene("mercenaryStore");
+		return;
 	}
 }
 
