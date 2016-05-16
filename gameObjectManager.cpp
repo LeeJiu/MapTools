@@ -67,21 +67,22 @@ void gameObjectManager::setTile()
 	{
 		for (int i = 0; i < TILENUM; i++)   // 가로 ( 행 )
 		{
-			_tile[i][j].image = new image;
-			_tile[i][j].image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
-			_tile[i][j].width = WIDTH;
-			_tile[i][j].height = WIDTH / 2;
-			_tile[i][j].rc = RectMakeCenter(firstPivot.x + i * _tile[i][j].width / 2 - j * _tile[i][j].width / 2, firstPivot.y + i * _tile[i][j].width / 4 + j * _tile[i][j].width / 4, _tile[i][j].width, _tile[i][j].height);
-			_tile[i][j].pivotX = (_tile[i][j].rc.left + _tile[i][j].rc.right) / 2;
-			_tile[i][j].pivotY = (_tile[i][j].rc.top + _tile[i][j].rc.bottom) / 2;
-			_tile[i][j].x = i;
-			_tile[i][j].y = j;
-			_tile[i][j].imageNum = 100;   //이미지 넘버.
-			_tile[i][j].number = count;
-			_tile[i][j].state = S_NONE;
-			_tile[i][j].draw = false;
+			_tile[i][j] = new TagTile;
+			_tile[i][j]->image = new image;
+			_tile[i][j]->image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
+			_tile[i][j]->width = WIDTH;
+			_tile[i][j]->height = WIDTH / 2;
+			_tile[i][j]->rc = RectMakeCenter(firstPivot.x + i * _tile[i][j]->width / 2 - j * _tile[i][j]->width / 2, firstPivot.y + i * _tile[i][j]->width / 4 + j * _tile[i][j]->width / 4, _tile[i][j]->width, _tile[i][j]->height);
+			_tile[i][j]->pivotX = (_tile[i][j]->rc.left + _tile[i][j]->rc.right) / 2;
+			_tile[i][j]->pivotY = (_tile[i][j]->rc.top + _tile[i][j]->rc.bottom) / 2;
+			_tile[i][j]->x = i;
+			_tile[i][j]->y = j;
+			_tile[i][j]->imageNum = 100;   //이미지 넘버.
+			_tile[i][j]->number = count;
+			_tile[i][j]->state = S_NONE;
+			_tile[i][j]->draw = false;
 
-			_vTile.push_back(&_tile[i][j]);
+			_vTile.push_back(_tile[i][j]);
 
 			count++;
 		}
@@ -94,14 +95,14 @@ void gameObjectManager::setCharacter()
 {
 	// 프리니정보 로드해온다 (용병 개수 + 이름)									-> 지우저장된거 후에 확인하자
 	gameObject* _prinny = new prinny;
+	_prinny->init(_vTile);
 	_vCharacter.push_back(_prinny);
 	_vGameObject.push_back(_prinny);
-	_vCharacter[0]->init(_vTile);
 
 	gameObject* _prinny1 = new prinny;
+	_prinny1->init(_vTile);
 	_vCharacter.push_back(_prinny1);
 	_vGameObject.push_back(_prinny1);
-	_vCharacter[1]->init(_vTile);
 
 	//_vCharacter[0]->겟용병개수백터;
 	

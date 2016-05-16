@@ -16,7 +16,7 @@ HRESULT etna::init()
 	return E_NOTIMPL;
 }
 
-HRESULT etna::init(vector<TagTile*>& tile)
+HRESULT etna::init(vector<TagTile*> tile)
 {
 	_name = "etna";
 

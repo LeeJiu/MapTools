@@ -263,7 +263,7 @@ void battleUI::render()
 	if (_isOnCharacterList)
 	{
 		_imageCharacterListTop->render(getMemDC(), _rcCharacterListTop.left, _rcCharacterListTop.top);
-		for (int i = 0; i < _characterSize; i++) _imageCharacterListBody[i]->render(getMemDC(), _rcCharacterListBody[i].left, _rcCharacterListBody[i].top);
+		if(_characterSize > 0) for (int i = 0; i < _characterSize; i++) _imageCharacterListBody[i]->render(getMemDC(), _rcCharacterListBody[i].left, _rcCharacterListBody[i].top); 
 		_imageCharacterListBottom->render(getMemDC(), _rcCharacterListBottom.left, _rcCharacterListBottom.top);
 		for (int i = 0; i < _characterSize; i++) DrawText(getMemDC(), TEXT(_vCharacterList[i].c_str()), -1, &_rcCharacterListStr[i], DT_LEFT | DT_VCENTER);
 	}
@@ -306,6 +306,22 @@ void battleUI::setCharacterList()
 	for (int i = 0; i < _characterSize; i++)
 	{
 		_vCharacterList.push_back(_gameObjMgr->getCharacter()[i]->getName());
+	}
+
+	for (int i = 0; i < _characterSize; i++)																								  //캐릭터 소환 목록 창 BACKGROUND IMAGE BODY~
+	{																																		  //
+		image* tempBody = new image;																										  //
+		tempBody->init("image/ui_characterList_body.bmp", 250, 30, false, false);															  //
+		_imageCharacterListBody.push_back(tempBody);																						  //
+	}
+
+	for (int i = 0; i < _characterSize; i++)
+	{
+		RECT tempBody = RectMake(_rcCharacterListTop.left, _rcCharacterListTop.bottom + (30 * i), 250, 30);
+		_rcCharacterListBody.push_back(tempBody);
+
+		RECT tempRect = RectMake(_rcCharacterListBody[i].left + 20, _rcCharacterListBody[i].top + 5, 250, 30);
+		_rcCharacterListStr.push_back(tempRect);
 	}
 }
 

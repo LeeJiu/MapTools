@@ -16,7 +16,7 @@ HRESULT raspberyl::init()
 	return E_NOTIMPL;
 }
 
-HRESULT raspberyl::init(vector<TagTile*>& tile)
+HRESULT raspberyl::init(vector<TagTile*> tile)
 {
 	for (int i = 0; i < 100; i++)
 	{
