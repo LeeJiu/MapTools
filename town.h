@@ -11,7 +11,7 @@ private:
 	image* _storePortal;
 	image* _etcPortal;
 
-	RECT _rcStore, _rcBattle;
+	RECT _rcStore, _rcMercenary, _rcBattle;
 
 	int _proveX, _proveY;
 	int _sourX, _sourY;
