@@ -16,6 +16,23 @@ HRESULT flonne::init()
 	return E_NOTIMPL;
 }
 
+HRESULT flonne::init(vector<TagTile*> tile)
+{
+	_name = "flonne";
+
+	loadData();
+
+	_character = IMAGEMANAGER->findImage("prinny_idle");
+	_characterState = IDLE;
+	_characterDir = LB;
+	_curFrameX = 0;
+	_count = 0;
+
+	_moveSpeed = 3;
+
+	return S_OK;
+}
+
 void flonne::release()
 {
 }

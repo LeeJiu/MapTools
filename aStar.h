@@ -5,7 +5,7 @@
 
 class aStar : public gameNode
 {
-	TagTile _tile[TILENUM][TILENUM];
+	TagTile* _tile[TILENUM][TILENUM];
 
 	vector<TagTile*> _vCloseList;
 	vector<TagTile*>::iterator _viCloseList;
@@ -16,7 +16,6 @@ class aStar : public gameNode
 	vector<TagTile*> _vRoute;
 	vector<TagTile*>::iterator _viRoute;
 
-
 	POINT _start, _end;
 
 	bool _finish;
@@ -25,7 +24,7 @@ public:
 	aStar();
 	~aStar();
 
-	HRESULT init(vector<TagTile*> tile);
+	HRESULT init();
 	void release();
 	void update();
 	void render();
@@ -35,6 +34,7 @@ public:
 	void reset();
 	void eraseVector(int x, int y);
 	void resultRoute(int x, int y);
+	void setTile(vector<TagTile*> tile);
 
 	vector<TagTile*> moveCharacter(int startX, int startY, int endX, int endY);
 

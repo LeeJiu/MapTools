@@ -7,7 +7,6 @@ private:
 	vector<tagItem> _vItem;
 	vector<tagItem>::iterator _viItem;
 
-
 public:
 	item();
 	~item();

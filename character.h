@@ -1,13 +1,22 @@
 #pragma once
 #include "gameObject.h"
 
+enum WEAPON_TYPE
+{
+	WEAPON_NONE, WEAPON_SWORD, WEAPON_WAND, WEAPON_STAFT, WEAPON_BOW
+};
 
 class character : public gameObject
 {
 protected:
+<<<<<<< HEAD
 	const char* _name;				//캐릭터 이름
 	int _level, _counter, _mv, _jm;									//캐릭터 능력치 1
 	int _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp, _next;  //캐릭터 능력치 2
+=======
+	
+	int _next;  //캐릭터 능력치 2
+>>>>>>> refs/remotes/origin/development
 	//bool _isWeaponEquip;		//장비 장착여부
 	bool _isUp, _isRight, _isShow;
 
@@ -21,10 +30,11 @@ public:
 	character();
 	virtual ~character();
 
-	HRESULT init();
-	void release();
-	void update();
-	void render();
+	virtual HRESULT init();
+	virtual HRESULT init(vector<TagTile*> tile);
+	virtual void release();
+	virtual void update();
+	virtual void render();
 
 	/*			함수 추가			*/
 	virtual void keyControl();
@@ -32,14 +42,18 @@ public:
 	virtual void move(int endX, int endY);
 	virtual void setImage();
 	virtual void setFrame();
+	virtual void previousState();								// 이전으로 돌아가는 함수
+	virtual void showPossibleMoveTile();						// 이동가능한 타일 보여주는 함수
 
 	virtual void saveData();
 	virtual void loadData();
 
+	virtual void setIsShow(bool isShow) { _isShow = isShow; }
 	virtual void setItem(const char* itemName) = 0;
 	virtual void setMercenary(const char* characterName) = 0;
 	virtual void setHell(int hell) = 0;
 
+	virtual int getExp() { return _next; }
 	virtual RECT getRect() { return _rc; }
 	virtual int getHell() = 0;
 };

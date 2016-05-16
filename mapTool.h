@@ -7,6 +7,7 @@
 #include <algorithm>
 #include "button.h"
 
+
 struct OBJ_Y_RENDER
 {
 	bool operator()(const TagObject* obj1, const TagObject* obj2)
@@ -23,6 +24,7 @@ struct OBJ_NUM
 	}
 };
 
+
 enum STATE
 {
 	SET_TILE, SET_OBJ, SET_ENM
@@ -30,7 +32,9 @@ enum STATE
 
 static int selectedNum = 0;
 static image* selectedImage = NULL;
+
 static STATE _state = SET_TILE;
+static int _stage = 1;
 
 class mapTool : public gameNode
 {
@@ -65,6 +69,8 @@ private:
 	button* _EnemyButton;
 	button* _ExitButton;
 
+	button* _StageBefore;
+	button* _StageAfter;
 
 	bool _rectOn;
 
@@ -98,6 +104,7 @@ public:
 	void setSampleObject();
 	void setSampleEnemy();
 
+
 	void setTile();
 
 	void keyControl();
@@ -113,4 +120,7 @@ public:
 	static void onObject();
 	static void onEnemy();
 	static void goToMenu();
+
+	static void stageBack();
+	static void stageNext();
 };

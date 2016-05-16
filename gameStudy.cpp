@@ -21,6 +21,7 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addImage("wand", "image/item/wand.bmp", 256, 256, true, 0xff00ff);
 	IMAGEMANAGER->addImage("bow", "image/item/bow.bmp", 256, 256, true, 0xff00ff);
 
+<<<<<<< HEAD
 	//스토어 배경 이미지 추가
 	IMAGEMANAGER->addImage("store_background", "image/background/store_background.bmp", WINSIZEX, WINSIZEY, false, false);
 
@@ -49,6 +50,12 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("flonne_lift", "image/character/flonne_lift.bmp", 396, 664, 4, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("flonne_etc", "image/character/flonne_etc.bmp", 236, 620, 2, 4, true, 0xff00ff);
 
+=======
+	//배틀씬에서 사용될 이미지 추가
+	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 192, 96, true, 0xff00ff);
+	IMAGEMANAGER->addImage("attackable", "image/battle/attackable_tile.bmp", 192, 96, true, 0xff00ff);
+	
+>>>>>>> refs/remotes/origin/development
 	//씬 추가
 	SCENEMANAGER->addScene("town", new town);
 	SCENEMANAGER->addScene("selectStage", new selectStage);
@@ -79,7 +86,8 @@ void gameStudy::update()
 
 void gameStudy::render()
 {
-	//백버퍼에서 뿌려준다	
+	//백버퍼에서 뿌려준다
+	
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 	//======================
 	//이 사이에서 그려주면 됨.

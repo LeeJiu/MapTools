@@ -44,6 +44,36 @@ HRESULT prinny::init()
 	return S_OK;
 }
 
+HRESULT prinny::init(vector<TagTile*> tile)
+{
+	_name = "prinny";
+
+	//loadData();
+
+	_character = IMAGEMANAGER->findImage("prinny_idle");
+	_characterState = IDLE;
+	_characterDir = RB;
+	_curFrameX = 0;
+	_count = 0;
+
+	_indexX = 4;
+	_indexY = 9;
+	_mv = 4;
+
+	_isShow = false;
+
+	for (int i = 0; i < 100; i++)
+	{
+		_tile[i % TILENUM][i / TILENUM] = tile[i];
+	}
+
+	_vTile = tile;
+
+	_moveSpeed = 3;
+
+	return S_OK;
+}
+
 void prinny::release()
 {
 	SAFE_DELETE(_inventory);
@@ -59,11 +89,15 @@ void prinny::update()
 
 void prinny::render()
 {
-	_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-
-	//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-
-	_inventory->render();
+	if (!_isbattle)
+	{
+		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+		_inventory->render();
+	}
+	else
+	{
+		if (_isShowPossibleMoveTile) character::render();
+	}
 }
 
 void prinny::keyControl()
@@ -233,6 +267,14 @@ void prinny::setFrame()
 		}
 		_character->setFrameX(_curFrameX);
 	}
+}
+
+void prinny::previousState()
+{
+}
+
+void prinny::showPossibleMoveTile()
+{
 }
 
 void prinny::saveData()

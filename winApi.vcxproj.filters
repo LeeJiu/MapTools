@@ -174,9 +174,6 @@
     <ClInclude Include="mapTool.h">
       <Filter>gameStudy\mapTool</Filter>
     </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>gameStudy\title</Filter>
-    </ClInclude>
     <ClInclude Include="town.h">
       <Filter>gameStudy\town</Filter>
     </ClInclude>
@@ -213,9 +210,6 @@
     <ClInclude Include="battleManager.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
-    <ClInclude Include="battleMapLoad.h">
-      <Filter>gameStudy\battle</Filter>
-    </ClInclude>
     <ClInclude Include="battleScene.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
@@ -228,9 +222,6 @@
     <ClInclude Include="orc.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="gameObjectManager.h">
-      <Filter>gameStudy\gameObject</Filter>
-    </ClInclude>
     <ClInclude Include="etna.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
@@ -240,8 +231,22 @@
     <ClInclude Include="raspberyl.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="mercenaryStore.h">
       <Filter>gameStudy\mercenaryStore</Filter>
+=======
+    <ClInclude Include="gameObjectManager.h">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObjectManager.h">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="battleCamera.h">
+      <Filter>gameStudy\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>gameStudy\title</Filter>
+>>>>>>> refs/remotes/origin/development
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +313,6 @@
     <ClCompile Include="mapTool.cpp">
       <Filter>gameStudy\mapTool</Filter>
     </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>gameStudy\title</Filter>
-    </ClCompile>
     <ClCompile Include="town.cpp">
       <Filter>gameStudy\town</Filter>
     </ClCompile>
@@ -347,9 +349,6 @@
     <ClCompile Include="battleManager.cpp">
       <Filter>gameStudy\battle</Filter>
     </ClCompile>
-    <ClCompile Include="battleMapLoad.cpp">
-      <Filter>gameStudy\battle</Filter>
-    </ClCompile>
     <ClCompile Include="battleScene.cpp">
       <Filter>gameStudy\battle</Filter>
     </ClCompile>
@@ -362,9 +361,6 @@
     <ClCompile Include="orc.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="gameObjectManager.cpp">
-      <Filter>gameStudy\gameObject</Filter>
-    </ClCompile>
     <ClCompile Include="etna.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
@@ -374,8 +370,22 @@
     <ClCompile Include="raspberyl.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="mercenaryStore.cpp">
       <Filter>gameStudy\mercenaryStore</Filter>
+=======
+    <ClCompile Include="gameObjectManager.cpp">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObjectManager.cpp">
+      <Filter>gameStudy\gameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="battleCamera.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>gameStudy\title</Filter>
+>>>>>>> refs/remotes/origin/development
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

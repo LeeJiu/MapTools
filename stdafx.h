@@ -2,6 +2,7 @@
 // 표준 시스템 포함 파일 및 프로젝트 관련 포함 파일이
 // 들어 있는 포함 파일입니다.
 //
+
 #pragma once
 
 #include "targetver.h"
@@ -30,7 +31,7 @@
 #include "database.h"
 #include "actionManager.h"
 
-//using namespace MY_UTIL;
+using namespace MY_UTIL;
 
 /* ===== 디파인문 ===== */
 #define WINNAME (LPTSTR)(TEXT("MapTool"))
