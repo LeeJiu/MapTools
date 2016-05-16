@@ -70,7 +70,15 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("store", new store);
 	SCENEMANAGER->addScene("mercenaryStore", new mercenaryStore);
 
-	SCENEMANAGER->changeScene("title");
+	//케릭터 이미지 추가
+	IMAGEMANAGER->addFrameImage("prinny_idle", "image/character/prinny_idle.bmp", 714, 484, 7, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("prinny_walk", "image/character/prinny_walk.bmp", 776, 492, 8, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("prinny_attack", "image/character/prinny_attack.bmp", 780, 484, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("prinny_lift", "image/character/prinny_lift.bmp", 720, 524, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("prinny_etc", "image/character/prinny_etc.bmp", 468, 528, 4, 4, true, 0xff00ff);
+
+
+	SCENEMANAGER->changeScene("battleScene");
 
 	return S_OK;
 }

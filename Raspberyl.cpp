@@ -25,7 +25,7 @@ HRESULT raspberyl::init(vector<TagTile*> tile)
 
 	_name = "raspberyl";
 
-	loadData();
+	_isCharacter = true;
 
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;

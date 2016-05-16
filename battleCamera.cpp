@@ -11,7 +11,7 @@ battleCamera::~battleCamera()
 {
 }
 
-HRESULT battleCamera::init(vector<TagTile*>& tile)
+HRESULT battleCamera::init(vector<TagTile*> tile)
 {
 	for (int i = 0; i < 100; i++)
 	{
@@ -90,9 +90,9 @@ void battleCamera::cameraTile()
 	}
 }
 
-void battleCamera::cameraCharacter(vector<TagTile*> cameraTile)
-{
-}
+//void battleCamera::cameraCharacter(vector<TagTile*> cameraTile)
+//{
+//}
 
 void battleCamera::cameraFree()
 {

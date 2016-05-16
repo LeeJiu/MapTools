@@ -40,6 +40,7 @@ void battleManager::update()
 
 void battleManager::render()
 {
+
 }
 
 void battleManager::setActionAttack()

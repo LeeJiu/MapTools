@@ -21,7 +21,7 @@ HRESULT flonne::init(vector<TagTile*> tile)
 	_name = "flonne";
 
 	loadData();
-
+	_isCharacter = true;
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
 	_characterDir = LB;

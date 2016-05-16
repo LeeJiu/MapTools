@@ -22,6 +22,7 @@ HRESULT etna::init(vector<TagTile*> tile)
 
 	loadData();
 
+	_isCharacter = true;
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
 	_characterDir = LB;
