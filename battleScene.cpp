@@ -13,41 +13,50 @@ battleScene::~battleScene()
 
 HRESULT battleScene::init()
 {	
-	_battleMapLoad = new battleMapLoad;
-	_battleMapLoad->init();
-
-	_aStar = new aStar;
-	//_aStar->init(_battleMapLoad->getTileVector());
-
 	_gameObjMgr = new gameObjectManager;
 	_gameObjMgr->init();
+
+	_battleMgr = new battleManager;
+	_battleMgr->init();
+	
+	_gameObjMgr->setTile();
+	_gameObjMgr->setCharacter();
+	_gameObjMgr->setAstar();
 
 	_battleUI = new battleUI;
 	_battleUI->init();
 
+
+	_gameObjMgr->setBattleUIMemoryLink(_battleUI);
+	_gameObjMgr->setBattleManagerMemoryLink(_battleMgr);
+	_battleMgr->setBattleUIMemoryLink(_battleUI);
+	_battleMgr->setGameObjectManagerMemoryLink(_gameObjMgr);
+
 	_battleUI->setObjectManagerMemoryLink(_gameObjMgr);
-	_gameObjMgr->setbattleUIMemoryLink(_battleUI);
+	_battleUI->setBattleManagerMemoryLink(_battleMgr);
+	_battleUI->setCharacterList();
+
 
 	return S_OK;
 }
 
 void battleScene::release()
 {
-	_battleMapLoad->release();
 	_gameObjMgr->release();
+	_battleMgr->release();
 	_battleUI->release();
 }
 
 void battleScene::update()
 {
-	_battleMapLoad->update();
 	_gameObjMgr->update();
+	_battleMgr->update();
 	_battleUI->update();
 }
 
 void battleScene::render()
 {
-	_battleMapLoad->render();
 	_gameObjMgr->render();
+	_battleMgr->render();
 	_battleUI->render();
 }

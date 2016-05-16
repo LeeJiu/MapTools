@@ -26,8 +26,9 @@ HRESULT prinny::init()
 
 	/*			character status setting			*/
 	//character 정보를 load 해오기
+	loadData();
 
-	_hell = 1000;
+	//_hell = 1000;
 
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
@@ -37,6 +38,36 @@ HRESULT prinny::init()
 	_x = CENTERX;
 	_y = CENTERY;
 	_rc = RectMakeCenter(_x, _y, _character->getFrameWidth(), _character->getFrameHeight());
+
+	return S_OK;
+}
+
+HRESULT prinny::init(vector<TagTile*> tile)
+{
+	_name = "prinny";
+
+	//loadData();
+
+	_character = IMAGEMANAGER->findImage("prinny_idle");
+	_characterState = IDLE;
+	_characterDir = RB;
+	_curFrameX = 0;
+	_count = 0;
+
+	_indexX = 4;
+	_indexY = 9;
+	_mv = 4;
+
+	_isShow = false;
+
+	for (int i = 0; i < 100; i++)
+	{
+		_tile[i % TILENUM][i / TILENUM] = tile[i];
+	}
+
+	_vTile = tile;
+
+	_moveSpeed = 3;
 
 	return S_OK;
 }
@@ -55,11 +86,15 @@ void prinny::update()
 
 void prinny::render()
 {
-	_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-
-	//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-
-	_inventory->render();
+	if (!_isbattle)
+	{
+		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+		_inventory->render();
+	}
+	else
+	{
+		if (_isShowPossibleMoveTile) character::render();
+	}
 }
 
 void prinny::keyControl()
@@ -231,7 +266,75 @@ void prinny::setFrame()
 	}
 }
 
-void prinny::setItem(tagItem item)
+void prinny::previousState()
 {
-	_inventory->setItem(item);
+}
+
+void prinny::showPossibleMoveTile()
+{
+}
+
+void prinny::saveData()
+{
+	vector<string> vStr;
+
+	vStr.push_back(std::to_string(_level));
+	vStr.push_back(std::to_string(_counter));
+	vStr.push_back(std::to_string(_mv));
+	vStr.push_back(std::to_string(_jm));
+	vStr.push_back(std::to_string(_atk));
+	vStr.push_back(std::to_string(_int));
+	vStr.push_back(std::to_string(_def));
+	vStr.push_back(std::to_string(_spd));
+	vStr.push_back(std::to_string(_hit));
+	vStr.push_back(std::to_string(_res));
+	vStr.push_back(std::to_string(_exp));
+	vStr.push_back(std::to_string(_next));
+	vStr.push_back(std::to_string(_hell));
+
+	int itemNum = _inventory->getItem()->getVItem().size();
+	
+	vStr.push_back(std::to_string(itemNum));	//아이템 개수
+
+	//아이템 이름
+	for (int i = 0; i < itemNum; ++i)
+	{
+		vStr.push_back(_inventory->getItem()->getVItem()[i].name);
+	}
+
+	TXTDATA->txtSave("prinny.txt", vStr);
+}
+
+void prinny::loadData()
+{
+	vector<string> vStr;
+	
+	vStr = TXTDATA->txtLoad("prinny.txt");
+	
+	int idx = 0;
+
+	_level = atoi(vStr[idx++].c_str());
+	_counter = atoi(vStr[idx++].c_str());
+	_mv = atoi(vStr[idx++].c_str());
+	_jm = atoi(vStr[idx++].c_str());
+	_atk = atoi(vStr[idx++].c_str());
+	_int = atoi(vStr[idx++].c_str());
+	_def = atoi(vStr[idx++].c_str());
+	_spd = atoi(vStr[idx++].c_str());
+	_hit = atoi(vStr[idx++].c_str());
+	_res = atoi(vStr[idx++].c_str());
+	_exp = atoi(vStr[idx++].c_str());
+	_next = atoi(vStr[idx++].c_str());
+	_hell = atoi(vStr[idx++].c_str());
+
+	int itemNum = atoi(vStr[idx++].c_str());
+	for (int i = 0; i < itemNum; ++i)		//index = 14 ~ 14+itemNum
+	{
+		setItem(vStr[idx++].c_str());
+	}
+}
+
+void prinny::setItem(const char* itemName)
+{
+	_inventory->setItem(itemName);
 }

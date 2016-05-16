@@ -1,49 +1,78 @@
 #include "stdafx.h"
-#include "Flonne.h"
+#include "flonne.h"
 
 
-Flonne::Flonne()
+flonne::flonne()
 {
 }
 
 
-Flonne::~Flonne()
+flonne::~flonne()
 {
 }
 
-HRESULT Flonne::init()
+HRESULT flonne::init()
 {
 	return E_NOTIMPL;
 }
 
-void Flonne::release()
+HRESULT flonne::init(vector<TagTile*> tile)
+{
+	_name = "flonne";
+
+	loadData();
+
+	_character = IMAGEMANAGER->findImage("prinny_idle");
+	_characterState = IDLE;
+	_characterDir = LB;
+	_curFrameX = 0;
+	_count = 0;
+
+	_moveSpeed = 3;
+
+	return S_OK;
+}
+
+void flonne::release()
 {
 }
 
-void Flonne::update()
+void flonne::update()
 {
 }
 
-void Flonne::render()
+void flonne::render()
 {
 }
 
-void Flonne::keyControl()
+void flonne::keyControl()
 {
 }
 
-void Flonne::battleKeyControl()
+void flonne::battleKeyControl()
 {
 }
 
-void Flonne::move(int endX, int endY)
+void flonne::move(int endX, int endY)
 {
 }
 
-void Flonne::setImage()
+void flonne::setImage()
 {
 }
 
-void Flonne::setFrame()
+void flonne::setFrame()
+{
+}
+
+void flonne::saveData()
+{
+}
+
+void flonne::loadData()
+{
+}
+
+void flonne::setItem(const char * itemName)
 {
 }

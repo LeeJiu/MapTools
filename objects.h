@@ -3,7 +3,7 @@
 class objects : public gameObject
 {
 private:
-
+	RECT _rcSummon;
 
 public:
 	objects();
@@ -16,5 +16,6 @@ public:
 
 	/*			함수 추가			*/
 
+	RECT getRcSummon() { return _rcSummon; }
 };
 

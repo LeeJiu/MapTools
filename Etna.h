@@ -1,13 +1,13 @@
 #pragma once
 #include "character.h"
-class Etna :
-	public character
+class etna : public character
 {
 public:
-	Etna();
-	~Etna();
+	etna();
+	~etna();
 
-	HRESULT init();
+	virtual HRESULT init();
+	virtual HRESULT init(vector<TagTile*> tile);
 	void release();
 	void update();
 	void render();
@@ -18,5 +18,10 @@ public:
 	virtual void move(int endX, int endY);
 	virtual void setImage();
 	virtual void setFrame();
+
+	virtual void saveData();
+	virtual void loadData();
+
+	virtual RECT getRect() { return _rc; }
 };
 

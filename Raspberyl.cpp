@@ -1,49 +1,83 @@
 #include "stdafx.h"
-#include "Raspberyl.h"
+#include "raspberyl.h"
 
 
-Raspberyl::Raspberyl()
+raspberyl::raspberyl()
 {
 }
 
 
-Raspberyl::~Raspberyl()
+raspberyl::~raspberyl()
 {
 }
 
-HRESULT Raspberyl::init()
+HRESULT raspberyl::init()
 {
 	return E_NOTIMPL;
 }
 
-void Raspberyl::release()
+HRESULT raspberyl::init(vector<TagTile*> tile)
+{
+	for (int i = 0; i < 100; i++)
+	{
+		_tile[i % TILENUM][i / TILENUM] = tile[i];
+	}
+
+	_name = "raspberyl";
+
+	loadData();
+
+	_character = IMAGEMANAGER->findImage("prinny_idle");
+	_characterState = IDLE;
+	_characterDir = LB;
+	_curFrameX = 0;
+	_count = 0;
+
+	_moveSpeed = 3;
+
+	return S_OK;
+}
+
+void raspberyl::release()
 {
 }
 
-void Raspberyl::update()
+void raspberyl::update()
 {
 }
 
-void Raspberyl::render()
+void raspberyl::render()
 {
 }
 
-void Raspberyl::keyControl()
+void raspberyl::keyControl()
 {
 }
 
-void Raspberyl::battleKeyControl()
+void raspberyl::battleKeyControl()
 {
 }
 
-void Raspberyl::move(int endX, int endY)
+void raspberyl::move(int endX, int endY)
 {
 }
 
-void Raspberyl::setImage()
+void raspberyl::setImage()
 {
 }
 
-void Raspberyl::setFrame()
+void raspberyl::setFrame()
+{
+}
+
+void raspberyl::saveData()
+{
+}
+
+void raspberyl::loadData()
+{
+}
+
+void raspberyl::setItem(const char * itemName)
 {
 }
