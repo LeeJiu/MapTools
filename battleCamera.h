@@ -17,7 +17,7 @@ public:
 	battleCamera();
 	~battleCamera();
 
-	HRESULT init(vector<TagTile*>& tile);
+	HRESULT init(vector<TagTile*> tile);
 	void release();
 	void update();
 	void render();
@@ -26,7 +26,7 @@ public:
 	void setCameraCharacter(RECT rc);
 
 	void cameraTile();
-	void cameraCharacter(vector<TagTile*> cameraTile);
+	//void cameraCharacter(vector<TagTile*> cameraTile);
 	void cameraFree();
 
 };

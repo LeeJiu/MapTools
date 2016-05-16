@@ -108,6 +108,7 @@ void gameObject::saveData()
 void gameObject::loadData()
 {
 }
+
 void gameObject::previousState()
 {
 

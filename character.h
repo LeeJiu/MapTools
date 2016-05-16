@@ -11,7 +11,7 @@ class character : public gameObject
 protected:
 	int _next;  //캐릭터 능력치 2
 	//bool _isWeaponEquip;		//장비 장착여부
-	bool _isUp, _isRight, _isShow;
+	bool _isUp, _isRight;
 
 	CHARACTER_STATE _characterState;
 	CHARACTER_DIRECTION _characterDir;
@@ -41,7 +41,6 @@ public:
 	virtual void saveData();
 	virtual void loadData();
 
-	virtual void setIsShow(bool isShow) { _isShow = isShow; }
 	virtual void setItem(const char* itemName) = 0;
 	virtual void setMercenary(const char* characterName) = 0;
 	virtual void setHell(int hell) = 0;
