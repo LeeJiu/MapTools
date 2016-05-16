@@ -107,6 +107,7 @@
     <ClInclude Include="item.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="mapTool.h" />
+    <ClInclude Include="mercenaryStore.h" />
     <ClInclude Include="npc.h" />
     <ClInclude Include="objects.h" />
     <ClInclude Include="orc.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="item.cpp" />
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="mapTool.cpp" />
+    <ClCompile Include="mercenaryStore.cpp" />
     <ClCompile Include="npc.cpp" />
     <ClCompile Include="objects.cpp" />
     <ClCompile Include="orc.cpp" />

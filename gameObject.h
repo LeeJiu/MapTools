@@ -53,6 +53,7 @@ public:
 
 	// setÇÔ¼ö
 	virtual void setItem(const char* itemName) = 0;
+	virtual void setMercenary(const char* characterName) = 0;
 	virtual void setHell(int hell) = 0;
 	virtual void setIsShowPossibleMoveTile(bool isShowPossibleMoveTile) { _isShowPossibleMoveTile = isShowPossibleMoveTile; }
 
