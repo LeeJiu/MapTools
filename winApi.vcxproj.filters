@@ -94,9 +94,6 @@
     <Filter Include="gameStudy\aStar">
       <UniqueIdentifier>{42f0b6f3-d929-4bce-80ee-ef9c0cf56edf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gameStudy\mercenaryStore">
-      <UniqueIdentifier>{ea8a655b-1a44-45ce-bc17-c56f87edc40a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -231,10 +228,6 @@
     <ClInclude Include="raspberyl.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="mercenaryStore.h">
-      <Filter>gameStudy\mercenaryStore</Filter>
-=======
     <ClInclude Include="gameObjectManager.h">
       <Filter>gameStudy\gameObject</Filter>
     </ClInclude>
@@ -246,7 +239,6 @@
     </ClInclude>
     <ClInclude Include="title.h">
       <Filter>gameStudy\title</Filter>
->>>>>>> refs/remotes/origin/development
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -370,10 +362,6 @@
     <ClCompile Include="raspberyl.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="mercenaryStore.cpp">
-      <Filter>gameStudy\mercenaryStore</Filter>
-=======
     <ClCompile Include="gameObjectManager.cpp">
       <Filter>gameStudy\gameObject</Filter>
     </ClCompile>
@@ -385,7 +373,6 @@
     </ClCompile>
     <ClCompile Include="title.cpp">
       <Filter>gameStudy\title</Filter>
->>>>>>> refs/remotes/origin/development
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
