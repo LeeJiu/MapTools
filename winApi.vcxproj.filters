@@ -240,6 +240,9 @@
     <ClInclude Include="title.h">
       <Filter>gameStudy\title</Filter>
     </ClInclude>
+    <ClInclude Include="mercenaryStore.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -373,6 +376,9 @@
     </ClCompile>
     <ClCompile Include="title.cpp">
       <Filter>gameStudy\title</Filter>
+    </ClCompile>
+    <ClCompile Include="mercenaryStore.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

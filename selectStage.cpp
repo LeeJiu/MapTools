@@ -108,18 +108,18 @@ void selectStage::render()
 {
 	IMAGEMANAGER->findImage("selectScene")->render(getMemDC());
 
-	Rectangle(getMemDC(), _rcListTop.left, _rcListTop.top, _rcListTop.right, _rcListTop.bottom);
-	for (int i = 0; i < _mapListSize; i++) Rectangle(getMemDC(), _rcListBody[i].left, _rcListBody[i].top, _rcListBody[i].right, _rcListBody[i].bottom);
-	Rectangle(getMemDC(), _rcListBottom.left, _rcListBottom.top, _rcListBottom.right, _rcListBottom.bottom);
+	//Rectangle(getMemDC(), _rcListTop.left, _rcListTop.top, _rcListTop.right, _rcListTop.bottom);
+	//for (int i = 0; i < _mapListSize; i++) Rectangle(getMemDC(), _rcListBody[i].left, _rcListBody[i].top, _rcListBody[i].right, _rcListBody[i].bottom);
+	//Rectangle(getMemDC(), _rcListBottom.left, _rcListBottom.top, _rcListBottom.right, _rcListBottom.bottom);
 
-	Rectangle(getMemDC(), _rcTitle.left, _rcTitle.top, _rcTitle.right, _rcTitle.bottom);
-	Rectangle(getMemDC(), _rcBottom.left, _rcBottom.top, _rcBottom.right, _rcBottom.bottom);
-	Rectangle(getMemDC(), _rcGoing.left, _rcGoing.top, _rcGoing.right, _rcGoing.bottom);
-	Rectangle(getMemDC(), _rcArrow.left, _rcArrow.top, _rcArrow.right, _rcArrow.bottom);
+	//Rectangle(getMemDC(), _rcTitle.left, _rcTitle.top, _rcTitle.right, _rcTitle.bottom);
+	//Rectangle(getMemDC(), _rcBottom.left, _rcBottom.top, _rcBottom.right, _rcBottom.bottom);
+	//Rectangle(getMemDC(), _rcGoing.left, _rcGoing.top, _rcGoing.right, _rcGoing.bottom);
+	//Rectangle(getMemDC(), _rcArrow.left, _rcArrow.top, _rcArrow.right, _rcArrow.bottom);
 
-	Rectangle(getMemDC(), _rcGoingStart.left, _rcGoingStart.top, _rcGoingStart.right, _rcGoingStart.bottom);
-	Rectangle(getMemDC(), _rcGoingSkip.left, _rcGoingSkip.top, _rcGoingSkip.right, _rcGoingSkip.bottom);
-	Rectangle(getMemDC(), _rcGoingExit.left, _rcGoingExit.top, _rcGoingExit.right, _rcGoingExit.bottom);
+	//Rectangle(getMemDC(), _rcGoingStart.left, _rcGoingStart.top, _rcGoingStart.right, _rcGoingStart.bottom);
+	//Rectangle(getMemDC(), _rcGoingSkip.left, _rcGoingSkip.top, _rcGoingSkip.right, _rcGoingSkip.bottom);
+	//Rectangle(getMemDC(), _rcGoingExit.left, _rcGoingExit.top, _rcGoingExit.right, _rcGoingExit.bottom);
 
 	_imageListTop->render(getMemDC(), _rcListTop.left, _rcListTop.top);
 	for (int i = 0; i < _mapListSize; i++) _imageListBody[i]->render(getMemDC(), _rcListBody[i].left, _rcListBody[i].top);
