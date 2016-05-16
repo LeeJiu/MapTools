@@ -1,11 +1,5 @@
 #pragma once
 #include "gameNode.h"
-<<<<<<< HEAD
-class inventory : public gameNode
-{
-private:
-
-=======
 #include "item.h"
 
 class inventory : public gameNode
@@ -33,9 +27,6 @@ private:
 	RECT _rcName, _rcLevel, _rcCounter, _rcMv, _rcJm;
 	RECT _rcHp, _rcSp, _rcAtk, _rcInt, _rcDef, _rcSpd, _rcHit, _rcRes, _rcExp, _rcNext;
 
-	
->>>>>>> refs/remotes/origin/development
-
 public:
 	inventory();
 	~inventory();
@@ -46,9 +37,6 @@ public:
 	void render();
 
 	/*			함수 추가			*/
-<<<<<<< HEAD
-
-=======
 	void keyControl();
 	void updateItemInfo(tagItem item);
 	
@@ -67,6 +55,5 @@ public:
 
 	RECT getExit() { return _rcExit; }
 	item* getItem() { return &_item; }
->>>>>>> refs/remotes/origin/development
 };
 

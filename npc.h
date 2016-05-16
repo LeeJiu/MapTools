@@ -1,12 +1,7 @@
 #pragma once
-<<<<<<< HEAD
-#include "character.h"
-class npc : public character
-=======
 #include "gameObject.h"
 
 class npc : public gameObject
->>>>>>> refs/remotes/origin/development
 {
 private:
 

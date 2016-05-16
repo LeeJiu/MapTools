@@ -1,11 +1,5 @@
 #pragma once
 #include "gameNode.h"
-<<<<<<< HEAD
-class gameObject : public gameNode
-{
-private:
-
-=======
 
 class gameObject : public gameNode
 {
@@ -33,7 +27,6 @@ protected:
 	bool _isMove;
 	bool _isShowPossibleMoveTile;									// 이동가능한 타일 보여줘라
 	bool _isOrdering;												// 명령수행중이다.
->>>>>>> refs/remotes/origin/development
 
 public:
 	gameObject();
@@ -46,11 +39,6 @@ public:
 	virtual void render();
 
 	/*			함수 추가			*/
-<<<<<<< HEAD
-
-};
-
-=======
 	virtual void keyControl();
 	virtual void battleKeyControl();
 	virtual void move(int endX, int endY);
@@ -87,4 +75,3 @@ public:
 	virtual int getExp() { return _exp; }
 	virtual vector<string>& getMercenary() { return _mercenary; }
 };
->>>>>>> refs/remotes/origin/development

@@ -48,16 +48,6 @@ void title::update()
 	showLogo();
 	clickMenu();
 
-<<<<<<< HEAD
-	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
-	{
-		_y = 0;
-		_show = true;
-		_showMenu = true;
-	}
-
-	if (_showMenu) showArrow();
-=======
 	if (_showMenu) showArrow();
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
@@ -68,7 +58,6 @@ void title::update()
 		_y = 0;
 		_showMenu = true;
 	}
->>>>>>> refs/remotes/origin/development
 }
 
 void title::render()

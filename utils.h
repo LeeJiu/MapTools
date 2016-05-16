@@ -28,11 +28,7 @@
 
 enum TILESTATE
 {
-<<<<<<< HEAD
-	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS
-=======
 	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS, S_ONCHAR
->>>>>>> refs/remotes/origin/development
 };
 
 enum OBJSTATE
@@ -40,28 +36,11 @@ enum OBJSTATE
 	S_NOMAL, S_ZEN, E_NORMAL, E_BOSS
 };
 
-<<<<<<< HEAD
-
-struct TagTile
-{
-	image* image;			// 타일의 이미지
-	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
-	POINT pivot;			// 타일 렉트의 중심점
-	TILESTATE state;		// 타일의 상태
-	TagTile* parent;		// A* 해당타일의 부모
-	int x, y;				// 타일의인덱스 x, y
-	int width;				// 타일의 폭
-	int height;				// 타일의 높이
-	int imageNum;			// 이미지 가져오기
-	int number;				// 타일의 고유 넘버값 
-	int f, g, h;			// A* 필요한 변수값
-	bool draw;				// 타일 그려진 유무 ( 이 타일위에 이미지가 그려져있는지 확인 유무)
-=======
 struct TagTile
 {
 	image* image;         // 타일의 이미지
 	RECT rc;            // 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
-						//POINT pivot;         // 타일 렉트의 중심점
+	//POINT pivot;         // 타일 렉트의 중심점
 	float pivotX;
 	float pivotY;
 	TILESTATE state;      // 타일의 상태
@@ -73,7 +52,6 @@ struct TagTile
 	int number;            // 타일의 고유 넘버값 
 	int f, g, h;         // A* 필요한 변수값
 	bool draw;            // 타일 그려진 유무 ( 이 타일위에 이미지가 그려져있는지 확인 유무)
->>>>>>> refs/remotes/origin/development
 };
 
 struct TagObject
@@ -81,21 +59,12 @@ struct TagObject
 	image* image;			// 타일의 이미지
 	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
 	POINT pivot;			// 타일 렉트의 중심점
-<<<<<<< HEAD
-	OBJSTATE state;
-=======
->>>>>>> refs/remotes/origin/development
 	int x, y;				// 타일의인덱스 x, y
 	int width;				// 타일의 폭
 	int height;				// 타일의 높이
 	int imageNum;			// 이미지 가져오기
 	int number;				// 타일의 고유 넘버값 
 	bool draw;
-<<<<<<< HEAD
-};
-
-
-=======
 	OBJSTATE state;
 };
 
@@ -130,7 +99,6 @@ struct tagItem
 //		return obj1.number < obj2.number;
 //	}
 //};
->>>>>>> refs/remotes/origin/development
 
 namespace MY_UTIL
 {
@@ -140,8 +108,6 @@ namespace MY_UTIL
 	//각도 구하는 함수
 	float getAngle(float startX, float startY, float endX, float endY);
 }
-<<<<<<< HEAD
-=======
 
 enum CHARACTER_STATE
 {
@@ -152,4 +118,3 @@ enum CHARACTER_DIRECTION
 {
 	LB, RB, RT, LT
 };
->>>>>>> refs/remotes/origin/development

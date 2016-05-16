@@ -14,16 +14,6 @@ gameStudy::~gameStudy()
 HRESULT gameStudy::init()
 {
 	gameNode::init(true);
-<<<<<<< HEAD
-
-	//IMAGEMANAGER->addImage("mapTile", "image/mapTile.bmp", 208, 156, false, false);// 타일맵 큰이미지!....
-
-	//_map = new mapTool;
-	//_map->init();
-
-	SCENEMANAGER->addScene("title", new title);
-	SCENEMANAGER->addScene("mapTool", new mapTool);
-=======
 	
 	//공통으로 사용하는 아이템 이미지 추가
 	IMAGEMANAGER->addImage("sword", "image/item/sword.bmp", 256, 256, true, 0xff00ff);
@@ -42,10 +32,8 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("title", new title);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 	SCENEMANAGER->addScene("store", new store);
->>>>>>> refs/remotes/origin/development
 
-
-	SCENEMANAGER->changeScene("battleScene");
+	SCENEMANAGER->changeScene("title");
 
 	return S_OK;
 }

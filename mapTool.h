@@ -7,10 +7,7 @@
 #include <algorithm>
 #include "button.h"
 
-<<<<<<< HEAD
 
-=======
->>>>>>> refs/remotes/origin/development
 struct OBJ_Y_RENDER
 {
 	bool operator()(const TagObject* obj1, const TagObject* obj2)
@@ -37,10 +34,7 @@ static int selectedNum = 0;
 static image* selectedImage = NULL;
 
 static STATE _state = SET_TILE;
-<<<<<<< HEAD
 static int _stage = 1;
-=======
->>>>>>> refs/remotes/origin/development
 
 class mapTool : public gameNode
 {
@@ -75,14 +69,9 @@ private:
 	button* _EnemyButton;
 	button* _ExitButton;
 
-<<<<<<< HEAD
 	button* _StageBefore;
 	button* _StageAfter;
 
-	
-=======
-
->>>>>>> refs/remotes/origin/development
 	bool _rectOn;
 
 	int tileNum;
@@ -131,12 +120,7 @@ public:
 	static void onObject();
 	static void onEnemy();
 	static void goToMenu();
-<<<<<<< HEAD
 
 	static void stageBack();
 	static void stageNext();
 };
-
-=======
-};
->>>>>>> refs/remotes/origin/development

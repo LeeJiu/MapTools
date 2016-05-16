@@ -43,15 +43,12 @@ HRESULT mapTool::init()
 
 	_ExitButton = new button;
 	_ExitButton->init("exitB", 200, 85, PointMake(0, 0), PointMake(0, 0), goToMenu);
-<<<<<<< HEAD
 
 	_StageBefore = new button;
 	_StageBefore->init("stageButton", 110, 140, PointMake(0, 0), PointMake(0, 0), stageBack);
 
 	_StageAfter = new button;
 	_StageAfter->init("stageButton", 170, 140, PointMake(1, 0), PointMake(1, 0), stageNext);
-=======
->>>>>>> refs/remotes/origin/development
 
 	selectedImage = IMAGEMANAGER->findImage("tile");
 
@@ -125,13 +122,9 @@ void mapTool::update()
 	_TileButton->update();
 	_EnemyButton->update();
 	_ExitButton->update();
-<<<<<<< HEAD
 	_StageAfter->update();
 	_StageBefore->update();
 }	
-=======
-}
->>>>>>> refs/remotes/origin/development
 ///////////////////////////////////////////////////////////업데이트 끝////////////////////////////////////////////////////////////////////
 
 
@@ -144,11 +137,6 @@ void mapTool::render()
 	//각각의 렉트 출력
 	for (int i = 0; i < _vTile.size(); i++)
 	{
-<<<<<<< HEAD
-=======
-		//Rectangle(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].rc.right, _vTile[i].rc.bottom);
-
->>>>>>> refs/remotes/origin/development
 		IsoRender(getMemDC(), _vTile[i]->rc);
 
 		if (_vTile[i]->draw)
@@ -236,14 +224,11 @@ void mapTool::render()
 	_TileButton->render();
 	_EnemyButton->render();
 	_ExitButton->render();
-<<<<<<< HEAD
 	_StageAfter->render();
 	_StageBefore->render();
 
 	sprintf_s(str, "%d", _stage);
 	TextOut(getMemDC(), 136, 130, str, strlen(str));
-=======
->>>>>>> refs/remotes/origin/development
 
 	//타일샘플
 	if (_state == SET_TILE)
@@ -252,11 +237,6 @@ void mapTool::render()
 		{
 			Rectangle(getMemDC(), _vIsoTile[i]->rc.left, _vIsoTile[i]->rc.top, _vIsoTile[i]->rc.right, _vIsoTile[i]->rc.bottom);
 			_vIsoTile[i]->image->frameRender(getMemDC(), _vIsoTile[i]->rc.left, _vIsoTile[i]->rc.top);
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> refs/remotes/origin/development
 			sprintf_s(str, "tileNum = %d", i);
 			TextOut(getMemDC(), _vIsoTile[i]->rc.left, _vIsoTile[i]->rc.top, str, strlen(str));
 		}
@@ -583,21 +563,12 @@ void mapTool::saveMapData()
 	vector<string> vStr;
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
-<<<<<<< HEAD
 		vStr.push_back("|");							//구분자
 		vStr.push_back(itoa((*_viTile)->number, temp1, 10));		//타일 넘버
 		vStr.push_back(itoa((*_viTile)->state, temp1, 10));		//타일 상태
 		vStr.push_back(itoa((*_viTile)->x, temp1, 10));	//불러올때 위치정보를 갖고있을 피벗.
 		vStr.push_back(itoa((*_viTile)->y, temp1, 10));
 		vStr.push_back(itoa((*_viTile)->imageNum, temp1, 10));	//타일 이미지 (_pickNum)
-=======
-		vStr.push_back("|");                     //구분자
-		vStr.push_back(itoa((*_viTile)->number, temp, 10));      //타일 넘버
-		vStr.push_back(itoa((*_viTile)->state, temp, 10));      //타일 상태
-		vStr.push_back(itoa((*_viTile)->x, temp, 10));   //불러올때 위치정보를 갖고있을 피벗.
-		vStr.push_back(itoa((*_viTile)->y, temp, 10));
-		vStr.push_back(itoa((*_viTile)->imageNum, temp, 10));   //타일 이미지 (_pickNum)
->>>>>>> refs/remotes/origin/development
 	}
 	
 	//오브젝트저장
@@ -651,16 +622,11 @@ void mapTool::saveMapData()
 void mapTool::loadMapData()
 {
 	resetMapData();
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> refs/remotes/origin/development
 	int vObjSize = 0;
 	int vEnmSize = 0;
 
 	//타일로드
-<<<<<<< HEAD
 	switch (_stage)
 	{
 	case 1:
@@ -673,9 +639,7 @@ void mapTool::loadMapData()
 		DATABASE->loadDatabase("battleMap3.txt");
 		break;
 	}
-=======
-	DATABASE->loadDatabase("battleMap1.txt");
->>>>>>> refs/remotes/origin/development
+
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
 		char temp[128];
@@ -759,7 +723,6 @@ void mapTool::loadMapData()
 		_vRender.push_back(obj);
 
 	}
-<<<<<<< HEAD
 	
 	switch (_stage)
 	{
@@ -773,9 +736,7 @@ void mapTool::loadMapData()
 		DATABASE->loadDatabase("battleMap3_enm.txt");
 		break;
 	}
-=======
 
->>>>>>> refs/remotes/origin/development
 	//에너미로드
 	for (int i = 0; i < vEnmSize; i++)
 	{
@@ -820,11 +781,6 @@ void mapTool::loadMapData()
 void mapTool::resetMapData()
 {
 	release();
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> refs/remotes/origin/development
 	setTile();
 }
 

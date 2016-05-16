@@ -13,9 +13,6 @@ selectStage::~selectStage()
 
 HRESULT selectStage::init()
 {
-<<<<<<< HEAD
-	return E_NOTIMPL;
-=======
 	_mapListSize = 3;
 
 	IMAGEMANAGER->addImage("selectScene", "image/selectScene.bmp", 1280, 720, false, false);
@@ -62,25 +59,19 @@ HRESULT selectStage::init()
 	mapListInit();
 
 	return S_OK;
->>>>>>> refs/remotes/origin/development
 }
 
 void selectStage::release()
 {
-<<<<<<< HEAD
-=======
 	for (int i = 0; i < _imageListBody.size(); i++)
 	{
 		_imageListBody.erase(_imageListBody.begin() + i);
 	}
 	_imageListBody.clear();
->>>>>>> refs/remotes/origin/development
 }
 
 void selectStage::update()
 {
-<<<<<<< HEAD
-=======
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		//CHECK MAPLIST SELECT
@@ -111,13 +102,10 @@ void selectStage::update()
 			SCENEMANAGER->changeScene("town");
 		}
 	}
->>>>>>> refs/remotes/origin/development
 }
 
 void selectStage::render()
 {
-<<<<<<< HEAD
-=======
 	IMAGEMANAGER->findImage("selectScene")->render(getMemDC());
 
 	Rectangle(getMemDC(), _rcListTop.left, _rcListTop.top, _rcListTop.right, _rcListTop.bottom);
@@ -180,5 +168,4 @@ void selectStage::mapListInit()
 		if (i == 10) _vMapList.push_back("BASIC BATTLE 11");
 		if (i == 11) _vMapList.push_back("BASIC BATTLE 12");
 	}
->>>>>>> refs/remotes/origin/development
 }

@@ -13,16 +13,12 @@ gameObject::~gameObject()
 
 HRESULT gameObject::init()
 {
-<<<<<<< HEAD
-	return E_NOTIMPL;
-=======
 	return S_OK;
 }
 
 HRESULT gameObject::init(vector<TagTile*> tile)
 {
 	return S_OK;
->>>>>>> refs/remotes/origin/development
 }
 
 void gameObject::release()
@@ -36,8 +32,6 @@ void gameObject::update()
 void gameObject::render()
 {
 }
-<<<<<<< HEAD
-=======
 
 void gameObject::keyControl()
 {
@@ -122,4 +116,3 @@ void gameObject::previousState()
 void gameObject::showPossibleMoveTile()
 {
 }
->>>>>>> refs/remotes/origin/development

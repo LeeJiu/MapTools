@@ -11,18 +11,10 @@ aStar::~aStar()
 {
 }
 
-<<<<<<< HEAD
-HRESULT aStar::init(int battleMapNumber)
-=======
 HRESULT aStar::init()
->>>>>>> refs/remotes/origin/development
 {
-	
-<<<<<<< HEAD
-=======
 	_finish = false;
 
->>>>>>> refs/remotes/origin/development
 	return S_OK;
 }
 
@@ -36,20 +28,10 @@ void aStar::update()
 
 void aStar::render()
 {
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/development
 }
 
 void aStar::checkTile()
 {
-<<<<<<< HEAD
-}
-
-void aStar::celulateRoute(POINT start, POINT end)
-{
-=======
 	// 처음만 넣어줘라
 	if (_vCloseList.size() == 0)
 	{
@@ -200,8 +182,6 @@ void aStar::setTile(vector<TagTile*> tile)
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 		_tile[i % TILENUM][i / TILENUM]->f = 9999;
 	}
-
->>>>>>> refs/remotes/origin/development
 }
 
 
@@ -224,14 +204,6 @@ void aStar::reset()
 	}
 	_vOpenList.clear();
 
-<<<<<<< HEAD
-	for (_viRoute = _vRoute.begin(); _viRoute != _vRoute.end(); )
-	{
-		(*_viRoute)->parent = NULL;
-		_viRoute = _vOpenList.erase(_viRoute);
-	}
-	_vOpenList.clear();
-=======
 	for (int j = 0; j < TILENUM; j++)      // 세로 ( 열 )
 	{
 		for (int i = 0; i < TILENUM; i++)   // 가로 ( 행 )
@@ -253,5 +225,4 @@ void aStar::eraseVector(int x, int y)
 			return;
 		}
 	}
->>>>>>> refs/remotes/origin/development
 }
