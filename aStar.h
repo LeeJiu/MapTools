@@ -16,7 +16,6 @@ class aStar : public gameNode
 	vector<TagTile*> _vRoute;
 	vector<TagTile*>::iterator _viRoute;
 
-
 	POINT _start, _end;
 
 	bool _finish;

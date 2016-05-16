@@ -13,7 +13,6 @@ aStar::~aStar()
 
 HRESULT aStar::init()
 {
-	
 	_finish = false;
 
 	return S_OK;
@@ -29,7 +28,6 @@ void aStar::update()
 
 void aStar::render()
 {
-
 }
 
 void aStar::checkTile()
@@ -184,7 +182,6 @@ void aStar::setTile(vector<TagTile*> tile)
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 		_tile[i % TILENUM][i / TILENUM]->f = 9999;
 	}
-
 }
 
 

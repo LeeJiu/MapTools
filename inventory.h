@@ -27,8 +27,6 @@ private:
 	RECT _rcName, _rcLevel, _rcCounter, _rcMv, _rcJm;
 	RECT _rcHp, _rcSp, _rcAtk, _rcInt, _rcDef, _rcSpd, _rcHit, _rcRes, _rcExp, _rcNext;
 
-	
-
 public:
 	inventory();
 	~inventory();

@@ -14,8 +14,6 @@ public:
 	int y;
 	int imageNum;
 
-	//오브젝트
-
 	elements() {};
 	~elements() {};
 };
@@ -48,3 +46,4 @@ public:
 	void setElementDataY(string str, int y);
 	void setElementDataImageNum(string str, int imageNum);
 };
+

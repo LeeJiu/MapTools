@@ -33,8 +33,7 @@ HRESULT gameStudy::init()
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 	SCENEMANAGER->addScene("store", new store);
 
-
-	SCENEMANAGER->changeScene("battleScene");
+	SCENEMANAGER->changeScene("title");
 
 	return S_OK;
 }
@@ -55,7 +54,8 @@ void gameStudy::update()
 
 void gameStudy::render()
 {
-	//백버퍼에서 뿌려준다	
+	//백버퍼에서 뿌려준다
+	
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 	//======================
 	//이 사이에서 그려주면 됨.
