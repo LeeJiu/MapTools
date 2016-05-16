@@ -33,7 +33,7 @@ void actionManager::release()
 
 void actionManager::update()
 {
-	for (unsigned int i = 0; i < _vAction.size(); i++)
+	for (int i = 0; i < _vAction.size(); i++)
 	{
 		_vAction[i]->update();
 		if (!_vAction[i]->getIsMoving())

@@ -28,11 +28,7 @@
 
 enum TILESTATE
 {
-<<<<<<< HEAD
 	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS
-=======
-	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT
->>>>>>> refs/remotes/origin/development
 };
 
 enum OBJSTATE
@@ -40,21 +36,12 @@ enum OBJSTATE
 	S_NOMAL, S_ZEN, E_NORMAL, E_BOSS
 };
 
-<<<<<<< HEAD
 
-=======
->>>>>>> refs/remotes/origin/development
 struct TagTile
 {
 	image* image;			// 타일의 이미지
 	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
-<<<<<<< HEAD
 	POINT pivot;			// 타일 렉트의 중심점
-=======
-	//POINT pivot;			// 타일 렉트의 중심점
-	float pivotX;
-	float pivotY;
->>>>>>> refs/remotes/origin/development
 	TILESTATE state;		// 타일의 상태
 	TagTile* parent;		// A* 해당타일의 부모
 	int x, y;				// 타일의인덱스 x, y
@@ -72,56 +59,16 @@ struct TagObject
 	image* image;			// 타일의 이미지
 	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
 	POINT pivot;			// 타일 렉트의 중심점
-<<<<<<< HEAD
 	OBJSTATE state;
-=======
->>>>>>> refs/remotes/origin/development
 	int x, y;				// 타일의인덱스 x, y
 	int width;				// 타일의 폭
 	int height;				// 타일의 높이
 	int imageNum;			//이미지 가져오기
 	int number;				// 타일의 고유 넘버값 
 	bool draw;
-<<<<<<< HEAD
 };
 
 
-=======
-	OBJSTATE state;
-};
-
-struct OBJ_Y_RENDER
-{
-	bool operator()(const TagObject& obj1, const TagObject& obj2)
-	{
-		return obj1.rc.bottom < obj2.rc.bottom;
-	}
-};
-
-struct tagItem
-{
-	image* image;
-	RECT rc;
-	char* name;
-	char* info;
-	int atk;
-	int intel;
-	int def;
-	int spd;
-	int hit;
-	int res;
-	int buyPrice;	//플레이어가 살 때 가격
-	int sellPrice;	//플레이어가 팔 때 가격
-};
-
-struct OBJ_NUM
-{
-	bool operator()(const TagObject& obj1, const TagObject& obj2)
-	{
-		return obj1.number < obj2.number;
-	}
-};
->>>>>>> refs/remotes/origin/development
 
 namespace MY_UTIL
 {
@@ -131,5 +78,3 @@ namespace MY_UTIL
 	//각도 구하는 함수
 	float getAngle(float startX, float startY, float endX, float endY);
 }
-
-

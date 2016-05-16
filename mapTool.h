@@ -7,7 +7,6 @@
 #include <algorithm>
 #include "button.h"
 
-<<<<<<< HEAD
 
 struct OBJ_Y_RENDER
 {
@@ -33,12 +32,9 @@ enum STATE
 
 static int selectedNum = 0;
 static image* selectedImage = NULL;
+
 static STATE _state = SET_TILE;
-=======
-static int selectedNum = 0;
-static image* selectedImage = NULL;
-static bool _isTile = true;
->>>>>>> refs/remotes/origin/development
+static int _stage = 1;
 
 class mapTool : public gameNode
 {
@@ -53,7 +49,6 @@ private:
 	vector<TagObject*> _vEnemy;
 	vector<TagObject*>::iterator _viEnemy;
 
-<<<<<<< HEAD
 
 	//샘플
 	vector<TagTile*> _vIsoTile;
@@ -74,22 +69,9 @@ private:
 	button* _EnemyButton;
 	button* _ExitButton;
 
-=======
-	vector<TagObject> _vObj;
-	vector<TagObject>::iterator _viObj;
+	button* _StageBefore;
+	button* _StageAfter;
 
-
-	vector<TagTile> _vIsoTile;
-	vector<TagTile>::iterator _viIsoTile;
-
-	vector<TagObject> _vIsoObj;
-	vector<TagObject>::iterator _viIsoObj;
-
-
-	button* _TileButton;
-	button* _ObjectButton;
-	button* _ExitButton;
->>>>>>> refs/remotes/origin/development
 	
 	bool _rectOn;
 
@@ -123,6 +105,7 @@ public:
 	void setSampleObject();
 	void setSampleEnemy();
 
+
 	void setTile();
 
 	void keyControl();
@@ -136,10 +119,10 @@ public:
 	
 	static void onTile();
 	static void onObject();
-<<<<<<< HEAD
 	static void onEnemy();
-=======
->>>>>>> refs/remotes/origin/development
 	static void goToMenu();
+
+	static void stageBack();
+	static void stageNext();
 };
 
