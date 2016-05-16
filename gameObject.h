@@ -15,18 +15,20 @@ protected:
 	image* _character;
 	RECT _rc;
 	int _x, _y;														// 이미지(렉트) 센터x 센터y
-	int _oldX, _oldY;												// 전투맵의 이전 x, y 인덱스
-	int _indexX, _indexY;											// 전투맵의 x, y 인덱스
-	int _destX, _destY;
+	int _oldX, _oldY;												// 전투맵의 이전의 x, y 인덱스
+	int _indexX, _indexY;											// 전투맵의 현재의 x, y 인덱스
+	int _destX, _destY;												// 전투맵의 목적지 x, y 인덱스
 
 	vector<string> _mercenary;
 
 	int _idx;														// 이동시 vRoute에서 사용될 인덱스
 	int _moveSpeed;
 
-	bool _isMove;
-	bool _isShowPossibleMoveTile;									// 이동가능한 타일 보여줘라
-	bool _isOrdering;												// 명령수행중이다.
+	bool _isShow;
+	bool _isMove;													// 움직이고 있는지 유무
+	bool _isShowPossibleMoveTile;									// 이동가능한 타일 보여주는지 유무
+	bool _isOrdering;												// 명령수행중인지 유무
+	bool _isCharacter;												// 적인지 플레이언지 판단 변수
 
 public:
 	gameObject();
@@ -56,6 +58,9 @@ public:
 	virtual void setMercenary(const char* characterName) = 0;
 	virtual void setHell(int hell) = 0;
 	virtual void setIsShowPossibleMoveTile(bool isShowPossibleMoveTile) { _isShowPossibleMoveTile = isShowPossibleMoveTile; }
+	virtual void setVRoute(vector<TagTile*> tile) { _vRoute = tile; }
+	virtual void setIsMove(bool isMove) { _isMove = isMove; }
+	virtual void setIsShow(bool isShow) { _isShow = isShow; }
 
 	// get함수
 	virtual const char* getName() { return _name; }
@@ -74,5 +79,7 @@ public:
 	virtual int getHit() { return _hit; }
 	virtual int getRes() { return _res; }
 	virtual int getExp() { return _exp; }
+	virtual int getIndexX() { return _indexX; }
+	virtual int getIndexY() { return _indexY; }
 	virtual vector<string>& getMercenary() { return _mercenary; }
 };

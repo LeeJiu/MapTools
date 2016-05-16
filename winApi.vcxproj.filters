@@ -94,6 +94,9 @@
     <Filter Include="gameStudy\aStar">
       <UniqueIdentifier>{42f0b6f3-d929-4bce-80ee-ef9c0cf56edf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameStudy\mercenaryStore">
+      <UniqueIdentifier>{64058e20-93fa-4101-9bf9-639a665f94f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -240,6 +243,12 @@
     <ClInclude Include="title.h">
       <Filter>gameStudy\title</Filter>
     </ClInclude>
+    <ClInclude Include="mercenaryStore.h">
+      <Filter>gameStudy\mercenaryStore</Filter>
+    </ClInclude>
+    <ClInclude Include="soundManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -373,6 +382,12 @@
     </ClCompile>
     <ClCompile Include="title.cpp">
       <Filter>gameStudy\title</Filter>
+    </ClCompile>
+    <ClCompile Include="mercenaryStore.cpp">
+      <Filter>gameStudy\mercenaryStore</Filter>
+    </ClCompile>
+    <ClCompile Include="soundManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

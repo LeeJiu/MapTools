@@ -25,19 +25,33 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
+	int _size = _vGameObject.size();
+	for (int i = 0; i < _size; i++)
+	{
+		_vGameObject[i]->update();
+	}
 }
 
 void gameObjectManager::render()
 {
-	int _vTileSize = _vTile.size();
-	for (int i = 0; i < _vTileSize; i++)
+	int _size = _vTile.size();
+	for (int i = 0; i < _size; i++)
 	{
+		//Rectangle(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right, _vTile[i]->rc.bottom);
+		//_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right - _vTile[i]->rc.left, _vTile[i]->rc.bottom - _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
+	}
+	_size = _vGameObject.size();
+	for (int i = 0; i < _size; i++)
+	{
+		_vGameObject[i]->render();
 	}
 }
 
-void gameObjectManager::setUnitMove()
+void gameObjectManager::setUnitMove(int i, int destX, int destY)
 {
+	_vGameObject[i]->setVRoute(_aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
+	_vGameObject[i]->setIsMove(true);
 }
 
 void gameObjectManager::setUnitAttack()
@@ -69,7 +83,7 @@ void gameObjectManager::setTile()
 		{
 			_tile[i][j] = new TagTile;
 			_tile[i][j]->image = new image;
-			_tile[i][j]->image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
+			_tile[i][j]->image->init("image/isoTile.bmp", 768, 1056, 4, 11, true, 0xff00ff);
 			_tile[i][j]->width = WIDTH;
 			_tile[i][j]->height = WIDTH / 2;
 			_tile[i][j]->rc = RectMakeCenter(firstPivot.x + i * _tile[i][j]->width / 2 - j * _tile[i][j]->width / 2, firstPivot.y + i * _tile[i][j]->width / 4 + j * _tile[i][j]->width / 4, _tile[i][j]->width, _tile[i][j]->height);
@@ -96,13 +110,13 @@ void gameObjectManager::setCharacter()
 	// 프리니정보 로드해온다 (용병 개수 + 이름)									-> 지우저장된거 후에 확인하자
 	gameObject* _prinny = new prinny;
 	_prinny->init(_vTile);
-	_vCharacter.push_back(_prinny);
 	_vGameObject.push_back(_prinny);
+	_vToTalRender.push_back(_prinny);
 
 	gameObject* _prinny1 = new prinny;
 	_prinny1->init(_vTile);
-	_vCharacter.push_back(_prinny1);
 	_vGameObject.push_back(_prinny1);
+	_vToTalRender.push_back(_prinny1);
 
 	//_vCharacter[0]->겟용병개수백터;
 	

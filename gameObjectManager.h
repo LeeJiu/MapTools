@@ -1,4 +1,5 @@
 #pragma once
+
 #include "aStar.h"
 #include "gameNode.h"
 #include "prinny.h"
@@ -25,11 +26,8 @@ class gameObjectManager : public gameNode
 	vector<TagTile*> _vTile;
 	vector<TagTile*>::iterator _viTile;
 
-	vector<gameObject*> _vCharacter;
-
-	vector<gameObject*> _vEnemy;
-	
 	vector<gameObject*> _vGameObject;
+	vector<gameObject*> _vToTalRender;		
 
 	int vObjSize;
 	int vEnmSize;
@@ -52,7 +50,7 @@ public:
 	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
 	void setbattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
 
-	void setUnitMove();
+	void setUnitMove(int i, int destX, int destY);
 	void setUnitAttack();
 	void setUnitDefence();
 
@@ -72,8 +70,6 @@ public:
 
 
 	vector<TagTile*> getTile() { return _vTile; }
-	vector<gameObject*> getCharacter() { return _vCharacter; }
-	vector<gameObject*> getEnemy() { return _vEnemy; }
 	vector<gameObject*> getGameObject() { return _vGameObject; }
 };
 
