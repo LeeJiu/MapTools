@@ -40,7 +40,7 @@ struct TagTile
 {
 	image* image;         // 타일의 이미지
 	RECT rc;            // 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
-						//POINT pivot;         // 타일 렉트의 중심점
+	//POINT pivot;         // 타일 렉트의 중심점
 	float pivotX;
 	float pivotY;
 	TILESTATE state;      // 타일의 상태

@@ -39,6 +39,8 @@ HRESULT prinny::init()
 	_y = CENTERY;
 	_rc = RectMakeCenter(_x, _y, _character->getFrameWidth(), _character->getFrameHeight());
 
+	_mercenary.reserve(4);	//벡터 크기 4로 예약
+
 	return S_OK;
 }
 
@@ -75,6 +77,7 @@ HRESULT prinny::init(vector<TagTile*> tile)
 void prinny::release()
 {
 	SAFE_DELETE(_inventory);
+	_mercenary.clear();
 }
 
 void prinny::update()
@@ -282,6 +285,8 @@ void prinny::saveData()
 	vStr.push_back(std::to_string(_counter));
 	vStr.push_back(std::to_string(_mv));
 	vStr.push_back(std::to_string(_jm));
+	vStr.push_back(std::to_string(_hp));
+	vStr.push_back(std::to_string(_sp));
 	vStr.push_back(std::to_string(_atk));
 	vStr.push_back(std::to_string(_int));
 	vStr.push_back(std::to_string(_def));
@@ -302,6 +307,15 @@ void prinny::saveData()
 		vStr.push_back(_inventory->getItem()->getVItem()[i].name);
 	}
 
+	_mercenaryNum = _mercenary.size();
+	vStr.push_back(std::to_string(_mercenaryNum));	//용병 수
+	
+	//용병 이름
+	for (int i = 0; i < _mercenaryNum; ++i)
+	{
+		vStr.push_back(_mercenary[i]);
+	}
+
 	TXTDATA->txtSave("prinny.txt", vStr);
 }
 
@@ -317,6 +331,8 @@ void prinny::loadData()
 	_counter = atoi(vStr[idx++].c_str());
 	_mv = atoi(vStr[idx++].c_str());
 	_jm = atoi(vStr[idx++].c_str());
+	_hp = atoi(vStr[idx++].c_str());
+	_sp = atoi(vStr[idx++].c_str());
 	_atk = atoi(vStr[idx++].c_str());
 	_int = atoi(vStr[idx++].c_str());
 	_def = atoi(vStr[idx++].c_str());
@@ -328,13 +344,24 @@ void prinny::loadData()
 	_hell = atoi(vStr[idx++].c_str());
 
 	int itemNum = atoi(vStr[idx++].c_str());
-	for (int i = 0; i < itemNum; ++i)		//index = 14 ~ 14+itemNum
+	for (int i = 0; i < itemNum; ++i)		//index = 16 ~ 16+itemNum
 	{
 		setItem(vStr[idx++].c_str());
+	}
+
+	_mercenaryNum = atoi(vStr[idx++].c_str());
+	for (int i = 0; i < _mercenaryNum; ++i)
+	{
+		setMercenary(vStr[idx++].c_str());
 	}
 }
 
 void prinny::setItem(const char* itemName)
 {
 	_inventory->setItem(itemName);
+}
+
+void prinny::setMercenary(const char * characterName)
+{
+	_mercenary.push_back(characterName);
 }

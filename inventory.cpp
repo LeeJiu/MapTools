@@ -56,20 +56,20 @@ void inventory::render()
 
 		//캐릭터 정보
 		DrawText(getMemDC(), _name, -1, &_rcName, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _level.c_str(), -1, &_rcLevel, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _counter.c_str(), -1, &_rcCounter, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _mv.c_str(), -1, &_rcMv, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _jm.c_str(), -1, &_rcJm, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _hp.c_str(), -1, &_rcHp, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _sp.c_str(), -1, &_rcSp, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _atk.c_str(), -1, &_rcAtk, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _int.c_str(), -1, &_rcInt, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _def.c_str(), -1, &_rcDef, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _spd.c_str(), -1, &_rcSpd, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _hit.c_str(), -1, &_rcHit, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _res.c_str(), -1, &_rcRes, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _exp.c_str(), -1, &_rcExp, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _next.c_str(), -1, &_rcNext, DT_LEFT | DT_VCENTER);
+		DrawText(getMemDC(), _level.c_str(), -1, &_rcLevel, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _counter.c_str(), -1, &_rcCounter, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _mv.c_str(), -1, &_rcMv, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _jm.c_str(), -1, &_rcJm, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _hp.c_str(), -1, &_rcHp, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _sp.c_str(), -1, &_rcSp, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _atk.c_str(), -1, &_rcAtk, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _int.c_str(), -1, &_rcInt, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _def.c_str(), -1, &_rcDef, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _spd.c_str(), -1, &_rcSpd, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _hit.c_str(), -1, &_rcHit, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _res.c_str(), -1, &_rcRes, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _exp.c_str(), -1, &_rcExp, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _next.c_str(), -1, &_rcNext, DT_RIGHT | DT_VCENTER);
 		DrawText(getMemDC(), _hell.c_str(), -1, 
 			&RectMake(_rcHell.left + 20, _rcHell.top + 10, 180, 50), DT_RIGHT | DT_VCENTER);
 
@@ -170,8 +170,8 @@ void inventory::showUI()
 	_rcName = RectMake(120, 70, 200, 30);
 	_rcLevel = RectMake(260, 145, 100, 30);
 	_rcCounter = RectMake(310, 170, 50, 30);
-	_rcMv = RectMake(260, 195, 50, 30);
-	_rcJm = RectMake(330, 195, 50, 30);
+	_rcMv = RectMake(260, 195, 30, 30);
+	_rcJm = RectMake(330, 195, 30, 30);
 	_rcHp = RectMake(170, 240, 50, 30);
 	_rcSp = RectMake(170, 265, 50, 30);
 	_rcAtk = RectMake(170, 285, 50, 30);

@@ -13,9 +13,6 @@ store::~store()
 
 HRESULT store::init()
 {
-	//스토어 배경 이미지 추가
-	IMAGEMANAGER->addImage("store_background", "image/background/store_background.bmp", WINSIZEX, WINSIZEY, false, false);
-
 	//판매할 아이템을 세팅
 	_item.setItem("sword");
 	_item.setItem("staff");
@@ -23,16 +20,6 @@ HRESULT store::init()
 	_item.setItem("bow");
 	
 	/*			store ui			*/
-	
-	//이미지
-	IMAGEMANAGER->addImage("store_title", "image/ui/store_title.bmp", 162, 65, false, false);
-	IMAGEMANAGER->addImage("store_exit", "image/ui/store_exit.bmp", 162, 65, false, false);
-	IMAGEMANAGER->addImage("store_list_title", "image/ui/store_list_title.bmp", 100, 50, true, 0xff00ff);
-	IMAGEMANAGER->addImage("store_list", "image/ui/dialog_type_List.bmp", 300, 389, false, false);
-	IMAGEMANAGER->addImage("store_status", "image/ui/store_ui_item_status.bmp", 700, 389, false, false);
-	IMAGEMANAGER->addImage("store_info", "image/ui/dialog_type_bottom.bmp", 1182, 65, false, false);
-	IMAGEMANAGER->addImage("store_hell", "image/ui/store_hell.bmp", 300, 50, false, false);
-	IMAGEMANAGER->addImage("store_buy", "image/ui/store_buy.bmp", 200, 50, false, false);
 	
 	//렉트
 	//틀
@@ -88,8 +75,6 @@ void store::release()
 
 void store::update()
 {
-	_prinny->update();
-
 	keyControl();
 }
 
@@ -122,20 +107,18 @@ void store::render()
 
 	DrawText(getMemDC(), _name, -1, &_rcName, DT_LEFT | DT_VCENTER);
 	DrawText(getMemDC(), _info, -1, &_rcInfo, DT_LEFT | DT_VCENTER);
-	DrawText(getMemDC(), _atk.c_str(), -1, &_rcAtk, DT_LEFT | DT_VCENTER);
-	DrawText(getMemDC(), _int.c_str(), -1, &_rcInt, DT_LEFT | DT_VCENTER);
-	DrawText(getMemDC(), _def.c_str(), -1, &_rcDef, DT_LEFT | DT_VCENTER);
-	DrawText(getMemDC(), _spd.c_str(), -1, &_rcSpd, DT_LEFT | DT_VCENTER);
-	DrawText(getMemDC(), _hit.c_str(), -1, &_rcHit, DT_LEFT | DT_VCENTER);
-	DrawText(getMemDC(), _res.c_str(), -1, &_rcRes, DT_LEFT | DT_VCENTER);
-	DrawText(getMemDC(), _price.c_str(), -1, &_rcPrice, DT_LEFT | DT_VCENTER);
+	DrawText(getMemDC(), _atk.c_str(), -1, &_rcAtk, DT_RIGHT | DT_VCENTER);
+	DrawText(getMemDC(), _int.c_str(), -1, &_rcInt, DT_RIGHT | DT_VCENTER);
+	DrawText(getMemDC(), _def.c_str(), -1, &_rcDef, DT_RIGHT | DT_VCENTER);
+	DrawText(getMemDC(), _spd.c_str(), -1, &_rcSpd, DT_RIGHT | DT_VCENTER);
+	DrawText(getMemDC(), _hit.c_str(), -1, &_rcHit, DT_RIGHT | DT_VCENTER);
+	DrawText(getMemDC(), _res.c_str(), -1, &_rcRes, DT_RIGHT | DT_VCENTER);
+	DrawText(getMemDC(), _price.c_str(), -1, &_rcPrice, DT_RIGHT | DT_VCENTER);
 	DrawText(getMemDC(), _hell.c_str(), -1,
 		&RectMake(_rcHell.left + 20, _rcHell.top + 10, 220, 50), DT_RIGHT | DT_VCENTER);
 
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
-
-	_prinny->render();
 }
 
 void store::buyItem(const char* itemName)

@@ -22,6 +22,7 @@ HRESULT mapTool::init()
 	setTile();
 
 	//버튼이미지들
+	IMAGEMANAGER->addFrameImage("stageButton", "image/button.bmp", 64, 32, 2, 1, true, 0xff00ff);
 	IMAGEMANAGER->addImage("tileB", "image/tileButton.bmp", 104, 44, false, false);
 	IMAGEMANAGER->addImage("objectB", "image/objectButton.bmp", 104, 44, false, false);
 	IMAGEMANAGER->addImage("enemyB", "image/enemyButton.bmp", 104, 44, false, false);
@@ -42,6 +43,12 @@ HRESULT mapTool::init()
 
 	_ExitButton = new button;
 	_ExitButton->init("exitB", 200, 85, PointMake(0, 0), PointMake(0, 0), goToMenu);
+
+	_StageBefore = new button;
+	_StageBefore->init("stageButton", 110, 140, PointMake(0, 0), PointMake(0, 0), stageBack);
+
+	_StageAfter = new button;
+	_StageAfter->init("stageButton", 170, 140, PointMake(1, 0), PointMake(1, 0), stageNext);
 
 	selectedImage = IMAGEMANAGER->findImage("tile");
 
@@ -115,7 +122,9 @@ void mapTool::update()
 	_TileButton->update();
 	_EnemyButton->update();
 	_ExitButton->update();
-}
+	_StageAfter->update();
+	_StageBefore->update();
+}	
 ///////////////////////////////////////////////////////////업데이트 끝////////////////////////////////////////////////////////////////////
 
 
@@ -128,8 +137,6 @@ void mapTool::render()
 	//각각의 렉트 출력
 	for (int i = 0; i < _vTile.size(); i++)
 	{
-		//Rectangle(getMemDC(), _vTile[i].rc.left, _vTile[i].rc.top, _vTile[i].rc.right, _vTile[i].rc.bottom);
-
 		IsoRender(getMemDC(), _vTile[i]->rc);
 
 		if (_vTile[i]->draw)
@@ -217,6 +224,11 @@ void mapTool::render()
 	_TileButton->render();
 	_EnemyButton->render();
 	_ExitButton->render();
+	_StageAfter->render();
+	_StageBefore->render();
+
+	sprintf_s(str, "%d", _stage);
+	TextOut(getMemDC(), 136, 130, str, strlen(str));
 
 	//타일샘플
 	if (_state == SET_TILE)
@@ -225,7 +237,6 @@ void mapTool::render()
 		{
 			Rectangle(getMemDC(), _vIsoTile[i]->rc.left, _vIsoTile[i]->rc.top, _vIsoTile[i]->rc.right, _vIsoTile[i]->rc.bottom);
 			_vIsoTile[i]->image->frameRender(getMemDC(), _vIsoTile[i]->rc.left, _vIsoTile[i]->rc.top);
-
 			sprintf_s(str, "tileNum = %d", i);
 			TextOut(getMemDC(), _vIsoTile[i]->rc.left, _vIsoTile[i]->rc.top, str, strlen(str));
 		}
@@ -249,7 +260,6 @@ void mapTool::render()
 	{
 		for (int i = 0; i < _vIsoEnemy.size(); i++)
 		{
-			//Rectangle(getMemDC(), _vIsoObj[i].rc.left, _vIsoObj[i].rc.top, _vIsoObj[i].rc.right, _vIsoObj[i].rc.bottom);
 			_vIsoEnemy[i]->image->frameRender(getMemDC(), _vIsoEnemy[i]->rc.left, _vIsoEnemy[i]->rc.top);
 
 			sprintf_s(str, "objNum = %d", _vIsoEnemy[i]->number);
@@ -366,7 +376,7 @@ void mapTool::keyControl()
 									obj->state = S_NOMAL;
 									break;
 								case 4:
-									obj->image->init("image/object_zen.bmp", 1536, 62, 8, 1, true, 0xff00ff);
+									obj->image->init("image/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
 									obj->image->setFrameX(0);
 									obj->image->setFrameX(0);
 									obj->state = S_ZEN;
@@ -432,7 +442,9 @@ void mapTool::keyControl()
 						{
 							if (_state == SET_TILE)
 							{
-
+								_vTile[i]->draw = false;
+								_vTile[i]->imageNum = 100;
+								_vTile[i]->state = S_NONE;
 							}
 							if (_state == SET_OBJ)
 							{
@@ -545,21 +557,20 @@ void mapTool::selectMap()
 
 void mapTool::saveMapData()
 {
-	char temp[128];
+	char temp1[128], temp2[128], temp3[128];
 
 	//타일저장
 	vector<string> vStr;
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
-		vStr.push_back("|");                     //구분자
-		vStr.push_back(itoa((*_viTile)->number, temp, 10));      //타일 넘버
-		vStr.push_back(itoa((*_viTile)->state, temp, 10));      //타일 상태
-		vStr.push_back(itoa((*_viTile)->x, temp, 10));   //불러올때 위치정보를 갖고있을 피벗.
-		vStr.push_back(itoa((*_viTile)->y, temp, 10));
-		vStr.push_back(itoa((*_viTile)->imageNum, temp, 10));   //타일 이미지 (_pickNum)
+		vStr.push_back("|");							//구분자
+		vStr.push_back(itoa((*_viTile)->number, temp1, 10));		//타일 넘버
+		vStr.push_back(itoa((*_viTile)->state, temp1, 10));		//타일 상태
+		vStr.push_back(itoa((*_viTile)->x, temp1, 10));	//불러올때 위치정보를 갖고있을 피벗.
+		vStr.push_back(itoa((*_viTile)->y, temp1, 10));
+		vStr.push_back(itoa((*_viTile)->imageNum, temp1, 10));	//타일 이미지 (_pickNum)
 	}
-	TXTDATA->txtSave("battleMap1.txt", vStr);
-
+	
 	//오브젝트저장
 	vector<string> vStr2;
 	sort(_vObj.begin(), _vObj.end(), OBJ_NUM());
@@ -567,28 +578,44 @@ void mapTool::saveMapData()
 	for (_viObj = _vObj.begin(); _viObj != _vObj.end(); _viObj++)
 	{
 		vStr2.push_back("|");
-		vStr2.push_back(itoa((*_viObj)->number, temp, 10));
-		vStr2.push_back(itoa((*_viObj)->state, temp, 10));
-		vStr2.push_back(itoa((*_viObj)->x, temp, 10));
-		vStr2.push_back(itoa((*_viObj)->y, temp, 10));
-		vStr2.push_back(itoa((*_viObj)->imageNum, temp, 10));
+		vStr2.push_back(itoa((*_viObj)->number, temp2, 10));
+		vStr2.push_back(itoa((*_viObj)->state, temp2, 10));
+		vStr2.push_back(itoa((*_viObj)->x, temp2, 10));
+		vStr2.push_back(itoa((*_viObj)->y, temp2, 10));
+		vStr2.push_back(itoa((*_viObj)->imageNum, temp2, 10));
 	}
-	TXTDATA->txtSave("battleMap1_obj.txt", vStr2);
-
+	
 	//적저장
 	vector<string> vStr3;
 	sort(_vEnemy.begin(), _vEnemy.end(), OBJ_NUM());
-
 	for (_viEnemy = _vEnemy.begin(); _viEnemy != _vEnemy.end(); _viEnemy++)
 	{
 		vStr3.push_back("|");
-		vStr3.push_back(itoa((*_viEnemy)->number, temp, 10));
-		vStr3.push_back(itoa((*_viEnemy)->state, temp, 10));
-		vStr3.push_back(itoa((*_viEnemy)->x, temp, 10));
-		vStr3.push_back(itoa((*_viEnemy)->y, temp, 10));
-		vStr3.push_back(itoa((*_viEnemy)->imageNum, temp, 10));
+		vStr3.push_back(itoa((*_viEnemy)->number, temp3, 10));
+		vStr3.push_back(itoa((*_viEnemy)->state, temp3, 10));
+		vStr3.push_back(itoa((*_viEnemy)->x, temp3, 10));
+		vStr3.push_back(itoa((*_viEnemy)->y, temp3, 10));
+		vStr3.push_back(itoa((*_viEnemy)->imageNum, temp3, 10));
 	}
-	TXTDATA->txtSave("battleMap1_enm.txt", vStr3);
+	
+	switch (_stage)
+	{
+	case 1:
+		TXTDATA->txtSave("battleMap1.txt", vStr);
+		TXTDATA->txtSave("battleMap1_obj.txt", vStr2);
+		TXTDATA->txtSave("battleMap1_enm.txt", vStr3);
+		break;
+	case 2:
+		TXTDATA->txtSave("battleMap2.txt", vStr);
+		TXTDATA->txtSave("battleMap2_obj.txt", vStr2);
+		TXTDATA->txtSave("battleMap2_enm.txt", vStr3);
+		break;
+	case 3:
+		TXTDATA->txtSave("battleMap3.txt", vStr);
+		TXTDATA->txtSave("battleMap3_obj.txt", vStr2);
+		TXTDATA->txtSave("battleMap3_enm.txt", vStr3);
+		break;
+	}
 
 }
 
@@ -600,7 +627,19 @@ void mapTool::loadMapData()
 	int vEnmSize = 0;
 
 	//타일로드
-	DATABASE->loadDatabase("battleMap1.txt");
+	switch (_stage)
+	{
+	case 1:
+		DATABASE->loadDatabase("battleMap1.txt");
+		break;
+	case 2:
+		DATABASE->loadDatabase("battleMap2.txt");
+		break;
+	case 3:
+		DATABASE->loadDatabase("battleMap3.txt");
+		break;
+	}
+
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
 		char temp[128];
@@ -623,7 +662,18 @@ void mapTool::loadMapData()
 	}
 
 	//오브젝트 로드
-	DATABASE->loadDatabase("battleMap1_obj.txt");
+	switch (_stage)
+	{
+	case 1:
+		DATABASE->loadDatabase("battleMap1_obj.txt");
+		break;
+	case 2:
+		DATABASE->loadDatabase("battleMap2_obj.txt");
+		break;
+	case 3:
+		DATABASE->loadDatabase("battleMap3_obj.txt");
+		break;
+	}
 	for (int i = 0; i < vObjSize; i++)
 	{
 		char temp[128];
@@ -673,9 +723,21 @@ void mapTool::loadMapData()
 		_vRender.push_back(obj);
 
 	}
+	
+	switch (_stage)
+	{
+	case 1:
+		DATABASE->loadDatabase("battleMap1_enm.txt");
+		break;
+	case 2:
+		DATABASE->loadDatabase("battleMap2_enm.txt");
+		break;
+	case 3:
+		DATABASE->loadDatabase("battleMap3_enm.txt");
+		break;
+	}
 
 	//에너미로드
-	DATABASE->loadDatabase("battleMap1_enm.txt");
 	for (int i = 0; i < vEnmSize; i++)
 	{
 		char temp[128];
@@ -719,7 +781,6 @@ void mapTool::loadMapData()
 void mapTool::resetMapData()
 {
 	release();
-
 	setTile();
 }
 
@@ -741,6 +802,15 @@ void mapTool::onEnemy()
 void mapTool::goToMenu()
 {
 	SCENEMANAGER->changeScene("title");
+}
+
+void mapTool::stageBack()
+{
+	if(_stage > 1) _stage--;
+}
+void mapTool::stageNext()
+{
+	if (_stage < 3) _stage++;
 }
 
 void mapTool::setTile()
@@ -872,7 +942,7 @@ void mapTool::setSampleObject()
 	//젠포인트
 	obj = new TagObject;
 	obj->image = new image;
-	obj->image->init("image/object_zen.bmp", 1536, 62, 8, 1, true, 0xff00ff);
+	obj->image->init("image/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
 	obj->state = S_ZEN;
 	obj->width = WIDTH;
 	obj->height = obj->image->getHeight();

@@ -171,9 +171,6 @@
     <ClInclude Include="mapTool.h">
       <Filter>gameStudy\mapTool</Filter>
     </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>gameStudy\title</Filter>
-    </ClInclude>
     <ClInclude Include="town.h">
       <Filter>gameStudy\town</Filter>
     </ClInclude>
@@ -240,6 +237,9 @@
     <ClInclude Include="battleCamera.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>gameStudy\title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -304,9 +304,6 @@
     </ClCompile>
     <ClCompile Include="mapTool.cpp">
       <Filter>gameStudy\mapTool</Filter>
-    </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>gameStudy\title</Filter>
     </ClCompile>
     <ClCompile Include="town.cpp">
       <Filter>gameStudy\town</Filter>
@@ -373,6 +370,9 @@
     </ClCompile>
     <ClCompile Include="battleCamera.cpp">
       <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>gameStudy\title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
