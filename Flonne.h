@@ -21,7 +21,5 @@ public:
 
 	virtual void saveData();
 	virtual void loadData();
-
-	virtual void setItem(const char* itemName);
 };
 

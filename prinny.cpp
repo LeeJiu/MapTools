@@ -28,8 +28,6 @@ HRESULT prinny::init()
 	//character 정보를 load 해오기
 	loadData();
 
-	//_hell = 1000;
-
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
 	_characterDir = LB;
