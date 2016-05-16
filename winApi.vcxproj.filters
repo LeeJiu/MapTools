@@ -237,8 +237,13 @@
     <ClInclude Include="battleCamera.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="title.h">
       <Filter>gameStudy\title</Filter>
+=======
+    <ClInclude Include="soundManager.h">
+      <Filter>2D Framework\manager</Filter>
+>>>>>>> refs/remotes/origin/moobin
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -371,8 +376,13 @@
     <ClCompile Include="battleCamera.cpp">
       <Filter>gameStudy\battle</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="title.cpp">
       <Filter>gameStudy\title</Filter>
+=======
+    <ClCompile Include="soundManager.cpp">
+      <Filter>2D Framework\manager</Filter>
+>>>>>>> refs/remotes/origin/moobin
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
