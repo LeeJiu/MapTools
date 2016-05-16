@@ -240,6 +240,9 @@
     <ClInclude Include="battleCamera.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
+    <ClInclude Include="soundManager.h">
+      <Filter>2D Framework\manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -373,6 +376,9 @@
     </ClCompile>
     <ClCompile Include="battleCamera.cpp">
       <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="soundManager.cpp">
+      <Filter>2D Framework\manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

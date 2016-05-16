@@ -759,7 +759,7 @@ void mapTool::setTile()
 			TagTile* tile;
 			tile = new TagTile;
 			tile->image = new image;
-			tile->image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
+			tile->image->init("image/isoTile.bmp", 768, 1056, 4, 11, true, 0xff00ff);
 			tile->width = WIDTH;
 			tile->height = WIDTH / 2;
 			tile->rc = RectMakeCenter(firstPivot.x + j * tile->width / 2 - i * tile->width / 2, firstPivot.y + j * tile->width / 4 + i * tile->width / 4, tile->width, tile->height);
@@ -794,7 +794,7 @@ void mapTool::setSampleTile()
 			TagTile* tile;
 			tile = new TagTile;
 			tile->image = new image;
-			tile->image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
+			tile->image->init("image/isoTile.bmp", 768, 1056, 4, 11, true, 0xff00ff);
 			tile->width = WIDTH;
 			tile->height = WIDTH / 2;
 			tile->rc = RectMake(10, 190 + tile->image->getFrameHeight() * j, tile->image->getFrameWidth(), tile->image->getFrameHeight());

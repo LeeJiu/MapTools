@@ -3,6 +3,7 @@
 #include "character.h"
 #include "button.h"
 #include "enemy.h"
+#include "battleCamera.h"
 
 class battleManager;
 class gameObjectManager;
@@ -66,6 +67,7 @@ private:
 	bool _isOnCharacterList;		  //캐릭터 리스트 On/Off
 	bool _isOnOrderList;			  //명령 창 On/Off
 	bool _isOnUnitOrderList;		  //캐릭터 명령 창 On/Off
+	bool _isOnSelectTile;			  //셀렉트타일 On/off
 
 	bool _isTurnType;				  //현재 TURN이 누구의 턴인가? TRUE = PLAYER, FALSE = ENEMY
 	bool _isTurnShow;				  //TURN IMAGE를 SHOW 해줘야 하는가 말아야하는가?
@@ -77,13 +79,14 @@ private:
 	int _turnBackPosX;				  //TURN RECT의 LEFT 위치
 	float _turnShowTime;			  //TURN IMAGE가 중앙까지 왔을 때 1초간 지연 시킬 용도의 TIME
 
-
 	image* _imageSelectTile;		  //선택 한 타일의 테두리 이미지
 	RECT _rcSelectTile;				  //선택 한 타일의 테두리 출력용 RECT
 
 
 	gameObjectManager* _gameObjMgr;
 	battleManager* _battleMgr;
+	battleCamera* _battleCamera;
+	int _count;
 
 public:
 	battleUI();
@@ -94,7 +97,6 @@ public:
 	void update();
 	void render();
 
-
 	void setCharacterList();
 	void setTurnShow() { _isTurnShow = true; }
 
@@ -102,6 +104,12 @@ public:
 	void unitOrderListClick(int unitOrderNumber);
 	void turnChange();
 
+	//클릭 이벤트
+	void LbuttonClick();
+
+	void setArrowFrame();
+	void setCamera();
+	void setGameObjectSize();
 	void setObjectManagerMemoryLink(gameObjectManager* gameObjMgr) { _gameObjMgr = gameObjMgr; }
 	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
 };

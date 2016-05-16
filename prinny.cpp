@@ -13,12 +13,6 @@ prinny::~prinny()
 
 HRESULT prinny::init()
 {
-	IMAGEMANAGER->addFrameImage("prinny_idle", "image/character/prinny_idle.bmp", 714, 484, 7, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("prinny_walk", "image/character/prinny_walk.bmp", 776, 492, 8, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("prinny_attack", "image/character/prinny_attack.bmp", 780, 484, 6, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("prinny_lift", "image/character/prinny_lift.bmp", 720, 524, 6, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("prinny_etc", "image/character/prinny_etc.bmp", 468, 528, 4, 4, true, 0xff00ff);
-
 	_inventory = new inventory;
 	_inventory->init();
 
@@ -44,13 +38,16 @@ HRESULT prinny::init()
 
 HRESULT prinny::init(vector<TagTile*> tile)
 {
+	_inventory = new inventory;
+	_inventory->init();
+
 	_name = "prinny";
 
-	//loadData();
-
+	loadData();
+	_isCharacter = true;
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
-	_characterDir = RB;
+	_characterDir = RT;
 	_curFrameX = 0;
 	_count = 0;
 
@@ -59,6 +56,7 @@ HRESULT prinny::init(vector<TagTile*> tile)
 	_mv = 4;
 
 	_isShow = false;
+	_isbattle = true;
 
 	for (int i = 0; i < 100; i++)
 	{
@@ -82,6 +80,14 @@ void prinny::update()
 	_inventory->update();
 	keyControl();
 	setImage();
+
+	if (_isbattle)
+	{
+		if (!_isMove)
+		{
+			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+		}
+	}
 }
 
 void prinny::render()
@@ -93,7 +99,14 @@ void prinny::render()
 	}
 	else
 	{
-		if (_isShowPossibleMoveTile) character::render();
+		if (_isShow)
+		{
+			//if (_isShowPossibleMoveTile) character::render();
+
+			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+			
+		}
 	}
 }
 

@@ -33,7 +33,6 @@ HRESULT battleUI::init()
 
 	_unitOrderListSize = _vUnitOrderList.size();
 	_orderListSize = _vOrderList.size();
-	_characterSize = 0;
 
 	_imageStatusBack = IMAGEMANAGER->addImage("character_status", "image/ui_characterstatus_back.bmp", 300, 500, true, 0xff00ff);
 	_imageBottomStatusBack = IMAGEMANAGER->addImage("bottom_status", "image/ui_battle_bottom_status.bmp", 314, 110, true, 0xff00ff);
@@ -41,12 +40,7 @@ HRESULT battleUI::init()
 	_imageIconCharacter = IMAGEMANAGER->addImage("icon_character", "image/icon_character_fuka.bmp", 96, 96, false, false);
 
 	_imageCharacterListTop = IMAGEMANAGER->addImage("character_list_top", "image/ui_characterList_top.bmp", 250, 50, false, false);			  //캐릭터 소환 목록 창 BACKGROUND IMAGE TOP
-	for (int i = 0; i < _characterSize; i++)																								  //캐릭터 소환 목록 창 BACKGROUND IMAGE BODY~
-	{																																		  //
-		image* tempBody = new image;																										  //
-		tempBody->init("image/ui_characterList_body.bmp", 250, 30, false, false);															  //
-		_imageCharacterListBody.push_back(tempBody);																						  //
-	}																																		  //~캐릭터 소환 목록 창 BACKGROUND IMAGE BODY
+																																	  //~캐릭터 소환 목록 창 BACKGROUND IMAGE BODY
 	_imageCharacterListBottom = IMAGEMANAGER->addImage("character_list_bottom", "image/ui_characterList_bottom.bmp", 250, 30, false, false);  //캐릭터 소환 목록 창 BACKGROUND IMAGE BOTTOM
 
 
@@ -77,22 +71,8 @@ HRESULT battleUI::init()
 
 
 	_rcCharacterListTop = RectMake(WINSIZEX - 400, 50, _imageCharacterListTop->getWidth(), _imageCharacterListTop->getHeight());
-	for (int i = 0; i < _characterSize; i++)
-	{
-		RECT tempBody = RectMake(_rcCharacterListTop.left, _rcCharacterListTop.bottom + (30 * i), 250, 30);						
-		_rcCharacterListBody.push_back(tempBody);																				
-																																
-		RECT tempRect = RectMake(_rcCharacterListBody[i].left + 20, _rcCharacterListBody[i].top + 5, 250, 30);
-		_rcCharacterListStr.push_back(tempRect);
-	}
-	if (_characterSize > 0)
-	{
-		_rcCharacterListBottom = RectMake(WINSIZEX - 400, _rcCharacterListBody[_characterSize - 1].bottom, _imageCharacterListBottom->getWidth(), _imageCharacterListBottom->getHeight());
-	}
-	else
-	{
-		_rcCharacterListBottom = RectMake(WINSIZEX - 400, _rcCharacterListTop.bottom, _imageCharacterListBottom->getWidth(), _imageCharacterListBottom->getHeight());
-	}
+
+	
 
 
 	_rcOrderListTop = RectMake(WINSIZEX - 300, 100, _imageOrderListTop->getWidth(), _imageOrderListTop->getHeight());													//일반 명령 창 TOP RECT
@@ -144,11 +124,14 @@ HRESULT battleUI::init()
 
 
 	_imageSelectTile = IMAGEMANAGER->addImage("selectTile", "image/ui_selectTile.bmp", 192, 96, true, 0xff00ff);
-	_rcSelectTile = RectMake(0, 0, 0, 0);
+	//_rcSelectTile = RectMake(0, 0, 0, 0);
 
 	_imageTurnCountBackground = IMAGEMANAGER->addImage("turnBackground", "image/ui_dialog_total", 300, 67, false, false);
 	_rcTurnCountBack = RectMake(_rcOrderListTop.left, _rcOrderListTop.top - _imageTurnCountBackground->getHeight(), _imageTurnCountBackground->getWidth(), _imageTurnCountBackground->getHeight());
 	_strTurnCount = 0;
+
+	IMAGEMANAGER->addFrameImage("ui_arrow_blue", "image/ui_arrow_blue.bmp", 711, 100, 9, 1, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("ui_arrow_red", "image/ui_arrow_red.bmp", 711, 100, 9, 1, true, 0xff00ff);
 
 	return S_OK;
 }
@@ -163,67 +146,18 @@ void battleUI::update()
 	if (_isFirstShow)
 	{
 		turnChange();
-		return;
+		//return;
 	}
-
+/*
 	if (_isTurnShow)
 	{
 		turnChange();
 		return;
-	}
+	}*/
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		//소환 타일을 클릭했는지 체크하자
-		for (int i = 0; i < _gameObjMgr->getTile().size(); i++)
-		{
-			if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
-			{
-				if ((_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
-					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
-					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
-					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
-				{
-
-					if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
-					{
-						_isOnStatus = true;
-						_isOnCharacterList = true;
-					}
-				}
-			}
-		}
-
-		//캐릭터 리스트 중에 어떤 것을 선택했는지 체크하자
-		for (int i = 0; i < _characterSize; i++)
-		{
-			if (PtInRect(&_rcCharacterListBody[i], _ptMouse))
-			{
-				
-			}
-		}
-
-		
-		//일반 명령창을 선택했는지 체크하자
-		for (int i = 0; i < _orderListSize; i++)
-		{
-			if (PtInRect(&_rcOrderListBody[i], _ptMouse))
-			{
-				orderListClick(i);
-				break;
-			}
-		}
-
-		//유닛의 명령창을 선택했는지 체크하자
-		for (int i = 0; i < _unitOrderListSize; i++)
-		{
-			if (PtInRect(&_rcUnitOrderListBody[i], _ptMouse))
-			{
-				unitOrderListClick(i);
-				break;
-			}
-		}
-
+		LbuttonClick();
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
@@ -236,7 +170,9 @@ void battleUI::update()
 		_isOnUnitOrderList = false;
 	}
 
-
+	_battleCamera->update();
+	setArrowFrame();
+	_count++;
 }
 
 void battleUI::render()
@@ -260,36 +196,61 @@ void battleUI::render()
 	if(_isOnBottomStatus) _imageBottomStatusBack->render(getMemDC(), _rcBottomStatus.left, _rcBottomStatus.top);
 	if(_isOnBottomStatus) _imageIconCharacter->render(getMemDC(), _rcIconCharacter.left, _rcIconCharacter.top);
 	if(_isOnSkillTitle) _imageSkillTitleBack->render(getMemDC(), _rcSkillTitle.left, _rcSkillTitle.top);
+
+	// 셀렉트 타일 + 케릭터 위 에로우출력
+	for (int i = 0; i < _gameObjMgr->getTile().size(); i++)
+	{
+		if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
+		{
+			if ((_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
+				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
+			{
+				_imageSelectTile->render(getMemDC(), _gameObjMgr->getTile()[i]->rc.left, _gameObjMgr->getTile()[i]->rc.top);
+				IMAGEMANAGER->findImage("ui_arrow_blue")->frameRender(getMemDC(), (_gameObjMgr->getTile()[i]->rc.left + _gameObjMgr->getTile()[i]->rc.right) / 2 - IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameWidth() / 2
+					, _gameObjMgr->getTile()[i]->rc.top - IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameHeight(), IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameX(), IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameY());
+			}
+		}
+	}
+
+	// 케릭터 리스트 출력
 	if (_isOnCharacterList)
 	{
 		_imageCharacterListTop->render(getMemDC(), _rcCharacterListTop.left, _rcCharacterListTop.top);
-		for (int i = 0; i < _characterSize; i++) _imageCharacterListBody[i]->render(getMemDC(), _rcCharacterListBody[i].left, _rcCharacterListBody[i].top);
+
+		for (int i = 0; i < _characterSize; i++)
+		{
+			_imageCharacterListBody[i]->render(getMemDC(), _rcCharacterListBody[i].left, _rcCharacterListBody[i].top);
+			Rectangle(getMemDC(), _rcCharacterListBody[i].left, _rcCharacterListBody[i].top, _rcCharacterListBody[i].right, _rcCharacterListBody[i].bottom);
+		}
+
 		_imageCharacterListBottom->render(getMemDC(), _rcCharacterListBottom.left, _rcCharacterListBottom.top);
 		for (int i = 0; i < _characterSize; i++) DrawText(getMemDC(), TEXT(_vCharacterList[i].c_str()), -1, &_rcCharacterListStr[i], DT_LEFT | DT_VCENTER);
 	}
 
-	if (_isOnOrderList)
+	/*if (_isOnOrderList)
 	{
 		_imageOrderListTop->render(getMemDC(), _rcOrderListTop.left, _rcOrderListTop.top);
 		for (int i = 0; i < _orderListSize; i++) _imageOrderListBody[i]->render(getMemDC(), _rcOrderListBody[i].left, _rcOrderListBody[i].top);
 		_imageOrderListBottom->render(getMemDC(), _rcOrderListBottom.left, _rcOrderListBottom.top);
 		for (int i = 0; i < _orderListSize; i++) DrawText(getMemDC(), TEXT(_vOrderList[i]), -1, &_rcOrderListStr[i], DT_LEFT | DT_VCENTER);
-	}
+	}*/
 
 
-	if (_isOnUnitOrderList)
+	/*if (_isOnUnitOrderList)
 	{
 		_imageUnitOrderListTop->render(getMemDC(), _rcUnitOrderListTop.left, _rcUnitOrderListTop.top);
 		for (int i = 0; i < _unitOrderListSize; i++) _imageUnitOrderListBody[i]->render(getMemDC(), _rcUnitOrderListBody[i].left, _rcUnitOrderListBody[i].top);
 		_imageOrderListBottom->render(getMemDC(), _rcUnitOrderListBottom.left, _rcUnitOrderListBottom.top);
 		for (int i = 0; i < _unitOrderListSize; i++) DrawText(getMemDC(), TEXT(_vUnitOrderList[i]), -1, &_rcUnitOrderListStr[i], DT_LEFT | DT_VCENTER);
-	}
+	}*/
 
-	
 	
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
-
+	
+	// 스테이지시작, 에너미턴, 플레이어턴 출력
 	if (_isTurnShow)
 	{
 		//Rectangle(getMemDC(), _rcTurnBack.left, _rcTurnBack.top, _rcTurnBack.right, _rcTurnBack.bottom);
@@ -297,15 +258,14 @@ void battleUI::render()
 		_imageTurnStr->render(getMemDC(), _rcTurnBack.left + 450, _rcTurnBack.top + 25);
 	}
 
-	
 }
 
 void battleUI::setCharacterList()
 {
-	_characterSize = _gameObjMgr->getCharacter().size();
+	_characterSize = _gameObjMgr->getGameObject().size();
 	for (int i = 0; i < _characterSize; i++)
 	{
-		_vCharacterList.push_back(_gameObjMgr->getCharacter()[i]->getName());
+		_vCharacterList.push_back(_gameObjMgr->getGameObject()[i]->getName());
 	}
 }
 
@@ -448,12 +408,121 @@ void battleUI::turnChange()
 				{
 					_isFirstShow = false;
 					_isTurnShow = false;
-					_isOnStatus = true;
-					_isOnCharacterList = true;
+					_isOnStatus = false;
+					_isOnCharacterList = false;
 					
 				}
 			}
 		}
 	}
 
+}
+
+
+
+void battleUI::LbuttonClick()
+{
+	//캐릭터 리스트 중에 어떤 것을 선택했는지 체크하자
+	for (int i = 0; i < _characterSize; i++)
+	{
+		if (PtInRect(&_rcCharacterListBody[i], _ptMouse))
+		{
+			_gameObjMgr->getGameObject()[i]->setIsShow(true);
+			return;
+		}
+	}
+
+
+	//일반 명령창을 선택했는지 체크하자
+	for (int i = 0; i < _orderListSize; i++)
+	{
+		if (PtInRect(&_rcOrderListBody[i], _ptMouse))
+		{
+			orderListClick(i);
+			break;
+		}
+	}
+
+	//유닛의 명령창을 선택했는지 체크하자
+	for (int i = 0; i < _unitOrderListSize; i++)
+	{
+		if (PtInRect(&_rcUnitOrderListBody[i], _ptMouse))
+		{
+			unitOrderListClick(i);
+			break;
+		}
+	}
+
+	//소환 타일을 클릭했는지 체크하자
+	for (int i = 0; i < _gameObjMgr->getTile().size(); i++)
+	{
+		if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
+		{
+			if ((_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) > -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
+				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
+			{
+				_battleCamera->setCameraTile(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+				if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
+				{
+					_isOnStatus = true;
+					_isOnCharacterList = true;
+				}
+				else
+				{
+					_isOnStatus = false;
+					_isOnCharacterList = false;
+				}
+			}
+		}
+	}
+}
+
+void battleUI::setArrowFrame()
+{
+	if (_count % 5 == 0)
+	{
+		IMAGEMANAGER->findImage("ui_arrow_blue")->setFrameX(IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameX() + 1);
+
+		if (IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameX() >= IMAGEMANAGER->findImage("ui_arrow_blue")->getMaxFrameX())
+		{
+			IMAGEMANAGER->findImage("ui_arrow_blue")->setFrameX(0);
+		}
+	}
+}
+
+void battleUI::setCamera()
+{
+	_battleCamera = new battleCamera;
+	_battleCamera->init(_gameObjMgr->getTile());
+}
+
+void battleUI::setGameObjectSize()
+{
+	_characterSize = _gameObjMgr->getGameObject().size();
+	for (int i = 0; i < _characterSize; i++)																								  //캐릭터 소환 목록 창 BACKGROUND IMAGE BODY~
+	{																																		  //
+		image* tempBody = new image;																										  //
+		tempBody->init("image/ui_characterList_body.bmp", 250, 30, false, false);															  //
+		_imageCharacterListBody.push_back(tempBody);																						  //
+	}
+
+	for (int i = 0; i < _characterSize; i++)
+	{
+		RECT tempBody = RectMake(_rcCharacterListTop.left, _rcCharacterListTop.bottom + (30 * i), 250, 30);
+		_rcCharacterListBody.push_back(tempBody);
+
+		RECT tempRect = RectMake(_rcCharacterListBody[i].left + 20, _rcCharacterListBody[i].top + 5, 250, 30);
+		_rcCharacterListStr.push_back(tempRect);
+	}
+
+	if (_characterSize > 0)
+	{
+		_rcCharacterListBottom = RectMake(WINSIZEX - 400, _rcCharacterListBody[_characterSize - 1].bottom, _imageCharacterListBottom->getWidth(), _imageCharacterListBottom->getHeight());
+	}
+	else
+	{
+		_rcCharacterListBottom = RectMake(WINSIZEX - 400, _rcCharacterListTop.bottom, _imageCharacterListBottom->getWidth(), _imageCharacterListBottom->getHeight());
+	}
 }
