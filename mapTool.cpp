@@ -376,7 +376,7 @@ void mapTool::keyControl()
 									obj->state = S_NOMAL;
 									break;
 								case 4:
-									obj->image->init("image/object_zen.bmp", 1536, 62, 8, 1, true, 0xff00ff);
+									obj->image->init("image/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
 									obj->image->setFrameX(0);
 									obj->image->setFrameX(0);
 									obj->state = S_ZEN;
@@ -942,7 +942,7 @@ void mapTool::setSampleObject()
 	//Á¨Æ÷ÀÎÆ®
 	obj = new TagObject;
 	obj->image = new image;
-	obj->image->init("image/object_zen.bmp", 1536, 62, 8, 1, true, 0xff00ff);
+	obj->image->init("image/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
 	obj->state = S_ZEN;
 	obj->width = WIDTH;
 	obj->height = obj->image->getHeight();
