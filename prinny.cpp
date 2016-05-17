@@ -89,6 +89,7 @@ void prinny::update()
 			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
 		}
 		battleKeyControl();
+		move();
 	}
 	else
 	{
@@ -217,8 +218,9 @@ void prinny::battleKeyControl()
 {
 }
 
-void prinny::move(int endX, int endY)
+void prinny::move()
 {
+	gameObject::move();
 }
 
 void prinny::setImage()
@@ -373,6 +375,11 @@ void prinny::loadData()
 	{
 		setMercenary(vStr[idx++].c_str());
 	}
+}
+
+void prinny::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
+{
+	gameObject::setCharacterMove(endX, endY, vRoute);
 }
 
 void prinny::setItem(const char* itemName)
