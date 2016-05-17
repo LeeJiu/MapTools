@@ -155,4 +155,11 @@ void gameObject::previousState()
 
 void gameObject::showPossibleMoveTile()
 {
+	for (int i = 0; i < 100; i++)
+	{
+		if (abs(_indexX - _vTile[i]->x) + abs(_indexY - _vTile[i]->y) <= _mv)
+		{
+			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+		}
+	}
 }

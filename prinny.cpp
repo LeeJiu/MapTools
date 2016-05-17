@@ -113,6 +113,7 @@ void prinny::render()
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 			
+			if (_isShowPossibleMoveTile) showPossibleMoveTile();
 		}
 	}
 }
@@ -292,6 +293,7 @@ void prinny::previousState()
 
 void prinny::showPossibleMoveTile()
 {
+	gameObject::showPossibleMoveTile();
 }
 
 void prinny::saveData()
