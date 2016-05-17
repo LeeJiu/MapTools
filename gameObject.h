@@ -48,7 +48,7 @@ public:
 	virtual void setImage();
 	virtual void setFrame();
 	virtual void previousState() = 0;								// 이전으로 돌아가는 함수
-	virtual void showPossibleMoveTile() = 0;						// 이동가능한 타일 보여주는 함수
+	virtual void showPossibleMoveTile();							// 이동가능한 타일 보여주는 함수
 
 	virtual void saveData();
 	virtual void loadData();
@@ -61,6 +61,7 @@ public:
 	virtual void setVRoute(vector<TagTile*> tile) { _vRoute = tile; }
 	virtual void setIsMove(bool isMove) { _isMove = isMove; }
 	virtual void setIsShow(bool isShow) { _isShow = isShow; }
+	virtual void setTilePosition(float x, float y);
 
 	// get함수
 	virtual const char* getName() { return _name; }
