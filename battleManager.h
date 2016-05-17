@@ -32,6 +32,8 @@ public:
 	void setTurnChange();
 
 
+	int getTurnCount() { return _turnCount; }
+
 	void setGameObjectManagerMemoryLink(gameObjectManager* gameObjMgr) { _gameObjMgr = gameObjMgr; }
 	void setBattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
 };
