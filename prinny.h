@@ -28,7 +28,7 @@ public:
 	 /*			함수 추가			*/
 	virtual void keyControl();
 	virtual void battleKeyControl();
-	virtual void move(int endX, int endY);
+	virtual void move();
 	virtual void setImage();
 	virtual void setFrame();
 	virtual void previousState();								// 이전으로 돌아가는 함수
@@ -36,6 +36,7 @@ public:
 
 	virtual void saveData();
 	virtual void loadData();
+	virtual void setCharacterMove(int endX, int endY, vector<TagTile*> vRoute);
 	 
 	virtual void setItem(const char* itemName);
 	virtual void setMercenary(const char* characterName);
