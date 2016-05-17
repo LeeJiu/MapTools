@@ -80,8 +80,6 @@ void prinny::release()
 
 void prinny::update()
 {
-	_inventory->update();
-	keyControl();
 	setImage();
 
 	if (_isbattle)
@@ -90,6 +88,12 @@ void prinny::update()
 		{
 			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
 		}
+		battleKeyControl();
+	}
+	else
+	{
+		_inventory->update();
+		keyControl();
 	}
 }
 
@@ -109,6 +113,7 @@ void prinny::render()
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 			
+			if (_isShowPossibleMoveTile) showPossibleMoveTile();
 		}
 	}
 }
@@ -288,6 +293,7 @@ void prinny::previousState()
 
 void prinny::showPossibleMoveTile()
 {
+	gameObject::showPossibleMoveTile();
 }
 
 void prinny::saveData()
