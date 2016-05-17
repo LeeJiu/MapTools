@@ -94,7 +94,11 @@ HRESULT battleUI::init()
 	}																																													   //~유닛 명령 창 TOP RECT
 	_rcUnitOrderListBottom = RectMake(WINSIZEX - 300, _rcUnitOrderListBody[_unitOrderListSize - 1].bottom, _imageUnitOrderListBottom->getWidth(), _imageUnitOrderListBottom->getHeight()); //유닛 명령 창 BOTTOM RECT
 
+<<<<<<< HEAD
 	_imageListArrow = IMAGEMANAGER->addImage("ui_arrow", "image/ui_arrow", 35, 35, true, 0xff00ff);
+=======
+	_imageListArrow = IMAGEMANAGER->addImage("ui_arrow", "image/ui_arrow.bmp", 35, 35, true, 0xff00ff);
+>>>>>>> origin/backup-Jaejun
 	_rcListArrow = RectMake(0, 0, 0, 0);
 
 	_isOnStatus = false;			//출력 여부 캐릭터 상태 창
@@ -127,12 +131,21 @@ HRESULT battleUI::init()
 								_imageTurnCountBackground->getWidth(), _imageTurnCountBackground->getHeight());				//TURN COUNT 출력 용 RECT
 	_strTurnCount = 0;																										//TURN COUNT 출력 용 STR(INT)
 	_rcTurnCountStr = RectMake(_rcTurnCountBack.left + 10, _rcTurnCountBack.top + 15, 100, 40);
+<<<<<<< HEAD
 
 	IMAGEMANAGER->addFrameImage("ui_arrow_blue", "image/ui_arrow_blue.bmp", 711, 100, 9, 1, true, 0xff00ff);			//Select Tile Image 			   
 	IMAGEMANAGER->addFrameImage("ui_arrow_red", "image/ui_arrow_red.bmp", 711, 100, 9, 1, true, 0xff00ff);		   		//Select Tile Image 
 	_imageSelectTile = IMAGEMANAGER->addImage("selectTile", "image/ui_selectTile.bmp", 192, 96, true, 0xff00ff);		//Select Tile Image 
 	//_rcSelectTile = RectMake(0, 0, 0, 0);																				//Select Tile Image 
 
+=======
+
+	IMAGEMANAGER->addFrameImage("ui_arrow_blue", "image/ui_arrow_blue.bmp", 711, 100, 9, 1, true, 0xff00ff);			//Select Tile Image 			   
+	IMAGEMANAGER->addFrameImage("ui_arrow_red", "image/ui_arrow_red.bmp", 711, 100, 9, 1, true, 0xff00ff);		   		//Select Tile Image 
+	_imageSelectTile = IMAGEMANAGER->addImage("selectTile", "image/ui_selectTile.bmp", 192, 96, true, 0xff00ff);		//Select Tile Image 
+	//_rcSelectTile = RectMake(0, 0, 0, 0);																				//Select Tile Image 
+
+>>>>>>> origin/backup-Jaejun
 	_isSelectCharacter = false;
 	_isSelectCharacterNumber = 0;
 	
@@ -157,6 +170,7 @@ void battleUI::update()
 	{
 		turnChange();
 		return;
+<<<<<<< HEAD
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
@@ -168,6 +182,16 @@ void battleUI::update()
 	{
 		RButtonClick();
 	}
+=======
+	}
+
+
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) LButtonClick();
+	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON)) RButtonClick();
+
+	checkMouseOverCharacter();
+	checkMouseOverList();
+>>>>>>> origin/backup-Jaejun
 
 	//마우스 커서가 캐릭터에 오버 랩 되어있으면 캐릭터 상태 창(바닥)을 출력
 	for (int i = 0; i < _characterSize; i++)
@@ -252,6 +276,10 @@ void battleUI::render()
 		_strTurnCount = " 턴 : ";
 		//strcat(_strTurnCount, itoa(_battleMgr->getTurnCount(), _strTurnCount, 10));
 		DrawText(getMemDC(), TEXT(_strTurnCount), -1, &_rcTurnCountStr, DT_LEFT|DT_VCENTER);
+<<<<<<< HEAD
+=======
+		_imageListArrow->render(getMemDC(), _rcListArrow.left, _rcListArrow.top);
+>>>>>>> origin/backup-Jaejun
 	}
 
 
@@ -261,6 +289,10 @@ void battleUI::render()
 		for (int i = 0; i < _unitOrderListSize; i++) _imageUnitOrderListBody[i]->render(getMemDC(), _rcUnitOrderListBody[i].left, _rcUnitOrderListBody[i].top);
 		_imageOrderListBottom->render(getMemDC(), _rcUnitOrderListBottom.left, _rcUnitOrderListBottom.top);
 		for (int i = 0; i < _unitOrderListSize; i++) DrawText(getMemDC(), TEXT(_vUnitOrderList[i]), -1, &_rcUnitOrderListStr[i], DT_LEFT | DT_VCENTER);
+<<<<<<< HEAD
+=======
+		_imageListArrow->render(getMemDC(), _rcListArrow.left, _rcListArrow.top);
+>>>>>>> origin/backup-Jaejun
 	}
 
 	
@@ -550,6 +582,60 @@ void battleUI::RButtonClick()
 
 }
 
+<<<<<<< HEAD
+=======
+void battleUI::checkMouseOverList()
+{
+
+	if (_isOnCharacterList)
+	{
+		for (int i = 0; i < _characterSize; i++)
+		{
+			if (PtInRect(&_rcCharacterListBody[i], _ptMouse))
+			{
+				_rcListArrow = RectMake(_rcCharacterListBody[i].left - _imageListArrow->getWidth() / 2, _rcCharacterListBody[i].top, _imageListArrow->getWidth(), _imageListArrow->getHeight());
+			}
+		}
+	}
+	if (_isOnOrderList)
+	{
+		for (int i = 0; i < _orderListSize; i++)
+		{
+			if (PtInRect(&_rcOrderListBody[i], _ptMouse))
+			{
+				_rcListArrow = RectMake(_rcOrderListBody[i].left - _imageListArrow->getWidth() / 2, _rcOrderListBody[i].top, _imageListArrow->getWidth(), _imageListArrow->getHeight());
+			}
+		}
+	}
+	if (_isOnUnitOrderList)
+	{
+		for (int i = 0; i < _unitOrderListSize; i++)
+		{
+			if (PtInRect(&_rcUnitOrderListBody[i], _ptMouse))
+			{
+				_rcListArrow = RectMake(_rcUnitOrderListBody[i].left - _imageListArrow->getWidth() / 2, _rcUnitOrderListBody[i].top, _imageListArrow->getWidth(), _imageListArrow->getHeight());
+			}
+		}
+	}
+}
+
+void battleUI::checkMouseOverCharacter()
+{
+	//마우스 커서가 캐릭터에 오버 랩 되어있으면 캐릭터 상태 창(바닥)을 출력
+	for (int i = 0; i < _characterSize; i++)
+	{
+		if (PtInRect(&_gameObjMgr->getGameObject()[i]->getCharacterRect(), _ptMouse))
+		{
+			_isOnBottomStatus = true;
+		}
+		else
+		{
+			_isOnBottomStatus = false;
+		}
+	}
+}
+
+>>>>>>> origin/backup-Jaejun
 void battleUI::setArrowFrame()
 {
 	if (_count % 5 == 0)

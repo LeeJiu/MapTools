@@ -114,6 +114,11 @@ public:
 	//클릭 이벤트
 	void LButtonClick();
 	void RButtonClick();
+<<<<<<< HEAD
+=======
+	void checkMouseOverList();
+	void checkMouseOverCharacter();
+>>>>>>> origin/backup-Jaejun
 
 	void setArrowFrame();
 	void setCamera();
