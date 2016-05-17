@@ -31,7 +31,7 @@ void character::update()
 
 void character::render()
 {
-	if(_isShowPossibleMoveTile) showPossibleMoveTile();
+
 }
 
 void character::keyControl()
