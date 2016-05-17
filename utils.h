@@ -68,13 +68,21 @@ struct TagObject
 	OBJSTATE state;
 };
 
-//struct OBJ_Y_RENDER
-//{
-//	bool operator()(const TagObject& obj1, const TagObject& obj2)
-//	{
-//		return obj1.rc.bottom < obj2.rc.bottom;
-//	}
-//};
+struct OBJ_Y_RENDER
+{
+	bool operator()(const TagObject* obj1, const TagObject* obj2)
+	{
+		return obj1->pivot.y < obj2->pivot.y;
+	}
+};
+
+struct OBJ_NUM
+{
+	bool operator()(const TagObject* obj1, const TagObject* obj2)
+	{
+		return obj1->number < obj2->number;
+	}
+};
 
 struct tagItem
 {
@@ -92,13 +100,6 @@ struct tagItem
 	int sellPrice;   //플레이어가 팔 때 가격
 };
 
-//struct OBJ_NUM
-//{
-//	bool operator()(const TagObject& obj1, const TagObject& obj2)
-//	{
-//		return obj1.number < obj2.number;
-//	}
-//};
 
 namespace MY_UTIL
 {

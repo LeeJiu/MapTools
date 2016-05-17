@@ -20,13 +20,16 @@ HRESULT mapTool::init()
 	setSampleEnemy();
 
 	setTile();
+	setObject();
+	setEnemy();
+	setFirstRender();
 
 	//버튼이미지들
-	IMAGEMANAGER->addFrameImage("stageButton", "image/button.bmp", 64, 32, 2, 1, true, 0xff00ff);
-	IMAGEMANAGER->addImage("tileB", "image/tileButton.bmp", 104, 44, false, false);
-	IMAGEMANAGER->addImage("objectB", "image/objectButton.bmp", 104, 44, false, false);
-	IMAGEMANAGER->addImage("enemyB", "image/enemyButton.bmp", 104, 44, false, false);
-	IMAGEMANAGER->addImage("exitB", "image/exitButton.bmp", 104, 44, false, false);
+	IMAGEMANAGER->addFrameImage("stageButton", "image/mapTool/button.bmp", 64, 32, 2, 1, true, 0xff00ff);
+	IMAGEMANAGER->addImage("tileB", "image/mapTool/tileButton.bmp", 104, 44, false, false);
+	IMAGEMANAGER->addImage("objectB", "image/mapTool/objectButton.bmp", 104, 44, false, false);
+	IMAGEMANAGER->addImage("enemyB", "image/mapTool/enemyButton.bmp", 104, 44, false, false);
+	IMAGEMANAGER->addImage("exitB", "image/mapTool/exitButton.bmp", 104, 44, false, false);
 
 	//맵타일 이미지
 	IMAGEMANAGER->addFrameImage("tile", "image/mapTile.bmp", 208, 156, 4, 3, false, false);
@@ -111,12 +114,12 @@ void mapTool::release()
 }
 ///////////////////////////////////////////////////////////릴리즈 끝////////////////////////////////////////////////////////////////////
 
-
-
 ///////////////////////////////////////////////////////////업데이트////////////////////////////////////////////////////////////////////
 void mapTool::update()
 {
 	keyControl();
+	setPickNum();
+	setRender();
 
 	_ObjectButton->update();
 	_TileButton->update();
@@ -126,7 +129,6 @@ void mapTool::update()
 	_StageBefore->update();
 }	
 ///////////////////////////////////////////////////////////업데이트 끝////////////////////////////////////////////////////////////////////
-
 
 ///////////////////////////////////////////////////////////랜더////////////////////////////////////////////////////////////////////
 void mapTool::render()
@@ -149,7 +151,18 @@ void mapTool::render()
 		sprintf_s(str, "%d", _vTile[i]->state);
 		TextOut(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top + 15, str, strlen(str));
 
-		sprintf_s(str, "vTile size = %d, vObj size = %d vEnm size =%d _vRender = %d", _vTile.size(), _vObj.size(), _vEnemy.size(), _vRender.size());
+		int _vRenderSize = 0;
+		int objrender = 0;
+		int enmrender = 0;
+		for (int i = 0; i < _vRender.size(); i++)
+		{
+			if (_vRender[i]->draw) _vRenderSize++;
+			if (_vRender[i]->state == S_NOMAL || _vRender[i]->state == S_ZEN) objrender++;
+			if (_vRender[i]->state == E_NORMAL || _vRender[i]->state == E_BOSS) enmrender++;
+		}
+
+		sprintf_s(str, "vTile size = %d, vObj size = %d vEnm size =%d _vRender = %d", _vTile.size(), objrender, enmrender, _vRenderSize);
+		//sprintf_s(str, "vTile size = %d, vObj size = %d vEnm size =%d _vRender = %d", _vTile.size(), _vObj.size(), _vEnemy.size(), _vRenderSize);
 		TextOut(getMemDC(), CENTERX - 200, 10, str, strlen(str));
 		sprintf_s(str, "pickNum = %d", _pickNum);
 		TextOut(getMemDC(), CENTERX - 150, 25, str, strlen(str));
@@ -161,55 +174,38 @@ void mapTool::render()
 	{
 		if (_vRender[i]->draw)
 		{
+			//Rectangle(getMemDC(), _vRender[i]->rc.left, _vRender[i]->rc.top, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
 			_vRender[i]->image->frameRender(getMemDC(), _vRender[i]->rc.left, _vRender[i]->rc.top);
-
+	
 			sprintf_s(str, "number = %d", _vRender[i]->number);
 			TextOut(getMemDC(), _vRender[i]->rc.left, _vRender[i]->rc.top, str, strlen(str));
+
+			sprintf_s(str, "n[%d]umber = %d", i,_vRender[i]->number);
+			TextOut(getMemDC(), 350, 30 + 30 * i, str, strlen(str));
 		}
 	}
 
 	//각각의 오브젝트 출력
 	//for (int i = 0; i < _vObj.size(); i++)
 	//{
-	//   //Rectangle(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, _vObj[i].rc.right, _vObj[i].rc.bottom);
-	//   sort(_vObj.begin(), _vObj.end(), OBJ_Y_RENDER());
-
-	//   if (_vObj[i].draw)
+	//	//Rectangle(getMemDC(), _vObj[i]->rc.left, _vObj[i]->rc.top, _vObj[i]->rc.right, _vObj[i]->rc.bottom);
+	//   if (_vObj[i]->draw)
 	//   {
-	//      _vObj[i].image->render(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top);
+	//      _vObj[i]->image->frameRender(getMemDC(), _vObj[i]->rc.left, _vObj[i]->rc.top);
 	//      
-	//      sprintf_s(str, "number = %d", _vObj[i].number);
-	//      TextOut(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, str, strlen(str));
+	//      sprintf_s(str, "draw = %d", _vObj[i]->draw);
+	//      TextOut(getMemDC(), _vObj[i]->rc.left, _vObj[i]->rc.top, str, strlen(str));
 	//   }
-	//	//Rectangle(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, _vObj[i].rc.right, _vObj[i].rc.bottom);
-	//	sort(_vObj.begin(), _vObj.end(), OBJ_Y_RENDER());
-
-	//	if (_vObj[i].draw)
-	//	{
-	//		_vObj[i].image->render(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top);
-	//		
-	//		sprintf_s(str, "number = %d", _vObj[i].number);
-	//		TextOut(getMemDC(), _vObj[i].rc.left, _vObj[i].rc.top, str, strlen(str));
-	//	}
 	//}
-
+	//
 	////각각의 적 출력
 	//for (int i = 0; i < _vEnemy.size(); i++)
 	//{
 	//   //Rectangle(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top, _vEnemy[i].rc.right, _vEnemy[i].rc.bottom);
-	//   sort(_vEnemy.begin(), _vEnemy.end(), OBJ_Y_RENDER());
-
-	//   if (_vEnemy[i].draw)
+	//   if (_vEnemy[i]->draw)
 	//   {
-	//      _vEnemy[i].image->frameRender(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top);
+	//	   _vEnemy[i]->image->frameRender(getMemDC(), _vEnemy[i]->rc.left, _vEnemy[i]->rc.top);
 	//   }
-	//	//Rectangle(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top, _vEnemy[i].rc.right, _vEnemy[i].rc.bottom);
-	//	sort(_vEnemy.begin(), _vEnemy.end(), OBJ_Y_RENDER());
-
-	//	if (_vEnemy[i].draw)
-	//	{
-	//		_vEnemy[i].image->frameRender(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top);
-	//	}
 	//}
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -247,7 +243,6 @@ void mapTool::render()
 	{
 		for (int i = 0; i < _vIsoObj.size(); i++)
 		{
-			//Rectangle(getMemDC(), _vIsoObj[i].rc.left, _vIsoObj[i].rc.top, _vIsoObj[i].rc.right, _vIsoObj[i].rc.bottom);
 			_vIsoObj[i]->image->frameRender(getMemDC(), _vIsoObj[i]->rc.left, _vIsoObj[i]->rc.top);
 
 			sprintf_s(str, "objNum = %d", _vIsoObj[i]->number);
@@ -346,86 +341,75 @@ void mapTool::keyControl()
 							_vTile[i]->image->setFrameY(_vIsoTile[_vTile[i]->imageNum]->image->getFrameY());
 						}
 
+
 						//오브젝트깔기
 						if (_state == SET_OBJ)
 						{
-							if (_vTile[i]->draw == true && _vTile[i]->state == S_NONE)
+							if ((_vTile[i]->draw == true && _vTile[i]->state != S_NOMAL) ||
+								(_vTile[i]->draw == true && _vTile[i]->state != S_ZEN))
 							{
-								TagObject* obj;
-								obj = new TagObject;
-								obj->image = new image;
-								obj->x = _vTile[i]->x;
-								obj->y = _vTile[i]->y;
-								obj->imageNum = _pickNum;
-								switch (obj->imageNum)
+								_vObj[i]->imageNum = _pickNum;
+								switch (_vObj[i]->imageNum)
 								{
 								case 0:
-									obj->image->init("image/object_block.bmp", 192, 197, true, 0xff00ff);
-									obj->state = S_NOMAL;
+									_vObj[i]->image->init("image/mapTool/object_block.bmp", 192, 197, 1, 1, true, 0xff00ff);
+									_vObj[i]->state = S_NOMAL;
 									break;
 								case 1:
-									obj->image->init("image/object_block2.bmp", 192, 192, true, 0xff00ff);
-									obj->state = S_NOMAL;
+									_vObj[i]->image->init("image/mapTool/object_block2.bmp", 192, 192, 1, 1, true, 0xff00ff);
+									_vObj[i]->state = S_NOMAL;
 									break;
 								case 2:
-									obj->image->init("image/object_woods.bmp", 192, 125, true, 0xff00ff);
-									obj->state = S_NOMAL;
+									_vObj[i]->image->init("image/mapTool/object_woods.bmp", 192, 125, 1, 1, true, 0xff00ff);
+									_vObj[i]->state = S_NOMAL;
 									break;
 								case 3:
-									obj->image->init("image/object_tree.bmp", 192, 200, true, 0xff00ff);
-									obj->state = S_NOMAL;
+									_vObj[i]->image->init("image/mapTool/object_tree.bmp", 192, 200, 1, 1, true, 0xff00ff);
+									_vObj[i]->state = S_NOMAL;
 									break;
 								case 4:
-									obj->image->init("image/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
-									obj->image->setFrameX(0);
-									obj->image->setFrameX(0);
-									obj->state = S_ZEN;
+									_vObj[i]->image->init("image/mapTool/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
+									_vObj[i]->state = S_ZEN;
 									break;
 								default:
 									break;
 								}
-								obj->width = WIDTH;
-								obj->height = obj->image->getHeight();
-								obj->rc = RectMake(_vTile[i]->rc.left, _vTile[i]->rc.bottom - obj->height, obj->width, obj->height);
-								obj->number = _vObj.size();
-								obj->draw = true;
-
-								_vObj.push_back(obj);
-								_vRender.push_back(obj);
-								if (obj->state == S_ZEN) _vTile[i]->state = ZEN_POINT;
+								_vObj[i]->width = _vObj[i]->image->getFrameWidth();
+								_vObj[i]->height = _vObj[i]->image->getFrameHeight();
+								if (_vObj[i]->height < TILESIZE / 2)
+									_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->pivotY + TILESIZE / 4 - _vObj[i]->height / 2, _vObj[i]->width, _vObj[i]->height);
+								else if(_vObj[i]->height > TILESIZE / 2)
+									_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->rc.bottom - _vObj[i]->height, _vObj[i]->width, _vObj[i]->height);
+								_vObj[i]->draw = true;
+						
+								if (_vObj[i]->state == S_ZEN) _vTile[i]->state = ZEN_POINT;
 								else _vTile[i]->state = S_ONOBJ;
 							}
 						}
 
 						if (_state == SET_ENM)
 						{
-							if (_vTile[i]->draw == true && _vTile[i]->state == S_NONE)
+							if ((_vTile[i]->draw == true && _vTile[i]->state != E_NORMAL) ||
+								(_vTile[i]->draw == true && _vTile[i]->state != E_BOSS))
 							{
-								TagObject* enemy;
-								enemy = new TagObject;
-								enemy->image = new image;
-								enemy->x = _vTile[i]->x;
-								enemy->y = _vTile[i]->y;
-								enemy->imageNum = _pickNum;
-								switch (enemy->imageNum)
+								_vEnemy[i]->imageNum = _pickNum;
+								switch (_vEnemy[i]->imageNum)
 								{
 								case 0:
-									enemy->image->init("image/priny.bmp", 714, 484, 7, 4, true, 0xff00ff);
-									enemy->state = E_NORMAL;
-									enemy->image->setFrameX(0);
-									enemy->image->setFrameY(0);
+									_vEnemy[i]->image->init("image/character/prinny_idle.bmp", 714, 484, 7, 4, true, 0xff00ff);
+									_vEnemy[i]->state = E_NORMAL;
 									break;
+								case 1:
+									_vEnemy[i]->image->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+									_vEnemy[i]->state = E_NORMAL;
 								default:
 									break;
 								}
-								enemy->width = enemy->image->getFrameWidth();
-								enemy->height = enemy->image->getFrameHeight();
-								enemy->rc = RectMake(_vTile[i]->rc.left + enemy->width / 2 - 10, _vTile[i]->rc.bottom - enemy->height - 20, enemy->width, enemy->height);
-								enemy->number = _vEnemy.size();
-								enemy->draw = true;
+								_vEnemy[i]->width = _vEnemy[i]->image->getFrameWidth();
+								_vEnemy[i]->height = _vEnemy[i]->image->getFrameHeight();
+								_vEnemy[i]->rc = RectMake(_vTile[i]->pivotX - _vEnemy[i]->width / 2, _vTile[i]->pivotY - _vEnemy[i]->height, _vEnemy[i]->width, _vEnemy[i]->height);
+								_vEnemy[i]->draw = true;
 
-								_vEnemy.push_back(enemy);
-								_vRender.push_back(enemy);
 								_vTile[i]->state = S_ONENM;
 							}
 						}
@@ -440,19 +424,52 @@ void mapTool::keyControl()
 					{
 						if (KEYMANAGER->isStayKeyDown(VK_RBUTTON))
 						{
+							//타일
 							if (_state == SET_TILE)
 							{
 								_vTile[i]->draw = false;
 								_vTile[i]->imageNum = 100;
 								_vTile[i]->state = S_NONE;
 							}
+
+							//오브젝트
 							if (_state == SET_OBJ)
 							{
+								if ((_vTile[i]->state == S_ONOBJ) ||
+									(_vTile[i]->state == ZEN_POINT))
+								{
+									_vObj[i]->draw = false;
+									_vObj[i]->rc = RectMake(0, 0, 0, 0);
+									_vObj[i]->imageNum = 100;
+									_vObj[i]->state = S_NOMAL;
 
+									_vRender[i]->draw = false;
+									_vRender[i]->rc = RectMake(0, 0, 0, 0);
+									_vRender[i]->imageNum = 100;
+									_vRender[i]->state = S_NOMAL;
+
+									_vTile[i]->state = S_NONE;
+								}
 							}
+
+							//적
 							if (_state == SET_ENM)
 							{
+								if ((_vTile[i]->state == S_ONENM) ||
+									(_vTile[i]->state == BOSS))
+								{
+									_vEnemy[i]->draw = false;
+									_vEnemy[i]->rc = RectMake(0, 0, 0, 0);
+									_vEnemy[i]->imageNum = 100;
+									_vEnemy[i]->state = S_NOMAL;
 
+									_vRender[i]->draw = false;
+									_vRender[i]->rc = RectMake(0, 0, 0, 0);
+									_vRender[i]->imageNum = 100;
+									_vRender[i]->state = E_NORMAL;
+
+									_vTile[i]->state = S_NONE;
+								}
 							}
 						}
 					}
@@ -547,14 +564,6 @@ void mapTool::keyControl()
 }
 ///////////////////////////////////////////////////////////키컨트롤 끝///////////////////////////////////////////////
 
-
-
-void mapTool::selectMap()
-{
-
-}
-
-
 void mapTool::saveMapData()
 {
 	char temp1[128], temp2[128], temp3[128];
@@ -573,8 +582,6 @@ void mapTool::saveMapData()
 	
 	//오브젝트저장
 	vector<string> vStr2;
-	sort(_vObj.begin(), _vObj.end(), OBJ_NUM());
-
 	for (_viObj = _vObj.begin(); _viObj != _vObj.end(); _viObj++)
 	{
 		vStr2.push_back("|");
@@ -587,7 +594,6 @@ void mapTool::saveMapData()
 	
 	//적저장
 	vector<string> vStr3;
-	sort(_vEnemy.begin(), _vEnemy.end(), OBJ_NUM());
 	for (_viEnemy = _vEnemy.begin(); _viEnemy != _vEnemy.end(); _viEnemy++)
 	{
 		vStr3.push_back("|");
@@ -623,9 +629,7 @@ void mapTool::loadMapData()
 {
 	resetMapData();
 
-	int vObjSize = 0;
-	int vEnmSize = 0;
-
+	
 	//타일로드
 	switch (_stage)
 	{
@@ -639,7 +643,6 @@ void mapTool::loadMapData()
 		DATABASE->loadDatabase("battleMap3.txt");
 		break;
 	}
-
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
 		char temp[128];
@@ -656,9 +659,6 @@ void mapTool::loadMapData()
 			(*_viTile)->image->setFrameX(_vIsoTile[(*_viTile)->imageNum]->image->getFrameX());
 			(*_viTile)->image->setFrameY(_vIsoTile[(*_viTile)->imageNum]->image->getFrameY());
 		}
-
-		if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == ZEN_POINT) vObjSize++;
-		if ((*_viTile)->state == S_ONENM || (*_viTile)->state == BOSS) vEnmSize++;
 	}
 
 	//오브젝트 로드
@@ -674,56 +674,51 @@ void mapTool::loadMapData()
 		DATABASE->loadDatabase("battleMap3_obj.txt");
 		break;
 	}
-	for (int i = 0; i < vObjSize; i++)
+
+	int _vObjSize = _vObj.size();
+	for (int i = 0; i < _vObjSize; i++)
 	{
 		char temp[128];
-
-		TagObject* obj;
-		obj = new TagObject;
-		obj->image = new image;
-		obj->x = DATABASE->getElementData(itoa(i, temp, 10))->x;
-		obj->y = DATABASE->getElementData(itoa(i, temp, 10))->y;
-		obj->imageNum = DATABASE->getElementData(itoa(i, temp, 10))->imageNum;;
-		obj->state = (OBJSTATE)DATABASE->getElementData(itoa(i, temp, 10))->state;
-		switch (obj->imageNum)
+		_vObj[i]->number = DATABASE->getElementData(itoa(i, temp, 10))->number;
+		_vObj[i]->state = (OBJSTATE)DATABASE->getElementData(itoa(_vObj[i]->number, temp, 10))->state;
+		_vObj[i]->x = DATABASE->getElementData(itoa(_vObj[i]->number, temp, 10))->x;
+		_vObj[i]->y = DATABASE->getElementData(itoa(_vObj[i]->number, temp, 10))->y;
+		_vObj[i]->imageNum = DATABASE->getElementData(itoa(_vObj[i]->number, temp, 10))->imageNum;
+		if (_vObj[i]->imageNum < 50)
 		{
-		case 0:
-			obj->image->init("image/object_block.bmp", 192, 197, true, 0xff00ff);
-			break;
-		case 1:
-			obj->image->init("image/object_block2.bmp", 192, 192, true, 0xff00ff);
-			break;
-		case 2:
-			obj->image->init("image/object_woods.bmp", 192, 125, true, 0xff00ff);
-			break;
-		case 3:
-			obj->image->init("image/object_tree.bmp", 192, 200, true, 0xff00ff);
-			break;
-		case 4:
-			obj->image->init("image/object_zen.bmp", 2583, 76, 8, 1, true, 0xff00ff);
-			obj->image->setFrameX(0);
-			obj->image->setFrameX(0);
-			break;
-		default:
-			break;
-		}
-		obj->width = WIDTH;
-		obj->height = obj->image->getHeight();
-		for (int j = 0; j < _vTile.size(); j++)
-		{
-			if (obj->x == _vTile[j]->x && obj->y == _vTile[j]->y)
+			_vObj[i]->draw = true;
+			switch (_vObj[i]->imageNum)
 			{
-				obj->rc = RectMake(_vTile[j]->rc.left, _vTile[j]->rc.bottom - obj->height, obj->width, obj->height);
+			case 0:
+				_vObj[i]->image->init("image/mapTool/object_block.bmp", 192, 197, 1, 1, true, 0xff00ff);
+				break;
+			case 1:
+				_vObj[i]->image->init("image/mapTool/object_block2.bmp", 192, 192, 1, 1, true, 0xff00ff);
+				break;
+			case 2:
+				_vObj[i]->image->init("image/mapTool/object_woods.bmp", 192, 125, 1, 1, true, 0xff00ff);
+				break;
+			case 3:
+				_vObj[i]->image->init("image/mapTool/object_tree.bmp", 192, 200, 1, 1, true, 0xff00ff);
+				break;
+			case 4:
+				_vObj[i]->image->init("image/mapTool/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
+				break;
+			default:
+				break;
 			}
+			_vObj[i]->width = _vObj[i]->image->getFrameWidth();
+			_vObj[i]->height = _vObj[i]->image->getFrameHeight();
+			if (_vObj[i]->height < TILESIZE / 2)
+				_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->pivotY + TILESIZE / 4 - _vObj[i]->height / 2, _vObj[i]->width, _vObj[i]->height);
+			else if (_vObj[i]->height > TILESIZE / 2)
+				_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->rc.bottom - _vObj[i]->height, _vObj[i]->width, _vObj[i]->height);
 		}
-		obj->number = DATABASE->getElementData(itoa(i, temp, 10))->number;
-		obj->draw = true;
-
-		_vObj.push_back(obj);
-		_vRender.push_back(obj);
-
 	}
+
 	
+	//에너미 로듣
+
 	switch (_stage)
 	{
 	case 1:
@@ -736,52 +731,49 @@ void mapTool::loadMapData()
 		DATABASE->loadDatabase("battleMap3_enm.txt");
 		break;
 	}
-
 	//에너미로드
+	int vEnmSize = _vEnemy.size();
 	for (int i = 0; i < vEnmSize; i++)
 	{
 		char temp[128];
-
-		TagObject* enemy;
-		enemy = new TagObject;
-		enemy->image = new image;
-		enemy->state = (OBJSTATE)DATABASE->getElementData(itoa(i, temp, 10))->state;
-		enemy->x = DATABASE->getElementData(itoa(i, temp, 10))->x;
-		enemy->y = DATABASE->getElementData(itoa(i, temp, 10))->y;
-		enemy->imageNum = DATABASE->getElementData(itoa(i, temp, 10))->imageNum;;
-		switch (enemy->imageNum)
+	
+		_vEnemy[i]->number = DATABASE->getElementData(itoa(i, temp, 10))->number;
+		_vEnemy[i]->state = (OBJSTATE)DATABASE->getElementData(itoa(_vEnemy[i]->number, temp, 10))->state;
+		_vEnemy[i]->x = DATABASE->getElementData(itoa(_vEnemy[i]->number, temp, 10))->x;
+		_vEnemy[i]->y = DATABASE->getElementData(itoa(_vEnemy[i]->number, temp, 10))->y;
+		_vEnemy[i]->imageNum = DATABASE->getElementData(itoa(_vEnemy[i]->number, temp, 10))->imageNum;
+		
+		if (_vEnemy[i]->imageNum < 50)
 		{
-		case 0:
-			enemy->image->init("image/priny.bmp", 714, 484, 7, 4, true, 0xff00ff);
-			enemy->image->setFrameX(0);
-			enemy->image->setFrameY(0);
-			break;
-		default:
-			break;
-		}
-		enemy->width = enemy->image->getFrameWidth();
-		enemy->height = enemy->image->getFrameHeight();
-
-		for (int j = 0; j < _vTile.size(); j++)
-		{
-			if (enemy->x == _vTile[j]->x && enemy->y == _vTile[j]->y)
+			_vEnemy[i]->draw = true;
+			switch (_vEnemy[i]->imageNum)
 			{
-				enemy->rc = RectMake(_vTile[j]->rc.left + enemy->width / 2 - 10, _vTile[j]->rc.bottom - enemy->height - 20, enemy->width, enemy->height);
+			case 0:
+				_vEnemy[i]->image->init("image/character/prinny_idle.bmp", 714, 484, 7, 4, true, 0xff00ff);
+				break;
+			case 1:
+				_vEnemy[i]->image->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+			default:
+				break;
 			}
+			_vEnemy[i]->width = _vEnemy[i]->image->getFrameWidth();
+			_vEnemy[i]->height = _vEnemy[i]->image->getFrameHeight();
+			_vEnemy[i]->rc = RectMake(_vTile[i]->pivotX - _vEnemy[i]->width / 2, _vTile[i]->pivotY - _vEnemy[i]->height, _vEnemy[i]->width, _vEnemy[i]->height);
 		}
-		enemy->number = DATABASE->getElementData(itoa(i, temp, 10))->number;
-		enemy->draw = true;
-
-		_vEnemy.push_back(enemy);
-		_vRender.push_back(enemy);
 	}
+
+	setRender();
 }
 
 //리셋
 void mapTool::resetMapData()
 {
 	release();
+
 	setTile();
+	setObject();
+	setEnemy();
+	setFirstRender();
 }
 
 void mapTool::onTile()
@@ -797,6 +789,27 @@ void mapTool::onObject()
 void mapTool::onEnemy()
 {
 	_state = SET_ENM;
+}
+
+void mapTool::setPickNum()
+{
+	if (_state == SET_TILE)
+	{
+		if (_pickNum > _vIsoTile.size() - 1)
+			_pickNum = _vIsoTile.size() - 1;
+	}
+
+	if (_state == SET_OBJ)
+	{
+		if (_pickNum > _vIsoObj.size() - 1)
+			_pickNum = _vIsoObj.size() - 1;
+	}
+
+	if (_state == SET_ENM)
+	{
+		if (_pickNum > _vIsoEnemy.size() - 1)
+			_pickNum = _vIsoEnemy.size() - 1;
+	}
 }
 
 void mapTool::goToMenu()
@@ -815,8 +828,6 @@ void mapTool::stageNext()
 
 void mapTool::setTile()
 {
-	/////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	//전체 깔아둔타일
 	int count = 0;
 	POINT firstPivot = { (316 + WINSIZEX) / 2, WIDTH / 4 };
@@ -829,7 +840,7 @@ void mapTool::setTile()
 			TagTile* tile;
 			tile = new TagTile;
 			tile->image = new image;
-			tile->image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
+			tile->image->init("image/mapTool/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
 			tile->width = WIDTH;
 			tile->height = WIDTH / 2;
 			tile->rc = RectMakeCenter(firstPivot.x + j * tile->width / 2 - i * tile->width / 2, firstPivot.y + j * tile->width / 4 + i * tile->width / 4, tile->width, tile->height);
@@ -847,15 +858,162 @@ void mapTool::setTile()
 			count++;
 		}
 	}
-
 }
 
+void mapTool::setObject()
+{
+	int count = 0;
+	for (int i = 0; i < TILENUM; i++)     
+	{
+		for (int j = 0; j < TILENUM; j++) 
+		{
+			TagObject* obj;
+			obj = new TagObject;
+			obj->image = new image;
+			obj->x = j;
+			obj->y = i;
+			obj->imageNum = 100;
+			obj->number = count;
+			obj->state = S_NOMAL;
+			obj->pivot.x = _vTile[i]->pivotX;
+			obj->pivot.y = _vTile[i]->pivotY;
+			obj->draw = false;
+
+			_vObj.push_back(obj);
+			//_vRender.push_back(obj);
+			count++;
+		}
+	}
+
+	//count = 0;
+	//for (int i = 0; i < TILENUM; i++)
+	//{
+	//	for (int j = 0; j < TILENUM; j++)
+	//	{
+	//		TagObject* obj;
+	//		obj = new TagObject;
+	//		obj->image = new image;
+	//		obj->x = j;
+	//		obj->y = i;
+	//		obj->imageNum = 100;
+	//		obj->number = count;
+	//		obj->state = S_NOMAL;
+	//		obj->pivot.x = _vTile[i]->pivotX;
+	//		obj->pivot.y = _vTile[i]->pivotY;
+	//		obj->draw = false;
+	//
+	//		_vRender.push_back(obj);
+	//		count++;
+	//	}
+	//}
+}
+
+void mapTool::setEnemy()
+{
+	int count = 0;
+	for (int i = 0; i < TILENUM; i++)     
+	{
+		for (int j = 0; j < TILENUM; j++) 
+		{
+			TagObject* enm;
+			enm = new TagObject;
+			enm->image = new image;
+			enm->x = j;
+			enm->y = i;
+			enm->imageNum = 100;
+			enm->number = count;
+			enm->state = E_NORMAL;
+			enm->pivot.x = _vTile[i]->pivotX;
+			enm->pivot.y = _vTile[i]->pivotY;
+			enm->draw = false;
+
+			_vEnemy.push_back(enm);
+			//_vRender.push_back(enm);
+			count++;
+		}
+	}
+
+	//count = 0;
+	//for (int i = 0; i < TILENUM; i++)
+	//{
+	//	for (int j = 0; j < TILENUM; j++)
+	//	{
+	//		TagObject* enm;
+	//		enm = new TagObject;
+	//		enm->image = new image;
+	//		enm->x = j;
+	//		enm->y = i;
+	//		enm->imageNum = 100;
+	//		enm->number = count;
+	//		enm->state = E_NORMAL;
+	//		enm->pivot.x = _vTile[i]->pivotX;
+	//		enm->pivot.y = _vTile[i]->pivotY;
+	//		enm->draw = false;
+	//
+	//		_vRender.push_back(enm);
+	//		count++;
+	//	}
+	//}
+}
+
+void mapTool::setFirstRender()
+{
+	int count = 0;
+	for (int i = 0; i < TILENUM; i++)
+	{
+		for (int j = 0; j < TILENUM; j++)
+		{
+			TagObject* rnd;
+			rnd = new TagObject;
+			rnd->image = new image;
+			rnd->x = j;
+			rnd->y = i;
+			rnd->imageNum = 100;
+			rnd->number = count;
+			rnd->state = E_NORMAL;
+			rnd->pivot.x = _vTile[i]->pivotX;
+			rnd->pivot.y = _vTile[i]->pivotY;
+			rnd->draw = false;
+
+			_vRender.push_back(rnd);
+			count++;
+		}
+	}
+}
+
+void mapTool::setRender()
+{
+	int vRenderSize = _vRender.size();
+	for (int i = 0; i < vRenderSize; i++)
+	{
+		if (_vRender[i]->draw) continue;
+
+		if (_vObj[i]->draw)
+		{
+			_vRender[i]->imageNum = _vObj[i]->imageNum;
+			_vRender[i]->image = _vObj[i]->image;
+			_vRender[i]->width = _vObj[i]->width;
+			_vRender[i]->height = _vObj[i]->height;
+			_vRender[i]->rc = _vObj[i]->rc;
+			_vRender[i]->draw = true;
+		}
+
+		if (_vEnemy[i]->draw)
+		{
+			_vRender[i]->imageNum = _vEnemy[i]->imageNum;
+			_vRender[i]->image = _vEnemy[i]->image;
+			_vRender[i]->width = _vEnemy[i]->width;
+			_vRender[i]->height = _vEnemy[i]->height;
+			_vRender[i]->rc = _vEnemy[i]->rc;
+			_vRender[i]->draw = true;
+		}
+
+	}
+}
 
 void mapTool::setSampleTile()
 {
 	int count = 0;
-
-
 	// 샘플타일
 	for (int i = 0; i < 11; i++)
 	{
@@ -864,7 +1022,7 @@ void mapTool::setSampleTile()
 			TagTile* tile;
 			tile = new TagTile;
 			tile->image = new image;
-			tile->image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
+			tile->image->init("image/mapTool/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
 			tile->width = WIDTH;
 			tile->height = WIDTH / 2;
 			tile->rc = RectMake(10, 190 + tile->image->getFrameHeight() * j, tile->image->getFrameWidth(), tile->image->getFrameHeight());
@@ -885,13 +1043,11 @@ void mapTool::setSampleTile()
 
 void mapTool::setSampleObject()
 {
-	int count = 0;
-
 	//사막블럭
 	TagObject* obj;
 	obj = new TagObject;
 	obj->image = new image;
-	obj->image->init("image/object_block.bmp", 192, 197, true, 0xff00ff);
+	obj->image->init("image/mapTool/object_block.bmp", 192, 197, true, 0xff00ff);
 	obj->state = S_NOMAL;
 	obj->width = WIDTH;
 	obj->height = obj->image->getHeight();
@@ -903,7 +1059,7 @@ void mapTool::setSampleObject()
 	////벽돌블럭
 	obj = new TagObject;
 	obj->image = new image;
-	obj->image->init("image/object_block2.bmp", 192, 194, true, 0xff00ff);
+	obj->image->init("image/mapTool/object_block2.bmp", 192, 194, true, 0xff00ff);
 	obj->state = S_NOMAL;
 	obj->width = WIDTH;
 	obj->height = obj->image->getHeight();
@@ -916,7 +1072,7 @@ void mapTool::setSampleObject()
 	//수풀
 	obj = new TagObject;
 	obj->image = new image;
-	obj->image->init("image/object_woods.bmp", 192, 125, true, 0xff00ff);
+	obj->image->init("image/mapTool/object_woods.bmp", 192, 125, true, 0xff00ff);
 	obj->state = S_NOMAL;
 	obj->width = WIDTH;
 	obj->height = obj->image->getHeight();
@@ -929,7 +1085,7 @@ void mapTool::setSampleObject()
 	//나무
 	obj = new TagObject;
 	obj->image = new image;
-	obj->image->init("image/object_tree.bmp", 192, 200, true, 0xff00ff);
+	obj->image->init("image/mapTool/object_tree.bmp", 192, 200, true, 0xff00ff);
 	obj->state = S_NOMAL;
 	obj->width = WIDTH;
 	obj->height = obj->image->getHeight();
@@ -942,7 +1098,7 @@ void mapTool::setSampleObject()
 	//젠포인트
 	obj = new TagObject;
 	obj->image = new image;
-	obj->image->init("image/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
+	obj->image->init("image/mapTool/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
 	obj->state = S_ZEN;
 	obj->width = WIDTH;
 	obj->height = obj->image->getHeight();
@@ -955,18 +1111,31 @@ void mapTool::setSampleObject()
 
 void mapTool::setSampleEnemy()
 {
-	int count = 0;
-
 	//프리니
 	TagObject* enemy;
 	enemy = new TagObject;
 	enemy->image = new image;
-	enemy->image->init("image/priny.bmp", 714, 484, 7, 4, true, 0xff00ff);
+	enemy->image->init("image/character/prinny_idle.bmp", 714, 484, 7, 4, true, 0xff00ff);
 	enemy->state = E_NORMAL;
 	enemy->width = WIDTH;
 	enemy->height = enemy->image->getFrameHeight();
 	enemy->rc = RectMake(10, 190, enemy->width, enemy->height);
 	enemy->number = 0;
+	enemy->draw = true;
+
+	enemy->image->setFrameX(0);
+	enemy->image->setFrameY(0);
+	_vIsoEnemy.push_back(enemy);
+
+	//오크
+	enemy = new TagObject;
+	enemy->image = new image;
+	enemy->image->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+	enemy->state = E_NORMAL;
+	enemy->width = WIDTH;
+	enemy->height = enemy->image->getFrameHeight();
+	enemy->rc = RectMake(100, 190, enemy->width, enemy->height);
+	enemy->number = 1;
 	enemy->draw = true;
 
 	enemy->image->setFrameX(0);

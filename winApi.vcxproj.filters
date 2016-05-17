@@ -240,6 +240,9 @@
     <ClInclude Include="title.h">
       <Filter>gameStudy\title</Filter>
     </ClInclude>
+    <ClInclude Include="boss.h">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -373,6 +376,9 @@
     </ClCompile>
     <ClCompile Include="title.cpp">
       <Filter>gameStudy\title</Filter>
+    </ClCompile>
+    <ClCompile Include="boss.cpp">
+      <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
