@@ -12,15 +12,16 @@ progressBar::~progressBar()
 }
 
 
-HRESULT progressBar::init(float x, float y, int width, int height)
+HRESULT progressBar::init(float x, float y, int width, int height, bool type)
 {
 	_x = x;
 	_y = y;
 
 	_rcProgress = RectMake(_x, _y, width, height);
 	
-	_progressBarFront = IMAGEMANAGER->addImage("barTop", "image/hpBarTop.bmp", x, y, width, height, true, 0xff00ff);
-	_progressBarBack = IMAGEMANAGER->addImage("barBottom", "image/hpBarBottom.bmp", x, y, width, height, true, 0xff00ff);
+	if(type) _progressBarFront = IMAGEMANAGER->addImage("barTop_hp", "image/ui_battle_bottom_hpbar.bmp", x, y, width, height, true, 0xff00ff);
+	if (!type) _progressBarFront = IMAGEMANAGER->addImage("barTop_sp", "image/ui_battle_bottom_spbar.bmp", x, y, width, height, true, 0xff00ff);
+	_progressBarBack = IMAGEMANAGER->addImage("barBottom", "image/ui_battle_bottom_spbar_back.bmp", x, y, width, height, true, 0xff00ff);
 
 	_width = width;
 
@@ -46,8 +47,8 @@ void progressBar::render()
 		_progressBarBack->getWidth(), _progressBarBack->getHeight());
 
 	IMAGEMANAGER->render("barTop", getMemDC(),
-		_rcProgress.left,
-		_y,
+		_rcProgress.left + 1,
+		_y + 1,
 		0, 0, 
 		_width, _progressBarFront->getHeight());
 }

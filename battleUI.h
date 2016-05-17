@@ -4,6 +4,7 @@
 #include "button.h"
 #include "enemy.h"
 #include "battleCamera.h"
+#include "progressBar.h"
 
 class battleManager;
 class gameObjectManager;
@@ -95,8 +96,13 @@ private:
 	battleCamera* _battleCamera;
 	int _count;						  // Select Tile Arrow Motion Count
 
+
+	progressBar* _progressBarHp;
+	progressBar* _progressBarSp;
+	
+
 	bool _isSelectCharacter;
-	int _isSelectCharacterNumber;
+	int _selectCharacterNumber;
 
 public:
 	battleUI();
@@ -110,9 +116,9 @@ public:
 
 	void initOrderList();
 	void initUnitOrderList();
-	void initCharacterList();
 
-	void setTurnShow() { _isTurnShow = true; }
+	void setTurnShow() { _isTurnShow = true; } //외부에서 Turn Show를 시켜야 할 때 이 함수를 이용하여 Turn을 Show 시킨다
+	void renderOverlapSelectTile();
 
 	void orderListClick(int orderNumber);
 	void unitOrderListClick(int unitOrderNumber);
