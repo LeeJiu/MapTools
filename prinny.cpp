@@ -80,8 +80,6 @@ void prinny::release()
 
 void prinny::update()
 {
-	_inventory->update();
-	keyControl();
 	setImage();
 
 	if (_isbattle)
@@ -90,6 +88,12 @@ void prinny::update()
 		{
 			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
 		}
+		battleKeyControl();
+	}
+	else
+	{
+		_inventory->update();
+		keyControl();
 	}
 }
 

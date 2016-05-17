@@ -39,6 +39,8 @@ void battleCamera::render()
 
 void battleCamera::setCameraTile(int x, int y)
 {
+	if (_cameraTileX == x && _cameraTileY == y) return;
+
 	if (!_isMapScrool)
 	{
 		// 목적지 저장
