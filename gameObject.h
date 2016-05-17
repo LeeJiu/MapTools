@@ -89,5 +89,6 @@ public:
 	virtual int getIndexY() { return _indexY; }
 	virtual RECT getCharacterRect() { return _rc; }
 	virtual bool getIsShow() { return _isShow; }
+	virtual bool getIsShowPossibleMoveTile() { return _isShowPossibleMoveTile; }
 	virtual vector<string>& getMercenary() { return _mercenary; }
 };
