@@ -59,6 +59,6 @@ void battleScene::update()
 void battleScene::render()
 {
 	_gameObjMgr->render();
-	//_battleMgr->render();
+	_battleMgr->render();
 	_battleUI->render();
 }

@@ -10,6 +10,8 @@ class gameObjectManager;
 class battleUI : public gameNode
 {
 private:
+	bool _isFirstInit;
+
 	image* _imageSkillTitleBack;			 //스킬 타이틀 BACKGROUND IMAGE
 	image* _imageStatusBack;				 //캐릭터 상태 창 BACKGROUND IMAGE
 	image* _imageBottomStatusBack;			 //캐릭터 상태 창(바닥) BACKGROUND IMAGE
@@ -30,6 +32,7 @@ private:
 
 	image* _imageListArrow;
 	RECT _rcListArrow;
+	bool _IsOnListArrow;
 
 	RECT _rcStatus;							 //캐릭터 상태 창(좌)
 	RECT _rcBottomStatus;					 //캐릭터 상태 창(바닥)
@@ -90,7 +93,7 @@ private:
 	gameObjectManager* _gameObjMgr;
 	battleManager* _battleMgr;
 	battleCamera* _battleCamera;
-	int _count;
+	int _count;						  // Select Tile Arrow Motion Count
 
 	bool _isSelectCharacter;
 	int _isSelectCharacterNumber;
@@ -103,8 +106,12 @@ public:
 	void release();
 	void update();
 	void render();
-
 	void setCharacterList();
+
+	void initOrderList();
+	void initUnitOrderList();
+	void initCharacterList();
+
 	void setTurnShow() { _isTurnShow = true; }
 
 	void orderListClick(int orderNumber);
@@ -114,11 +121,10 @@ public:
 	//클릭 이벤트
 	void LButtonClick();
 	void RButtonClick();
-<<<<<<< HEAD
-=======
 	void checkMouseOverList();
 	void checkMouseOverCharacter();
->>>>>>> origin/backup-Jaejun
+	
+	void setTurnTypeChangeToPlayer() { _isTurnType = true; }			//ENEMY에서 PLAYER TURN으로 넘어갈 떄 호출해서 PLAYER TURN IMAGE를 호출
 
 	void setArrowFrame();
 	void setCamera();
