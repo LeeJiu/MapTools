@@ -41,71 +41,52 @@ void gameObject::battleKeyControl()
 {
 }
 
-void gameObject::move(int endX, int endY)
+void gameObject::move()
 {
-	// 목적지의 도착했을때
-	if (abs(_tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotX - _x) < 3
-		&& abs(_tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotY - _character->getFrameHeight() / 2 - _y) < 3)
+	if (!_isMove) return;
+
+	if (fabs(_vRoute[_idx]->pivotX - _x) < _moveSpeed * 2 && fabs(_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 - _y) < _moveSpeed)
 	{
-		if (_vRoute[_idx]->x == endX && _vRoute[_idx]->y == endY)
+		//_x = _vRoute[_idx]->x;
+		//_y = _vRoute[_idx]->y;
+		//_x = CENTERX;
+		//_y = CENTERY - _prinny.image->getFrameHeight() / 2;
+		//_prinny.rc = RectMakeIso(_tile[_x][_y]->pivotX, _tile[_x][_y]->pivotY, _prinny.image->getFrameWidth(), _prinny.image->getFrameHeight());
+		if (_vRoute[_idx]->x == _destX && _vRoute[_idx]->y == _destX)
 		{
-			_indexX = _destX;
-			_indexY = _destY;
+			_x = _destX;
+			_y = _destX;
 			_isMove = false;
 			_idx = 0;
 			return;
 		}
-		else _idx++;
+		else
+		{
+			_idx++;
+		}
 	}
 
 	//x축 검사하자
-	if (abs(_tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotX - _x) < _moveSpeed * 2)
-	{
-		if (_vRoute[_idx]->x == _vRoute[_idx]->y)
-		{
-			_tile[0][0]->pivotX = _tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotX;
-		}
-		else if (_vRoute[_idx]->x > _vRoute[_idx]->y)
-		{
-			_tile[0][0]->pivotX = _tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotX + WIDTH / 2 * (_vRoute[_idx]->y - _vRoute[_idx]->x);
-		}
-		else if (_vRoute[_idx]->x < _vRoute[_idx]->y)
-		{
-			_tile[0][0]->pivotX = _tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotX - WIDTH / 2 * (_vRoute[_idx]->y - _vRoute[_idx]->x);
-		}
-	}
-	else if (_tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotX < _x)
+
+	// 길찾기 다음 벡터의 pivotX의 위치가 케릭터의 왼쪽이라면 [0][0]의 pivotX의 위치를 오른쪽으로 옴기자
+	if (_vRoute[_idx]->pivotX < _x)
 	{
 		_tile[0][0]->pivotX += _moveSpeed * 2;
 	}
-	else if (_tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotX > _x)
+	// 길찾기 다음 벡터의 pivotX의 위치가 케릭터의 오른쪽이라면 [0][0]의 pivotX의 위치를 왼쪽으로 옴기자
+	else if (_vRoute[_idx]->pivotX > _x)
 	{
 		_tile[0][0]->pivotX -= _moveSpeed * 2;
 	}
 
 	//y축 검사하자
-	if (abs(_tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotY - _character->getFrameHeight() / 2 - _y) < _moveSpeed)
+	if (_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 < _y)
 	{
-		if (_vRoute[_idx]->x == _vRoute[_idx]->y)
-		{
-			_tile[0][0]->pivotY = _tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotY - WIDTH * _vRoute[_idx]->y;
-		}
-		else if (_vRoute[_idx]->x > _vRoute[_idx]->y)
-		{
-			_tile[0][0]->pivotY = _tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotY - WIDTH / 2 * (_vRoute[_idx]->y + _vRoute[_idx]->x);
-		}
-		else if (_vRoute[_idx]->x < _vRoute[_idx]->y)
-		{
-			_tile[0][0]->pivotY = _tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotY - WIDTH / 2 * (_vRoute[_idx]->y + _vRoute[_idx]->x);
-		}
+		_tile[0][0]->pivotY += _moveSpeed;
 	}
-	else if (_tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotY - _character->getFrameHeight() / 2 < _y)
+	else if (_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 > _y)
 	{
-		_tile[0][0]->pivotY -= _moveSpeed * 2;
-	}
-	else if (_tile[_vRoute[_idx]->x][_vRoute[_idx]->y]->pivotY - _character->getFrameHeight() / 2 > _y)
-	{
-		_tile[0][0]->pivotY += _moveSpeed * 2;
+		_tile[0][0]->pivotY -= _moveSpeed;
 	}
 
 	// [0][0]번째의 pivot기준으로 렉트 재갱신 하자
@@ -130,6 +111,17 @@ void gameObject::saveData()
 
 void gameObject::loadData()
 {
+}
+
+void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
+{
+	if (!_isMove)
+	{
+		_isMove = true;
+		_destX = endX;
+		_destY = endY;
+		_vRoute = vRoute;
+	}
 }
 
 void gameObject::setTilePosition(float x, float y)
