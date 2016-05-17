@@ -52,10 +52,10 @@ void gameObject::move()
 		//_x = CENTERX;
 		//_y = CENTERY - _prinny.image->getFrameHeight() / 2;
 		//_prinny.rc = RectMakeIso(_tile[_x][_y]->pivotX, _tile[_x][_y]->pivotY, _prinny.image->getFrameWidth(), _prinny.image->getFrameHeight());
-		if (_vRoute[_idx]->x == _destX && _vRoute[_idx]->y == _destX)
+		if (_vRoute[_idx]->x == _destX && _vRoute[_idx]->y == _destY)
 		{
-			_x = _destX;
-			_y = _destX;
+			_indexX = _destX;
+			_indexY = _destY;
 			_isMove = false;
 			_idx = 0;
 			return;

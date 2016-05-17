@@ -87,6 +87,8 @@ void prinny::update()
 		if (!_isMove)
 		{
 			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+			_x = (_rc.right + _rc.left) / 2;
+			_y = (_rc.top + _rc.bottom) / 2;
 		}
 		battleKeyControl();
 		move();
