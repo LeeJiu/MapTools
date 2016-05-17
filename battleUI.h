@@ -28,6 +28,9 @@ private:
 	vector<image*> _imageCharacterListBody;	 //캐릭터 소환 리스트 BACKGROUND IMAGE BODY
 	image* _imageCharacterListBottom;		 //캐릭터 소환 리스트 BACKGROUND IMAGE BOTTOM
 
+	image* _imageListArrow;
+	RECT _rcListArrow;
+
 	RECT _rcStatus;							 //캐릭터 상태 창(좌)
 	RECT _rcBottomStatus;					 //캐릭터 상태 창(바닥)
 	RECT _rcSkillTitle;						 //캐릭터 스킬 타이틀(스킬 사용 시 나타남)
@@ -54,6 +57,7 @@ private:
 
 	image* _imageTurnCountBackground;		 //현재 턴 표기용 BACKGROUND IMAGE
 	RECT _rcTurnCountBack;					 //현재 턴 표기용 RECT
+	RECT _rcTurnCountStr;				     //현재 턴 표기 STR용 RECT
 	char* _strTurnCount;					 //현재 턴 표기용 char*
 
 	int _characterSize;				  //캐릭터 Vector Size
@@ -88,6 +92,9 @@ private:
 	battleCamera* _battleCamera;
 	int _count;
 
+	bool _isSelectCharacter;
+	int _isSelectCharacterNumber;
+
 public:
 	battleUI();
 	~battleUI();
@@ -105,7 +112,10 @@ public:
 	void turnChange();
 
 	//클릭 이벤트
-	void LbuttonClick();
+	void LButtonClick();
+	void RButtonClick();
+	void checkMouseOverList();
+	void checkMouseOverCharacter();
 
 	void setArrowFrame();
 	void setCamera();

@@ -15,7 +15,8 @@ HRESULT battleManager::init()
 {
 	_turnCount = 0;					// TURN COUNT
 	_isTurnType = true;				// TURN TYPE = true(PLAYER) || false(ENEMY)
-	
+
+
 	return S_OK;
 }
 
