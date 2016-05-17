@@ -10,6 +10,8 @@ class gameObjectManager;
 class battleUI : public gameNode
 {
 private:
+	bool _isFirstInit;
+
 	image* _imageSkillTitleBack;			 //스킬 타이틀 BACKGROUND IMAGE
 	image* _imageStatusBack;				 //캐릭터 상태 창 BACKGROUND IMAGE
 	image* _imageBottomStatusBack;			 //캐릭터 상태 창(바닥) BACKGROUND IMAGE
@@ -27,6 +29,10 @@ private:
 	image* _imageCharacterListTop;			 //캐릭터 소환 리스트 BACKGROUND IMAGE TOP
 	vector<image*> _imageCharacterListBody;	 //캐릭터 소환 리스트 BACKGROUND IMAGE BODY
 	image* _imageCharacterListBottom;		 //캐릭터 소환 리스트 BACKGROUND IMAGE BOTTOM
+
+	image* _imageListArrow;
+	RECT _rcListArrow;
+	bool _IsOnListArrow;
 
 	RECT _rcStatus;							 //캐릭터 상태 창(좌)
 	RECT _rcBottomStatus;					 //캐릭터 상태 창(바닥)
@@ -54,6 +60,7 @@ private:
 
 	image* _imageTurnCountBackground;		 //현재 턴 표기용 BACKGROUND IMAGE
 	RECT _rcTurnCountBack;					 //현재 턴 표기용 RECT
+	RECT _rcTurnCountStr;				     //현재 턴 표기 STR용 RECT
 	char* _strTurnCount;					 //현재 턴 표기용 char*
 
 	int _characterSize;				  //캐릭터 Vector Size
@@ -86,7 +93,10 @@ private:
 	gameObjectManager* _gameObjMgr;
 	battleManager* _battleMgr;
 	battleCamera* _battleCamera;
-	int _count;
+	int _count;						  // Select Tile Arrow Motion Count
+
+	bool _isSelectCharacter;
+	int _isSelectCharacterNumber;
 
 public:
 	battleUI();
@@ -96,8 +106,12 @@ public:
 	void release();
 	void update();
 	void render();
-
 	void setCharacterList();
+
+	void initOrderList();
+	void initUnitOrderList();
+	void initCharacterList();
+
 	void setTurnShow() { _isTurnShow = true; }
 
 	void orderListClick(int orderNumber);
@@ -105,7 +119,12 @@ public:
 	void turnChange();
 
 	//클릭 이벤트
-	void LbuttonClick();
+	void LButtonClick();
+	void RButtonClick();
+	void checkMouseOverList();
+	void checkMouseOverCharacter();
+	
+	void setTurnTypeChangeToPlayer() { _isTurnType = true; }			//ENEMY에서 PLAYER TURN으로 넘어갈 떄 호출해서 PLAYER TURN IMAGE를 호출
 
 	void setArrowFrame();
 	void setCamera();
