@@ -241,7 +241,10 @@
       <Filter>gameStudy\title</Filter>
     </ClInclude>
     <ClInclude Include="mercenaryStore.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>gameStudy\store</Filter>
+    </ClInclude>
+    <ClInclude Include="soundManager.h">
+      <Filter>2D Framework\manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -378,7 +381,10 @@
       <Filter>gameStudy\title</Filter>
     </ClCompile>
     <ClCompile Include="mercenaryStore.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>gameStudy\store</Filter>
+    </ClCompile>
+    <ClCompile Include="soundManager.cpp">
+      <Filter>2D Framework\manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
