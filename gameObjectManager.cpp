@@ -46,6 +46,10 @@ void gameObjectManager::render()
 	{
 		_vGameObject[i]->render();
 	}
+
+	char str[128];
+	sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
+	TextOut(getMemDC(), 10, 10, str, strlen(str));
 }
 
 void gameObjectManager::setUnitMove(int i, int destX, int destY)

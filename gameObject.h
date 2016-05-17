@@ -61,6 +61,7 @@ public:
 	virtual void setVRoute(vector<TagTile*> tile) { _vRoute = tile; }
 	virtual void setIsMove(bool isMove) { _isMove = isMove; }
 	virtual void setIsShow(bool isShow) { _isShow = isShow; }
+	virtual void setTilePosition(float x, float y);
 
 	// getÇÔ¼ö
 	virtual const char* getName() { return _name; }
