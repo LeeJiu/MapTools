@@ -31,6 +31,8 @@ void gameObjectManager::update()
 
 }
 
+
+//랜더
 void gameObjectManager::render()
 {
 	int _vTileSize = _vTile.size();
@@ -135,8 +137,7 @@ void gameObjectManager::setEnemy()
 
 	// 에너미파일 로드
 	DATABASE->loadDatabase("battleMap1_enm.txt");
-	for (int i = 0; i < vEnmSize; i++)
-	{
+	
 		// 위에 보면 에너미저장된 데이터는 저렇게 되어있음 구분자 "|" 를 기준으로 3개가 있는데
 		// 0번째가 DATABASE의 맵 키값이 되는거?
 		// 그리고 몬스터를 구분할려면 어떤걸 쓰는거?
@@ -144,33 +145,33 @@ void gameObjectManager::setEnemy()
 		
 		// 아래는 예시 이렇게 할 생각임
 
-	//for (int i = 0; i < vEnmSize; i++)
-	//{
-	//	gameObject* enemy;
-	//	switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
-	//	{
-	//	case 0:
-	//		enemy = new orc;
-	//		enemy->init();
-	//		break;
-	//	case 1:
-	//		enemy = new boss;
-	//		enemy->init();
-	//		//_vEnemy.push_back(_boss);
-	//		//_vGameObject.push_back(_boss);
-	//		break;
-	//	}
-	//
-	//	_vEnemy.push_back(enemy);
-	//	_vGameObject.push_back(enemy);
-	//}
+	for (int i = 0; i < vEnmSize; i++)
+	{
+		gameObject* enemy;
+		switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
+		{
+		case 0:
+			enemy = new orc;
+			enemy->init();
+			break;
+		case 1:
+			enemy = new boss;
+			enemy->init();
+			break;
+		default:
+			break;
+		}
+	
+		_vEnemy.push_back(enemy);
+		_vGameObject.push_back(enemy);
+	}
 
+	int a = 0;
 	//---------------------------------------------------------------------------------
 		//DATABASE->getElementData(std::to_string(i))->;
 		//_vStr[4] -> 몹 구별 넘버값이면 이걸로 스위치 돌리고
 		//_vStr[3] _vStr[2]-> x, y 타일 넘버 넘겨주면서 인잇하고 벡터 넣어준다.
 
-	}
 }
 
 void gameObjectManager::setObject()

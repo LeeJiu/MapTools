@@ -23,12 +23,14 @@
 #define FLOAT_EPSILON 0.001f 
 #define FLOAT_EQUAL(f1, f2)      (fabs(f1 - f2) <= FLOAT_EPSILON) //두 실수가 같은지 확인
 
-#define TILENUM 10
-#define WIDTH 192
+#define TILENUM 15
+#define WIDTH 128
+#define OFFSET 48
+#define TOTALTILE(tileNum) (tileNum) * (tileNum)
 
 enum TILESTATE
 {
-	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS, S_ONCHAR
+	S_NONE, S_ECT, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS, S_ONCHAR
 };
 
 enum OBJSTATE
