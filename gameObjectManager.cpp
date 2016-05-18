@@ -61,8 +61,9 @@ void gameObjectManager::setUnitMove(int i, int destX, int destY)
 	_vGameObject[i]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
 }
 
-void gameObjectManager::setUnitAttack()
+void gameObjectManager::setUnitAttack(int i, int destX, int destY)
 {
+	_vGameObject[i]->attack(destX, destY);
 }
 
 void gameObjectManager::setUnitDefence()

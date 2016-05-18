@@ -71,6 +71,10 @@ void character::showPossibleMoveTile()
 	}
 }
 
+void character::setDirectionImage()
+{
+}
+
 void character::saveData()
 {
 }

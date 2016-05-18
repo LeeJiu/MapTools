@@ -54,6 +54,7 @@ void gameObject::move()
 			_isMove = false;
 			if(_isCharacter) _vRoute[_idx]->state = S_ONCHAR;
 			else _vRoute[_idx]->state = S_ONENM;
+			_characterState = IDLE;
 			_idx = 0;
 			return;
 		}
@@ -68,21 +69,25 @@ void gameObject::move()
 	// 길찾기 다음 벡터의 pivotX의 위치가 케릭터의 왼쪽이라면 [0][0]의 pivotX의 위치를 오른쪽으로 옴기자
 	if (_vRoute[_idx]->pivotX < _x)
 	{
+		_isRight = false;
 		_tile[0][0]->pivotX += _moveSpeed * 2;
 	}
 	// 길찾기 다음 벡터의 pivotX의 위치가 케릭터의 오른쪽이라면 [0][0]의 pivotX의 위치를 왼쪽으로 옴기자
 	else if (_vRoute[_idx]->pivotX > _x)
 	{
+		_isRight = true;
 		_tile[0][0]->pivotX -= _moveSpeed * 2;
 	}
 
 	//y축 검사하자
 	if (_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 < _y)
 	{
+		_isUp = true;
 		_tile[0][0]->pivotY += _moveSpeed;
 	}
 	else if (_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 > _y)
 	{
+		_isUp = false;
 		_tile[0][0]->pivotY -= _moveSpeed;
 	}
 
@@ -92,6 +97,23 @@ void gameObject::move()
 
 void gameObject::attack(int targetX, int targetY)
 {
+	if (_indexX > targetX && _indexY == targetY)
+	{
+		_characterDir = LT;
+	}
+	else if (_indexX < targetX && _indexY == targetY)
+	{
+		_characterDir = RB;
+	}
+	else if (_indexX == targetX && _indexY > targetY)
+	{
+		_characterDir = RT;
+	}
+	else if (_indexX == targetX && _indexY < targetY)
+	{
+		_characterDir = LB;
+	}
+	_characterState = ATTACK;
 }
 
 void gameObject::setImage()
@@ -110,15 +132,36 @@ void gameObject::loadData()
 {
 }
 
+void gameObject::setDirectionImage()
+{
+	if (_isRight)
+	{
+		if (_isUp)
+		{
+			_characterDir = RT;
+		}
+		else _characterDir = RB;
+	}
+	else
+	{
+		if (_isUp)
+		{
+			_characterDir = LT;
+		}
+		else _characterDir = LB;
+	}
+}
+
 void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
 {
 	if (!_isMove)
 	{
-		_tile[_indexX][_indexY]->state = S_NONE;
+		if(_tile[_indexX][_indexY]->state != S_ZEN) _tile[_indexX][_indexY]->state = S_NONE;
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
 		_vRoute = vRoute;
+		_characterState = WALK;
 	}
 }
 
