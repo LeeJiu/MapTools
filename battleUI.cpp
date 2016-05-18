@@ -538,6 +538,7 @@ void battleUI::LButtonClick()
 				_selectCharacterNumber = i;
 				_isSelectCharacter = true;
 				_isOnUnitOrderList = true;
+				_battleCamera->setCameraTile(_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexX(), _gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexY());
 				return;
 			}
 			else
@@ -562,18 +563,12 @@ void battleUI::LButtonClick()
 			{
 				// 최근 선택한 케릭터의 이동가능한 타일이 보여지지 않으면 카메라를 움직여라
 				if(!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile())
-				_isOnOrderList = false;
+					_isOnOrderList = false;
 
-				//캐릭터의 MOVE SHOW가 모두 FALSE인지 체크하자
-				int count = 0;
-				for (int i = 0; i < _characterSize; i++)
+				//선택한 캐릭터의 MOVE SHOW가 FALSE인지 체크하자
+				if (!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile())
 				{
-					if (!_gameObjMgr->getGameObject()[i]->getIsShowPossibleMoveTile())
-						count++;
-				}
-				//캐릭터의 모든 MOVE SHOW FALSE COUNT가 캐릭터 사이즈와 같다면 카메라를 움직이자 (캐릭터 이동을 클릭한 적이 없다)
-				if (count == _characterSize)
-				{
+					//캐릭터의 MOVE SHOW 가 FALSE라면 카메라를 해당 캐릭터의 위치로 포커스를 잡는다
 					_battleCamera->setCameraTile(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
 				}
 				// 케릭터의 이동 가능한 타일이 보여진다면
@@ -581,16 +576,9 @@ void battleUI::LButtonClick()
 				{
 					// 케릭터 이동 함수를 호출한다
 					_gameObjMgr->setUnitMove(_selectCharacterNumber, _gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
-					// 이동가능한 타일을 꺼준다.
+					// 이동가능한 타일을 꺼준다.		
 					_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(false);
-					if (_gameObjMgr->getTile()[i]->state == S_NONE)
-					{
-						_gameObjMgr->setUnitMove(_selectCharacterNumber, _gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
-					}
-					for (int i = 0; i < _characterSize; i++)
-					{
-						_gameObjMgr->getGameObject()[i]->setIsShowPossibleMoveTile(false);
-					}
+					
 				}
 
 				//소환 타일을 선택했는지 체크하자
@@ -668,23 +656,41 @@ void battleUI::checkMouseOverList()
 void battleUI::checkMouseOverCharacter()
 {
 	//마우스 커서가 캐릭터에 오버 랩 되어있으면 캐릭터 상태 창(바닥)을 출력
-	for (int i = 0; i < _characterSize; i++)
+	for (int i = 0; i < TILENUM * TILENUM; i++)
 	{
-		if (_gameObjMgr->getGameObject()[i]->getIsShow())
+		if (_gameObjMgr->getTile()[i]->state == S_ONCHAR || _gameObjMgr->getTile()[i]->state == S_ZEN)
 		{
-			if (PtInRect(&_gameObjMgr->getGameObject()[i]->getCharacterRect(), _ptMouse))
+			if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
 			{
-				_isOnBottomStatus = true;
-				_statusBottomName = _gameObjMgr->getGameObject()[i]->getName();
-				_progressBarHp->gauge(_gameObjMgr->getGameObject()[i]->getHp(), 100);
-				_progressBarSp->gauge(_gameObjMgr->getGameObject()[i]->getSp(), 100);
+				if ((_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) > -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) > 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
+					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
+				{
+					for (int j = 0; j < _characterSize; j++)
+					{
+						if (_gameObjMgr->getGameObject()[j]->getIsShow())
+						{
+							if (PtInRect(&_gameObjMgr->getGameObject()[j]->getCharacterRect(), _ptMouse))
+							{
+								_isOnBottomStatus = true;
+								_statusBottomName = _gameObjMgr->getGameObject()[j]->getName();
+								_progressBarHp->gauge(_gameObjMgr->getGameObject()[j]->getHp(), 100);
+								_progressBarSp->gauge(_gameObjMgr->getGameObject()[j]->getSp(), 100);
+							}
+							
+						}
+					}
+				}
 			}
 			else
 			{
 				_isOnBottomStatus = false;
 			}
 		}
-	}
+	}	
+
+	
 }
 
 void battleUI::setArrowFrame()

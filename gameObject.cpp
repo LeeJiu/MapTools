@@ -114,7 +114,7 @@ void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
 {
 	if (!_isMove)
 	{
-		_tile[_indexX][_indexY]->state = S_NONE;
+		if(_tile[_indexX][_indexY]->state != S_ZEN) _tile[_indexX][_indexY]->state = S_NONE;
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
