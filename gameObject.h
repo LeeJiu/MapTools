@@ -24,11 +24,17 @@ protected:
 	int _idx;																		// 이동시 vRoute에서 사용될 인덱스
 	int _moveSpeed;
 
+	bool _isUp, _isRight;
 	bool _isShow;
 	bool _isMove;																	// 움직이고 있는지 유무
 	bool _isShowPossibleMoveTile;													// 이동가능한 타일 보여주는지 유무
+	bool _isShowPossibleAttackTile;													// 공격가능한 타일 보여주는지 유무
 	bool _isOrdering;																// 명령수행중인지 유무
 	bool _isCharacter;																// 적인지 플레이언지 판단 변수
+	bool _isAction;																	// 명령받은 액션이 있는지 판단 변수
+
+	CHARACTER_STATE _characterState;
+	CHARACTER_DIRECTION _characterDir;
 
 public:
 	gameObject();
@@ -49,9 +55,10 @@ public:
 	virtual void setFrame();
 	virtual void previousState() = 0;												// 이전으로 돌아가는 함수
 	virtual void showPossibleMoveTile();											// 이동가능한 타일 보여주는 함수
-
+	virtual void showPossibleAttackTile();											// 공격가능한 타일 보여주는 함수
 	virtual void saveData();
 	virtual void loadData();
+	virtual void setDirectionImage();
 
 	// set함수
 	virtual void setCharacterMove(int endX, int endY, vector<TagTile*> vRoute);
@@ -59,12 +66,14 @@ public:
 	virtual void setMercenary(const char* characterName) = 0;
 	virtual void setHell(int hell) = 0;
 	virtual void setIsShowPossibleMoveTile(bool isShowPossibleMoveTile) { _isShowPossibleMoveTile = isShowPossibleMoveTile; }
+	virtual void setIsShowPossibleAttackTile(bool isSHowPossibleAttackTile) { _isShowPossibleAttackTile = isSHowPossibleAttackTile; }
 	virtual void setVRoute(vector<TagTile*> tile) { _vRoute = tile; }
 	virtual void setIsMove(bool isMove) { _isMove = isMove; }
 	virtual void setIsShow(bool isShow) { _isShow = isShow; }
 	virtual void setHp(int damage) { _hp -= damage; if (_hp < 0) _hp = 0; }
 	virtual void setSp(int consume) { _sp -= consume; if (_sp < 0) _sp = 0; }
 	virtual void setTilePosition(float x, float y);
+	virtual void setIsAction(bool isAction) { _isAction = isAction; }
 
 	// get함수
 	virtual const char* getName() { return _name; }
@@ -87,8 +96,11 @@ public:
 	virtual int getExp() { return _exp; }
 	virtual int getIndexX() { return _indexX; }
 	virtual int getIndexY() { return _indexY; }
+	virtual bool getIsOrdering() { return _isOrdering; } 
 	virtual RECT getCharacterRect() { return _rc; }
 	virtual bool getIsShow() { return _isShow; }
+	virtual bool getIsAction() { return _isAction; }
 	virtual vector<string>& getMercenary() { return _mercenary; }
 	virtual bool getIsShowPossibleMoveTile() { return _isShowPossibleMoveTile; }
+	virtual bool getIsShowPossibleAttackTile() { return _isShowPossibleMoveTile; }
 };

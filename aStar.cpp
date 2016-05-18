@@ -74,18 +74,28 @@ void aStar::checkTile()
 			// 배열 범위 넘어가는것 컨티뉴
 			if (i < 0 || j < 0 || i >= TILENUM || j >= TILENUM) continue;
 
-			// 장애물이 좌우에 있을시 패스하자
+			// 장애물이 상하좌우에 있을시 패스하자
 			if (_vCloseList[lastCloseTile]->x + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x + 1][_vCloseList[lastCloseTile]->y]->state == S_ONOBJ && i == _vCloseList[lastCloseTile]->x + 1) continue;
 			else if (_vCloseList[lastCloseTile]->x - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x - 1][_vCloseList[lastCloseTile]->y]->state == S_ONOBJ && i == _vCloseList[lastCloseTile]->x - 1) continue;
-			// 장애물이 상하에 있을시 패스하자
 			if (_vCloseList[lastCloseTile]->y + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y + 1]->state == S_ONOBJ && j == _vCloseList[lastCloseTile]->y + 1) continue;
 			else if (_vCloseList[lastCloseTile]->y - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y - 1]->state == S_ONOBJ && j == _vCloseList[lastCloseTile]->y - 1) continue;
-
+			// 적이 상하좌우에 있을시 패스하자
+			if (_vCloseList[lastCloseTile]->x + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x + 1][_vCloseList[lastCloseTile]->y]->state == S_ONENM && i == _vCloseList[lastCloseTile]->x + 1) continue;
+			else if (_vCloseList[lastCloseTile]->x - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x - 1][_vCloseList[lastCloseTile]->y]->state == S_ONENM && i == _vCloseList[lastCloseTile]->x - 1) continue;
+			if (_vCloseList[lastCloseTile]->y + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y + 1]->state == S_ONENM && j == _vCloseList[lastCloseTile]->y + 1) continue;
+			else if (_vCloseList[lastCloseTile]->y - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y - 1]->state == S_ONENM && j == _vCloseList[lastCloseTile]->y - 1) continue;
+			// 우리팀이 상하좌우에 있을시 패스하자
+			if (_vCloseList[lastCloseTile]->x + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x + 1][_vCloseList[lastCloseTile]->y]->state == S_ONCHAR && i == _vCloseList[lastCloseTile]->x + 1) continue;
+			else if (_vCloseList[lastCloseTile]->x - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x - 1][_vCloseList[lastCloseTile]->y]->state == S_ONCHAR && i == _vCloseList[lastCloseTile]->x - 1) continue;
+			if (_vCloseList[lastCloseTile]->y + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y + 1]->state == S_ONCHAR && j == _vCloseList[lastCloseTile]->y + 1) continue;
+			else if (_vCloseList[lastCloseTile]->y - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y - 1]->state == S_ONCHAR && j == _vCloseList[lastCloseTile]->y - 1) continue;
 			// 가운데 타일 컨티뉴
 			if (i == _vCloseList[lastCloseTile]->x && j == _vCloseList[lastCloseTile]->y) continue;
 
-			// 검사할 타일 허들이면 컨티뉴
+			// 검사할 타일 케릭터 또는 오브젝트면 컨티뉴
 			else if (_tile[i][j]->state == S_ONOBJ) continue;
+			else if (_tile[i][j]->state == S_ONENM) continue;
+			else if (_tile[i][j]->state == S_ONCHAR) continue;
 
 
 			////////////////////////////////////////////// openList 추가 위치 ///////////////////////////////////////////////////
@@ -93,9 +103,9 @@ void aStar::checkTile()
 			// 대각선은 컨티뉴
 			else if (abs(i - _vCloseList[lastCloseTile]->x) == 1 && abs(j - _vCloseList[lastCloseTile]->y) == 1)
 			{
-				//continue;
+				continue;
 				//// 임시값을 구해놓고 있는 f값과 비교하자
-				int tempH = abs(_end.x - i) * 10 + abs(_end.y - j) * 10;
+			/*	int tempH = abs(_end.x - i) * 10 + abs(_end.y - j) * 10;
 				int tempG = _vCloseList[lastCloseTile]->g + 17;
 				int tempF = tempH + tempG;
 
@@ -107,7 +117,7 @@ void aStar::checkTile()
 					_tile[i][j]->parent = _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y];
 					eraseVector(i, j);
 					_vOpenList.push_back(_tile[i][j]);
-				}
+				}*/
 			}
 			// 사방면 거리 10
 			else

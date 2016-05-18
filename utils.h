@@ -23,12 +23,14 @@
 #define FLOAT_EPSILON 0.001f 
 #define FLOAT_EQUAL(f1, f2)      (fabs(f1 - f2) <= FLOAT_EPSILON) //두 실수가 같은지 확인
 
-#define TILENUM 10
-#define WIDTH 192
+#define TILENUM 12
+#define WIDTH 128
+#define OFFSET 48
+#define TOTALTILE(tileNum) (tileNum) * (tileNum)
 
 enum TILESTATE
 {
-	S_NONE, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS, S_ONCHAR
+	S_NONE, S_ECT, S_ONOBJ, S_ONENM, ZEN_POINT, BOSS, S_ONCHAR
 };
 
 enum OBJSTATE
@@ -68,13 +70,21 @@ struct TagObject
 	OBJSTATE state;
 };
 
-//struct OBJ_Y_RENDER
-//{
-//	bool operator()(const TagObject& obj1, const TagObject& obj2)
-//	{
-//		return obj1.rc.bottom < obj2.rc.bottom;
-//	}
-//};
+struct OBJ_Y_RENDER
+{
+	bool operator()(const TagObject* obj1, const TagObject* obj2)
+	{
+		return obj1->pivot.y < obj2->pivot.y;
+	}
+};
+
+struct OBJ_NUM
+{
+	bool operator()(const TagObject* obj1, const TagObject* obj2)
+	{
+		return obj1->number < obj2->number;
+	}
+};
 
 struct tagItem
 {
@@ -92,13 +102,6 @@ struct tagItem
 	int sellPrice;   //플레이어가 팔 때 가격
 };
 
-//struct OBJ_NUM
-//{
-//	bool operator()(const TagObject& obj1, const TagObject& obj2)
-//	{
-//		return obj1.number < obj2.number;
-//	}
-//};
 
 namespace MY_UTIL
 {

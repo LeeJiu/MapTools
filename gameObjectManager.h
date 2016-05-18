@@ -7,6 +7,7 @@
 #include "flonne.h"
 #include "raspberyl.h"
 #include "orc.h"
+#include "boss.h"
 #include "objects.h"
 
 class battleUI;
@@ -49,7 +50,7 @@ public:
 	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
 
 	void setUnitMove(int i, int destX, int destY);
-	void setUnitAttack();
+	void setUnitAttack(int i, int destX, int destY);
 	void setUnitDefence();
 
 	void setActionAttack();
