@@ -40,20 +40,19 @@ enum OBJSTATE
 
 struct TagTile
 {
-	image* image;         // 타일의 이미지
-	RECT rc;            // 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
-	//POINT pivot;         // 타일 렉트의 중심점
-	float pivotX;
-	float pivotY;
-	TILESTATE state;      // 타일의 상태
-	TagTile* parent;      // A* 해당타일의 부모
-	int x, y;            // 타일의인덱스 x, y
-	int width;            // 타일의 폭
-	int height;            // 타일의 높이
-	int imageNum;         // 이미지 가져오기
-	int number;            // 타일의 고유 넘버값 
-	int f, g, h;         // A* 필요한 변수값
-	bool draw;            // 타일 그려진 유무 ( 이 타일위에 이미지가 그려져있는지 확인 유무)
+	image* image;			// 타일의 이미지
+	RECT rc;				// 타일의 렉트 (아이소타일이라해서 보여지는 부분만 렉트라 생각하면 ㄴㄴ)
+	float pivotX;			// 타일의 중심 x
+	float pivotY;			// 타일의 중심 y
+	TILESTATE state;		// 타일의 상태
+	TagTile* parent;		// A* 해당타일의 부모
+	int x, y;				// 타일의인덱스 x, y
+	int width;				// 타일의 폭
+	int height;				// 타일의 높이
+	int imageNum;			// 이미지 가져오기
+	int number;				// 타일의 고유 넘버값 
+	float f, g, h, d;		// A* 필요한 변수값
+	bool draw;				// 타일 그려진 유무 ( 이 타일위에 이미지가 그려져있는지 확인 유무)
 };
 
 struct TagObject

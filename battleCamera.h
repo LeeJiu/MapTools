@@ -26,8 +26,9 @@ public:
 	void setCameraCharacter(RECT rc);
 
 	void cameraTile();
-	//void cameraCharacter(vector<TagTile*> cameraTile);
 	void cameraFree();
+
+	void setTile(float firstPivotX, float firstPivotY);
 
 };
 

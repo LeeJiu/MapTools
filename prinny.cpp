@@ -80,7 +80,7 @@ void prinny::release()
 void prinny::update()
 {
 	setImage();
-	setDirectionImage();
+	gameObject::setDirectionImage();
 
 	if (_isbattle)
 	{
@@ -91,7 +91,7 @@ void prinny::update()
 			_y = (_rc.top + _rc.bottom) / 2;
 		}
 		battleKeyControl();
-		move();
+		gameObject::move();
 	}
 	else
 	{
@@ -111,13 +111,9 @@ void prinny::render()
 	{
 		if (_isShow)
 		{
-			//if (_isShowPossibleMoveTile) character::render();
-
-			if (_isShowPossibleMoveTile) showPossibleMoveTile();
+			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-			
 		}
 	}
 }
@@ -190,10 +186,6 @@ void prinny::battleKeyControl()
 {
 }
 
-void prinny::move()
-{
-	gameObject::move();
-}
 
 void prinny::setImage()
 {
@@ -259,25 +251,6 @@ void prinny::setFrame()
 		}
 		_character->setFrameX(_curFrameX);
 	}
-}
-
-void prinny::previousState()
-{
-}
-
-void prinny::showPossibleMoveTile()
-{
-	gameObject::showPossibleMoveTile();
-}
-
-void prinny::setDirectionImage()
-{
-	gameObject::setDirectionImage();
-}
-
-void prinny::attack(int targetX, int targetY)
-{
-	gameObject::attack(targetX, targetY);
 }
 
 void prinny::saveData()

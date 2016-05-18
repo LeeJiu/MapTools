@@ -200,7 +200,7 @@ void gameObject::showPossibleMoveTile()
 
 void gameObject::showPossibleAttackTile()
 {
-	for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	/*for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		if (_indexX == _vTile[i]->x && _indexY - 1 == _vTile[i]->y)
 		{
@@ -218,5 +218,11 @@ void gameObject::showPossibleAttackTile()
 		{
 			IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 		}
-	}
+	}*/
+
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX + 1][_indexY]->rc.left, _tile[_indexX + 1][_indexY]->rc.top);
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX - 1][_indexY]->rc.left, _tile[_indexX - 1][_indexY]->rc.top);
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX][_indexY + 1]->rc.left, _tile[_indexX][_indexY + 1]->rc.top);
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX][_indexY - 1]->rc.left, _tile[_indexX][_indexY - 1]->rc.top);
+
 }

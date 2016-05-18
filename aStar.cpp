@@ -28,10 +28,6 @@ void aStar::update()
 
 void aStar::render()
 {
-	for (int i = 0; i < _vRoute.size(); i++)
-	{
-		IMAGEMANAGER->findImage("tile_green")->render(getMemDC(), _vRoute[i]->rc.left, _vRoute[i]->rc.top);
-	}
 }
 
 void aStar::checkTile()
@@ -49,9 +45,11 @@ void aStar::checkTile()
 			_vRoute.clear();
 		}
 
-		_tile[_start.x][_start.y]->h = abs(_end.x - _start.x) * 10 + abs(_end.y - _start.y) * 10;
+		_tile[_start.x][_start.y]->h = abs(_end.x - _start.x) * 32 * 1.414 + abs(_end.y - _start.y) * 32 * 1.414;
 		_tile[_start.x][_start.y]->g = 0;
-		_tile[_start.x][_start.y]->f = _tile[_start.x][_start.y]->g + _tile[_start.x][_start.y]->h;
+		_tile[_start.x][_start.y]->d = getDistance(_tile[_start.x][_start.y]->pivotX, _tile[_start.x][_start.y]->pivotY,
+														_tile[_end.x][_end.y]->pivotX, _tile[_end.x][_end.y]->pivotY);
+		_tile[_start.x][_start.y]->f = _tile[_start.x][_start.y]->g + _tile[_start.x][_start.y]->h + _tile[_start.x][_start.y]->d;
 		_vCloseList.push_back(_tile[_start.x][_start.y]);
 	}
 
@@ -104,33 +102,21 @@ void aStar::checkTile()
 			else if (abs(i - _vCloseList[lastCloseTile]->x) == 1 && abs(j - _vCloseList[lastCloseTile]->y) == 1)
 			{
 				continue;
-				//// 임시값을 구해놓고 있는 f값과 비교하자
-			/*	int tempH = abs(_end.x - i) * 10 + abs(_end.y - j) * 10;
-				int tempG = _vCloseList[lastCloseTile]->g + 17;
-				int tempF = tempH + tempG;
-
-				if (tempF < _tile[i][j]->f)
-				{
-					_tile[i][j]->h = tempH;
-					_tile[i][j]->g = tempG;
-					_tile[i][j]->f = tempF;
-					_tile[i][j]->parent = _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y];
-					eraseVector(i, j);
-					_vOpenList.push_back(_tile[i][j]);
-				}*/
 			}
 			// 사방면 거리 10
 			else
 			{
 				// 임시값을 구해놓고 있는 f값과 비교하자
-				int tempH = abs(_end.x - i) * 10 + abs(_end.y - j) * 10;
-				int tempG = _vCloseList[lastCloseTile]->g + 10;
-				int tempF = tempH + tempG;
+				float tempH = abs(_end.x - i) * 32 * 1.414 + abs(_end.y - j) * 32 * 1.414;
+				float tempG = _vCloseList[lastCloseTile]->g + 32 * 1.414;
+				float tempD = getDistance(_tile[i][j]->pivotX, _tile[i][j]->pivotY, _tile[_end.x][_end.y]->pivotX, _tile[_end.x][_end.y]->pivotY);
+				float tempF = tempH + tempG + tempD;
 
 				if (tempF < _tile[i][j]->f)
 				{
 					_tile[i][j]->h = tempH;
 					_tile[i][j]->g = tempG;
+					_tile[i][j]->d = tempD;
 					_tile[i][j]->f = tempF;
 					_tile[i][j]->parent = _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y];
 					eraseVector(i, j);
