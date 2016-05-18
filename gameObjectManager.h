@@ -7,6 +7,7 @@
 #include "flonne.h"
 #include "raspberyl.h"
 #include "orc.h"
+#include "boss.h"
 #include "objects.h"
 
 class battleUI;

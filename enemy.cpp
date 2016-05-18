@@ -13,7 +13,7 @@ enemy::~enemy()
 
 HRESULT enemy::init()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 void enemy::release()

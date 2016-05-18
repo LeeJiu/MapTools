@@ -1,15 +1,11 @@
 #pragma once
 #include "enemy.h"
-class orc : public enemy
+
+class boss : public enemy
 {
-protected:
-	bool _isUp, _isRight, _isShow;
-
-	int _curFrameX, _curFrameY, _count;
-
 public:
-	orc();
-	~orc();
+	boss();
+	~boss();
 
 	HRESULT init();
 	void release();

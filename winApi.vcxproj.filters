@@ -240,6 +240,7 @@
     <ClInclude Include="title.h">
       <Filter>gameStudy\title</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="mercenaryStore.h">
       <Filter>gameStudy\store</Filter>
     </ClInclude>
@@ -248,6 +249,10 @@
     </ClInclude>
     <ClInclude Include="selectStageData.h">
       <Filter>gameStudy\selectStage</Filter>
+=======
+    <ClInclude Include="boss.h">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+>>>>>>> refs/remotes/origin/jihyun
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +388,7 @@
     <ClCompile Include="title.cpp">
       <Filter>gameStudy\title</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="mercenaryStore.cpp">
       <Filter>gameStudy\store</Filter>
     </ClCompile>
@@ -391,6 +397,10 @@
     </ClCompile>
     <ClCompile Include="selectStageData.cpp">
       <Filter>gameStudy\selectStage</Filter>
+=======
+    <ClCompile Include="boss.cpp">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+>>>>>>> refs/remotes/origin/jihyun
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
