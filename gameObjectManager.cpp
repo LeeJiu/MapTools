@@ -13,8 +13,11 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
+	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
 	_aStar = new aStar;
 	_aStar->init();
+	vEnmSize = 0;
+
 	return S_OK;
 }
 
@@ -31,14 +34,16 @@ void gameObjectManager::update()
 	}
 }
 
+
+//랜더
 void gameObjectManager::render()
 {
-	int _size = _vTile.size();
+	int _size = TOTALTILE(TILENUM);
 	for (int i = 0; i < _size; i++)
 	{
 		//Rectangle(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right, _vTile[i]->rc.bottom);
 		//_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right - _vTile[i]->rc.left, _vTile[i]->rc.bottom - _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
-		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
+		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 	
 	_battleUI->renderOverlapSelectTile();
@@ -91,7 +96,7 @@ void gameObjectManager::setTile()
 		{
 			_tile[i][j] = new TagTile;
 			_tile[i][j]->image = new image;
-			_tile[i][j]->image->init("image/isoTile.bmp", 768, 1056, 4, 11, true, 0xff00ff);
+			_tile[i][j]->image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
 			_tile[i][j]->width = WIDTH;
 			_tile[i][j]->height = WIDTH / 2;
 			_tile[i][j]->rc = RectMakeCenter(firstPivot.x + i * _tile[i][j]->width / 2 - j * _tile[i][j]->width / 2, firstPivot.y + i * _tile[i][j]->width / 4 + j * _tile[i][j]->width / 4, _tile[i][j]->width, _tile[i][j]->height);
@@ -148,15 +153,12 @@ void gameObjectManager::setEnemy()
 
 	//|,0,2,2,5,0,|,1,2,3,5,0,|,2,2,4,5,0
 	// 
+
+
+
 	// 에너미파일 로드
-
 	DATABASE->loadDatabase("battleMap1_enm.txt");
-
-
-	//for (int i = 0; i < vEnmSize; i++)
-	//{
-		// 지현아 내가 물어볼것들
-
+	
 		// 위에 보면 에너미저장된 데이터는 저렇게 되어있음 구분자 "|" 를 기준으로 3개가 있는데
 		// 0번째가 DATABASE의 맵 키값이 되는거?
 		// 그리고 몬스터를 구분할려면 어떤걸 쓰는거?
@@ -164,31 +166,32 @@ void gameObjectManager::setEnemy()
 		
 		// 아래는 예시 이렇게 할 생각임
 
-	//for (int i = 0; i < vEnmSize; i++)
-	//{
-	//	switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
-	//	{
-	//	case 0:
-	//		gameObject* _orc = new orc;
-	//		_orc->init();
-	//		_vEnemy.push_back(_orc);
-	//		_vGameObject.push_back(_orc);
-	//		break;
-	//	case 1:
-	//		gameObject* _boss = new boss;
-	//		_boss->init();
-	//		_vEnemy.push_back(_boss);
-	//		_vGameObject.push_back(_boss);
-	//		break;
-	//	}
-	//}
+	for (int i = 0; i < vEnmSize; i++)
+	{
+		//gameObject* enemy;
+		//switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
+		//{
+		//case 0:
+		//	enemy = new orc;
+		//	enemy->init();
+		//	break;
+		//case 1:
+		//	enemy = new boss;
+		//	enemy->init();
+		//	break;
+		//default:
+		//	break;
+		//}
+		//
+		//_vGameObject.push_back(enemy);
+	}
 
+	int a = 0;
 	//---------------------------------------------------------------------------------
 		//DATABASE->getElementData(std::to_string(i))->;
 		//_vStr[4] -> 몹 구별 넘버값이면 이걸로 스위치 돌리고
 		//_vStr[3] _vStr[2]-> x, y 타일 넘버 넘겨주면서 인잇하고 벡터 넣어준다.
 
-	//}
 }
 
 void gameObjectManager::setObject()
@@ -242,7 +245,7 @@ void gameObjectManager::loadMapData()
 		(*_viTile)->x = DATABASE->getElementData(itoa((*_viTile)->number, temp, 10))->x;
 		(*_viTile)->y = DATABASE->getElementData(itoa((*_viTile)->number, temp, 10))->y;
 		(*_viTile)->imageNum = DATABASE->getElementData(itoa((*_viTile)->number, temp, 10))->imageNum;
-		if ((*_viTile)->imageNum < 50)
+		if ((*_viTile)->imageNum < 100)
 		{
 			(*_viTile)->draw = true;
 			(*_viTile)->image->setFrameX((*_viTile)->imageNum % 4);

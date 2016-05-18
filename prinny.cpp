@@ -56,11 +56,10 @@ HRESULT prinny::init(vector<TagTile*> tile)
 	_indexX = 4;
 	_indexY = 9;
 	_mv = 4;
-
 	_isShow = false;
 	_isbattle = true;
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 	}
