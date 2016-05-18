@@ -72,6 +72,10 @@ HRESULT gameStudy::init()
 	//임시로 확인용 이미지임
 	IMAGEMANAGER->addImage("tile_green", "image/tile_green.bmp", 192, 96, true, 0xff00ff);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/backup-Jaejun
 	SCENEMANAGER->changeScene("title");
 
 	return S_OK;

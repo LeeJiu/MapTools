@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "selectStage.h"
 
-
 selectStage::selectStage()
 {
 }
@@ -56,6 +55,7 @@ HRESULT selectStage::init()
 	_imageShortcutSkip = IMAGEMANAGER->addImage("shortcut_skip", "image/shortcut_key_2.bmp", 30, 30, true, 0xff00ff);
 	_imageShortcutExit = IMAGEMANAGER->addImage("shortcut_exit", "image/shortcut_key_Q.bmp", 30, 30, true, 0xff00ff);
 
+	_selectMapNumber = 0;
 	mapListInit();
 
 	return S_OK;
@@ -87,6 +87,7 @@ void selectStage::update()
 		//START BUTTON
 		if (PtInRect(&_rcGoingStart, _ptMouse))
 		{
+			STAGEDATA->setSElectStageNumber(_selectMapNumber);
 			SCENEMANAGER->changeScene("battleScene");
 		}
 

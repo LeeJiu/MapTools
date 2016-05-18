@@ -47,6 +47,14 @@ void gameObject::move()
 
 	if (fabs(_vRoute[_idx]->pivotX - _x) < _moveSpeed * 2 && fabs(_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 - _y) < _moveSpeed)
 	{
+<<<<<<< HEAD
+=======
+		//_x = _vRoute[_idx]->x;
+		//_y = _vRoute[_idx]->y;
+		//_x = CENTERX;
+		//_y = CENTERY - _prinny.image->getFrameHeight() / 2;
+		//_prinny.rc = RectMakeIso(_tile[_x][_y]->pivotX, _tile[_x][_y]->pivotY, _prinny.image->getFrameWidth(), _prinny.image->getFrameHeight());
+>>>>>>> refs/remotes/origin/backup-Jaejun
 		if (_vRoute[_idx]->x == _destX && _vRoute[_idx]->y == _destY)
 		{
 			_indexX = _destX;

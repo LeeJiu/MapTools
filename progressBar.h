@@ -12,6 +12,8 @@ private:
 	image* _progressBarFront;
 	image* _progressBarBack;
 
+	bool _type;
+
 public:
 	progressBar();
 	~progressBar();

@@ -58,6 +58,13 @@ void gameObjectManager::render()
 
 void gameObjectManager::setUnitMove(int i, int destX, int destY)
 {
+<<<<<<< HEAD
+=======
+	//_vGameObject[i]->setVRoute(_aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
+	//_vGameObject[i]->setIsMove(true);
+
+
+>>>>>>> refs/remotes/origin/backup-Jaejun
 	_vGameObject[i]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
 }
 
@@ -221,8 +228,16 @@ void gameObjectManager::setAstar()
 
 void gameObjectManager::loadMapData()
 {
-	//타일로드
-	DATABASE->loadDatabase("battleMap1.txt");
+	if (STAGEDATA->getSelectStageNumber() == 0)
+	{
+		//타일로드
+		DATABASE->loadDatabase("battleMap1.txt");		
+	}
+	if (STAGEDATA->getSelectStageNumber() == 1)
+	{
+		DATABASE->loadDatabase("battleMap2.txt");
+	}
+
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
 		char temp[128];
