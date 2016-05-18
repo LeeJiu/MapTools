@@ -11,9 +11,9 @@ battleCamera::~battleCamera()
 {
 }
 
-HRESULT battleCamera::init(vector<TagTile*>& tile)
+HRESULT battleCamera::init(vector<TagTile*> tile)
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 	}
@@ -31,6 +31,11 @@ void battleCamera::update()
 {
 	cameraFree();
 	cameraTile();
+
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	{
+		_isMapScrool = false;
+	}
 }
 
 void battleCamera::render()
@@ -39,6 +44,8 @@ void battleCamera::render()
 
 void battleCamera::setCameraTile(int x, int y)
 {
+	if (_cameraTileX == x && _cameraTileY == y) return;
+
 	if (!_isMapScrool)
 	{
 		// 목적지 저장
@@ -90,9 +97,9 @@ void battleCamera::cameraTile()
 	}
 }
 
-void battleCamera::cameraCharacter(vector<TagTile*> cameraTile)
-{
-}
+//void battleCamera::cameraCharacter(vector<TagTile*> cameraTile)
+//{
+//}
 
 void battleCamera::cameraFree()
 {

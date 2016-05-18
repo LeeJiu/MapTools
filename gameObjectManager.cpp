@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
-
+#include "battleUI.h"
 
 gameObjectManager::gameObjectManager()
 {
@@ -16,7 +16,6 @@ HRESULT gameObjectManager::init()
 	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
 	_aStar = new aStar;
 	_aStar->init();
-
 	vEnmSize = 0;
 
 	return S_OK;
@@ -28,26 +27,48 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-
+	int _size = _vGameObject.size();
+	for (int i = 0; i < _size; i++)
+	{
+		_vGameObject[i]->update();
+	}
 }
 
 
 //랜더
 void gameObjectManager::render()
 {
-	int _vTileSize = _vTile.size();
-	for (int i = 0; i < _vTileSize; i++)
+	int _size = TOTALTILE(TILENUM);
+	for (int i = 0; i < _size; i++)
 	{
-		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
+		//Rectangle(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right, _vTile[i]->rc.bottom);
+		//_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right - _vTile[i]->rc.left, _vTile[i]->rc.bottom - _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
+		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
+	
+	_battleUI->renderOverlapSelectTile();
+
+	_size = _vGameObject.size();
+	for (int i = 0; i < _size; i++)
+	{
+		_vGameObject[i]->render();
+	}
+
+	char str[128];
+	sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
+	TextOut(getMemDC(), 10, 10, str, strlen(str));
+
+	_aStar->render();
 }
 
-void gameObjectManager::setUnitMove()
+void gameObjectManager::setUnitMove(int i, int destX, int destY)
 {
+	_vGameObject[i]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
 }
 
-void gameObjectManager::setUnitAttack()
+void gameObjectManager::setUnitAttack(int i, int destX, int destY)
 {
+	_vGameObject[i]->attack(destX, destY);
 }
 
 void gameObjectManager::setUnitDefence()
@@ -75,7 +96,7 @@ void gameObjectManager::setTile()
 		{
 			_tile[i][j] = new TagTile;
 			_tile[i][j]->image = new image;
-			_tile[i][j]->image->init("image/isoTile.bmp", 1024, 1408, 4, 11, true, 0xff00ff);
+			_tile[i][j]->image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
 			_tile[i][j]->width = WIDTH;
 			_tile[i][j]->height = WIDTH / 2;
 			_tile[i][j]->rc = RectMakeCenter(firstPivot.x + i * _tile[i][j]->width / 2 - j * _tile[i][j]->width / 2, firstPivot.y + i * _tile[i][j]->width / 4 + j * _tile[i][j]->width / 4, _tile[i][j]->width, _tile[i][j]->height);
@@ -102,13 +123,13 @@ void gameObjectManager::setCharacter()
 	// 프리니정보 로드해온다 (용병 개수 + 이름)									-> 지우저장된거 후에 확인하자
 	gameObject* _prinny = new prinny;
 	_prinny->init(_vTile);
-	_vCharacter.push_back(_prinny);
 	_vGameObject.push_back(_prinny);
+	_vToTalRender.push_back(_prinny);
 
 	gameObject* _prinny1 = new prinny;
 	_prinny1->init(_vTile);
-	_vCharacter.push_back(_prinny1);
 	_vGameObject.push_back(_prinny1);
+	_vToTalRender.push_back(_prinny1);
 
 	//_vCharacter[0]->겟용병개수백터;
 	
@@ -147,23 +168,22 @@ void gameObjectManager::setEnemy()
 
 	for (int i = 0; i < vEnmSize; i++)
 	{
-		gameObject* enemy;
-		switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
-		{
-		case 0:
-			enemy = new orc;
-			enemy->init();
-			break;
-		case 1:
-			enemy = new boss;
-			enemy->init();
-			break;
-		default:
-			break;
-		}
-	
-		_vEnemy.push_back(enemy);
-		_vGameObject.push_back(enemy);
+		//gameObject* enemy;
+		//switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
+		//{
+		//case 0:
+		//	enemy = new orc;
+		//	enemy->init();
+		//	break;
+		//case 1:
+		//	enemy = new boss;
+		//	enemy->init();
+		//	break;
+		//default:
+		//	break;
+		//}
+		//
+		//_vGameObject.push_back(enemy);
 	}
 
 	int a = 0;
@@ -205,8 +225,16 @@ void gameObjectManager::setAstar()
 
 void gameObjectManager::loadMapData()
 {
-	//타일로드
-	DATABASE->loadDatabase("battleMap1.txt");
+	if (STAGEDATA->getSelectStageNumber() == 0)
+	{
+		//타일로드
+		DATABASE->loadDatabase("battleMap1.txt");		
+	}
+	if (STAGEDATA->getSelectStageNumber() == 1)
+	{
+		DATABASE->loadDatabase("battleMap2.txt");
+	}
+
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
 		char temp[128];
@@ -217,7 +245,7 @@ void gameObjectManager::loadMapData()
 		(*_viTile)->x = DATABASE->getElementData(itoa((*_viTile)->number, temp, 10))->x;
 		(*_viTile)->y = DATABASE->getElementData(itoa((*_viTile)->number, temp, 10))->y;
 		(*_viTile)->imageNum = DATABASE->getElementData(itoa((*_viTile)->number, temp, 10))->imageNum;
-		if ((*_viTile)->imageNum < 50)
+		if ((*_viTile)->imageNum < 100)
 		{
 			(*_viTile)->draw = true;
 			(*_viTile)->image->setFrameX((*_viTile)->imageNum % 4);

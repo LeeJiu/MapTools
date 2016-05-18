@@ -39,6 +39,12 @@ inline RECT RectMakeCenter(int x, int y, int width, int height)
 	return rc;
 }
 
+inline RECT RectMakeIso(int x, int y, int width, int height)
+{
+	RECT rc = { x - (width / 2), y - height, x + (width / 2), y };
+	return rc;
+}
+
 inline void EllipseMake(HDC hdc, int x, int y, int width, int height)
 {
 	Ellipse(hdc, x, y, x + width, y + height);

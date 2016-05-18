@@ -37,6 +37,8 @@ HRESULT battleScene::init()
 	_battleUI->setBattleManagerMemoryLink(_battleMgr);
 	_battleUI->setCharacterList();
 
+	_battleUI->setGameObjectSize();
+	_battleUI->setCamera();
 
 	return S_OK;
 }

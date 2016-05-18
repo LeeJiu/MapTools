@@ -179,34 +179,9 @@ void mapTool::render()
 	
 			sprintf_s(str, "number = %d", _vRender[i]->number);
 			TextOut(getMemDC(), _vRender[i]->rc.left, _vRender[i]->rc.top, str, strlen(str));
-
-			sprintf_s(str, "n[%d]umber = %d", i,_vRender[i]->number);
-			TextOut(getMemDC(), 350, 30 + 30 * i, str, strlen(str));
 		}
 	}
 
-	//각각의 오브젝트 출력
-	//for (int i = 0; i < _vObj.size(); i++)
-	//{
-	//	//Rectangle(getMemDC(), _vObj[i]->rc.left, _vObj[i]->rc.top, _vObj[i]->rc.right, _vObj[i]->rc.bottom);
-	//   if (_vObj[i]->draw)
-	//   {
-	//      _vObj[i]->image->frameRender(getMemDC(), _vObj[i]->rc.left, _vObj[i]->rc.top);
-	//      
-	//      sprintf_s(str, "draw = %d", _vObj[i]->draw);
-	//      TextOut(getMemDC(), _vObj[i]->rc.left, _vObj[i]->rc.top, str, strlen(str));
-	//   }
-	//}
-	//
-	////각각의 적 출력
-	//for (int i = 0; i < _vEnemy.size(); i++)
-	//{
-	//   //Rectangle(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top, _vEnemy[i].rc.right, _vEnemy[i].rc.bottom);
-	//   if (_vEnemy[i]->draw)
-	//   {
-	//	   _vEnemy[i]->image->frameRender(getMemDC(), _vEnemy[i]->rc.left, _vEnemy[i]->rc.top);
-	//   }
-	//}
 
 	///////////////////////////////////////////////////////////////////////////////
 
@@ -413,9 +388,11 @@ void mapTool::keyControl()
 								case 1:
 									_vEnemy[i]->image->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
 									_vEnemy[i]->state = E_NORMAL;
+									break;
 								case 2:
 									_vEnemy[i]->image->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
 									_vEnemy[i]->state = E_NORMAL;
+									break;
 								default:
 									break;
 								}
@@ -765,8 +742,10 @@ void mapTool::loadMapData()
 				break;
 			case 1:
 				_vEnemy[i]->image->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+				break;
 			case 2:
 				_vEnemy[i]->image->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
+				break;
 			default:
 				break;
 			}

@@ -7,7 +7,7 @@
 #include "mapTool.h"
 #include "title.h"
 #include "store.h"
-
+#include "mercenaryStore.h"
 
 class gameStudy : public gameNode
 {

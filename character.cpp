@@ -31,7 +31,7 @@ void character::update()
 
 void character::render()
 {
-	if(_isShowPossibleMoveTile) showPossibleMoveTile();
+
 }
 
 void character::keyControl()
@@ -69,6 +69,10 @@ void character::showPossibleMoveTile()
 			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 		}
 	}
+}
+
+void character::setDirectionImage()
+{
 }
 
 void character::saveData()

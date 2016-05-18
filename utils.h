@@ -23,7 +23,7 @@
 #define FLOAT_EPSILON 0.001f 
 #define FLOAT_EQUAL(f1, f2)      (fabs(f1 - f2) <= FLOAT_EPSILON) //두 실수가 같은지 확인
 
-#define TILENUM 15
+#define TILENUM 12
 #define WIDTH 128
 #define OFFSET 48
 #define TOTALTILE(tileNum) (tileNum) * (tileNum)
