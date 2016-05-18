@@ -97,10 +97,6 @@ void battleCamera::cameraTile()
 	}
 }
 
-//void battleCamera::cameraCharacter(vector<TagTile*> cameraTile)
-//{
-//}
-
 void battleCamera::cameraFree()
 {
 	if (_isMapScrool) return;

@@ -90,7 +90,7 @@ HRESULT battleUI::init()
 
 	IMAGEMANAGER->addFrameImage("ui_arrow_blue", "image/ui_arrow_blue.bmp", 711, 100, 9, 1, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("ui_arrow_red", "image/ui_arrow_red.bmp", 711, 100, 9, 1, true, 0xff00ff); 
-	_imageSelectTile = IMAGEMANAGER->addImage("selectTile", "image/ui_selectTile.bmp", 192, 96, true, 0xff00ff);
+	_imageSelectTile = IMAGEMANAGER->addImage("selectTile", "image/ui_selectTile.bmp", 128, 64, true, 0xff00ff);
 
 	_isSelectCharacter = false;
 	_selectCharacterNumber = 0;

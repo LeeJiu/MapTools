@@ -193,7 +193,7 @@ void aStar::resultRoute(int x, int y)
 
 void aStar::setTile(vector<TagTile*> tile)
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 		_tile[i % TILENUM][i / TILENUM]->f = 9999;
