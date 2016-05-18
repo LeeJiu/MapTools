@@ -69,8 +69,10 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("prinny_lift", "image/character/prinny_lift.bmp", 720, 524, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("prinny_etc", "image/character/prinny_etc.bmp", 468, 528, 4, 4, true, 0xff00ff);
 
+	//임시로 확인용 이미지임
+	IMAGEMANAGER->addImage("tile_green", "image/tile_green.bmp", 192, 96, true, 0xff00ff);
 
-	SCENEMANAGER->changeScene("battleScene");
+	SCENEMANAGER->changeScene("title");
 
 	return S_OK;
 }

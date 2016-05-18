@@ -93,7 +93,7 @@ HRESULT battleUI::init()
 	_imageSelectTile = IMAGEMANAGER->addImage("selectTile", "image/ui_selectTile.bmp", 192, 96, true, 0xff00ff);
 
 	_isSelectCharacter = false;
-	_isSelectCharacterNumber = 0;
+	_selectCharacterNumber = 0;
 
 	_isFirstInit = false;
 
@@ -112,7 +112,7 @@ void battleUI::update()
 		turnChange();
 		return;
 	}
-
+	
 	if (_isTurnShow)
 	{
 		turnChange();
@@ -356,7 +356,7 @@ void battleUI::unitOrderListClick(int unitOrderNumber)
 	switch (unitOrderNumber)
 	{
 	case 0:	//이동
-		_gameObjMgr->getGameObject()[_isSelectCharacterNumber]->setIsShowPossibleMoveTile(true);
+		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(true);
 		break;
 	case 1:	//공격
 
@@ -539,7 +539,7 @@ void battleUI::LButtonClick()
 		{
 			if (_gameObjMgr->getGameObject()[i]->getIsShow())
 			{
-				_isSelectCharacterNumber = i;				
+				_selectCharacterNumber = i;
 				_isSelectCharacter = true;
 				_isOnUnitOrderList = true;
 				return;
@@ -547,7 +547,7 @@ void battleUI::LButtonClick()
 		}
 	}
 
-	//소환 타일을 클릭했는지 체크하자
+	//타일을 클릭했는지 체크하자
 	for (int i = 0; i < _gameObjMgr->getTile().size(); i++)
 	{
 		if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
@@ -557,7 +557,30 @@ void battleUI::LButtonClick()
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 			{
-				_battleCamera->setCameraTile(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+
+				//캐릭터의 MOVE SHOW가 모두 FALSE인지 체크하자
+				int count = 0;
+				for (int i = 0; i < _characterSize; i++)
+				{
+					if (!_gameObjMgr->getGameObject()[i]->getIsShowPossibleMoveTile())
+						count++;
+				}
+				//캐릭터의 모든 MOVE SHOW FALSE COUNT가 캐릭터 사이즈와 같다면 카메라를 움직이자 (캐릭터 이동을 클릭한 적이 없다)
+				if (count == _characterSize)
+				{
+					_battleCamera->setCameraTile(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+				}
+				else
+				{
+					_gameObjMgr->setUnitMove(_selectCharacterNumber, _gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+
+					for (int i = 0; i < _characterSize; i++)
+					{
+						_gameObjMgr->getGameObject()[i]->setIsShowPossibleMoveTile(false);
+					}
+				}
+
+				//소환 타일을 선택했는지 체크하자
 				if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
 				{
 					_isOnStatus = true;

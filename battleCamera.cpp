@@ -31,6 +31,11 @@ void battleCamera::update()
 {
 	cameraFree();
 	cameraTile();
+
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	{
+		_isMapScrool = false;
+	}
 }
 
 void battleCamera::render()

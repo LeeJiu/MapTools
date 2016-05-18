@@ -90,4 +90,5 @@ public:
 	virtual RECT getCharacterRect() { return _rc; }
 	virtual bool getIsShow() { return _isShow; }
 	virtual vector<string>& getMercenary() { return _mercenary; }
+	virtual bool getIsShowPossibleMoveTile() { return _isShowPossibleMoveTile; }
 };
