@@ -30,6 +30,7 @@
 #include "sceneManager.h"
 #include "database.h"
 #include "actionManager.h"
+#include "selectStageData.h"
 
 using namespace MY_UTIL;
 
@@ -58,6 +59,7 @@ using namespace MY_UTIL;
 #define SCENEMANAGER sceneManager::getSingleton()
 #define DATABASE database::getSingleton()
 #define ACTIONMANAGER actionManager::getSingleton()
+#define STAGEDATA selectStageData::getSingleton()
 
 /* ===== 전역 변수 ===== */
 extern POINT _ptMouse;

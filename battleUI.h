@@ -96,7 +96,8 @@ private:
 	battleCamera* _battleCamera;
 	int _count;                    // Select Tile Arrow Motion Count
 
-
+	RECT _rcStatusBottomName;
+	const char* _statusBottomName;
 	progressBar* _progressBarHp;
 	progressBar* _progressBarSp;
 

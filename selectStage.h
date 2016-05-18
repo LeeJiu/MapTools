@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+
 class selectStage : public gameNode
 {
 private:
@@ -35,7 +36,6 @@ private:
 
 	int _mapListSize;
 	int _selectMapNumber;
-
 public:
 	selectStage();
 	~selectStage();
