@@ -28,6 +28,7 @@ protected:
 	bool _isShow;
 	bool _isMove;																	// 움직이고 있는지 유무
 	bool _isShowPossibleMoveTile;													// 이동가능한 타일 보여주는지 유무
+	bool _isShowPossibleAttackTile;													// 공격가능한 타일 보여주는지 유무
 	bool _isOrdering;																// 명령수행중인지 유무
 	bool _isCharacter;																// 적인지 플레이언지 판단 변수
 	bool _isAction;																	// 명령받은 액션이 있는지 판단 변수
@@ -54,6 +55,7 @@ public:
 	virtual void setFrame();
 	virtual void previousState() = 0;												// 이전으로 돌아가는 함수
 	virtual void showPossibleMoveTile();											// 이동가능한 타일 보여주는 함수
+	virtual void showPossibleAttackTile();											// 공격가능한 타일 보여주는 함수
 	virtual void saveData();
 	virtual void loadData();
 	virtual void setDirectionImage();
@@ -64,6 +66,7 @@ public:
 	virtual void setMercenary(const char* characterName) = 0;
 	virtual void setHell(int hell) = 0;
 	virtual void setIsShowPossibleMoveTile(bool isShowPossibleMoveTile) { _isShowPossibleMoveTile = isShowPossibleMoveTile; }
+	virtual void setIsShowPossibleAttackTile(bool isSHowPossibleAttackTile) { _isShowPossibleAttackTile = isSHowPossibleAttackTile; }
 	virtual void setVRoute(vector<TagTile*> tile) { _vRoute = tile; }
 	virtual void setIsMove(bool isMove) { _isMove = isMove; }
 	virtual void setIsShow(bool isShow) { _isShow = isShow; }
@@ -99,4 +102,5 @@ public:
 	virtual bool getIsAction() { return _isAction; }
 	virtual vector<string>& getMercenary() { return _mercenary; }
 	virtual bool getIsShowPossibleMoveTile() { return _isShowPossibleMoveTile; }
+	virtual bool getIsShowPossibleAttackTile() { return _isShowPossibleMoveTile; }
 };
