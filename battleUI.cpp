@@ -113,7 +113,6 @@ void battleUI::release()
 void battleUI::update()
 {
 	// 첫 턴이면 STAGE START를 한번 출력하자
-<<<<<<< HEAD
 	if (_isFirstShow)
 	{
 		turnChange();
@@ -125,18 +124,6 @@ void battleUI::update()
 		turnChange();
 		return;
 	}
-=======
-	//if (_isFirstShow)
-	//{
-	//	turnChange();
-	//	return;
-	//}
-	//if (_isTurnShow)
-	//{
-	//	turnChange();
-	//	return;
-	//}
->>>>>>> refs/remotes/origin/backup-Jaejun
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) LButtonClick();
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON)) RButtonClick();
@@ -573,10 +560,8 @@ void battleUI::LButtonClick()
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 			{
-<<<<<<< HEAD
 				// 최근 선택한 케릭터의 이동가능한 타일이 보여지지 않으면 카메라를 움직여라
 				if(!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile())
-=======
 				_isOnOrderList = false;
 
 				//캐릭터의 MOVE SHOW가 모두 FALSE인지 체크하자
@@ -588,19 +573,16 @@ void battleUI::LButtonClick()
 				}
 				//캐릭터의 모든 MOVE SHOW FALSE COUNT가 캐릭터 사이즈와 같다면 카메라를 움직이자 (캐릭터 이동을 클릭한 적이 없다)
 				if (count == _characterSize)
->>>>>>> refs/remotes/origin/backup-Jaejun
 				{
 					_battleCamera->setCameraTile(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
 				}
 				// 케릭터의 이동 가능한 타일이 보여진다면
 				else
 				{
-<<<<<<< HEAD
 					// 케릭터 이동 함수를 호출한다
 					_gameObjMgr->setUnitMove(_selectCharacterNumber, _gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
 					// 이동가능한 타일을 꺼준다.
 					_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(false);
-=======
 					if (_gameObjMgr->getTile()[i]->state == S_NONE)
 					{
 						_gameObjMgr->setUnitMove(_selectCharacterNumber, _gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
@@ -609,7 +591,6 @@ void battleUI::LButtonClick()
 					{
 						_gameObjMgr->getGameObject()[i]->setIsShowPossibleMoveTile(false);
 					}
->>>>>>> refs/remotes/origin/backup-Jaejun
 				}
 
 				//소환 타일을 선택했는지 체크하자

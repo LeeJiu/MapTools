@@ -58,13 +58,6 @@ void gameObjectManager::render()
 
 void gameObjectManager::setUnitMove(int i, int destX, int destY)
 {
-<<<<<<< HEAD
-=======
-	//_vGameObject[i]->setVRoute(_aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
-	//_vGameObject[i]->setIsMove(true);
-
-
->>>>>>> refs/remotes/origin/backup-Jaejun
 	_vGameObject[i]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
 }
 
