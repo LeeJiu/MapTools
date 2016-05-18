@@ -50,8 +50,8 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("flonne_etc", "image/character/flonne_etc.bmp", 236, 620, 2, 4, true, 0xff00ff);
 
 	//배틀씬에서 사용될 이미지 추가
-	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 192, 96, true, 0xff00ff);
-	IMAGEMANAGER->addImage("attackable", "image/battle/attackable_tile.bmp", 192, 96, true, 0xff00ff);
+	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 128, 64, true, 0xff00ff);
+	IMAGEMANAGER->addImage("attackable", "image/battle/attackable_tile.bmp", 128, 64, true, 0xff00ff);
 	
 	//씬 추가
 	SCENEMANAGER->addScene("town", new town);
