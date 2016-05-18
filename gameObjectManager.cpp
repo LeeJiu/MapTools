@@ -15,7 +15,6 @@ HRESULT gameObjectManager::init()
 {
 	_aStar = new aStar;
 	_aStar->init();
-
 	return S_OK;
 }
 
@@ -53,12 +52,13 @@ void gameObjectManager::render()
 	char str[128];
 	sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
 	TextOut(getMemDC(), 10, 10, str, strlen(str));
+
+	_aStar->render();
 }
 
 void gameObjectManager::setUnitMove(int i, int destX, int destY)
 {
-	_vGameObject[i]->setVRoute(_aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
-	_vGameObject[i]->setIsMove(true);
+	_vGameObject[i]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
 }
 
 void gameObjectManager::setUnitAttack()

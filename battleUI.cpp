@@ -118,7 +118,7 @@ void battleUI::update()
 		turnChange();
 		return;
 	}
-
+	
 	if (_isTurnShow)
 	{
 		turnChange();
@@ -532,7 +532,10 @@ void battleUI::LButtonClick()
 		{
 			if (_gameObjMgr->getGameObject()[i]->getIsShow())
 			{
+<<<<<<< HEAD
 				_isSelectCharacter = true;
+=======
+>>>>>>> refs/remotes/origin/moobin
 				_selectCharacterNumber = i;
 				_isSelectCharacter = true;
 				_isOnUnitOrderList = true;
@@ -563,7 +566,11 @@ void battleUI::LButtonClick()
 				int count = 0;
 				for (int i = 0; i < _characterSize; i++)
 				{
+<<<<<<< HEAD
 					if (!_gameObjMgr->getGameObject()[i]->getIsShowPossibleMoveTile())	
+=======
+					if (!_gameObjMgr->getGameObject()[i]->getIsShowPossibleMoveTile())
+>>>>>>> refs/remotes/origin/moobin
 						count++;
 				}
 				//캐릭터의 모든 MOVE SHOW FALSE COUNT가 캐릭터 사이즈와 같다면 카메라를 움직이자 (캐릭터 이동을 클릭한 적이 없다)
@@ -573,7 +580,12 @@ void battleUI::LButtonClick()
 				}
 				else
 				{
+<<<<<<< HEAD
 					_gameObjMgr->getGameObject()[_selectCharacterNumber]->move(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+=======
+					_gameObjMgr->setUnitMove(_selectCharacterNumber, _gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+
+>>>>>>> refs/remotes/origin/moobin
 					for (int i = 0; i < _characterSize; i++)
 					{
 						_gameObjMgr->getGameObject()[i]->setIsShowPossibleMoveTile(false);

@@ -91,4 +91,5 @@ public:
 	virtual bool getIsShow() { return _isShow; }
 	virtual bool getIsShowPossibleMoveTile() { return _isShowPossibleMoveTile; }
 	virtual vector<string>& getMercenary() { return _mercenary; }
+	virtual bool getIsShowPossibleMoveTile() { return _isShowPossibleMoveTile; }
 };
