@@ -47,16 +47,13 @@ void gameObject::move()
 
 	if (fabs(_vRoute[_idx]->pivotX - _x) < _moveSpeed * 2 && fabs(_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 - _y) < _moveSpeed)
 	{
-		//_x = _vRoute[_idx]->x;
-		//_y = _vRoute[_idx]->y;
-		//_x = CENTERX;
-		//_y = CENTERY - _prinny.image->getFrameHeight() / 2;
-		//_prinny.rc = RectMakeIso(_tile[_x][_y]->pivotX, _tile[_x][_y]->pivotY, _prinny.image->getFrameWidth(), _prinny.image->getFrameHeight());
 		if (_vRoute[_idx]->x == _destX && _vRoute[_idx]->y == _destY)
 		{
 			_indexX = _destX;
 			_indexY = _destY;
 			_isMove = false;
+			if(_isCharacter) _vRoute[_idx]->state = S_ONCHAR;
+			else _vRoute[_idx]->state = S_ONENM;
 			_idx = 0;
 			return;
 		}
@@ -90,7 +87,7 @@ void gameObject::move()
 	}
 
 	// [0][0]번째의 pivot기준으로 렉트 재갱신 하자
-	setTilePosition(_tile[0][0]->pivotX, _tile[0][0]->pivotY);
+	gameObject::setTilePosition(_tile[0][0]->pivotX, _tile[0][0]->pivotY);
 }
 
 void gameObject::attack(int targetX, int targetY)
@@ -117,6 +114,7 @@ void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
 {
 	if (!_isMove)
 	{
+		_tile[_indexX][_indexY]->state = S_NONE;
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
@@ -151,6 +149,7 @@ void gameObject::showPossibleMoveTile()
 	{
 		if (abs(_indexX - _vTile[i]->x) + abs(_indexY - _vTile[i]->y) <= _mv)
 		{
+			if(_vTile[i]->state == S_NONE)
 			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 		}
 	}
