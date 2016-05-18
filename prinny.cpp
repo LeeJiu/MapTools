@@ -250,7 +250,7 @@ void prinny::setFrame()
 		break;
 	}
 
-	if (_count % 10 == 0)
+	if (_count % 7 == 0)
 	{
 		_curFrameX++;
 		if (_curFrameX > _character->getMaxFrameX())

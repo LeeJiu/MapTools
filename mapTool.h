@@ -94,6 +94,8 @@ public:
 	void setEnemy();
 	void setRender();
 	void setFirstRender();
+	void moveTile();
+	void setTile(float firstPivotX, float firstPivotY);
 
 	void setPickNum();
 
