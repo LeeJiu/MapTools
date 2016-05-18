@@ -197,3 +197,15 @@ void gameObject::showPossibleMoveTile()
 		}
 	}
 }
+
+void gameObject::showPossibleAttackTile()
+{
+	for (int i = 0; i < 100; i++)
+	{
+		if (abs(_indexX - _vTile[i]->x) + abs(_indexY - _vTile[i]->y) <= _mv)
+		{
+			if(_vTile[i]->state == S_NONE)
+			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+		}
+	}
+}
