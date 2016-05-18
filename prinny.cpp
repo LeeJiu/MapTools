@@ -114,7 +114,7 @@ void prinny::render()
 			//if (_isShowPossibleMoveTile) character::render();
 
 			if (_isShowPossibleMoveTile) showPossibleMoveTile();
-			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile;
+			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 			
