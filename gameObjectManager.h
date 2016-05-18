@@ -49,7 +49,7 @@ public:
 	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
 
 	void setUnitMove(int i, int destX, int destY);
-	void setUnitAttack();
+	void setUnitAttack(int i, int destX, int destY);
 	void setUnitDefence();
 
 	void setActionAttack();

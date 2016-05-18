@@ -81,6 +81,7 @@ void prinny::release()
 void prinny::update()
 {
 	setImage();
+	setDirectionImage();
 
 	if (_isbattle)
 	{
@@ -131,14 +132,7 @@ void prinny::keyControl()
 		{
 			_characterState = WALK;
 		}
-		if (_isUp)
-		{
-			_characterDir = LT;
-		}
-		else
-		{
-			_characterDir = LB;
-		}
+		
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
@@ -146,14 +140,6 @@ void prinny::keyControl()
 		if (_characterState != WALK)
 		{
 			_characterState = WALK;
-		}
-		if (_isUp)
-		{
-			_characterDir = RT;
-		}
-		else
-		{
-			_characterDir = RB;
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
@@ -163,14 +149,6 @@ void prinny::keyControl()
 		{
 			_characterState = WALK;
 		}
-		if (_isRight)
-		{
-			_characterDir = RT;
-		}
-		else
-		{
-			_characterDir = LT;
-		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
@@ -178,14 +156,6 @@ void prinny::keyControl()
 		if (_characterState != WALK)
 		{
 			_characterState = WALK;
-		}
-		if (_isRight)
-		{
-			_characterDir = RB;
-		}
-		else
-		{
-			_characterDir = LB;
 		}
 	}
 
@@ -298,6 +268,16 @@ void prinny::previousState()
 void prinny::showPossibleMoveTile()
 {
 	gameObject::showPossibleMoveTile();
+}
+
+void prinny::setDirectionImage()
+{
+	gameObject::setDirectionImage();
+}
+
+void prinny::attack(int targetX, int targetY)
+{
+	gameObject::attack(targetX, targetY);
 }
 
 void prinny::saveData()
