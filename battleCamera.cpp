@@ -13,7 +13,7 @@ battleCamera::~battleCamera()
 
 HRESULT battleCamera::init(vector<TagTile*> tile)
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 	}

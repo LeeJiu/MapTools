@@ -179,34 +179,9 @@ void mapTool::render()
 	
 			sprintf_s(str, "number = %d", _vRender[i]->number);
 			TextOut(getMemDC(), _vRender[i]->rc.left, _vRender[i]->rc.top, str, strlen(str));
-
-			sprintf_s(str, "n[%d]umber = %d", i,_vRender[i]->number);
-			TextOut(getMemDC(), 350, 30 + 30 * i, str, strlen(str));
 		}
 	}
 
-	//각각의 오브젝트 출력
-	//for (int i = 0; i < _vObj.size(); i++)
-	//{
-	//	//Rectangle(getMemDC(), _vObj[i]->rc.left, _vObj[i]->rc.top, _vObj[i]->rc.right, _vObj[i]->rc.bottom);
-	//   if (_vObj[i]->draw)
-	//   {
-	//      _vObj[i]->image->frameRender(getMemDC(), _vObj[i]->rc.left, _vObj[i]->rc.top);
-	//      
-	//      sprintf_s(str, "draw = %d", _vObj[i]->draw);
-	//      TextOut(getMemDC(), _vObj[i]->rc.left, _vObj[i]->rc.top, str, strlen(str));
-	//   }
-	//}
-	//
-	////각각의 적 출력
-	//for (int i = 0; i < _vEnemy.size(); i++)
-	//{
-	//   //Rectangle(getMemDC(), _vEnemy[i].rc.left, _vEnemy[i].rc.top, _vEnemy[i].rc.right, _vEnemy[i].rc.bottom);
-	//   if (_vEnemy[i]->draw)
-	//   {
-	//	   _vEnemy[i]->image->frameRender(getMemDC(), _vEnemy[i]->rc.left, _vEnemy[i]->rc.top);
-	//   }
-	//}
 
 	///////////////////////////////////////////////////////////////////////////////
 
@@ -413,9 +388,11 @@ void mapTool::keyControl()
 								case 1:
 									_vEnemy[i]->image->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
 									_vEnemy[i]->state = E_NORMAL;
+									break;
 								case 2:
 									_vEnemy[i]->image->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
 									_vEnemy[i]->state = E_NORMAL;
+									break;
 								default:
 									break;
 								}
@@ -765,8 +742,10 @@ void mapTool::loadMapData()
 				break;
 			case 1:
 				_vEnemy[i]->image->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+				break;
 			case 2:
 				_vEnemy[i]->image->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
+				break;
 			default:
 				break;
 			}
@@ -852,11 +831,7 @@ void mapTool::setTile()
 			TagTile* tile;
 			tile = new TagTile;
 			tile->image = new image;
-<<<<<<< HEAD
-			tile->image->init("image/isoTile.bmp", 768, 1056, 4, 11, true, 0xff00ff);
-=======
 			tile->image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
->>>>>>> refs/remotes/origin/jihyun
 			tile->width = WIDTH;
 			tile->height = WIDTH / 2;
 			tile->rc = RectMakeCenter(firstPivot.x + j * tile->width / 2 - i * tile->width / 2, firstPivot.y + j * tile->width / 4 + i * tile->width / 4, tile->width, tile->height);
@@ -992,11 +967,7 @@ void mapTool::setSampleTile()
 			TagTile* tile;
 			tile = new TagTile;
 			tile->image = new image;
-<<<<<<< HEAD
-			tile->image->init("image/isoTile.bmp", 768, 1056, 4, 11, true, 0xff00ff);
-=======
 			tile->image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
->>>>>>> refs/remotes/origin/jihyun
 			tile->width = WIDTH;
 			tile->height = WIDTH / 2;
 			tile->rc = RectMake(10, 190 + tile->image->getFrameHeight() * j, tile->image->getFrameWidth(), tile->image->getFrameHeight());

@@ -16,12 +16,8 @@ HRESULT gameObjectManager::init()
 	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
 	_aStar = new aStar;
 	_aStar->init();
-<<<<<<< HEAD
-=======
-
 	vEnmSize = 0;
 
->>>>>>> refs/remotes/origin/jihyun
 	return S_OK;
 }
 
@@ -31,27 +27,23 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-<<<<<<< HEAD
 	int _size = _vGameObject.size();
 	for (int i = 0; i < _size; i++)
 	{
 		_vGameObject[i]->update();
 	}
-=======
-
->>>>>>> refs/remotes/origin/jihyun
 }
 
 
 //랜더
 void gameObjectManager::render()
 {
-	int _size = _vTile.size();
+	int _size = TOTALTILE(TILENUM);
 	for (int i = 0; i < _size; i++)
 	{
 		//Rectangle(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right, _vTile[i]->rc.bottom);
 		//_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right - _vTile[i]->rc.left, _vTile[i]->rc.bottom - _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
-		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
+		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 	
 	_battleUI->renderOverlapSelectTile();
@@ -104,7 +96,7 @@ void gameObjectManager::setTile()
 		{
 			_tile[i][j] = new TagTile;
 			_tile[i][j]->image = new image;
-			_tile[i][j]->image->init("image/isoTile.bmp", 768, 1056, 4, 11, true, 0xff00ff);
+			_tile[i][j]->image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
 			_tile[i][j]->width = WIDTH;
 			_tile[i][j]->height = WIDTH / 2;
 			_tile[i][j]->rc = RectMakeCenter(firstPivot.x + i * _tile[i][j]->width / 2 - j * _tile[i][j]->width / 2, firstPivot.y + i * _tile[i][j]->width / 4 + j * _tile[i][j]->width / 4, _tile[i][j]->width, _tile[i][j]->height);
@@ -176,23 +168,22 @@ void gameObjectManager::setEnemy()
 
 	for (int i = 0; i < vEnmSize; i++)
 	{
-		gameObject* enemy;
-		switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
-		{
-		case 0:
-			enemy = new orc;
-			enemy->init();
-			break;
-		case 1:
-			enemy = new boss;
-			enemy->init();
-			break;
-		default:
-			break;
-		}
-	
-		_vEnemy.push_back(enemy);
-		_vGameObject.push_back(enemy);
+		//gameObject* enemy;
+		//switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
+		//{
+		//case 0:
+		//	enemy = new orc;
+		//	enemy->init();
+		//	break;
+		//case 1:
+		//	enemy = new boss;
+		//	enemy->init();
+		//	break;
+		//default:
+		//	break;
+		//}
+		//
+		//_vGameObject.push_back(enemy);
 	}
 
 	int a = 0;
@@ -254,7 +245,7 @@ void gameObjectManager::loadMapData()
 		(*_viTile)->x = DATABASE->getElementData(itoa((*_viTile)->number, temp, 10))->x;
 		(*_viTile)->y = DATABASE->getElementData(itoa((*_viTile)->number, temp, 10))->y;
 		(*_viTile)->imageNum = DATABASE->getElementData(itoa((*_viTile)->number, temp, 10))->imageNum;
-		if ((*_viTile)->imageNum < 50)
+		if ((*_viTile)->imageNum < 100)
 		{
 			(*_viTile)->draw = true;
 			(*_viTile)->image->setFrameX((*_viTile)->imageNum % 4);
