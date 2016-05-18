@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
-
+#include "battleUI.h"
 
 gameObjectManager::gameObjectManager()
 {
@@ -40,6 +40,9 @@ void gameObjectManager::render()
 		//_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right - _vTile[i]->rc.left, _vTile[i]->rc.bottom - _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
 	}
+	
+	_battleUI->renderOverlapSelectTile();
+
 	_size = _vGameObject.size();
 	for (int i = 0; i < _size; i++)
 	{

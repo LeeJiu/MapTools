@@ -16,7 +16,7 @@ public:
 	progressBar();
 	~progressBar();
 
-	HRESULT init(float x, float y, int width, int height);
+	HRESULT init(float x, float y, int width, int height, bool type);
 	void release();
 	void update();
 	void render();
