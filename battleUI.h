@@ -100,10 +100,6 @@ private:
 	progressBar* _progressBarHp;
 	progressBar* _progressBarSp;
 
-
-
-	progressBar* _progressBarHp;
-	progressBar* _progressBarSp;
 	
 
 	bool _isSelectCharacter;

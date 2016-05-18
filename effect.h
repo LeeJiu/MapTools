@@ -16,11 +16,15 @@ private:
 	BOOL _isRunning;	   //이펙트 돌아가고 있는지 여부
 	float _elapsedTime;	   //이펙트 경과 시간
 
+	bool _isAlpha;
+	BYTE _alpha;
+
 public:
 	effect();
 	virtual ~effect();
 
 	virtual HRESULT init(image* effectImage, int frameW, int frameH, int fps, float elapsedTime);
+	virtual HRESULT init(image * effectImage, int frameW, int frameH, int fps, float elapsedTime, bool isAlpha, BYTE alpha);
 	virtual void release();
 	virtual void update();
 	virtual void render();

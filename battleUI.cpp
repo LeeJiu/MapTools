@@ -532,10 +532,6 @@ void battleUI::LButtonClick()
 		{
 			if (_gameObjMgr->getGameObject()[i]->getIsShow())
 			{
-<<<<<<< HEAD
-				_isSelectCharacter = true;
-=======
->>>>>>> refs/remotes/origin/moobin
 				_selectCharacterNumber = i;
 				_isSelectCharacter = true;
 				_isOnUnitOrderList = true;
@@ -561,35 +557,18 @@ void battleUI::LButtonClick()
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 			{
-
-				//캐릭터의 MOVE SHOW가 모두 FALSE인지 체크하자
-				int count = 0;
-				for (int i = 0; i < _characterSize; i++)
-				{
-<<<<<<< HEAD
-					if (!_gameObjMgr->getGameObject()[i]->getIsShowPossibleMoveTile())	
-=======
-					if (!_gameObjMgr->getGameObject()[i]->getIsShowPossibleMoveTile())
->>>>>>> refs/remotes/origin/moobin
-						count++;
-				}
-				//캐릭터의 모든 MOVE SHOW FALSE COUNT가 캐릭터 사이즈와 같다면 카메라를 움직이자 (캐릭터 이동을 클릭한 적이 없다)
-				if (count == _characterSize)
+				// 최근 선택한 케릭터의 이동가능한 타일이 보여지지 않으면 카메라를 움직여라
+				if(!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile())
 				{
 					_battleCamera->setCameraTile(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
 				}
+				// 케릭터의 이동 가능한 타일이 보여진다면
 				else
 				{
-<<<<<<< HEAD
-					_gameObjMgr->getGameObject()[_selectCharacterNumber]->move(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
-=======
+					// 케릭터 이동 함수를 호출한다
 					_gameObjMgr->setUnitMove(_selectCharacterNumber, _gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
-
->>>>>>> refs/remotes/origin/moobin
-					for (int i = 0; i < _characterSize; i++)
-					{
-						_gameObjMgr->getGameObject()[i]->setIsShowPossibleMoveTile(false);
-					}
+					// 이동가능한 타일을 꺼준다.
+					_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(false);
 				}
 
 				//소환 타일을 선택했는지 체크하자
