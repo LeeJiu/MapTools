@@ -38,17 +38,14 @@ void gameObjectManager::update()
 //·£´õ
 void gameObjectManager::render()
 {
-	int _size = TOTALTILE(TILENUM);
-	for (int i = 0; i < _size; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		//Rectangle(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right, _vTile[i]->rc.bottom);
-		//_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top, _vTile[i]->rc.right - _vTile[i]->rc.left, _vTile[i]->rc.bottom - _vTile[i]->rc.top, _vTile[i]->image->getFrameX(), _vTile[i]->image->getFrameY());
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
-	
+
 	_battleUI->renderOverlapSelectTile();
 
-	_size = _vGameObject.size();
+	int _size = _vGameObject.size();
 	for (int i = 0; i < _size; i++)
 	{
 		_vGameObject[i]->render();
@@ -57,8 +54,6 @@ void gameObjectManager::render()
 	char str[128];
 	sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
 	TextOut(getMemDC(), 10, 10, str, strlen(str));
-
-	//_aStar->render();
 }
 
 void gameObjectManager::setUnitMove(int i, int destX, int destY)

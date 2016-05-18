@@ -884,7 +884,7 @@ void mapTool::moveTile()
 	}
 
 	//¿ÞÂÊÅ°
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && _vTile[TOTALTILE(TILENUM) - TILENUM - 1]->rc.left > 300)
 	{
 		_vTile[0]->pivotX += 3;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
@@ -896,9 +896,6 @@ void mapTool::moveTile()
 		_vTile[0]->pivotX -= 3;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
 	}
-
-
-	//setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
 }
 
 void mapTool::setTile(float firstPivotX, float firstPivotY)
