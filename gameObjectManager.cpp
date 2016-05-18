@@ -224,8 +224,16 @@ void gameObjectManager::setAstar()
 
 void gameObjectManager::loadMapData()
 {
-	//타일로드
-	DATABASE->loadDatabase("battleMap1.txt");
+	if (STAGEDATA->getSelectStageNumber() == 0)
+	{
+		//타일로드
+		DATABASE->loadDatabase("battleMap1.txt");		
+	}
+	if (STAGEDATA->getSelectStageNumber() == 1)
+	{
+		DATABASE->loadDatabase("battleMap2.txt");
+	}
+
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
 		char temp[128];

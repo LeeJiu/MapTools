@@ -117,6 +117,7 @@
     <ClInclude Include="raspberyl.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="selectStage.h" />
+    <ClInclude Include="selectStageData.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="stdafx.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="raspberyl.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="selectStage.cpp" />
+    <ClCompile Include="selectStageData.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
