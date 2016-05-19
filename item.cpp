@@ -18,6 +18,7 @@ HRESULT item::init()
 
 void item::release()
 {
+	_vItem.clear();
 }
 
 void item::update()
@@ -28,7 +29,7 @@ void item::render()
 {
 }
 
-void item::setItem(const char * imageName)
+void item::setItem(const char * imageName, bool isWear)
 {
 	tagItem item;
 	if (strcmp(imageName, "sword") == 0)
@@ -45,6 +46,8 @@ void item::setItem(const char * imageName)
 		item.res = 0;
 		item.buyPrice = 100;
 		item.sellPrice = 10;
+		item.isWear = isWear;
+		item.type = SWORD;
 	}
 	else if (strcmp(imageName, "staff") == 0)
 	{
@@ -60,6 +63,8 @@ void item::setItem(const char * imageName)
 		item.res = 0;
 		item.buyPrice = 150;
 		item.sellPrice = 15;
+		item.isWear = isWear;
+		item.type = STAFF;
 	}
 	else if (strcmp(imageName, "wand") == 0)
 	{
@@ -75,6 +80,8 @@ void item::setItem(const char * imageName)
 		item.res = 0;
 		item.buyPrice = 160;
 		item.sellPrice = 16;
+		item.isWear = isWear;
+		item.type = WAND;
 	}
 	else if (strcmp(imageName, "bow") == 0)
 	{
@@ -90,8 +97,14 @@ void item::setItem(const char * imageName)
 		item.res = 0;
 		item.buyPrice = 130;
 		item.sellPrice = 13;
+		item.isWear = isWear;
+		item.type = BOW;
 	}
 
-
 	_vItem.push_back(item);
+}
+
+void item::removeItem(int arrNum)
+{
+	_vItem.erase(_vItem.begin() + arrNum);
 }
