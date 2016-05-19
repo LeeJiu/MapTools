@@ -124,6 +124,7 @@ void gameObject::attack(int targetX, int targetY)
 		_characterDir = LB;
 	}
 	_characterState = ATTACK;
+	_character->setFrameX(0);
 	_isOrdering = true;
 }
 

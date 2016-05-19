@@ -424,7 +424,7 @@ void battleUI::orderListClick(int orderNumber)
 
 		break;
 	case 5:	//포기
-		SCENEMANAGER->changeScene("town");
+		SCENEMANAGER->changeScene("selectStage");
 		break;
 	case 6:	//설정
 
@@ -469,6 +469,7 @@ void battleUI::unitOrderListClick(int unitOrderNumber)
 	}
 }
 
+//TURN CHANGE SHOW 출력
 void battleUI::turnChange()
 {
 	_isTurnShow = true;
@@ -534,9 +535,7 @@ void battleUI::turnChange()
 				}
 			}
 		}
-	}
-	//_isTurnType = !_isTurnType;
-	
+	}	
 
 	//처음 턴일 때 STAGE START 출력
 	if (_isFirstShow)
@@ -620,22 +619,6 @@ void battleUI::LButtonClick()
 		}
 	}
 	
-	//if (_gameObjMgr->getGameObject()[i]->getIsShow())
-	//{
-	//	_selectCharacterNumber = i;
-	//	_isSelectCharacter = true;
-	//	_isOnUnitOrderList = true;
-	//	_battleCamera->setCameraTile(_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexX(), _gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexY());
-	//	return;
-	//}
-	//else
-	//{
-	//	_isSelectCharacter = false;
-	//	_selectCharacterNumber = 0;
-	//	_isSelectCharacter = false;
-	//	_isOnUnitOrderList = false;
-	//}
-
 	//타일을 클릭했는지 체크하자
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
@@ -646,12 +629,7 @@ void battleUI::LButtonClick()
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 			{
-<<<<<<< HEAD
 				//소환 타일을 선택했는지 체크하자
-
-
-				if (!_isSelectCharacter)
-=======
 				if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
 				{
 					// 그 위치에 케릭터가 있다면 
@@ -686,7 +664,6 @@ void battleUI::LButtonClick()
 					}
 				}
 				else if (_gameObjMgr->getTile()[i]->state == S_ONCHAR)
->>>>>>> refs/remotes/origin/development
 				{
 					for (int j = 0; j < _characterSize; j++)
 					{
@@ -701,11 +678,7 @@ void battleUI::LButtonClick()
 						}
 					}
 				}
-<<<<<<< HEAD
-				else if(_isSelectCharacter)
-=======
 				else if (_gameObjMgr->getTile()[i]->state == S_NONE)
->>>>>>> refs/remotes/origin/development
 				{
 					// 케릭터 이동가능한 타일이 표시되어있지 않다면
 					if (!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile())
