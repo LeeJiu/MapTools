@@ -1,5 +1,4 @@
 #pragma once
-
 #pragma warning(disable : 4996)
 
 #include "gameNode.h"
@@ -8,21 +7,6 @@
 #include "button.h"
 
 
-struct OBJ_Y_RENDER
-{
-	bool operator()(const TagObject* obj1, const TagObject* obj2)
-	{
-		return obj1->rc.bottom < obj2->rc.bottom;
-	}
-};
-
-struct OBJ_NUM
-{
-	bool operator()(const TagObject* obj1, const TagObject* obj2)
-	{
-		return obj1->number < obj2->number;
-	}
-};
 
 
 enum STATE
@@ -106,11 +90,17 @@ public:
 
 
 	void setTile();
+	void setObject();
+	void setEnemy();
+	void setRender();
+	void setFirstRender();
+	void moveTile();
+	void setTile(float firstPivotX, float firstPivotY);
+
+	void setPickNum();
 
 	void keyControl();
 	void selectMap();
-	//void drawTile(int index);
-	//void setObjectsRender();
 	void saveMapData();
 	void loadMapData();
 	void resetMapData();

@@ -21,6 +21,8 @@ HRESULT battleScene::init()
 	
 	_gameObjMgr->setTile();
 	_gameObjMgr->setCharacter();
+	_gameObjMgr->setEnemy();
+	_gameObjMgr->setObject();
 	_gameObjMgr->setAstar();
 
 	_battleUI = new battleUI;
@@ -59,6 +61,6 @@ void battleScene::update()
 void battleScene::render()
 {
 	_gameObjMgr->render();
-	//_battleMgr->render();
+	_battleMgr->render();
 	_battleUI->render();
 }

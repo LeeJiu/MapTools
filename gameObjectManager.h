@@ -7,11 +7,11 @@
 #include "flonne.h"
 #include "raspberyl.h"
 #include "orc.h"
+#include "boss.h"
 #include "objects.h"
 
 class battleUI;
 class battleManager;
-
 class gameObjectManager : public gameNode
 {
 	RECT _rcTurnBack;
@@ -48,10 +48,9 @@ public:
 
 	void setBattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
 	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
-	void setbattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
 
 	void setUnitMove(int i, int destX, int destY);
-	void setUnitAttack();
+	void setUnitAttack(int i, int destX, int destY);
 	void setUnitDefence();
 
 	void setActionAttack();

@@ -55,11 +55,10 @@ HRESULT prinny::init(vector<TagTile*> tile)
 	_indexX = 4;
 	_indexY = 9;
 	_mv = 4;
-
 	_isShow = false;
 	_isbattle = true;
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 	}
@@ -79,16 +78,24 @@ void prinny::release()
 
 void prinny::update()
 {
-	_inventory->update();
-	keyControl();
 	setImage();
+	gameObject::setDirectionImage();
 
 	if (_isbattle)
 	{
 		if (!_isMove)
 		{
 			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+			_x = (_rc.right + _rc.left) / 2;
+			_y = (_rc.top + _rc.bottom) / 2;
 		}
+		battleKeyControl();
+		gameObject::move();
+	}
+	else
+	{
+		_inventory->update();
+		keyControl();
 	}
 }
 
@@ -103,11 +110,9 @@ void prinny::render()
 	{
 		if (_isShow)
 		{
-			//if (_isShowPossibleMoveTile) character::render();
-
+			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
+			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-			
 		}
 	}
 }
@@ -122,14 +127,7 @@ void prinny::keyControl()
 		{
 			_characterState = WALK;
 		}
-		if (_isUp)
-		{
-			_characterDir = LT;
-		}
-		else
-		{
-			_characterDir = LB;
-		}
+		
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
@@ -137,14 +135,6 @@ void prinny::keyControl()
 		if (_characterState != WALK)
 		{
 			_characterState = WALK;
-		}
-		if (_isUp)
-		{
-			_characterDir = RT;
-		}
-		else
-		{
-			_characterDir = RB;
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
@@ -154,14 +144,6 @@ void prinny::keyControl()
 		{
 			_characterState = WALK;
 		}
-		if (_isRight)
-		{
-			_characterDir = RT;
-		}
-		else
-		{
-			_characterDir = LT;
-		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
@@ -169,14 +151,6 @@ void prinny::keyControl()
 		if (_characterState != WALK)
 		{
 			_characterState = WALK;
-		}
-		if (_isRight)
-		{
-			_characterDir = RB;
-		}
-		else
-		{
-			_characterDir = LB;
 		}
 	}
 
@@ -243,9 +217,6 @@ void prinny::battleKeyControl()
 {
 }
 
-void prinny::move(int endX, int endY)
-{
-}
 
 void prinny::setImage()
 {
@@ -302,7 +273,7 @@ void prinny::setFrame()
 		break;
 	}
 
-	if (_count % 10 == 0)
+	if (_count % 7 == 0)
 	{
 		_curFrameX++;
 		if (_curFrameX > _character->getMaxFrameX())
@@ -311,14 +282,6 @@ void prinny::setFrame()
 		}
 		_character->setFrameX(_curFrameX);
 	}
-}
-
-void prinny::previousState()
-{
-}
-
-void prinny::showPossibleMoveTile()
-{
 }
 
 void prinny::saveData()
@@ -404,6 +367,7 @@ void prinny::loadData()
 	}
 }
 
+<<<<<<< HEAD
 void prinny::loadItemData()
 {
 	vector<string> vStr;
@@ -546,6 +510,14 @@ void prinny::changeLoadData(int arrNum)
 }
 
 void prinny::setItem(const char* itemName, bool isWear)
+=======
+void prinny::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
+{
+	gameObject::setCharacterMove(endX, endY, vRoute);
+}
+
+void prinny::setItem(const char* itemName)
+>>>>>>> refs/remotes/origin/development
 {
 	_inventory->setItem(itemName, isWear);
 }

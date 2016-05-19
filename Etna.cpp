@@ -54,9 +54,6 @@ void etna::battleKeyControl()
 {
 }
 
-void etna::move(int endX, int endY)
-{
-}
 
 void etna::setImage()
 {

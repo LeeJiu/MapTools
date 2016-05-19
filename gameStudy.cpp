@@ -58,9 +58,16 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("etna_attack", "image/character/etna_attack.bmp", 720, 660, 4, 4, true, 0xff00ff);
 
 	//배틀씬에서 사용될 이미지 추가
-	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 192, 96, true, 0xff00ff);
-	IMAGEMANAGER->addImage("attackable", "image/battle/attackable_tile.bmp", 192, 96, true, 0xff00ff);
+	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 128, 64, true, 0xff00ff);
+	IMAGEMANAGER->addImage("attackable", "image/battle/attackable_tile.bmp", 128, 64, true, 0xff00ff);
 	
+	//오브젝트 이미지 추가
+	IMAGEMANAGER->addImage("tree1", "image/mapTool/object_tree.bmp", 222, 265, true, 0xff00ff);
+	IMAGEMANAGER->addImage("tree2", "image/mapTool/object_tree2.bmp", 180, 185, true, 0xff00ff);
+	IMAGEMANAGER->addImage("woods", "image/mapTool/object_wood.bmp", 128, 118, true, 0xff00ff);
+	IMAGEMANAGER->addImage("mushiroom", "image/mapTool/object_mushiroom.bmp", 63, 65, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("zenPoint", "image/mapTool/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
+
 	//씬 추가
 	SCENEMANAGER->addScene("town", new town);
 	SCENEMANAGER->addScene("selectStage", new selectStage);

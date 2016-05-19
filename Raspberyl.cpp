@@ -58,9 +58,6 @@ void raspberyl::battleKeyControl()
 {
 }
 
-void raspberyl::move(int endX, int endY)
-{
-}
 
 void raspberyl::setImage()
 {
