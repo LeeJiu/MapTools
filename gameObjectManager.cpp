@@ -83,7 +83,7 @@ void gameObjectManager::setUnitAttack(int i, int destX, int destY)
 		if (!_vGameObject[i]->getIsOrdering())
 		{
 			_isAction = false;
-			_battleMgr->setOrderNumber(_battleMgr->getOrderNumber() + 1);
+			_battleMgr->setCompleteAction();
 		}
 		// 오더가 수행중이라면
 		else

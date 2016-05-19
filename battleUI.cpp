@@ -631,16 +631,7 @@ void battleUI::LButtonClick()
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 			{
 				//소환 타일을 선택했는지 체크하자
-				if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
-				{
-					_isOnStatus = true;
-					_isOnCharacterList = true;
-				}
-				else
-				{
-					_isOnStatus = false;
-					_isOnCharacterList = false;
-				}
+
 
 				if (!_isSelectCharacter)
 				{
@@ -657,8 +648,7 @@ void battleUI::LButtonClick()
 						}
 					}				
 				}
-
-				else
+				else if(_isSelectCharacter)
 				{
 					//선택한 캐릭터의 MOVE SHOW가 FALSE인지 체크하자
 					if (!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile()
@@ -692,7 +682,20 @@ void battleUI::LButtonClick()
 						_isOnSelectTarget = false;
 					}
 				}
-				
+				else
+				{
+					if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
+					{
+						_isOnStatus = true;
+						_isOnCharacterList = true;
+					}
+					else
+					{
+						_isOnStatus = false;
+						_isOnCharacterList = false;
+					}
+
+				}
 			}
 		}
 	}
