@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
 #include "battleUI.h"
+#include "battleManager.h"
 
 gameObjectManager::gameObjectManager()
 {
@@ -71,7 +72,25 @@ void gameObjectManager::setUnitMove(int i, int destX, int destY)
 
 void gameObjectManager::setUnitAttack(int i, int destX, int destY)
 {
-	_vGameObject[i]->attack(destX, destY);
+	if (!_isAction)
+	{
+		_vGameObject[i]->attack(destX, destY);
+		_isAction = true;
+	}
+	else
+	{
+		// 오더가 끝났다면
+		if (!_vGameObject[i]->getIsOrdering())
+		{
+			_isAction = false;
+			_battleMgr->setOrderNumber(_battleMgr->getOrderNumber() + 1);
+		}
+		// 오더가 수행중이라면
+		else
+		{
+			return;
+		}
+	}
 }
 
 void gameObjectManager::setUnitDefence()
