@@ -646,6 +646,12 @@ void battleUI::LButtonClick()
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 			{
+<<<<<<< HEAD
+				//소환 타일을 선택했는지 체크하자
+
+
+				if (!_isSelectCharacter)
+=======
 				if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
 				{
 					// 그 위치에 케릭터가 있다면 
@@ -680,6 +686,7 @@ void battleUI::LButtonClick()
 					}
 				}
 				else if (_gameObjMgr->getTile()[i]->state == S_ONCHAR)
+>>>>>>> refs/remotes/origin/development
 				{
 					for (int j = 0; j < _characterSize; j++)
 					{
@@ -694,7 +701,11 @@ void battleUI::LButtonClick()
 						}
 					}
 				}
+<<<<<<< HEAD
+				else if(_isSelectCharacter)
+=======
 				else if (_gameObjMgr->getTile()[i]->state == S_NONE)
+>>>>>>> refs/remotes/origin/development
 				{
 					// 케릭터 이동가능한 타일이 표시되어있지 않다면
 					if (!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile())
@@ -711,7 +722,20 @@ void battleUI::LButtonClick()
 						_isSelectCharacter = false;
 					}
 				}
-				
+				else
+				{
+					if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
+					{
+						_isOnStatus = true;
+						_isOnCharacterList = true;
+					}
+					else
+					{
+						_isOnStatus = false;
+						_isOnCharacterList = false;
+					}
+
+				}
 			}
 		}
 	}
