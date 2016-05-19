@@ -27,7 +27,7 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-	int _size = _vToTalRender.size();
+	int _size = vCharSize + vObjSize + 2;
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->update();
@@ -45,15 +45,16 @@ void gameObjectManager::render()
 
 	_battleUI->renderOverlapSelectTile();
 
-	int _size = _vToTalRender.size();
+	int _size = vCharSize + vObjSize + 2;
+
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->render();
 	}
 
-	char str[128];
-	sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
-	TextOut(getMemDC(), 10, 10, str, strlen(str));
+	//char str[128];
+	//sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
+	//TextOut(getMemDC(), 10, 10, str, strlen(str));
 }
 
 void gameObjectManager::setUnitMove(int i, int destX, int destY)
@@ -137,7 +138,7 @@ void gameObjectManager::setCharacter()
 	//		break;
 	//	}
 	//}
-
+	vCharSize = 2;
 }
 
 void gameObjectManager::setEnemy()
@@ -181,7 +182,16 @@ void gameObjectManager::setEnemy()
 		//_vGameObject.push_back(enemy);
 	}
 
-	int a = 0;
+	gameObject* _orc = new orc;
+	_orc->init(4, 7, _vTile);
+	_vGameObject.push_back(_orc);
+	_vToTalRender.push_back(_orc);
+
+	gameObject* _orc1 = new orc;
+	_orc1->init(6, 7, _vTile);
+	_vGameObject.push_back(_orc1);
+	_vToTalRender.push_back(_orc1);
+
 	//---------------------------------------------------------------------------------
 		//DATABASE->getElementData(std::to_string(i))->;
 		//_vStr[4] -> 몹 구별 넘버값이면 이걸로 스위치 돌리고
