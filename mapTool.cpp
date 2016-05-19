@@ -941,7 +941,6 @@ void mapTool::setRender()
 			_vRender[i]->rc = _vEnemy[i]->rc;
 			_vRender[i]->draw = true;
 		}
-
 	}
 }
 
