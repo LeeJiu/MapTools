@@ -109,45 +109,7 @@ void flonne::setImage()
 		break;
 	}
 
-	setFrame();
-}
-
-void flonne::setFrame()
-{
-	_count++;
-
-	switch (_characterDir)
-	{
-	case LB:
-		_curFrameY = 0;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case RB:
-		_curFrameY = 1;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case RT:
-		_curFrameY = 2;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case LT:
-		_curFrameY = 3;
-		_character->setFrameY(_curFrameY);
-		break;
-	}
-
-	if (_count % 7 == 0)
-	{
-		_curFrameX++;
-		if (_curFrameX > _character->getMaxFrameX())
-		{
-			_curFrameX = 0;
-		}
-		_character->setFrameX(_curFrameX);
-	}
+	gameObject::setFrame();
 }
 
 void flonne::saveData()
