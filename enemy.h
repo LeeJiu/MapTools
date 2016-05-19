@@ -29,7 +29,7 @@ public:
 	/*			함수 추가			*/
 
 
-	virtual void setItem(const char* itemName) = 0;
+	virtual void setItem(const char* itemName, bool isWear) = 0;
 	virtual void setHell(int hell) = 0;
 };
 

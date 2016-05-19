@@ -44,6 +44,7 @@ public:
 	
 	void showInventory();
 	void closeInventory();
+	bool checkEquip();
 
 	void setItem(const char* itemName, bool isWear);
 	void setName(const char* name) { _name = name; }
