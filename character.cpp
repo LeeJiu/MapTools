@@ -52,10 +52,6 @@ void character::setImage()
 {
 }
 
-void character::setFrame()
-{
-}
-
 void character::previousState()
 {
 }
