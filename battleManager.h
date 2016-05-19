@@ -23,6 +23,8 @@ private:
 	bool _isTurnType;
 	bool _isDoOrdering;
 
+	bool _isCompleteAction;
+
 	vector<tagOrder> _vOrder;
 	int _orderNumber;
 
@@ -50,9 +52,8 @@ public:
 	void setCharacterSkill(int character, int targetX, int targetY);
 	
 	void setTurnChange();
-	void setOrderNumber(int number) { _orderNumber = number; }
+	void setCompleteAction() { _isCompleteAction = true; }
 
-	int getOrderNumber() { return _orderNumber; }
 	bool getTurnType() { return _isTurnType; }
 	int getTurnCount() { return _turnCount; }
 	
