@@ -53,9 +53,6 @@ void flonne::battleKeyControl()
 {
 }
 
-void flonne::move(int endX, int endY)
-{
-}
 
 void flonne::setImage()
 {

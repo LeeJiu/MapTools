@@ -78,9 +78,9 @@ void battleCamera::cameraTile()
 		}
 	}
 
-	if (fabs(_tile[_cameraTileX][_cameraTileY]->pivotX - CENTERX) < 1 && fabs(_tile[_cameraTileX][_cameraTileY]->pivotY - CENTERY) < 1)
+	if(getDistance(CENTERX, CENTERY, _tile[_cameraTileX][_cameraTileY]->pivotX, _tile[_cameraTileX][_cameraTileY]->pivotY) < _scroolSpeed)
 	{
-		POINT firstPivot = { _tile[0][0]->pivotX, _tile[0][0]->pivotY };
+		POINT firstPivot = { CENTERX + (_cameraTileY - _cameraTileX) * WIDTH / 2 , CENTERY - (_cameraTileX + _cameraTileY) * WIDTH / 4};
 
 		for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
 		{
@@ -103,46 +103,37 @@ void battleCamera::cameraFree()
 
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
-		for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
-		{
-			for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 )
-			{
-				_tile[j][i]->pivotY += 3;
-				_tile[j][i]->rc = RectMakeCenter(_tile[j][i]->pivotX, _tile[j][i]->pivotY, _tile[j][i]->width, _tile[j][i]->height);
-			}
-		}
+		_tile[0][0]->pivotY += 3;
+		setTile(_tile[0][0]->pivotX, _tile[0][0]->pivotY);
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
-		for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
-		{
-			for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 )
-			{
-				_tile[j][i]->pivotY -= 3;
-				_tile[j][i]->rc = RectMakeCenter(_tile[j][i]->pivotX, _tile[j][i]->pivotY, _tile[j][i]->width, _tile[j][i]->height);
-			}
-		}
+		_tile[0][0]->pivotY -= 3;
+		setTile(_tile[0][0]->pivotX, _tile[0][0]->pivotY);
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
-		{
-			for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 )
-			{
-				_tile[j][i]->pivotX += 3;
-				_tile[j][i]->rc = RectMakeCenter(_tile[j][i]->pivotX, _tile[j][i]->pivotY, _tile[j][i]->width, _tile[j][i]->height);
-			}
-		}
+		_tile[0][0]->pivotX += 3;
+		setTile(_tile[0][0]->pivotX, _tile[0][0]->pivotY);
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
+		_tile[0][0]->pivotX -= 3;
+		setTile(_tile[0][0]->pivotX, _tile[0][0]->pivotY);
+	}
+}
+
+void battleCamera::setTile(float firstPivotX, float firstPivotY)
+{
+	POINT firstPivot = { firstPivotX, firstPivotY };
+	for (int i = 0; i < TILENUM; i++)      // 세로 ( 열 )
+	{
+		for (int j = 0; j < TILENUM; j++)   // 가로 ( 행 )
 		{
-			for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 )
-			{
-				_tile[j][i]->pivotX -= 3;
-				_tile[j][i]->rc = RectMakeCenter(_tile[j][i]->pivotX, _tile[j][i]->pivotY, _tile[j][i]->width, _tile[j][i]->height);
-			}
+			_tile[j][i]->rc = RectMakeCenter(firstPivot.x + j * _tile[j][i]->width / 2 - i * _tile[j][i]->width / 2, firstPivot.y + j * _tile[j][i]->width / 4 + i * _tile[j][i]->width / 4, _tile[j][i]->width, _tile[j][i]->height);
+			_tile[j][i]->pivotX = (_tile[j][i]->rc.left + _tile[j][i]->rc.right) / 2;
+			_tile[j][i]->pivotY = (_tile[j][i]->rc.top + _tile[j][i]->rc.bottom) / 2;
+
 		}
 	}
 }

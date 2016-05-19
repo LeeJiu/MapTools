@@ -40,28 +40,37 @@ public:
 	gameObject();
 	~gameObject();
 
+	//마을맵 init
 	virtual HRESULT init();
+
+	//전투맵 init
 	virtual HRESULT init(vector<TagTile*> tile);
+	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile);
 	virtual void release();
 	virtual void update();
 	virtual void render();
 
 	/*			함수 추가			*/
+	
+	// 각각 다시 정의해줘야하는 함수들
 	virtual void keyControl();
 	virtual void battleKeyControl();
-	virtual void move();
-	virtual void attack(int targetX, int targetY);
 	virtual void setImage();
 	virtual void setFrame();
-	virtual void previousState() = 0;												// 이전으로 돌아가는 함수
-	virtual void showPossibleMoveTile();											// 이동가능한 타일 보여주는 함수
-	virtual void showPossibleAttackTile();											// 공격가능한 타일 보여주는 함수
 	virtual void saveData();
 	virtual void loadData();
+
+	// 케릭터 공통으로 쓰는 함수들
+	virtual void showPossibleMoveTile();											// 이동가능한 타일 보여주는 함수
+	virtual void showPossibleAttackTile();											// 공격가능한 타일 보여주는 함수
+	virtual void previousState();												// 이전으로 돌아가는 함수
+	virtual void attack(int targetX, int targetY);
+	virtual void move();
 	virtual void setDirectionImage();
+	virtual void setCharacterMove(int endX, int endY, vector<TagTile*> vRoute);
+	virtual void setTilePosition(float x, float y);
 
 	// set함수
-	virtual void setCharacterMove(int endX, int endY, vector<TagTile*> vRoute);
 	virtual void setItem(const char* itemName) = 0;
 	virtual void setMercenary(const char* characterName) = 0;
 	virtual void setHell(int hell) = 0;
@@ -72,7 +81,6 @@ public:
 	virtual void setIsShow(bool isShow) { _isShow = isShow; }
 	virtual void setHp(int damage) { _hp -= damage; if (_hp < 0) _hp = 0; }
 	virtual void setSp(int consume) { _sp -= consume; if (_sp < 0) _sp = 0; }
-	virtual void setTilePosition(float x, float y);
 	virtual void setIsAction(bool isAction) { _isAction = isAction; }
 
 	// get함수
