@@ -88,6 +88,7 @@ void raspberyl::saveData()
 	vStr.push_back(std::to_string(_res));
 	vStr.push_back(std::to_string(_exp));
 	vStr.push_back(std::to_string(_next));
+	vStr.push_back(std::to_string(_equipWeapon));
 
 	TXTDATA->txtSave("raspberyl.txt", vStr);
 }
@@ -114,4 +115,5 @@ void raspberyl::loadData()
 	_res = atoi(vStr[idx++].c_str());
 	_exp = atoi(vStr[idx++].c_str());
 	_next = atoi(vStr[idx++].c_str());
+	_equipWeapon = (WEAPON_TYPE)atoi(vStr[idx++].c_str());
 }

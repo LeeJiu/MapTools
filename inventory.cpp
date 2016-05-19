@@ -21,9 +21,13 @@ HRESULT inventory::init()
 	IMAGEMANAGER->addImage("inven_info", "image/ui/inventory_info.bmp", 350, 556, false, false);
 	IMAGEMANAGER->addImage("inven_hell", "image/ui/inventory_hell.bmp", 250, 50, false, false);
 	IMAGEMANAGER->addImage("inven_exit", "image/ui/store_exit.bmp", 162, 65, false, false);
+	IMAGEMANAGER->addImage("inven_next", "image/ui/inventory_next.bmp", 162, 65, false, false);
+	IMAGEMANAGER->addImage("inven_equip", "image/ui/inventory_equip.bmp", 162, 65, false, false);
+	IMAGEMANAGER->addImage("inven_takeoff", "image/ui/inventory_takeoff.bmp", 162, 65, false, false);
 	IMAGEMANAGER->addImage("none", "image/item/none.bmp", 256, 256, true, 0xff00ff);
 
 	_itemImage = IMAGEMANAGER->findImage("none");
+	_equip = IMAGEMANAGER->findImage("none");
 
 	return S_OK;
 }
@@ -47,7 +51,11 @@ void inventory::render()
 		IMAGEMANAGER->findImage("inven_info")->render(getMemDC(), _rcItemInfo.left, _rcItemInfo.top);
 		IMAGEMANAGER->findImage("inven_hell")->render(getMemDC(), _rcHell.left, _rcHell.top);
 		IMAGEMANAGER->findImage("inven_exit")->render(getMemDC(), _rcExit.left, _rcExit.top);
+		IMAGEMANAGER->findImage("inven_next")->render(getMemDC(), _rcNext.left, _rcNext.top);
 
+		if (_onItemButton)
+			_equip->render(getMemDC(), _rcEquip.left, _rcEquip.top);
+		
 		_itemImage->render(getMemDC(), _rcItemInfo.left + 47, _rcItemInfo.bottom - 256);
 
 		HFONT font, oldFont;
@@ -55,21 +63,38 @@ void inventory::render()
 		oldFont = (HFONT)SelectObject(getMemDC(), font);
 
 		//캐릭터 정보
-		DrawText(getMemDC(), _name, -1, &_rcName, DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _level.c_str(), -1, &_rcLevel, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _counter.c_str(), -1, &_rcCounter, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _mv.c_str(), -1, &_rcMv, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _jm.c_str(), -1, &_rcJm, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _hp.c_str(), -1, &_rcHp, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _sp.c_str(), -1, &_rcSp, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _atk.c_str(), -1, &_rcAtk, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _int.c_str(), -1, &_rcInt, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _def.c_str(), -1, &_rcDef, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _spd.c_str(), -1, &_rcSpd, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _hit.c_str(), -1, &_rcHit, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _res.c_str(), -1, &_rcRes, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _exp.c_str(), -1, &_rcExp, DT_RIGHT | DT_VCENTER);
-		DrawText(getMemDC(), _next.c_str(), -1, &_rcNext, DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _name, -1, 
+			&RectMake(_rcStatus.left + 20, _rcStatus.top + 20, 200, 30), DT_LEFT | DT_VCENTER);
+		DrawText(getMemDC(), _level.c_str(), -1, 
+			&RectMake(_rcStatus.left + 160, _rcStatus.top + 95, 100, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _counter.c_str(), -1, 
+			&RectMake(_rcStatus.left + 210, _rcStatus.top + 120, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _mv.c_str(), -1, 
+			&RectMake(_rcStatus.left + 160, _rcStatus.top + 145, 30, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _jm.c_str(), -1, 
+			&RectMake(_rcStatus.left + 230, _rcStatus.top + 145, 30, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _hp.c_str(), -1, 
+			&RectMake(_rcStatus.left + 70, _rcStatus.top + 190, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _sp.c_str(), -1, 
+			&RectMake(_rcStatus.left + 70, _rcStatus.top + 215, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _atk.c_str(), -1, 
+			&RectMake(_rcStatus.left + 70, _rcStatus.top + 235, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _int.c_str(), -1, 
+			&RectMake(_rcStatus.left + 200, _rcStatus.top + 235, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _def.c_str(), -1, 
+			&RectMake(_rcStatus.left + 70, _rcStatus.top + 257, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _spd.c_str(), -1, 
+			&RectMake(_rcStatus.left + 200, _rcStatus.top + 257, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _hit.c_str(), -1, 
+			&RectMake(_rcStatus.left + 70, _rcStatus.top + 280, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _res.c_str(), -1, 
+			&RectMake(_rcStatus.left + 200, _rcStatus.top + 280, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _exp.c_str(), -1, 
+			&RectMake(_rcStatus.left + 70, _rcStatus.top + 300, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _next.c_str(), -1, 
+			&RectMake(_rcStatus.left + 70, _rcStatus.top + 323, 50, 30), DT_RIGHT | DT_VCENTER);
+		DrawText(getMemDC(), _weapon.c_str(), -1,
+			&_rcWeapon, DT_LEFT | DT_VCENTER);
 		DrawText(getMemDC(), _hell.c_str(), -1, 
 			&RectMake(_rcHell.left + 20, _rcHell.top + 10, 180, 50), DT_RIGHT | DT_VCENTER);
 
@@ -84,7 +109,7 @@ void inventory::render()
 		//아이템 정보
 		DrawText(getMemDC(), _itemName, -1, 
 			&RectMake(_rcItemInfo.left + 25, _rcItemInfo.top + 20, 100, 30), DT_LEFT | DT_VCENTER);
-		DrawText(getMemDC(), _itmeAtk.c_str(), -1, 
+		DrawText(getMemDC(), _itemAtk.c_str(), -1,
 			&RectMake(_rcItemInfo.left + 100, _rcItemInfo.top + 75, 100, 30), DT_LEFT | DT_VCENTER);
 		DrawText(getMemDC(), _itemInt.c_str(), -1, 
 			&RectMake(_rcItemInfo.left + 100, _rcItemInfo.top + 110, 100, 30), DT_LEFT | DT_VCENTER);
@@ -114,8 +139,61 @@ void inventory::keyControl()
 		{
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				updateItemInfo(_item.getVItem()[i]);
-				break;
+				if (!_item.getVItem()[i].isWear && !_isWear/* && !_onItemButton*/)
+				{
+					_onItemButton = true;		//버튼 그린다.
+					_equip = IMAGEMANAGER->findImage("inven_equip");
+
+					_selectItemNum = i;
+					updateItemInfo(_item.getVItem()[_selectItemNum]);
+					break;
+				}
+			}
+		}
+	}
+
+	if (PtInRect(&_rcEquip, _ptMouse))
+	{
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		{
+			if (!_isWear && _onItemButton)
+			{
+				_onItemButton = false;		//버튼 안 그린다.
+				
+				_item.getVItem()[_selectItemNum].isWear = true;
+				_isWear = _item.getVItem()[_selectItemNum].isWear;
+				//현재 캐릭터의 장비 상태를 변경한다.
+				setEquip(_isWear);
+				//착용한 아이템을 목록에서 삭제한다.
+				_item.removeItem(_selectItemNum);
+
+				updateItemInfo(_item.getVItem().front());
+			}
+			else if (_isWear && _onItemButton)
+			{
+				_onItemButton = false;		//버튼 안 그린다.
+
+				//착용했던 장비를 아이템 목록에 추가한다.
+				_item.setItem(_weapon.c_str(), false);
+				_isWear = _item.getVItem().back().isWear;
+
+				//현재 캐릭터의 장비 상태를 변경한다.
+				setEquip(_isWear);
+				updateItemInfo(_item.getVItem().back());
+			}
+		}
+	}
+
+	if (PtInRect(&_rcWeapon, _ptMouse))
+	{
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		{
+			if (_isWear && !_onItemButton)
+			{
+				if (strcmp(_weapon.c_str(), "nothing") == 0) return;
+
+				_onItemButton = true;		//버튼 그린다.
+				_equip = IMAGEMANAGER->findImage("inven_takeoff");
 			}
 		}
 	}
@@ -125,63 +203,15 @@ void inventory::showInventory()
 {
 	_invenOpen = true;
 
-	//show inventory ui
-	showUI();
-	//showCharacterState();
-	//showItemList();
-}
-
-void inventory::showCharacterState()
-{
-	
-}
-
-void inventory::showItemList()
-{
-	
-
-}
-
-void inventory::updateItemInfo(tagItem item)
-{
-	//아이템 정보 갱신
-	_itemName = item.name;
-	_itmeAtk = std::to_string(item.atk);
-	_itemInt = std::to_string(item.intel);
-	_itemDef = std::to_string(item.def);
-	_itemSpd = std::to_string(item.spd);
-	_itemHit = std::to_string(item.hit);
-	_itemRes = std::to_string(item.res);
-	_itemPrice = std::to_string(item.sellPrice);
-
-	_itemImage = IMAGEMANAGER->findImage(_itemName);
-}
-
-void inventory::showUI()
-{
 	/*			 ui rect set			*/
 	_rcStatus = RectMake(100, 50, 300, 500);
 	_rcItemList = RectMake(480, 50, 250, 400);
 	_rcItemInfo = RectMake(810, 50, 350, 556);
 	_rcExit = RectMake(WINSIZEX - 282, WINSIZEY - 110, 162, 65);
 	_rcHell = RectMake(480, WINSIZEY - 220, 250, 50);
-
-	/*			character states rect set			*/
-	_rcName = RectMake(120, 70, 200, 30);
-	_rcLevel = RectMake(260, 145, 100, 30);
-	_rcCounter = RectMake(310, 170, 50, 30);
-	_rcMv = RectMake(260, 195, 30, 30);
-	_rcJm = RectMake(330, 195, 30, 30);
-	_rcHp = RectMake(170, 240, 50, 30);
-	_rcSp = RectMake(170, 265, 50, 30);
-	_rcAtk = RectMake(170, 285, 50, 30);
-	_rcInt = RectMake(300, 285, 50, 30);
-	_rcDef = RectMake(170, 307, 50, 30);
-	_rcSpd = RectMake(300, 307, 50, 30);
-	_rcHit = RectMake(170, 330, 50, 30);
-	_rcRes = RectMake(300, 330, 50, 30);
-	_rcExp = RectMake(170, 350, 50, 30);
-	_rcNext = RectMake(170, 373, 50, 30);
+	_rcNext = RectMake(100, WINSIZEY - 110, 162, 65);
+	_rcEquip = RectMake(CENTERX - 81, WINSIZEY - 110, 162, 65);
+	_rcWeapon = RectMake(120, 430, 200, 30);
 
 	/*			item list rect set			*/
 	int size = _item.getVItem().size();
@@ -189,6 +219,29 @@ void inventory::showUI()
 	{
 		_item.getVItem()[i].rc = RectMake(_rcItemList.left + 20, (_rcItemList.top + 40) + (i * 50), 200, 50);
 	}
+}
+
+void inventory::updateItemInfo(tagItem item)
+{
+	//아이템 정보 갱신
+	_itemName = item.name;
+	_itemAtk = std::to_string(item.atk);
+	_itemInt = std::to_string(item.intel);
+	_itemDef = std::to_string(item.def);
+	_itemSpd = std::to_string(item.spd);
+	_itemHit = std::to_string(item.hit);
+	_itemRes = std::to_string(item.res);
+	_itemPrice = std::to_string(item.sellPrice);
+	_isWear = item.isWear;
+	
+	/*			item list rect set			*/
+	int size = _item.getVItem().size();
+	for (int i = 0; i < size; ++i)
+	{
+		_item.getVItem()[i].rc = RectMake(_rcItemList.left + 20, (_rcItemList.top + 40) + (i * 50), 200, 50);
+	}
+
+	_itemImage = IMAGEMANAGER->findImage(_itemName);
 }
 
 void inventory::closeInventory()
@@ -201,6 +254,9 @@ void inventory::closeInventory()
 	_rcItemInfo = RectMake(0, 0, 0, 0);
 	_rcExit = RectMake(0, 0, 0, 0);
 	_rcHell = RectMake(0, 0, 0, 0);
+	_rcNext = RectMake(0, 0, 0, 0);
+	_rcEquip = RectMake(0, 0, 0, 0);
+	_rcWeapon = RectMake(0, 0, 0, 0);
 
 	int size = _item.getVItem().size();
 	for (int i = 0; i < size; ++i)
@@ -209,9 +265,18 @@ void inventory::closeInventory()
 	}
 }
 
-void inventory::setItem(const char* itemName)
+int inventory::searchItemListIndex()
 {
-	_item.setItem(itemName);
+	int size = _item.getVItem().size();
+	for (int i = 0; i < size; ++i)
+	{
+		if (strcmp(_weapon.c_str(), _item.getVItem()[i].name) == 0) return i;
+	}
+}
+
+void inventory::setItem(const char* itemName, bool isWear)
+{
+	_item.setItem(itemName, isWear);
 }
 
 void inventory::setClassStates(int level, int counter, int mv, int jm)
@@ -222,7 +287,8 @@ void inventory::setClassStates(int level, int counter, int mv, int jm)
 	_jm = std::to_string(jm);
 }
 
-void inventory::setCharacterStates(int hp, int sp, int atk, int intel, int def, int spd, int hit, int res, int exp, int next)
+void inventory::setCharacterStates(int hp, int sp, int atk, int intel, 
+	int def, int spd, int hit, int res, int exp, int next, WEAPON_TYPE weapon)
 {
 	_hp = std::to_string(hp);
 	_sp = std::to_string(sp);
@@ -234,4 +300,52 @@ void inventory::setCharacterStates(int hp, int sp, int atk, int intel, int def, 
 	_res = std::to_string(res);
 	_exp = std::to_string(exp);
 	_next = std::to_string(next);
+
+	switch (weapon)
+	{
+	case NONE:
+		_weapon = "nothing";
+		_isWear = false;
+		break;
+	case SWORD:
+		_weapon = "sword";
+		_isWear = true;
+		break;
+	case WAND:
+		_weapon = "wand";
+		_isWear = true;
+		break;
+	case STAFF:
+		_weapon = "staff";
+		_isWear = true;
+		break;
+	case BOW:
+		_weapon = "bow";
+		_isWear = true;
+		break;
+	}
+}
+
+void inventory::setEquip(bool isWear)
+{
+	if (isWear)
+	{
+		_atk = std::to_string(atoi(_atk.c_str()) + _item.getVItem()[_selectItemNum].atk);
+		_int = std::to_string(atoi(_int.c_str()) + _item.getVItem()[_selectItemNum].intel);
+		_def = std::to_string(atoi(_def.c_str()) + _item.getVItem()[_selectItemNum].def);
+		_spd = std::to_string(atoi(_spd.c_str()) + _item.getVItem()[_selectItemNum].spd);
+		_hit = std::to_string(atoi(_hit.c_str()) + _item.getVItem()[_selectItemNum].hit);
+		_res = std::to_string(atoi(_res.c_str()) + _item.getVItem()[_selectItemNum].res);
+		_weapon = _item.getVItem()[_selectItemNum].name;
+	}
+	else
+	{
+		_atk = std::to_string(atoi(_atk.c_str()) - _item.getVItem().back().atk);
+		_int = std::to_string(atoi(_int.c_str()) - _item.getVItem().back().intel);
+		_def = std::to_string(atoi(_def.c_str()) - _item.getVItem().back().def);
+		_spd = std::to_string(atoi(_spd.c_str()) - _item.getVItem().back().spd);
+		_hit = std::to_string(atoi(_hit.c_str()) - _item.getVItem().back().hit);
+		_res = std::to_string(atoi(_res.c_str()) - _item.getVItem().back().res);
+		_weapon = "nothing";
+	}
 }

@@ -68,13 +68,10 @@ struct TagObject
 	OBJSTATE state;
 };
 
-//struct OBJ_Y_RENDER
-//{
-//	bool operator()(const TagObject& obj1, const TagObject& obj2)
-//	{
-//		return obj1.rc.bottom < obj2.rc.bottom;
-//	}
-//};
+enum WEAPON_TYPE
+{
+	NONE, SWORD, WAND, STAFF, BOW
+};
 
 struct tagItem
 {
@@ -88,17 +85,11 @@ struct tagItem
 	int spd;
 	int hit;
 	int res;
-	int buyPrice;   //플레이어가 살 때 가격
-	int sellPrice;   //플레이어가 팔 때 가격
+	int buyPrice;	//플레이어가 살 때 가격
+	int sellPrice;	//플레이어가 팔 때 가격
+	bool isWear;
+	WEAPON_TYPE type;
 };
-
-//struct OBJ_NUM
-//{
-//	bool operator()(const TagObject& obj1, const TagObject& obj2)
-//	{
-//		return obj1.number < obj2.number;
-//	}
-//};
 
 namespace MY_UTIL
 {
