@@ -19,6 +19,8 @@ HRESULT gameObjectManager::init()
 	_aStar->init();
 	vEnmSize = vObjSize = 0;
 
+	_isAction = false;
+
 	return S_OK;
 }
 
@@ -83,7 +85,7 @@ void gameObjectManager::setUnitAttack(int i, int destX, int destY)
 		if (!_vGameObject[i]->getIsOrdering())
 		{
 			_isAction = false;
-			_battleMgr->setCompleteAction();
+			_battleMgr->setOrderNumber();
 		}
 		// 오더가 수행중이라면
 		else
