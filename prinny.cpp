@@ -301,6 +301,12 @@ void prinny::setFrame()
 		if (_curFrameX > _character->getMaxFrameX())
 		{
 			_curFrameX = 0;
+			if (_characterState == ATTACK)
+			{
+				_characterState = IDLE;
+				_isOrdering = false;
+				return;
+			}
 		}
 		_character->setFrameX(_curFrameX);
 	}
