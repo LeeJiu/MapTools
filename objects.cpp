@@ -43,9 +43,9 @@ HRESULT objects::init(const char* strkey, int x, int y, int imageNum, vector<Tag
 	{
 		if (_x == _tile[i]->x && _y == _tile[i]->y)
 		{
-			if (_height < TILESIZE / 2)
-				_rcSommon = RectMake(_tile[i]->pivotX - _width / 2, _tile[i]->pivotY + TILESIZE / 4 - _height / 2, _width, _height);
-			else if (_height > TILESIZE / 2)
+			if (_height < WIDTH / 2)
+				_rcSommon = RectMake(_tile[i]->pivotX - _width / 2, _tile[i]->pivotY + WIDTH / 4 - _height / 2, _width, _height);
+			else if (_height > WIDTH / 2)
 				_rcSommon = RectMake(_tile[i]->pivotX - _width / 2, _tile[i]->rc.bottom - _height, _width, _height);
 		}
 	}

@@ -363,9 +363,9 @@ void mapTool::keyControl()
 								}
 								_vObj[i]->width = _vObj[i]->image->getFrameWidth();
 								_vObj[i]->height = _vObj[i]->image->getFrameHeight();
-								if (_vObj[i]->height < TILESIZE / 2)
-									_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->pivotY + TILESIZE / 4 - _vObj[i]->height / 2 , _vObj[i]->width, _vObj[i]->height);
-								else if(_vObj[i]->height > TILESIZE / 2)
+								if (_vObj[i]->height < WIDTH / 2)
+									_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->pivotY + WIDTH / 4 - _vObj[i]->height / 2, _vObj[i]->width, _vObj[i]->height);
+								else if (_vObj[i]->height > WIDTH / 2)
 									_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->rc.bottom - _vObj[i]->height, _vObj[i]->width, _vObj[i]->height);
 								_vObj[i]->draw = true;
 						
@@ -640,9 +640,9 @@ void mapTool::loadMapData()
 			}
 			_vObj[i]->width = _vObj[i]->image->getFrameWidth();
 			_vObj[i]->height = _vObj[i]->image->getFrameHeight();
-			if (_vObj[i]->height < TILESIZE / 2)
-				_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->pivotY + TILESIZE / 4 - _vObj[i]->height / 2 , _vObj[i]->width, _vObj[i]->height);
-			else if (_vObj[i]->height > TILESIZE / 2)
+			if (_vObj[i]->height < WIDTH / 2)
+				_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->pivotY + WIDTH / 4 - _vObj[i]->height / 2, _vObj[i]->width, _vObj[i]->height);
+			else if (_vObj[i]->height > WIDTH / 2)
 				_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->rc.bottom - _vObj[i]->height , _vObj[i]->width, _vObj[i]->height);
 		}
 	}

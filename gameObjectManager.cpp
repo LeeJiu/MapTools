@@ -51,6 +51,12 @@ void gameObjectManager::render()
 		_vGameObject[i]->render();
 	}
 
+	_size = _vToTalRender.size();
+	for (int i = 0; i < _size; i++)
+	{
+		_vToTalRender[i]->render();
+	}
+
 	char str[128];
 	sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
 	TextOut(getMemDC(), 10, 10, str, strlen(str));
@@ -229,7 +235,7 @@ void gameObjectManager::setObject()
 				DATABASE->getElementData(std::to_string(i))->imageNum,
 				_vTile);
 
-			_vGameObject.push_back(rnd);
+			_vToTalRender.push_back(rnd);
 		}
 		else continue;
 	}

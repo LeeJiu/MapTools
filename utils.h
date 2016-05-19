@@ -13,12 +13,6 @@
 
 #define ONE_RAD (PI / 180)
 
-#define MAPSIZEX 10
-#define MAPSIZEY 10
-#define TILESIZE 52
-#define TILEMAXX 4
-#define TILEMAXY 3
-
 //실수 대소비교하기 위한 변수 (가장 작은 단위라고 보자)
 #define FLOAT_EPSILON 0.001f 
 #define FLOAT_EQUAL(f1, f2)      (fabs(f1 - f2) <= FLOAT_EPSILON) //두 실수가 같은지 확인
