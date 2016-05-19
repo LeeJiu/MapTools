@@ -27,11 +27,20 @@ HRESULT raspberyl::init(vector<TagTile*> tile)
 
 	_isCharacter = true;
 
-	_character = IMAGEMANAGER->findImage("prinny_idle");
+	_character = IMAGEMANAGER->findImage("raspberyl_idle");
 	_characterState = IDLE;
 	_characterDir = LB;
 	_curFrameX = 0;
 	_count = 0;
+
+	_isShow = false;
+
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	{
+		_tile[i % TILENUM][i / TILENUM] = tile[i];
+	}
+
+	_vTile = tile;
 
 	_moveSpeed = 3;
 
@@ -44,10 +53,26 @@ void raspberyl::release()
 
 void raspberyl::update()
 {
+	setImage();
+
+	if (!_isMove)
+	{
+		_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+		_x = (_rc.right + _rc.left) / 2;
+		_y = (_rc.top + _rc.bottom) / 2;
+	}
+	battleKeyControl();
+	gameObject::move();
 }
 
 void raspberyl::render()
 {
+	if (_isShow)
+	{
+		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
+		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+	}
 }
 
 void raspberyl::keyControl()
@@ -61,10 +86,85 @@ void raspberyl::battleKeyControl()
 
 void raspberyl::setImage()
 {
+	if (_isRight)
+	{
+		if (_isUp)
+		{
+			_characterDir = RT;
+		}
+		else _characterDir = RB;
+	}
+	else
+	{
+		if (_isUp)
+		{
+			_characterDir = LT;
+		}
+		else _characterDir = LB;
+	}
+
+	switch (_characterState)
+	{
+	case IDLE:
+		_character = IMAGEMANAGER->findImage("raspberyl_idle");
+		break;
+
+	case WALK:
+		_character = IMAGEMANAGER->findImage("raspberyl_walk");
+		break;
+
+	case ATTACK:
+		_character = IMAGEMANAGER->findImage("raspberyl_attack");
+		break;
+
+	case LIFT:
+		_character = IMAGEMANAGER->findImage("raspberyl_lift");
+		break;
+
+	case ETC:
+		_character = IMAGEMANAGER->findImage("raspberyl_etc");
+		break;
+	}
+
+	setFrame();
 }
 
 void raspberyl::setFrame()
 {
+	_count++;
+
+	switch (_characterDir)
+	{
+	case LB:
+		_curFrameY = 0;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RB:
+		_curFrameY = 1;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RT:
+		_curFrameY = 2;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case LT:
+		_curFrameY = 3;
+		_character->setFrameY(_curFrameY);
+		break;
+	}
+
+	if (_count % 7 == 0)
+	{
+		_curFrameX++;
+		if (_curFrameX > _character->getMaxFrameX())
+		{
+			_curFrameX = 0;
+		}
+		_character->setFrameX(_curFrameX);
+	}
 }
 
 void raspberyl::saveData()

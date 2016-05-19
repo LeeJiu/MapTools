@@ -121,6 +121,7 @@ void gameObjectManager::setCharacter()
 	_prinny->init(_vTile);
 	_vGameObject.push_back(_prinny);
 	_vToTalRender.push_back(_prinny);
+	vCharSize++;
 
 	int size = _vGameObject[0]->getMercenary().size();
 	
