@@ -52,6 +52,9 @@ HRESULT prinny::init(vector<TagTile*> tile)
 	_curFrameX = 0;
 	_count = 0;
 
+	_isRight = true;
+	_isUp = true;
+
 	_indexX = 4;
 	_indexY = 9;
 	_mv = 4;
@@ -78,6 +81,10 @@ void prinny::release()
 
 void prinny::update()
 {
+<<<<<<< HEAD
+	setImage();
+=======
+>>>>>>> refs/remotes/origin/moobin
 
 	if (_isbattle)
 	{
@@ -221,6 +228,23 @@ void prinny::battleKeyControl()
 
 void prinny::setImage()
 {
+	if (_isRight)
+	{
+		if (_isUp)
+		{
+			_characterDir = RT;
+		}
+		else _characterDir = RB;
+	}
+	else
+	{
+		if (_isUp)
+		{
+			_characterDir = LT;
+		}
+		else _characterDir = LB;
+	}
+
 	switch (_characterState)
 	{
 	case IDLE:

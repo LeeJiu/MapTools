@@ -363,9 +363,9 @@ void mapTool::keyControl()
 								}
 								_vObj[i]->width = _vObj[i]->image->getFrameWidth();
 								_vObj[i]->height = _vObj[i]->image->getFrameHeight();
-								if (_vObj[i]->height < TILESIZE / 2)
-									_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->pivotY + TILESIZE / 4 - _vObj[i]->height / 2 , _vObj[i]->width, _vObj[i]->height);
-								else if(_vObj[i]->height > TILESIZE / 2)
+								if (_vObj[i]->height < WIDTH / 2)
+									_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->pivotY + WIDTH / 4 - _vObj[i]->height / 2, _vObj[i]->width, _vObj[i]->height);
+								else if (_vObj[i]->height > WIDTH / 2)
 									_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->rc.bottom - _vObj[i]->height, _vObj[i]->width, _vObj[i]->height);
 								_vObj[i]->draw = true;
 						
@@ -640,9 +640,9 @@ void mapTool::loadMapData()
 			}
 			_vObj[i]->width = _vObj[i]->image->getFrameWidth();
 			_vObj[i]->height = _vObj[i]->image->getFrameHeight();
-			if (_vObj[i]->height < TILESIZE / 2)
-				_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->pivotY + TILESIZE / 4 - _vObj[i]->height / 2 , _vObj[i]->width, _vObj[i]->height);
-			else if (_vObj[i]->height > TILESIZE / 2)
+			if (_vObj[i]->height < WIDTH / 2)
+				_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->pivotY + WIDTH / 4 - _vObj[i]->height / 2, _vObj[i]->width, _vObj[i]->height);
+			else if (_vObj[i]->height > WIDTH / 2)
 				_vObj[i]->rc = RectMake(_vTile[i]->pivotX - _vObj[i]->width / 2, _vTile[i]->rc.bottom - _vObj[i]->height , _vObj[i]->width, _vObj[i]->height);
 		}
 	}
@@ -874,6 +874,10 @@ void mapTool::moveTile()
 	{
 		_vTile[0]->pivotY += 3;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+		for (int i = 0; i < TOTALTILE(TILENUM); i++)
+		{
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left, _vRender[i]->rc.top + 3, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+		}
 	}
 
 	//다운키
@@ -881,6 +885,10 @@ void mapTool::moveTile()
 	{
 		_vTile[0]->pivotY -= 3;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+		for (int i = 0; i < TOTALTILE(TILENUM); i++)
+		{
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left, _vRender[i]->rc.top - 3, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+		}
 	}
 
 	//왼쪽키
@@ -888,6 +896,10 @@ void mapTool::moveTile()
 	{
 		_vTile[0]->pivotX += 3;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+		for (int i = 0; i < TOTALTILE(TILENUM); i++)
+		{
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left + 3, _vRender[i]->rc.top, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+		}
 	}
 
 	//오른쪽키
@@ -895,6 +907,10 @@ void mapTool::moveTile()
 	{
 		_vTile[0]->pivotX -= 3;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+		for (int i = 0; i < TOTALTILE(TILENUM); i++)
+		{
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left - 3, _vRender[i]->rc.top, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+		}
 	}
 }
 

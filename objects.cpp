@@ -44,6 +44,7 @@ HRESULT objects::init(const char* strkey, int x, int y, int imageNum, vector<Tag
 	else if (_height > WIDTH / 2)
 		_rc = RectMake(_tile[_indexX][_indexY]->pivotX - _width / 2, _tile[_indexX][_indexY]->rc.bottom - _height, _width, _height);
 
+
 	_isFrame = false;
 	if (_imageNum == 4) _isFrame = true;
 

@@ -66,9 +66,17 @@ void orc::setMercenary(const char * characterName)
 {
 }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+void orc::setItem(const char * itemName, bool isWear)
+=======
 void orc::setItem(const char* itemName, bool isWear)
-{
+>>>>>>> refs/remotes/origin/moobin
+=======
 
+void orc::setItem(const char * itemName, bool isWear)
+>>>>>>> refs/remotes/origin/backup-Jaejun
+{
 }
 
 int orc::getHell()
