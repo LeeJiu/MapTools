@@ -318,10 +318,14 @@ void battleUI::renderOverlapSelectTile()
 
 		if (_isOnSelectTarget)
 		{
-			_imageSelectTile->render(getMemDC(), _gameObjMgr->getTile()[_selectCharacterNumber]->rc.left, _gameObjMgr->getTile()[_selectCharacterNumber]->rc.top);
+			int tempX = _gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexX();
+			int tempY = _gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexY();
+			int index = tempY * TILENUM + tempX;
+
+			_imageSelectTile->render(getMemDC(), _gameObjMgr->getTile()[index]->rc.left, _gameObjMgr->getTile()[index]->rc.top);
 			IMAGEMANAGER->findImage("ui_arrow_blue")->frameRender(getMemDC(),
-				(_gameObjMgr->getTile()[_selectCharacterNumber]->rc.left + _gameObjMgr->getTile()[_selectCharacterNumber]->rc.right) / 2 - IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameWidth() / 2
-				, _gameObjMgr->getTile()[_selectCharacterNumber]->rc.top - IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameHeight() - 80,
+				(_gameObjMgr->getTile()[index]->rc.left + _gameObjMgr->getTile()[index]->rc.right) / 2 - IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameWidth() / 2
+				, _gameObjMgr->getTile()[index]->rc.top - IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameHeight() - 80,
 				IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameX(),
 				IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameY());
 		}
@@ -371,7 +375,7 @@ void battleUI::unitOrderListClick(int unitOrderNumber)
 	case 1:	//공격
 		_isOnSelectTarget = true;
 		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(false);
-		//_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleAttackTile(true);
+		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleAttackTile(true);
 		break;
 	case 2:	//특수기술
 
