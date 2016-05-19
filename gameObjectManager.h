@@ -41,12 +41,9 @@ class gameObjectManager : public gameNode
 	int vObjSize;
 	int vEnmSize;
 
-<<<<<<< HEAD
 	int _zenPosX, _zenPosY;
 
-=======
 	bool _isAction;
->>>>>>> origin/development
 	bool isCharacterTurn;
 
 	aStar* _aStar;
