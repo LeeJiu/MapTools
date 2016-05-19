@@ -100,6 +100,9 @@ void prinny::update()
 		_inventory->update();
 		keyControl();
 	}
+
+	setImage();
+	gameObject::setDirectionImage();
 }
 
 void prinny::render()
@@ -116,6 +119,7 @@ void prinny::render()
 			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 		}
 	}
 }
@@ -184,7 +188,6 @@ void prinny::keyControl()
 			_invenExit = RectMake(0, 0, 0, 0);
 			_invenNext = RectMake(0, 0, 0, 0);
 		}
-		
 	}
 
 	if (PtInRect(&_invenExit, _ptMouse))

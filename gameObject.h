@@ -29,8 +29,8 @@ protected:
 	bool _isMove;																	// 움직이고 있는지 유무
 	bool _isShowPossibleMoveTile;													// 이동가능한 타일 보여주는지 유무
 	bool _isShowPossibleAttackTile;													// 공격가능한 타일 보여주는지 유무
-	bool _isOrdering;																// 명령수행중인지 유무
 	bool _isCharacter;																// 적인지 플레이언지 판단 변수
+	bool _isOrdering;																// 명령수행중인지 유무
 	bool _isAction;																	// 명령받은 액션이 있는지 판단 변수
 
 	CHARACTER_STATE _characterState;
