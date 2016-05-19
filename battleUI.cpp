@@ -222,7 +222,7 @@ void battleUI::render()
 
 void battleUI::setCharacterList()
 {
-	_characterSize = _gameObjMgr->getGameObject().size();
+	_characterSize = _gameObjMgr->getCharSize();
 	for (int i = 0; i < _characterSize; i++)
 	{
 		_vCharacterList.push_back(_gameObjMgr->getGameObject()[i]->getName());
@@ -299,7 +299,7 @@ void battleUI::renderOverlapSelectTile()
 		if (!_isOnSelectTarget)
 		{
 			// 셀렉트 타일 + 케릭터 위 에로우출력
-			for (int i = 0; i < _gameObjMgr->getTile().size(); i++)
+			for (int i = 0; i < TOTALTILE(TILENUM); i++)
 			{
 				if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
 				{

@@ -46,6 +46,7 @@ public:
 	//¿¸≈ı∏  init
 	virtual HRESULT init(vector<TagTile*> tile);
 	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile);
+	virtual HRESULT init(int x, int y, vector<TagTile*> tile);
 	virtual void release();
 	virtual void update();
 	virtual void render();

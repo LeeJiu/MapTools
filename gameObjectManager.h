@@ -19,7 +19,6 @@ class gameObjectManager : public gameNode
 	image* _imageTurn;
 	bool _isTurnCenter;
 
-	RECT _rcSummon;
 
 	TagTile* _tile[TILENUM][TILENUM];
 
@@ -29,6 +28,7 @@ class gameObjectManager : public gameNode
 	vector<gameObject*> _vGameObject;
 	vector<gameObject*> _vToTalRender;		
 
+	int vCharSize;
 	int vObjSize;
 	int vEnmSize;
 
@@ -56,9 +56,11 @@ public:
 	void setActionAttack();
 	void setChangeTurn();
 
-
-	RECT getSummonRect() { return _rcSummon; }
+	//get함수
 	
+	int getCharSize() { return vCharSize; }
+
+	//set함수
 	void setTile();
 	void setCharacter();
 	void setEnemy();
