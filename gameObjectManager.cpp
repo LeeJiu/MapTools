@@ -46,6 +46,7 @@ void gameObjectManager::render()
 	}
 
 	_battleUI->renderOverlapSelectTile();
+	_battleUI->renderOverlapAttackSelectTile();
 
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
 <<<<<<< HEAD
@@ -203,12 +204,12 @@ void gameObjectManager::setEnemy()
 	}
 
 	gameObject* _orc = new orc;
-	_orc->init(4, 7, _vTile);
+	_orc->init(3, 7, _vTile);
 	_vGameObject.push_back(_orc);
 	_vToTalRender.push_back(_orc);
 
 	gameObject* _orc1 = new orc;
-	_orc1->init(6, 7, _vTile);
+	_orc1->init(5, 7, _vTile);
 	_vGameObject.push_back(_orc1);
 	_vToTalRender.push_back(_orc1);
 

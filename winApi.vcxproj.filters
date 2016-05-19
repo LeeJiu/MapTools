@@ -251,6 +251,7 @@
     <ClInclude Include="selectStageData.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/moobin
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
@@ -261,6 +262,14 @@
     <ClInclude Include="soundManager.h">
       <Filter>2D Framework\manager</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="soundManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="boss.h">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+    </ClInclude>
+>>>>>>> refs/remotes/origin/backup-Jaejun
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -403,6 +412,7 @@
     <ClCompile Include="selectStageData.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/moobin
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
@@ -413,6 +423,14 @@
     <ClCompile Include="soundManager.cpp">
       <Filter>2D Framework\manager</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="soundManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="boss.cpp">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+    </ClCompile>
+>>>>>>> refs/remotes/origin/backup-Jaejun
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
