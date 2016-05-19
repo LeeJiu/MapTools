@@ -4,7 +4,6 @@
 class objects : public gameObject
 {
 private:
-	TagTile* _tile[TOTALTILE(TILENUM)];
 
 	int _count, _curFrameX;
 
