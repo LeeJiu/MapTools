@@ -52,6 +52,9 @@ HRESULT prinny::init(vector<TagTile*> tile)
 	_curFrameX = 0;
 	_count = 0;
 
+	_isRight = true;
+	_isUp = true;
+
 	_indexX = 4;
 	_indexY = 9;
 	_mv = 4;
@@ -78,8 +81,10 @@ void prinny::release()
 
 void prinny::update()
 {
+<<<<<<< HEAD
 	setImage();
-	gameObject::setDirectionImage();
+=======
+>>>>>>> refs/remotes/origin/moobin
 
 	if (_isbattle)
 	{
@@ -97,6 +102,9 @@ void prinny::update()
 		_inventory->update();
 		keyControl();
 	}
+
+	setImage();
+	gameObject::setDirectionImage();
 }
 
 void prinny::render()
@@ -113,6 +121,7 @@ void prinny::render()
 			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 		}
 	}
 }
@@ -181,7 +190,6 @@ void prinny::keyControl()
 			_invenExit = RectMake(0, 0, 0, 0);
 			_invenNext = RectMake(0, 0, 0, 0);
 		}
-		
 	}
 
 	if (PtInRect(&_invenExit, _ptMouse))
@@ -220,6 +228,23 @@ void prinny::battleKeyControl()
 
 void prinny::setImage()
 {
+	if (_isRight)
+	{
+		if (_isUp)
+		{
+			_characterDir = RT;
+		}
+		else _characterDir = RB;
+	}
+	else
+	{
+		if (_isUp)
+		{
+			_characterDir = LT;
+		}
+		else _characterDir = LB;
+	}
+
 	switch (_characterState)
 	{
 	case IDLE:

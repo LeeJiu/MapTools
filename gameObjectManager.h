@@ -10,8 +10,17 @@
 #include "boss.h"
 #include "objects.h"
 
+struct GOBJ_Y_RENDER
+{
+	bool operator()(gameObject* obj1, gameObject* obj2)
+	{
+		return obj1->getIndexY() < obj2->getIndexY();
+	}
+};
+
 class battleUI;
 class battleManager;
+
 class gameObjectManager : public gameNode
 {
 	RECT _rcTurnBack;
@@ -32,6 +41,7 @@ class gameObjectManager : public gameNode
 	int vObjSize;
 	int vEnmSize;
 
+	bool _isAction;
 	bool isCharacterTurn;
 
 	aStar* _aStar;
@@ -59,6 +69,8 @@ public:
 	//get함수
 	
 	int getCharSize() { return vCharSize; }
+	int getEnmSize() { return vEnmSize; }
+	bool getIsAction() { return _isAction; }
 
 	//set함수
 	void setTile();
@@ -66,6 +78,7 @@ public:
 	void setEnemy();
 	void setObject();
 	void setAstar();
+	void setIsActiom(bool isAction) { _isAction = isAction; }
 
 	void loadMapData();
 

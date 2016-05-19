@@ -7,11 +7,19 @@ enum ORDER_TYPE
 };
 struct tagOrder
 {
+<<<<<<< HEAD
 	int character;
 	int targetX;
 	int targetY;
 	ORDER_TYPE order;
 	bool isDone;
+=======
+	int _character;
+	int _targetX;
+	int _targetY;
+	ORDER_TYPE _order;
+	bool _isDone;
+>>>>>>> refs/remotes/origin/development
 };
 
 class gameObjectManager;

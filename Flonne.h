@@ -20,5 +20,12 @@ public:
 
 	virtual void saveData();
 	virtual void loadData();
+
+	virtual void setItem(const char* itemName, bool isWear);
+	virtual void setMercenary(const char* characterName);
+	virtual void setHell(int hell);
+	virtual int getHell();
+
+	virtual RECT getRect() { return _rc; }
 };
 
