@@ -27,10 +27,10 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-	int _size = _vGameObject.size();
+	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
-		_vGameObject[i]->update();
+		_vToTalRender[i]->update();
 	}
 }
 
@@ -45,10 +45,10 @@ void gameObjectManager::render()
 
 	_battleUI->renderOverlapSelectTile();
 
-	int _size = _vGameObject.size();
+	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
-		_vGameObject[i]->render();
+		_vToTalRender[i]->render();
 	}
 
 	char str[128];
@@ -229,12 +229,10 @@ void gameObjectManager::setObject()
 				DATABASE->getElementData(std::to_string(i))->imageNum,
 				_vTile);
 
-			_vGameObject.push_back(rnd);
+			_vToTalRender.push_back(rnd);
 		}
 		else continue;
 	}
-
-	int a = 0;
 }
 
 void gameObjectManager::setAstar()
