@@ -111,5 +111,5 @@ public:
 	virtual bool getIsAction() { return _isAction; }
 	virtual vector<string>& getMercenary() { return _mercenary; }
 	virtual bool getIsShowPossibleMoveTile() { return _isShowPossibleMoveTile; }
-	virtual bool getIsShowPossibleAttackTile() { return _isShowPossibleMoveTile; }
+	virtual bool getIsShowPossibleAttackTile() { return _isShowPossibleAttackTile; }
 };
