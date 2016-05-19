@@ -292,6 +292,7 @@ void battleUI::initUnitOrderList()
 	_rcUnitOrderListBottom = RectMake(WINSIZEX - 300, _rcUnitOrderListBody[_unitOrderListSize - 1].bottom, _imageUnitOrderListBottom->getWidth(), _imageUnitOrderListBottom->getHeight()); //유닛 명령 창 BOTTOM RECT
 }
 
+//타일에 마우스 오버 랩 시 Blue Arrow 출력
 void battleUI::renderOverlapSelectTile()
 {
 	if (!_isOnCharacterList)
@@ -299,7 +300,7 @@ void battleUI::renderOverlapSelectTile()
 		if (!_isOnSelectTarget)
 		{
 			// 셀렉트 타일 + 케릭터 위 에로우출력
-			for (int i = 0; i < _gameObjMgr->getTile().size(); i++)
+			for (int i = 0; i < TOTALTILE(TILENUM); i++)
 			{
 				if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
 				{
@@ -329,6 +330,38 @@ void battleUI::renderOverlapSelectTile()
 				IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameX(),
 				IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameY());
 		}
+	}
+}
+
+//공격 타일 출력 시 적 위에 마우스가 오버 랩 되면 Red Arrow 출력
+void battleUI::renderOverlapAttackSelectTile()
+{
+	if (_isOnSelectTarget)
+	{
+		for (int i = 0; i < TOTALTILE(TILENUM); i++)
+		{
+			if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
+			{
+				if ((_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
+					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
+				{
+					if (_gameObjMgr->getTile()[i]->state == S_ONENM)
+					{
+						_imageSelectTile->render(getMemDC(), _gameObjMgr->getTile()[i]->rc.left, _gameObjMgr->getTile()[i]->rc.top);
+						IMAGEMANAGER->findImage("ui_arrow_red")->frameRender(getMemDC(),
+							(_gameObjMgr->getTile()[i]->rc.left + _gameObjMgr->getTile()[i]->rc.right) / 2 - IMAGEMANAGER->findImage("ui_arrow_red")->getFrameWidth() / 2
+							, _gameObjMgr->getTile()[i]->rc.top - IMAGEMANAGER->findImage("ui_arrow_red")->getFrameHeight() - 80,
+							IMAGEMANAGER->findImage("ui_arrow_red")->getFrameX(),
+							IMAGEMANAGER->findImage("ui_arrow_red")->getFrameY());
+					}
+				}
+			}
+		}
+
+
+		
 	}
 }
 
@@ -367,6 +400,7 @@ void battleUI::orderListClick(int orderNumber)
 
 void battleUI::unitOrderListClick(int unitOrderNumber)
 {
+	_isOnUnitOrderList = false;
 	switch (unitOrderNumber)
 	{
 	case 0:	//이동
@@ -549,10 +583,10 @@ void battleUI::LButtonClick()
 		}
 	}
 	
-	//for (int i = 0; i < TOTALTILE(TILENUM); i++)
-	//{
-
-	//}
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	{
+		
+	}
 
 	//어떤 캐릭터를 선택했는지 체크하자
 	for (int i = 0; i < _characterSize; i++)
