@@ -46,6 +46,7 @@ public:
 	//전투맵 init
 	virtual HRESULT init(vector<TagTile*> tile);
 	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile);
+	virtual HRESULT init(int x, int y, vector<TagTile*> tile);
 	virtual void release();
 	virtual void update();
 	virtual void render();
@@ -71,7 +72,7 @@ public:
 	virtual void setTilePosition(float x, float y);
 
 	// set함수
-	virtual void setItem(const char* itemName) = 0;
+	virtual void setItem(const char* itemName, bool isWear) = 0;
 	virtual void setMercenary(const char* characterName) = 0;
 	virtual void setHell(int hell) = 0;
 	virtual void setIsShowPossibleMoveTile(bool isShowPossibleMoveTile) { _isShowPossibleMoveTile = isShowPossibleMoveTile; }

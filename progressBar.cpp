@@ -19,9 +19,9 @@ HRESULT progressBar::init(float x, float y, int width, int height, bool type)
 	_type = type;
 	_rcProgress = RectMake(_x, _y, width, height);
 	
-	if(_type) _progressBarFront = IMAGEMANAGER->addImage("barTop_hp", "image/ui_battle_bottom_hpbar.bmp", x, y, width, height, true, 0xff00ff);
-	if (!_type) _progressBarFront = IMAGEMANAGER->addImage("barTop_sp", "image/ui_battle_bottom_spbar.bmp", x, y, width, height, true, 0xff00ff);
-	_progressBarBack = IMAGEMANAGER->addImage("barBottom", "image/ui_battle_bottom_spbar_back.bmp", x, y, width + 2, height + 2, true, 0xff00ff);
+	if(_type) _progressBarFront = IMAGEMANAGER->addImage("barTop_hp", "image/battleUI/ui_battle_bottom_hpbar.bmp", x, y, width, height, true, 0xff00ff);
+	if (!_type) _progressBarFront = IMAGEMANAGER->addImage("barTop_sp", "image/battleUI/ui_battle_bottom_spbar.bmp", x, y, width, height, true, 0xff00ff);
+	_progressBarBack = IMAGEMANAGER->addImage("barBottom", "image/battleUI/ui_battle_bottom_spbar_back.bmp", x, y, width + 2, height + 2, true, 0xff00ff);
 
 	_width = width;
 

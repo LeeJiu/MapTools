@@ -17,7 +17,8 @@ public:
 	void render();
 
 	/*			함수 추가			*/
-	void setItem(const char* imageName);
+	void setItem(const char* imageName, bool isWear);
 	vector<tagItem>& getVItem() { return _vItem; }
+	void removeItem(int arrNum);
 };
 
