@@ -114,3 +114,20 @@ void raspberyl::loadData()
 	_next = atoi(vStr[idx++].c_str());
 	_equipWeapon = (WEAPON_TYPE)atoi(vStr[idx++].c_str());
 }
+
+void raspberyl::setItem(const char * itemName, bool isWear)
+{
+}
+
+void raspberyl::setMercenary(const char * characterName)
+{
+}
+
+void raspberyl::setHell(int hell)
+{
+}
+
+int raspberyl::getHell()
+{
+	return 0;
+}

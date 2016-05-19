@@ -110,3 +110,20 @@ void etna::loadData()
 	_next = atoi(vStr[idx++].c_str());
 	_equipWeapon = (WEAPON_TYPE)atoi(vStr[idx++].c_str());
 }
+
+void etna::setItem(const char * itemName, bool isWear)
+{
+}
+
+void etna::setMercenary(const char * characterName)
+{
+}
+
+void etna::setHell(int hell)
+{
+}
+
+int etna::getHell()
+{
+	return 0;
+}

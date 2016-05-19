@@ -116,29 +116,39 @@ void gameObjectManager::setTile()
 
 void gameObjectManager::setCharacter()
 {
-	// 프리니정보 로드해온다 (용병 개수 + 이름)									-> 지우저장된거 후에 확인하자
+	// 프리니정보 로드해온다 (용병 개수 + 이름)
 	gameObject* _prinny = new prinny;
 	_prinny->init(_vTile);
 	_vGameObject.push_back(_prinny);
 	_vToTalRender.push_back(_prinny);
 
-	gameObject* _prinny1 = new prinny;
-	_prinny1->init(_vTile);
-	_vGameObject.push_back(_prinny1);
-	_vToTalRender.push_back(_prinny1);
-
-	//_vCharacter[0]->겟용병개수백터;
+	int size = _vGameObject[0]->getMercenary().size();
 	
-	//for (int i = 0; i < 용병개수; i++)
-	//{
-	//	switch (용병이름[i])
-	//	{
-	//		//이름마다 케이스 나눠서 인잇 + 셋포인트(젠포인트)
-	//	default:
-	//		break;
-	//	}
-	//}
-	vCharSize = 2;
+	for (int i = 0; i < size; ++i)
+	{
+		if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "etna") == 0)
+		{
+			gameObject* _etna = new etna;
+			_etna->init(_vTile);
+			_vGameObject.push_back(_etna);
+			_vToTalRender.push_back(_etna);
+		}
+		else if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "flonne") == 0)
+		{
+			gameObject* _flonne = new flonne;
+			_flonne->init(_vTile);
+			_vGameObject.push_back(_flonne);
+			_vToTalRender.push_back(_flonne);
+		}
+		else if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "raspberyl") == 0)
+		{
+			gameObject* _raspberyl = new raspberyl;
+			_raspberyl->init(_vTile);
+			_vGameObject.push_back(_raspberyl);
+			_vToTalRender.push_back(_raspberyl);
+		}
+		vCharSize++;
+	}
 }
 
 void gameObjectManager::setEnemy()

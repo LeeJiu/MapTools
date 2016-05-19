@@ -78,8 +78,8 @@ void prinny::release()
 
 void prinny::update()
 {
-	setImage();
 	gameObject::setDirectionImage();
+	setImage();
 
 	if (_isbattle)
 	{
@@ -220,6 +220,8 @@ void prinny::battleKeyControl()
 
 void prinny::setImage()
 {
+	
+
 	switch (_characterState)
 	{
 	case IDLE:

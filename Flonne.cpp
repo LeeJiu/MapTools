@@ -109,3 +109,20 @@ void flonne::loadData()
 	_next = atoi(vStr[idx++].c_str());
 	_equipWeapon = (WEAPON_TYPE)atoi(vStr[idx++].c_str());
 }
+
+void flonne::setItem(const char * itemName, bool isWear)
+{
+}
+
+void flonne::setMercenary(const char * characterName)
+{
+}
+
+void flonne::setHell(int hell)
+{
+}
+
+int flonne::getHell()
+{
+	return 0;
+}
