@@ -689,6 +689,7 @@ void battleUI::LButtonClick()
 						_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleAttackTile(false);
 						_isOnUnitOrderList = false;
 						_isSelectCharacter = false;
+						_isOnSelectTarget = false;
 					}
 				}
 				

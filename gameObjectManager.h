@@ -41,7 +41,9 @@ class gameObjectManager : public gameNode
 	int vObjSize;
 	int vEnmSize;
 
-	bool _isAction;									// 케릭터가 명령을 수행중인지 판단 변수
+	int _zenPosX, _zenPosY;
+
+	bool _isAction;
 	bool isCharacterTurn;
 
 	aStar* _aStar;

@@ -20,9 +20,9 @@ HRESULT battleScene::init()
 	_battleMgr->init();
 	
 	_gameObjMgr->setTile();
+	_gameObjMgr->setObject();
 	_gameObjMgr->setCharacter();
 	_gameObjMgr->setEnemy();
-	_gameObjMgr->setObject();
 	_gameObjMgr->setAstar();
 
 	_battleUI = new battleUI;
