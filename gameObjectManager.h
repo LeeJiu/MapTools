@@ -10,6 +10,14 @@
 #include "boss.h"
 #include "objects.h"
 
+struct GOBJ_Y_RENDER
+{
+	bool operator()(gameObject* obj1, gameObject* obj2)
+	{
+		return obj1->getIndexY() < obj2->getIndexY();
+	}
+};
+
 class battleUI;
 class battleManager;
 class gameObjectManager : public gameNode

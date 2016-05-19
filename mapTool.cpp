@@ -874,6 +874,10 @@ void mapTool::moveTile()
 	{
 		_vTile[0]->pivotY += 3;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+		for (int i = 0; i < TOTALTILE(TILENUM); i++)
+		{
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left, _vRender[i]->rc.top + 3, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+		}
 	}
 
 	//다운키
@@ -881,6 +885,10 @@ void mapTool::moveTile()
 	{
 		_vTile[0]->pivotY -= 3;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+		for (int i = 0; i < TOTALTILE(TILENUM); i++)
+		{
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left, _vRender[i]->rc.top - 3, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+		}
 	}
 
 	//왼쪽키
@@ -888,6 +896,10 @@ void mapTool::moveTile()
 	{
 		_vTile[0]->pivotX += 3;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+		for (int i = 0; i < TOTALTILE(TILENUM); i++)
+		{
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left + 3, _vRender[i]->rc.top, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+		}
 	}
 
 	//오른쪽키
@@ -895,6 +907,10 @@ void mapTool::moveTile()
 	{
 		_vTile[0]->pivotX -= 3;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+		for (int i = 0; i < TOTALTILE(TILENUM); i++)
+		{
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left - 3, _vRender[i]->rc.top, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+		}
 	}
 }
 

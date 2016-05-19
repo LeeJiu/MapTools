@@ -63,6 +63,7 @@ struct TagObject
 	OBJSTATE state;
 };
 
+
 struct OBJ_Y_RENDER
 {
 	bool operator()(const TagObject* obj1, const TagObject* obj2)

@@ -39,23 +39,11 @@ HRESULT objects::init(const char* strkey, int x, int y, int imageNum, vector<Tag
 		_height = _character->getHeight();
 	}
 
-<<<<<<< HEAD
-	for (int i = 0; i < TOTALTILE(TILENUM); i++)
-	{
-		if (_x == _tile[i]->x && _y == _tile[i]->y)
-		{
-			if (_height < WIDTH / 2)
-				_rcSommon = RectMake(_tile[i]->pivotX - _width / 2, _tile[i]->pivotY + WIDTH / 4 - _height / 2, _width, _height);
-			else if (_height > WIDTH / 2)
-				_rcSommon = RectMake(_tile[i]->pivotX - _width / 2, _tile[i]->rc.bottom - _height, _width, _height);
-		}
-	}
-=======
 	if (_height < WIDTH / 2)
 		_rc =  RectMake(_tile[_indexX][_indexY]->pivotX - _width / 2, _tile[_indexX][_indexY]->pivotY + WIDTH / 4 - _height / 2, _width, _height);
 	else if (_height > WIDTH / 2)
 		_rc = RectMake(_tile[_indexX][_indexY]->pivotX - _width / 2, _tile[_indexX][_indexY]->rc.bottom - _height, _width, _height);
->>>>>>> refs/remotes/origin/development
+
 
 	_isFrame = false;
 	if (_imageNum == 4) _isFrame = true;

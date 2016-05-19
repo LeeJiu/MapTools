@@ -45,13 +45,9 @@ void gameObjectManager::render()
 
 	_battleUI->renderOverlapSelectTile();
 
-	int _size = _vToTalRender.size();
-	for (int i = 0; i < _size; i++)
-	{
-		_vToTalRender[i]->render();
-	}
+	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
 
-	_size = _vToTalRender.size();
+	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->render();
