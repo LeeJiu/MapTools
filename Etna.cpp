@@ -16,7 +16,7 @@ HRESULT etna::init()
 	return S_OK;
 }
 
-HRESULT etna::init(vector<TagTile*> tile)
+HRESULT etna::init(int x, int y, vector<TagTile*> tile)
 {
 	_name = "etna";
 
@@ -25,10 +25,12 @@ HRESULT etna::init(vector<TagTile*> tile)
 	_isCharacter = true;
 	_character = IMAGEMANAGER->findImage("etna_idle");
 	_characterState = IDLE;
-	_characterDir = LB;
+	_characterDir = RT;
 	_curFrameX = 0;
 	_count = 0;
 
+	_isRight = true;
+	_isUp = true;
 	_isShow = false;
 
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
@@ -37,6 +39,8 @@ HRESULT etna::init(vector<TagTile*> tile)
 	}
 
 	_vTile = tile;
+	_indexX = x;
+	_indexY = y;
 
 	_moveSpeed = 3;
 
@@ -49,6 +53,7 @@ void etna::release()
 
 void etna::update()
 {
+	gameObject::setDirectionImage();
 	setImage();
 
 	if (!_isMove)
@@ -82,23 +87,6 @@ void etna::battleKeyControl()
 
 void etna::setImage()
 {
-	if (_isRight)
-	{
-		if (_isUp)
-		{
-			_characterDir = RT;
-		}
-		else _characterDir = RB;
-	}
-	else
-	{
-		if (_isUp)
-		{
-			_characterDir = LT;
-		}
-		else _characterDir = LB;
-	}
-
 	switch (_characterState)
 	{
 	case IDLE:

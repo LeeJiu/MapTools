@@ -8,10 +8,7 @@ class character : public gameObject
 protected:
 	int _next;				//캐릭터 능력치 2
 	bool _isWeaponEquip;	//장비 장착여부
-	bool _isUp, _isRight;
 
-	CHARACTER_STATE _characterState;
-	CHARACTER_DIRECTION _characterDir;
 	WEAPON_TYPE _equipWeapon;	//장착 무기 타입
 	
 	int _curFrameX, _curFrameY, _count;
@@ -21,7 +18,7 @@ public:
 	virtual ~character();
 
 	virtual HRESULT init();
-	virtual HRESULT init(vector<TagTile*> tile);
+	virtual HRESULT init(int x, int y, vector<TagTile*> tile);
 	virtual void release();
 	virtual void update();
 	virtual void render();
@@ -34,7 +31,6 @@ public:
 	virtual void setFrame();
 	virtual void previousState();								// 이전으로 돌아가는 함수
 	virtual void showPossibleMoveTile();						// 이동가능한 타일 보여주는 함수
-	virtual void setDirectionImage();
 
 	virtual void saveData();
 	virtual void loadData();

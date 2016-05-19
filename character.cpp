@@ -16,7 +16,7 @@ HRESULT character::init()
 	return S_OK;
 }
 
-HRESULT character::init(vector<TagTile*> tile)
+HRESULT character::init(int x, int y, vector<TagTile*> tile)
 {
 	return S_OK;
 }
@@ -69,10 +69,6 @@ void character::showPossibleMoveTile()
 			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 		}
 	}
-}
-
-void character::setDirectionImage()
-{
 }
 
 void character::saveData()

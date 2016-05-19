@@ -41,18 +41,23 @@ void gameObjectManager::render()
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
+		if (_vTile[i]->pivotX < -WIDTH / 2 || _vTile[i]->pivotX > WINSIZEX + WIDTH / 2 || _vTile[i]->pivotY < -WIDTH / 4 || _vTile[i]->pivotY > WINSIZEY + WIDTH / 4) continue;
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 
-	_battleUI->renderOverlapSelectTile();
-
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
 
-	int _size = _vToTalRender.size();
+	//int _size = _vToTalRender.size();
+	int _size = vCharSize + vObjSize + 2;
+
+
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->render();
 	}
+
+	_battleUI->renderOverlapSelectTile();
+	_battleUI->renderOverlapAttackSelectTile();
 
 	//char str[128];
 	//sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
@@ -120,7 +125,7 @@ void gameObjectManager::setCharacter()
 {
 	// 프리니정보 로드해온다 (용병 개수 + 이름)
 	gameObject* _prinny = new prinny;
-	_prinny->init(_vTile);
+	_prinny->init(_zenPosX, _zenPosY, _vTile);
 	_vGameObject.push_back(_prinny);
 	_vToTalRender.push_back(_prinny);
 	vCharSize++;
@@ -132,21 +137,21 @@ void gameObjectManager::setCharacter()
 		if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "etna") == 0)
 		{
 			gameObject* _etna = new etna;
-			_etna->init(_vTile);
+			_etna->init(_zenPosX, _zenPosY, _vTile);
 			_vGameObject.push_back(_etna);
 			_vToTalRender.push_back(_etna);
 		}
 		else if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "flonne") == 0)
 		{
 			gameObject* _flonne = new flonne;
-			_flonne->init(_vTile);
+			_flonne->init(_zenPosX, _zenPosY, _vTile);
 			_vGameObject.push_back(_flonne);
 			_vToTalRender.push_back(_flonne);
 		}
 		else if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "raspberyl") == 0)
 		{
 			gameObject* _raspberyl = new raspberyl;
-			_raspberyl->init(_vTile);
+			_raspberyl->init(_zenPosX, _zenPosY, _vTile);
 			_vGameObject.push_back(_raspberyl);
 			_vToTalRender.push_back(_raspberyl);
 		}
@@ -156,24 +161,8 @@ void gameObjectManager::setCharacter()
 
 void gameObjectManager::setEnemy()
 {
-	//DATABASE->getElementData(std::to_string(i))->;
-
-	//---------------------------------------------------------------------------------
-
-	//|,0,2,2,5,0,|,1,2,3,5,0,|,2,2,4,5,0
-	// 
-
-
-
 	// 에너미파일 로드
 	DATABASE->loadDatabase("battleMap1_enm.txt");
-	
-		// 위에 보면 에너미저장된 데이터는 저렇게 되어있음 구분자 "|" 를 기준으로 3개가 있는데
-		// 0번째가 DATABASE의 맵 키값이 되는거?
-		// 그리고 몬스터를 구분할려면 어떤걸 쓰는거?
-		// 그리고 사이즈가 3이면 포문을 돌리면서 벡터에 넣어줄려고하는데 어떤식으로 포문을 돌아야하는지
-		
-		// 아래는 예시 이렇게 할 생각임
 
 	for (int i = 0; i < vEnmSize; i++)
 	{
@@ -196,12 +185,12 @@ void gameObjectManager::setEnemy()
 	}
 
 	gameObject* _orc = new orc;
-	_orc->init(4, 7, _vTile);
+	_orc->init(3, 7, _vTile);
 	_vGameObject.push_back(_orc);
 	_vToTalRender.push_back(_orc);
 
 	gameObject* _orc1 = new orc;
-	_orc1->init(6, 7, _vTile);
+	_orc1->init(5, 7, _vTile);
 	_vGameObject.push_back(_orc1);
 	_vToTalRender.push_back(_orc1);
 
@@ -240,6 +229,8 @@ void gameObjectManager::setObject()
 				break;
 			case 4:
 				imageName = "zenPoint";
+				_zenPosX = DATABASE->getElementData(std::to_string(i))->x;
+				_zenPosY = DATABASE->getElementData(std::to_string(i))->y;
 				break;
 			default:
 				break;
