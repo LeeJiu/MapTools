@@ -20,6 +20,7 @@ struct GOBJ_Y_RENDER
 
 class battleUI;
 class battleManager;
+
 class gameObjectManager : public gameNode
 {
 	RECT _rcTurnBack;
@@ -40,6 +41,7 @@ class gameObjectManager : public gameNode
 	int vObjSize;
 	int vEnmSize;
 
+	bool _isAction;
 	bool isCharacterTurn;
 
 	aStar* _aStar;
@@ -67,6 +69,8 @@ public:
 	//get함수
 	
 	int getCharSize() { return vCharSize; }
+	int getEnmSize() { return vEnmSize; }
+	bool getIsAction() { return _isAction; }
 
 	//set함수
 	void setTile();
@@ -74,6 +78,7 @@ public:
 	void setEnemy();
 	void setObject();
 	void setAstar();
+	void setIsActiom(bool isAction) { _isAction = isAction; }
 
 	void loadMapData();
 

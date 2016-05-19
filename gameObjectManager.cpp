@@ -41,14 +41,21 @@ void gameObjectManager::render()
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
+		if (_vTile[i]->pivotX < -WIDTH / 2 || _vTile[i]->pivotX > WINSIZEX + WIDTH / 2 || _vTile[i]->pivotY < -WIDTH / 4 || _vTile[i]->pivotY > WINSIZEY + WIDTH / 4) continue;
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 
 	_battleUI->renderOverlapSelectTile();
 
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
+<<<<<<< HEAD
 
 	int _size = _vToTalRender.size();
+=======
+	int _size = vCharSize + vObjSize + 2;
+
+
+>>>>>>> refs/remotes/origin/moobin
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->render();

@@ -66,7 +66,11 @@ void orc::setMercenary(const char * characterName)
 {
 }
 
+<<<<<<< HEAD
 void orc::setItem(const char * itemName, bool isWear)
+=======
+void orc::setItem(const char* itemName, bool isWear)
+>>>>>>> refs/remotes/origin/moobin
 {
 }
 
