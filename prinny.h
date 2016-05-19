@@ -35,14 +35,11 @@ public:
 
 	virtual void saveData();
 	virtual void loadData();
-<<<<<<< HEAD
+
 	void loadItemData();
 	void saveItemData();
 	void changeSaveData();
 	void changeLoadData(int arrNum);
-=======
-	virtual void setCharacterMove(int endX, int endY, vector<TagTile*> vRoute);
->>>>>>> refs/remotes/origin/development
 	 
 	virtual void setItem(const char* itemName, bool isWear);
 	virtual void setMercenary(const char* characterName);

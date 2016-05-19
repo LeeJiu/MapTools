@@ -297,6 +297,7 @@ void mercenaryStore::saveMercenaryData()
 		vStr.push_back(_res);
 		vStr.push_back(std::to_string(0));
 		vStr.push_back(std::to_string(100));
+		vStr.push_back(std::to_string(0));
 
 		if (strcmp(_name, "etna") == 0)
 		{

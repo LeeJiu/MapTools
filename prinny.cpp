@@ -17,6 +17,7 @@ HRESULT prinny::init()
 	_inventory->init();
 
 	_name = "prinny";
+	_mercenary.reserve(4);	//벡터 크기 4로 예약
 
 	/*			character status setting			*/
 	//character 정보를 load 해오기
@@ -32,7 +33,6 @@ HRESULT prinny::init()
 	_y = CENTERY;
 	_rc = RectMakeCenter(_x, _y, _character->getFrameWidth(), _character->getFrameHeight());
 
-	_mercenary.reserve(4);	//벡터 크기 4로 예약
 
 	return S_OK;
 }
@@ -302,6 +302,7 @@ void prinny::saveData()
 	vStr.push_back(std::to_string(_res));
 	vStr.push_back(std::to_string(_exp));
 	vStr.push_back(std::to_string(_next));
+	vStr.push_back(std::to_string(_equipWeapon));
 	vStr.push_back(std::to_string(_hell));
 
 	int itemNum = _inventory->getItem()->getVItem().size();
@@ -354,7 +355,7 @@ void prinny::loadData()
 	_hell = atoi(vStr[idx++].c_str());
 
 	_itemNum = atoi(vStr[idx++].c_str());
-	for (int i = 0; i < _itemNum; ++i)		//index = 16 ~ 16+itemNum
+	for (int i = 0; i < _itemNum; ++i)		//index = 18 ~ 18 + itemNum
 	{
 		setItem(vStr[idx++].c_str(), false);
 	}
@@ -367,7 +368,6 @@ void prinny::loadData()
 	}
 }
 
-<<<<<<< HEAD
 void prinny::loadItemData()
 {
 	vector<string> vStr;
@@ -436,7 +436,7 @@ void prinny::changeSaveData()
 		_mercenaryNum = _mercenary.size();
 		vStr.push_back(std::to_string(_mercenaryNum));	//용병 수
 
-														//용병 이름
+		//용병 이름
 		for (int i = 0; i < _mercenaryNum; ++i)
 		{
 			vStr.push_back(_mercenary[i]);
@@ -510,14 +510,6 @@ void prinny::changeLoadData(int arrNum)
 }
 
 void prinny::setItem(const char* itemName, bool isWear)
-=======
-void prinny::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
-{
-	gameObject::setCharacterMove(endX, endY, vRoute);
-}
-
-void prinny::setItem(const char* itemName)
->>>>>>> refs/remotes/origin/development
 {
 	_inventory->setItem(itemName, isWear);
 }

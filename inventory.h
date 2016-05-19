@@ -44,7 +44,6 @@ public:
 	
 	void showInventory();
 	void closeInventory();
-	int searchItemListIndex();
 
 	void setItem(const char* itemName, bool isWear);
 	void setName(const char* name) { _name = name; }

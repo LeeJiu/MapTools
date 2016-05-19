@@ -167,6 +167,8 @@ void inventory::keyControl()
 				//착용한 아이템을 목록에서 삭제한다.
 				_item.removeItem(_selectItemNum);
 
+				if (_item.getVItem().size() <= 0) return;
+
 				updateItemInfo(_item.getVItem().front());
 			}
 			else if (_isWear && _onItemButton)
@@ -232,7 +234,6 @@ void inventory::updateItemInfo(tagItem item)
 	_itemHit = std::to_string(item.hit);
 	_itemRes = std::to_string(item.res);
 	_itemPrice = std::to_string(item.sellPrice);
-	_isWear = item.isWear;
 	
 	/*			item list rect set			*/
 	int size = _item.getVItem().size();
@@ -262,15 +263,6 @@ void inventory::closeInventory()
 	for (int i = 0; i < size; ++i)
 	{
 		_item.getVItem()[i].rc = RectMake(0, 0, 0, 0);
-	}
-}
-
-int inventory::searchItemListIndex()
-{
-	int size = _item.getVItem().size();
-	for (int i = 0; i < size; ++i)
-	{
-		if (strcmp(_weapon.c_str(), _item.getVItem()[i].name) == 0) return i;
 	}
 }
 

@@ -69,11 +69,12 @@ struct TagObject
 	OBJSTATE state;
 };
 
-<<<<<<< HEAD
+
 enum WEAPON_TYPE
 {
 	NONE, SWORD, WAND, STAFF, BOW
-=======
+};
+
 struct OBJ_Y_RENDER
 {
 	bool operator()(const TagObject* obj1, const TagObject* obj2)
@@ -88,7 +89,6 @@ struct OBJ_NUM
 	{
 		return obj1->number < obj2->number;
 	}
->>>>>>> refs/remotes/origin/development
 };
 
 struct tagItem
@@ -109,10 +109,6 @@ struct tagItem
 	WEAPON_TYPE type;
 };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/development
 namespace MY_UTIL
 {
 	//거리 구하는 함수
