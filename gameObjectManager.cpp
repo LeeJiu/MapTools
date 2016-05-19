@@ -45,8 +45,14 @@ void gameObjectManager::render()
 
 	_battleUI->renderOverlapSelectTile();
 
+<<<<<<< HEAD
 	int _size = vCharSize + vObjSize + 2;
 
+=======
+	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
+
+	int _size = _vToTalRender.size();
+>>>>>>> refs/remotes/origin/jihyun
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->render();
