@@ -16,7 +16,7 @@ HRESULT gameObjectManager::init()
 	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
 	_aStar = new aStar;
 	_aStar->init();
-	vEnmSize = 0;
+	vEnmSize = vObjSize = 0;
 
 	return S_OK;
 }
@@ -114,7 +114,7 @@ void gameObjectManager::setTile()
 			count++;
 		}
 	}
-	// 그리고 그 타일 위에 정보를 로드해와서 덮어씌우자
+	
 	loadMapData();
 }
 
@@ -196,26 +196,50 @@ void gameObjectManager::setEnemy()
 
 void gameObjectManager::setObject()
 {
-	//DATABASE->loadDatabase("battleMap1_obj.txt");
+	DATABASE->loadDatabase("battleMap1_obj.txt");
 
-	//for (int i = 0; i < vObjSize; i++)
-	//{
-	//	switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
-	//	{
-	//	case 0:
-	//		gameObject* _orc = new orc;
-	//		_orc->init();
-	//		_vEnemy.push_back(_orc);
-	//		_vGameObject.push_back(_orc);
-	//		break;
-	//	case 1:
-	//		gameObject* _boss = new boss;
-	//		_boss->init();
-	//		_vEnemy.push_back(_boss);
-	//		_vGameObject.push_back(_boss);
-	//		break;
-	//	}
-	//}
+	//오브젝트 갯수만큼
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	{
+		int imageNum = DATABASE->getElementData(std::to_string(i))->imageNum;
+		if (imageNum < 100)
+		{
+			const char* imageName = NULL;
+			gameObject* rnd = new objects;
+			switch (imageNum)
+			{
+			case 0:
+				imageName = "tree1";
+				break;
+			case 1:
+				imageName = "tree2";
+				break;
+			case 2:
+				imageName = "woods";
+				break;
+			case 3:
+				imageName = "mushiroom";
+				break;
+			case 4:
+				imageName = "zenPoint";
+				break;
+			default:
+				break;
+			}
+
+
+			rnd->init(imageName,
+				DATABASE->getElementData(std::to_string(i))->x,
+				DATABASE->getElementData(std::to_string(i))->y,
+				DATABASE->getElementData(std::to_string(i))->imageNum,
+				_vTile);
+
+			_vGameObject.push_back(rnd);
+		}
+		else continue;
+	}
+
+	int a = 0;
 }
 
 void gameObjectManager::setAstar()

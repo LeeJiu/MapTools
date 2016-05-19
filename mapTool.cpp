@@ -356,7 +356,7 @@ void mapTool::keyControl()
 									break;
 								case 4:
 									_vObj[i]->image->init("image/mapTool/object_zen.bmp", 2583, 76, 21, 1, true, 0xff00ff);
-									_vObj[i]->state = S_NOMAL;
+									_vObj[i]->state = S_ZEN;
 									break;
 								default:
 									break;
@@ -952,7 +952,6 @@ void mapTool::setRender()
 			_vRender[i]->rc = _vEnemy[i]->rc;
 			_vRender[i]->draw = true;
 		}
-
 	}
 }
 
