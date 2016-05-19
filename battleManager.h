@@ -7,10 +7,11 @@ enum ORDER_TYPE
 };
 struct tagOrder
 {
-	int _character;
-	int _target;
-	ORDER_TYPE _order;
-	bool _isDone;
+	int character;
+	int targetX;
+	int targetY;
+	ORDER_TYPE order;
+	bool isDone;
 };
 
 class gameObjectManager;
@@ -22,6 +23,8 @@ private:
 	bool _isTurnType;
 
 	vector<tagOrder> _vOrder;
+	int _orderNumber;
+
 	bool _orderComplete;
 	
 
@@ -37,15 +40,17 @@ public:
 	void update();
 	void render();
 
-	void setCharacterNone(int character, int target);
-	void setCharacterAttack(int character, int target);
+	void setCharacterNone(int character, int targetX, int targetY);
+	void setCharacterAttack(int character, int targetX, int targetY);
 	void setCharacterDefence(int character);
-	void setCharacterSkill(int character, int target);
+	void setCharacterSkill(int character, int targetX, int targetY);
 	
 
 	void setActionAttack();
 	void setTurnChange();
 
+	int getOrderNumber() { return _orderNumber; }
+	void setOrderNumber(int number) { _orderNumber = number; }
 
 	int getTurnCount() { return _turnCount; }
 
