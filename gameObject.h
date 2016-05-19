@@ -11,6 +11,7 @@ protected:
 	const char* _name;																//캐릭터 이름
 	int _level, _counter, _mv, _jm;													//캐릭터 능력치 1
 	int _maxHp, _maxSp, _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp;			//캐릭터 능력치 2
+	int _curFrameX, _curFrameY, _count;
 
 	image* _character;
 	RECT _rc;
@@ -57,7 +58,6 @@ public:
 	virtual void keyControl();
 	virtual void battleKeyControl();
 	virtual void setImage();
-	virtual void setFrame();
 	virtual void saveData();
 	virtual void loadData();
 
@@ -70,6 +70,7 @@ public:
 	virtual void setDirectionImage();
 	virtual void setCharacterMove(int endX, int endY, vector<TagTile*> vRoute);
 	virtual void setTilePosition(float x, float y);
+	virtual void setFrame();
 
 	// set함수
 	virtual void setItem(const char* itemName, bool isWear) = 0;
