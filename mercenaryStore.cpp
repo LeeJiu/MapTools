@@ -178,6 +178,7 @@ void mercenaryStore::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			saveMercenaryData();
 			_prinny->saveData();
 			SCENEMANAGER->changeScene("town");
 		}
@@ -272,6 +273,45 @@ void mercenaryStore::setFrame()
 
 void mercenaryStore::saveMercenaryData()
 {
+	//플레이어가 가지고 있는 용병 수
+	int mercenaryNum = _prinny->getMercenary().size();
+
+	for (int i = 0; i < mercenaryNum; ++i)
+	{
+		_name = _prinny->getMercenary()[i].c_str();
+		loadMercenaryData();
+
+		vector<string> vStr;
+
+		vStr.push_back(_level);
+		vStr.push_back(_counter);
+		vStr.push_back(_mv);
+		vStr.push_back(_jm);
+		vStr.push_back(_hp);
+		vStr.push_back(_sp);
+		vStr.push_back(_atk);
+		vStr.push_back(_int);
+		vStr.push_back(_def);
+		vStr.push_back(_spd);
+		vStr.push_back(_hit);
+		vStr.push_back(_res);
+		vStr.push_back(std::to_string(0));
+		vStr.push_back(std::to_string(100));
+		vStr.push_back(std::to_string(0));
+
+		if (strcmp(_name, "etna") == 0)
+		{
+			TXTDATA->txtSave("etna.txt", vStr);
+		}
+		else if (strcmp(_name, "flonne") == 0)
+		{
+			TXTDATA->txtSave("flonne.txt", vStr);
+		}
+		else if (strcmp(_name, "raspberyl") == 0)
+		{
+			TXTDATA->txtSave("raspberyl.txt", vStr);
+		}
+	}
 }
 
 void mercenaryStore::loadMercenaryData()

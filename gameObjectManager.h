@@ -7,7 +7,16 @@
 #include "flonne.h"
 #include "raspberyl.h"
 #include "orc.h"
+#include "boss.h"
 #include "objects.h"
+
+struct GOBJ_Y_RENDER
+{
+	bool operator()(gameObject* obj1, gameObject* obj2)
+	{
+		return obj1->getIndexY() < obj2->getIndexY();
+	}
+};
 
 class battleUI;
 class battleManager;
@@ -19,7 +28,6 @@ class gameObjectManager : public gameNode
 	image* _imageTurn;
 	bool _isTurnCenter;
 
-	RECT _rcSummon;
 
 	TagTile* _tile[TILENUM][TILENUM];
 
@@ -29,9 +37,11 @@ class gameObjectManager : public gameNode
 	vector<gameObject*> _vGameObject;
 	vector<gameObject*> _vToTalRender;		
 
+	int vCharSize;
 	int vObjSize;
 	int vEnmSize;
 
+	bool _isAction;
 	bool isCharacterTurn;
 
 	aStar* _aStar;
@@ -48,23 +58,27 @@ public:
 
 	void setBattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
 	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
-	void setbattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
 
 	void setUnitMove(int i, int destX, int destY);
-	void setUnitAttack();
+	void setUnitAttack(int i, int destX, int destY);
 	void setUnitDefence();
 
 	void setActionAttack();
 	void setChangeTurn();
 
-
-	RECT getSummonRect() { return _rcSummon; }
+	//get함수
 	
+	int getCharSize() { return vCharSize; }
+	int getEnmSize() { return vEnmSize; }
+	bool getIsAction() { return _isAction; }
+
+	//set함수
 	void setTile();
 	void setCharacter();
 	void setEnemy();
 	void setObject();
 	void setAstar();
+	void setIsActiom(bool isAction) { _isAction = isAction; }
 
 	void loadMapData();
 

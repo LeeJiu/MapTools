@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "selectStage.h"
 
-
 selectStage::selectStage()
 {
 }
@@ -15,21 +14,21 @@ HRESULT selectStage::init()
 {
 	_mapListSize = 3;
 
-	IMAGEMANAGER->addImage("selectScene", "image/selectScene.bmp", 1280, 720, false, false);
-	_imageListTop = IMAGEMANAGER->addImage("dialog_List_top", "image/dialog_List_top.bmp", 300, 18, false, false);
+	IMAGEMANAGER->addImage("selectScene", "image/battleUI/selectScene.bmp", 1280, 720, false, false);
+	_imageListTop = IMAGEMANAGER->addImage("dialog_List_top", "image/battleUI/dialog_List_top.bmp", 300, 18, false, false);
 	for (int i = 0; i < _mapListSize; i++)
 	{
 		image* tempBody;
 		tempBody = new image;
-		tempBody->init("image/dialog_List_Body.bmp", 300, 30, false, false);
+		tempBody->init("image/battleUI/dialog_List_Body.bmp", 300, 30, false, false);
 		_imageListBody.push_back(tempBody);
 	}
-	_imageListBottom = IMAGEMANAGER->addImage("dialog_List_Bottom", "image/dialog_List_Bottom.bmp", 300, 19, false, false);
+	_imageListBottom = IMAGEMANAGER->addImage("dialog_List_Bottom", "image/battleUI/dialog_List_Bottom.bmp", 300, 19, false, false);
 
-	_imageTitleBack = IMAGEMANAGER->addImage("title", "image/dialog_type_title.bmp", 162, 65, false, false);
-	_imageBottomBack = IMAGEMANAGER->addImage("dialog_bottom", "image/dialog_type_bottom.bmp", 1050, 60, false, false);
-	_imageGoingBack = IMAGEMANAGER->addImage("exit", "image/dialog_type_going.bmp", 254, 115, false, false);
-	_imageArrow = IMAGEMANAGER->addImage("arrow", "image/ui_arrow.bmp", 35, 35, true, 0xff00ff);
+	_imageTitleBack = IMAGEMANAGER->addImage("title", "image/battleUI/dialog_type_title.bmp", 162, 65, false, false);
+	_imageBottomBack = IMAGEMANAGER->addImage("dialog_bottom", "image/battleUI/dialog_type_bottom.bmp", 1050, 60, false, false);
+	_imageGoingBack = IMAGEMANAGER->addImage("exit", "image/battleUI/dialog_type_going.bmp", 254, 115, false, false);
+	_imageArrow = IMAGEMANAGER->addImage("arrow", "image/battleUI/ui_arrow.bmp", 35, 35, true, 0xff00ff);
 
 	_rcListTop = RectMakeCenter(180, 200, _imageListTop->getWidth(), _imageListTop->getHeight());
 	for (int i = 0; i < _mapListSize; i++)
@@ -52,10 +51,11 @@ HRESULT selectStage::init()
 	_rcGoingSkip = RectMakeCenter(WINSIZEX - 195, _rcBottom.top - 60, _imageGoingBack->getWidth(), _imageGoingBack->getHeight() / 3);
 	_rcGoingExit = RectMakeCenter(WINSIZEX - 195, _rcBottom.top - 30, _imageGoingBack->getWidth(), _imageGoingBack->getHeight() / 3);
 
-	_imageShortcutStart = IMAGEMANAGER->addImage("shortcut_start", "image/shortcut_key_1.bmp", 30, 30, true, 0xff00ff);
-	_imageShortcutSkip = IMAGEMANAGER->addImage("shortcut_skip", "image/shortcut_key_2.bmp", 30, 30, true, 0xff00ff);
-	_imageShortcutExit = IMAGEMANAGER->addImage("shortcut_exit", "image/shortcut_key_Q.bmp", 30, 30, true, 0xff00ff);
+	_imageShortcutStart = IMAGEMANAGER->addImage("shortcut_start", "image/battleUI/shortcut_key_1.bmp", 30, 30, true, 0xff00ff);
+	_imageShortcutSkip = IMAGEMANAGER->addImage("shortcut_skip", "image/battleUI/shortcut_key_2.bmp", 30, 30, true, 0xff00ff);
+	_imageShortcutExit = IMAGEMANAGER->addImage("shortcut_exit", "image/battleUI/shortcut_key_Q.bmp", 30, 30, true, 0xff00ff);
 
+	_selectMapNumber = 0;
 	mapListInit();
 
 	return S_OK;
@@ -87,6 +87,7 @@ void selectStage::update()
 		//START BUTTON
 		if (PtInRect(&_rcGoingStart, _ptMouse))
 		{
+			STAGEDATA->setSElectStageNumber(_selectMapNumber);
 			SCENEMANAGER->changeScene("battleScene");
 		}
 

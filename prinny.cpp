@@ -17,23 +17,22 @@ HRESULT prinny::init()
 	_inventory->init();
 
 	_name = "prinny";
+	_mercenary.reserve(4);	//벡터 크기 4로 예약
 
 	/*			character status setting			*/
 	//character 정보를 load 해오기
 	loadData();
 
-	//_hell = 1000;
-
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
 	_characterDir = LB;
+	_characterNum = 0;
 	_curFrameX = 0;
 	_count = 0;
 	_x = CENTERX;
 	_y = CENTERY;
 	_rc = RectMakeCenter(_x, _y, _character->getFrameWidth(), _character->getFrameHeight());
 
-	_mercenary.reserve(4);	//벡터 크기 4로 예약
 
 	return S_OK;
 }
@@ -53,14 +52,16 @@ HRESULT prinny::init(vector<TagTile*> tile)
 	_curFrameX = 0;
 	_count = 0;
 
+	_isRight = true;
+	_isUp = true;
+
 	_indexX = 4;
 	_indexY = 9;
 	_mv = 4;
-
 	_isShow = false;
 	_isbattle = true;
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 	}
@@ -80,8 +81,6 @@ void prinny::release()
 
 void prinny::update()
 {
-	_inventory->update();
-	keyControl();
 	setImage();
 
 	if (_isbattle)
@@ -89,8 +88,20 @@ void prinny::update()
 		if (!_isMove)
 		{
 			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+			_x = (_rc.right + _rc.left) / 2;
+			_y = (_rc.top + _rc.bottom) / 2;
 		}
+		battleKeyControl();
+		gameObject::move();
 	}
+	else
+	{
+		_inventory->update();
+		keyControl();
+	}
+
+	setImage();
+	gameObject::setDirectionImage();
 }
 
 void prinny::render()
@@ -104,11 +115,10 @@ void prinny::render()
 	{
 		if (_isShow)
 		{
-			//if (_isShowPossibleMoveTile) character::render();
-
+			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
+			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-			
 		}
 	}
 }
@@ -123,14 +133,7 @@ void prinny::keyControl()
 		{
 			_characterState = WALK;
 		}
-		if (_isUp)
-		{
-			_characterDir = LT;
-		}
-		else
-		{
-			_characterDir = LB;
-		}
+		
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
@@ -138,14 +141,6 @@ void prinny::keyControl()
 		if (_characterState != WALK)
 		{
 			_characterState = WALK;
-		}
-		if (_isUp)
-		{
-			_characterDir = RT;
-		}
-		else
-		{
-			_characterDir = RB;
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
@@ -155,14 +150,6 @@ void prinny::keyControl()
 		{
 			_characterState = WALK;
 		}
-		if (_isRight)
-		{
-			_characterDir = RT;
-		}
-		else
-		{
-			_characterDir = LT;
-		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
@@ -170,14 +157,6 @@ void prinny::keyControl()
 		if (_characterState != WALK)
 		{
 			_characterState = WALK;
-		}
-		if (_isRight)
-		{
-			_characterDir = RB;
-		}
-		else
-		{
-			_characterDir = LB;
 		}
 	}
 
@@ -190,20 +169,51 @@ void prinny::keyControl()
 
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
-		_inventory->showInventory();
-		_inventory->setName(_name);
-		_inventory->setHell(_hell);
-		_inventory->setClassStates(_level, _counter, _mv, _jm);
-		_inventory->setCharacterStates(_hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp, _next);
-		_invenExit = _inventory->getExit();
+		if (!_isOpenInven)
+		{
+			_isOpenInven = true;
+			changeLoadData(_characterNum);
+			setInventory();
+			_inventory->showInventory();
+			_invenExit = _inventory->getExit();
+			_invenNext = _inventory->getNext();
+		}
+		else
+		{
+			_isOpenInven = false;
+			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
+			changeSaveData();	//넘기기 전에 정보를 저장
+			_inventory->closeInventory();
+			_invenExit = RectMake(0, 0, 0, 0);
+			_invenNext = RectMake(0, 0, 0, 0);
+		}
 	}
 
 	if (PtInRect(&_invenExit, _ptMouse))
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			_isOpenInven = false;
+			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
+			changeSaveData();	//넘기기 전에 정보를 저장
+			_characterNum = 0;
 			_inventory->closeInventory();
 			_invenExit = RectMake(0, 0, 0, 0);
+		}
+	}
+
+	if (PtInRect(&_invenNext, _ptMouse))
+	{
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		{
+			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
+			changeSaveData();	//넘기기 전에 정보를 저장
+
+			_characterNum++;
+			if (_characterNum > _mercenaryNum) _characterNum = 0;
+
+			changeLoadData(_characterNum);
+			setInventory();
 		}
 	}
 }
@@ -212,12 +222,26 @@ void prinny::battleKeyControl()
 {
 }
 
-void prinny::move(int endX, int endY)
-{
-}
 
 void prinny::setImage()
 {
+	if (_isRight)
+	{
+		if (_isUp)
+		{
+			_characterDir = RT;
+		}
+		else _characterDir = RB;
+	}
+	else
+	{
+		if (_isUp)
+		{
+			_characterDir = LT;
+		}
+		else _characterDir = LB;
+	}
+
 	switch (_characterState)
 	{
 	case IDLE:
@@ -271,7 +295,7 @@ void prinny::setFrame()
 		break;
 	}
 
-	if (_count % 10 == 0)
+	if (_count % 7 == 0)
 	{
 		_curFrameX++;
 		if (_curFrameX > _character->getMaxFrameX())
@@ -280,14 +304,6 @@ void prinny::setFrame()
 		}
 		_character->setFrameX(_curFrameX);
 	}
-}
-
-void prinny::previousState()
-{
-}
-
-void prinny::showPossibleMoveTile()
-{
 }
 
 void prinny::saveData()
@@ -308,6 +324,7 @@ void prinny::saveData()
 	vStr.push_back(std::to_string(_res));
 	vStr.push_back(std::to_string(_exp));
 	vStr.push_back(std::to_string(_next));
+	vStr.push_back(std::to_string(_equipWeapon));
 	vStr.push_back(std::to_string(_hell));
 
 	int itemNum = _inventory->getItem()->getVItem().size();
@@ -330,6 +347,8 @@ void prinny::saveData()
 	}
 
 	TXTDATA->txtSave("prinny.txt", vStr);
+
+	saveItemData();
 }
 
 void prinny::loadData()
@@ -354,13 +373,15 @@ void prinny::loadData()
 	_res = atoi(vStr[idx++].c_str());
 	_exp = atoi(vStr[idx++].c_str());
 	_next = atoi(vStr[idx++].c_str());
+	_equipWeapon = (WEAPON_TYPE)atoi(vStr[idx++].c_str());
 	_hell = atoi(vStr[idx++].c_str());
 
-	int itemNum = atoi(vStr[idx++].c_str());
-	for (int i = 0; i < itemNum; ++i)		//index = 16 ~ 16+itemNum
+	_itemNum = atoi(vStr[idx++].c_str());
+	for (int i = 0; i < _itemNum; ++i)		//index = 18 ~ 18 + itemNum
 	{
-		setItem(vStr[idx++].c_str());
+		setItem(vStr[idx++].c_str(), false);
 	}
+	loadItemData();							//소지 중인 아이템의 착용 정보 불러오기
 
 	_mercenaryNum = atoi(vStr[idx++].c_str());
 	for (int i = 0; i < _mercenaryNum; ++i)
@@ -369,12 +390,192 @@ void prinny::loadData()
 	}
 }
 
-void prinny::setItem(const char* itemName)
+void prinny::loadItemData()
 {
-	_inventory->setItem(itemName);
+	vector<string> vStr;
+
+	vStr = TXTDATA->txtLoad("itemState.txt");
+
+	for (int i = 0; i < _itemNum; ++i)
+	{
+		_inventory->getItem()->getVItem()[i].isWear = atoi(vStr[i].c_str());
+	}
+}
+
+void prinny::saveItemData()
+{
+	vector<string> vStr;
+
+	_itemNum = _inventory->getItem()->getVItem().size();
+
+	for (int i = 0; i < _itemNum; ++i)
+	{
+		vStr.push_back(std::to_string(_inventory->getItem()->getVItem()[i].isWear));
+	}
+
+	if (_itemNum == 0)
+	{
+		vStr.push_back(std::to_string(0));
+	}
+
+	TXTDATA->txtSave("itemState.txt", vStr);
+}
+
+void prinny::changeSaveData()
+{
+	vector<string> vStr;
+
+	vStr.push_back(std::to_string(_level));
+	vStr.push_back(std::to_string(_counter));
+	vStr.push_back(std::to_string(_mv));
+	vStr.push_back(std::to_string(_jm));
+	vStr.push_back(std::to_string(_hp));
+	vStr.push_back(std::to_string(_sp));
+	vStr.push_back(std::to_string(_atk));
+	vStr.push_back(std::to_string(_int));
+	vStr.push_back(std::to_string(_def));
+	vStr.push_back(std::to_string(_spd));
+	vStr.push_back(std::to_string(_hit));
+	vStr.push_back(std::to_string(_res));
+	vStr.push_back(std::to_string(_exp));
+	vStr.push_back(std::to_string(_next));
+	vStr.push_back(std::to_string(_equipWeapon));
+
+	if (strcmp(_name, "prinny") == 0)
+	{
+		vStr.push_back(std::to_string(_hell));
+
+		int itemNum = _inventory->getItem()->getVItem().size();
+
+		vStr.push_back(std::to_string(itemNum));	//아이템 개수
+
+		//아이템 이름
+		for (int i = 0; i < itemNum; ++i)
+		{
+			vStr.push_back(_inventory->getItem()->getVItem()[i].name);
+		}
+
+		_mercenaryNum = _mercenary.size();
+		vStr.push_back(std::to_string(_mercenaryNum));	//용병 수
+
+		//용병 이름
+		for (int i = 0; i < _mercenaryNum; ++i)
+		{
+			vStr.push_back(_mercenary[i]);
+		}
+
+		TXTDATA->txtSave("prinny.txt", vStr);
+	}
+	else if (strcmp(_name, "etna") == 0)
+	{
+		TXTDATA->txtSave("etna.txt", vStr);
+	}
+	else if (strcmp(_name, "flonne") == 0)
+	{
+		TXTDATA->txtSave("flonne.txt", vStr);
+	}
+	else if (strcmp(_name, "raspberyl") == 0)
+	{
+		TXTDATA->txtSave("raspberyl.txt", vStr);
+	}
+
+	saveItemData();
+}
+
+void prinny::changeLoadData(int arrNum)
+{
+	if (arrNum == 0)	//플레이어(prinny)
+	{
+		_name = "prinny";
+	}
+	else
+	{
+		_name = _mercenary[arrNum - 1].c_str();
+	}
+
+	vector<string> vStr;
+
+	if (strcmp(_name, "prinny") == 0)
+	{
+		vStr = TXTDATA->txtLoad("prinny.txt");
+	}
+	else if (strcmp(_name, "etna") == 0)
+	{
+		vStr = TXTDATA->txtLoad("etna.txt");
+	}
+	else if (strcmp(_name, "flonne") == 0)
+	{
+		vStr = TXTDATA->txtLoad("flonne.txt");
+	}
+	else if (strcmp(_name, "raspberyl") == 0)
+	{
+		vStr = TXTDATA->txtLoad("raspberyl.txt");
+	}
+
+	int idx = 0;
+
+	_level = atoi(vStr[idx++].c_str());
+	_counter = atoi(vStr[idx++].c_str());
+	_mv = atoi(vStr[idx++].c_str());
+	_jm = atoi(vStr[idx++].c_str());
+	_hp = atoi(vStr[idx++].c_str());
+	_sp = atoi(vStr[idx++].c_str());
+	_atk = atoi(vStr[idx++].c_str());
+	_int = atoi(vStr[idx++].c_str());
+	_def = atoi(vStr[idx++].c_str());
+	_spd = atoi(vStr[idx++].c_str());
+	_hit = atoi(vStr[idx++].c_str());
+	_res = atoi(vStr[idx++].c_str());
+	_exp = atoi(vStr[idx++].c_str());
+	_next = atoi(vStr[idx++].c_str());
+	_equipWeapon = (WEAPON_TYPE)atoi(vStr[idx++].c_str());
+}
+
+void prinny::setItem(const char* itemName, bool isWear)
+{
+	_inventory->setItem(itemName, isWear);
 }
 
 void prinny::setMercenary(const char * characterName)
 {
 	_mercenary.push_back(characterName);
+}
+
+void prinny::setInventory()
+{
+	_inventory->setName(_name);
+	_inventory->setHell(_hell);
+	_inventory->setClassStates(_level, _counter, _mv, _jm);
+	_inventory->setCharacterStates(_hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp, _next, _equipWeapon);
+}
+
+void prinny::setChangeData()
+{
+	_atk = atoi(_inventory->getAtk().c_str());
+	_int = atoi(_inventory->getInt().c_str());
+	_def = atoi(_inventory->getDef().c_str());
+	_spd = atoi(_inventory->getSpd().c_str());
+	_hit = atoi(_inventory->getHit().c_str());
+	_res = atoi(_inventory->getRes().c_str());
+
+	if (strcmp(_inventory->getWeapon().c_str(), "sword") == 0)
+	{
+		_equipWeapon = SWORD;
+	}
+	else if (strcmp(_inventory->getWeapon().c_str(), "staff") == 0)
+	{
+		_equipWeapon = STAFF;
+	}
+	else if (strcmp(_inventory->getWeapon().c_str(), "wand") == 0)
+	{
+		_equipWeapon = WAND;
+	}
+	else if (strcmp(_inventory->getWeapon().c_str(), "bow") == 0)
+	{
+		_equipWeapon = BOW;
+	}
+	else if (strcmp(_inventory->getWeapon().c_str(), "nothing") == 0)
+	{
+		_equipWeapon = NONE;
+	}
 }

@@ -35,16 +35,21 @@ void aStar::checkTile()
 	// 처음만 넣어줘라
 	if (_vCloseList.size() == 0)
 	{
-		for (_viRoute = _vRoute.begin(); _viRoute != _vRoute.end(); )
+		if (_vRoute.size() != 0)
 		{
-			(*_viRoute)->parent = NULL;
-			_viRoute = _vRoute.erase(_viRoute);
+			for (_viRoute = _vRoute.begin(); _viRoute != _vRoute.end(); )
+			{
+				(*_viRoute)->parent = NULL;
+				_viRoute = _vRoute.erase(_viRoute);
+			}
+			_vRoute.clear();
 		}
-		_vOpenList.clear();
 
-		_tile[_start.x][_start.y]->h = abs(_end.x - _start.x) * 10 + abs(_end.y - _start.y) * 10;
+		_tile[_start.x][_start.y]->h = abs(_end.x - _start.x) * 32 * 1.414 + abs(_end.y - _start.y) * 32 * 1.414;
 		_tile[_start.x][_start.y]->g = 0;
-		_tile[_start.x][_start.y]->f = _tile[_start.x][_start.y]->g + _tile[_start.x][_start.y]->h;
+		_tile[_start.x][_start.y]->d = getDistance(_tile[_start.x][_start.y]->pivotX, _tile[_start.x][_start.y]->pivotY,
+														_tile[_end.x][_end.y]->pivotX, _tile[_end.x][_end.y]->pivotY);
+		_tile[_start.x][_start.y]->f = _tile[_start.x][_start.y]->g + _tile[_start.x][_start.y]->h + _tile[_start.x][_start.y]->d;
 		_vCloseList.push_back(_tile[_start.x][_start.y]);
 	}
 
@@ -62,59 +67,56 @@ void aStar::checkTile()
 	// 8방향 검사
 	for (int i = _vCloseList[lastCloseTile]->x - 1; i <= _vCloseList[lastCloseTile]->x + 1; i++)
 	{
-		// 장애물이 좌우에 있을시 패스하자
-		if (_tile[_vCloseList[lastCloseTile]->x + 1][_vCloseList[lastCloseTile]->y]->state == S_ONOBJ && i == _vCloseList[lastCloseTile]->x + 1) continue;
-		else if (_tile[_vCloseList[lastCloseTile]->x - 1][_vCloseList[lastCloseTile]->y]->state == S_ONOBJ && i == _vCloseList[lastCloseTile]->x - 1) continue;
-
 		for (int j = _vCloseList[lastCloseTile]->y - 1; j <= _vCloseList[lastCloseTile]->y + 1; j++)
 		{
 			// 배열 범위 넘어가는것 컨티뉴
 			if (i < 0 || j < 0 || i >= TILENUM || j >= TILENUM) continue;
 
-			// 장애물이 상하에 있을시 패스하자
-			if (_tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y + 1]->state == S_ONOBJ && j == _vCloseList[lastCloseTile]->y + 1) continue;
-			else if (_tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y - 1]->state == S_ONOBJ && j == _vCloseList[lastCloseTile]->y - 1) continue;
-
+			// 장애물이 상하좌우에 있을시 패스하자
+			if (_vCloseList[lastCloseTile]->x + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x + 1][_vCloseList[lastCloseTile]->y]->state == S_ONOBJ && i == _vCloseList[lastCloseTile]->x + 1) continue;
+			else if (_vCloseList[lastCloseTile]->x - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x - 1][_vCloseList[lastCloseTile]->y]->state == S_ONOBJ && i == _vCloseList[lastCloseTile]->x - 1) continue;
+			if (_vCloseList[lastCloseTile]->y + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y + 1]->state == S_ONOBJ && j == _vCloseList[lastCloseTile]->y + 1) continue;
+			else if (_vCloseList[lastCloseTile]->y - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y - 1]->state == S_ONOBJ && j == _vCloseList[lastCloseTile]->y - 1) continue;
+			// 적이 상하좌우에 있을시 패스하자
+			if (_vCloseList[lastCloseTile]->x + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x + 1][_vCloseList[lastCloseTile]->y]->state == S_ONENM && i == _vCloseList[lastCloseTile]->x + 1) continue;
+			else if (_vCloseList[lastCloseTile]->x - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x - 1][_vCloseList[lastCloseTile]->y]->state == S_ONENM && i == _vCloseList[lastCloseTile]->x - 1) continue;
+			if (_vCloseList[lastCloseTile]->y + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y + 1]->state == S_ONENM && j == _vCloseList[lastCloseTile]->y + 1) continue;
+			else if (_vCloseList[lastCloseTile]->y - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y - 1]->state == S_ONENM && j == _vCloseList[lastCloseTile]->y - 1) continue;
+			// 우리팀이 상하좌우에 있을시 패스하자
+			if (_vCloseList[lastCloseTile]->x + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x + 1][_vCloseList[lastCloseTile]->y]->state == S_ONCHAR && i == _vCloseList[lastCloseTile]->x + 1) continue;
+			else if (_vCloseList[lastCloseTile]->x - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x - 1][_vCloseList[lastCloseTile]->y]->state == S_ONCHAR && i == _vCloseList[lastCloseTile]->x - 1) continue;
+			if (_vCloseList[lastCloseTile]->y + 1 < TILENUM && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y + 1]->state == S_ONCHAR && j == _vCloseList[lastCloseTile]->y + 1) continue;
+			else if (_vCloseList[lastCloseTile]->y - 1 >= 0 && _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y - 1]->state == S_ONCHAR && j == _vCloseList[lastCloseTile]->y - 1) continue;
 			// 가운데 타일 컨티뉴
 			if (i == _vCloseList[lastCloseTile]->x && j == _vCloseList[lastCloseTile]->y) continue;
 
-			// 검사할 타일 허들이면 컨티뉴
+			// 검사할 타일 케릭터 또는 오브젝트면 컨티뉴
 			else if (_tile[i][j]->state == S_ONOBJ) continue;
+			else if (_tile[i][j]->state == S_ONENM) continue;
+			else if (_tile[i][j]->state == S_ONCHAR) continue;
 
 
 			////////////////////////////////////////////// openList 추가 위치 ///////////////////////////////////////////////////
 
-			// 대각선 거리 17
+			// 대각선은 컨티뉴
 			else if (abs(i - _vCloseList[lastCloseTile]->x) == 1 && abs(j - _vCloseList[lastCloseTile]->y) == 1)
 			{
-				//continue;
-				// 임시값을 구해놓고 있는 f값과 비교하자
-				int tempH = abs(_end.x - i) * 10 + abs(_end.y - j) * 10;
-				int tempG = _vCloseList[lastCloseTile]->g + 17;
-				int tempF = tempH + tempG;
-
-				if (tempF < _tile[i][j]->f)
-				{
-					_tile[i][j]->h = tempH;
-					_tile[i][j]->g = tempG;
-					_tile[i][j]->f = tempF;
-					_tile[i][j]->parent = _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y];
-					eraseVector(i, j);
-					_vOpenList.push_back(_tile[i][j]);
-				}
+				continue;
 			}
 			// 사방면 거리 10
 			else
 			{
 				// 임시값을 구해놓고 있는 f값과 비교하자
-				int tempH = abs(_end.x - i) * 10 + abs(_end.y - j) * 10;
-				int tempG = _vCloseList[lastCloseTile]->g + 10;
-				int tempF = tempH + tempG;
+				float tempH = abs(_end.x - i) * 32 * 1.414 + abs(_end.y - j) * 32 * 1.414;
+				float tempG = _vCloseList[lastCloseTile]->g + 32 * 1.414;
+				float tempD = getDistance(_tile[i][j]->pivotX, _tile[i][j]->pivotY, _tile[_end.x][_end.y]->pivotX, _tile[_end.x][_end.y]->pivotY);
+				float tempF = tempH + tempG + tempD;
 
 				if (tempF < _tile[i][j]->f)
 				{
 					_tile[i][j]->h = tempH;
 					_tile[i][j]->g = tempG;
+					_tile[i][j]->d = tempD;
 					_tile[i][j]->f = tempF;
 					_tile[i][j]->parent = _tile[_vCloseList[lastCloseTile]->x][_vCloseList[lastCloseTile]->y];
 					eraseVector(i, j);
@@ -177,7 +179,7 @@ void aStar::resultRoute(int x, int y)
 
 void aStar::setTile(vector<TagTile*> tile)
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 		_tile[i % TILENUM][i / TILENUM]->f = 9999;
