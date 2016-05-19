@@ -193,7 +193,7 @@ void gameObject::previousState()
 
 void gameObject::showPossibleMoveTile()
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		if (abs(_indexX - _vTile[i]->x) + abs(_indexY - _vTile[i]->y) <= _mv)
 		{
@@ -201,4 +201,33 @@ void gameObject::showPossibleMoveTile()
 			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 		}
 	}
+}
+
+void gameObject::showPossibleAttackTile()
+{
+	/*for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	{
+		if (_indexX == _vTile[i]->x && _indexY - 1 == _vTile[i]->y)
+		{
+			IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+		}
+		else if (_indexX == _vTile[i]->x && _indexY + 1 == _vTile[i]->y)
+		{
+			IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+		}
+		else if (_indexX - 1 == _vTile[i]->x && _indexY == _vTile[i]->y)
+		{
+			IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+		}
+		else if (_indexX + 1== _vTile[i]->x && _indexY == _vTile[i]->y)
+		{
+			IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+		}
+	}*/
+
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX + 1][_indexY]->rc.left, _tile[_indexX + 1][_indexY]->rc.top);
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX - 1][_indexY]->rc.left, _tile[_indexX - 1][_indexY]->rc.top);
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX][_indexY + 1]->rc.left, _tile[_indexX][_indexY + 1]->rc.top);
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX][_indexY - 1]->rc.left, _tile[_indexX][_indexY - 1]->rc.top);
+
 }

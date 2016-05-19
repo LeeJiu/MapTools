@@ -468,66 +468,7 @@ void mapTool::keyControl()
 			}
 		}
 	}
-	// 임시 맵스크롤 키 입력 만들자
-	if (KEYMANAGER->isStayKeyDown(VK_UP) && _vTile[0]->rc.top < 0)
-	{
-		for (int i = 0; i < TOTALTILE(TILENUM); i++)
-		{
-			_vTile[i]->pivotY += 3;
-			_vTile[i]->rc = RectMake(_vTile[i]->rc.left, _vTile[i]->rc.top + 3, _vTile[i]->width, _vTile[i]->height);
-		}
-
-		for (_viRender = _vRender.begin(); _viRender != _vRender.end(); ++_viRender)
-		{
-			(*_viRender)->rc = RectMake((*_viRender)->rc.left, (*_viRender)->rc.top + 3, (*_viRender)->width, (*_viRender)->height);
-		}
-	}
-
-	//다운키
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN) && _vTile[TOTALTILE(TILENUM) - 1]->rc.bottom > WINSIZEY - 15)
-	{
-		for (int i = 0; i < _vTile.size(); i++)
-		{
-			_vTile[i]->pivotY -= 3;
-			_vTile[i]->rc = RectMake(_vTile[i]->rc.left, _vTile[i]->rc.top - 3, _vTile[i]->width, _vTile[i]->height);
-		}
-
-
-		for (_viRender = _vRender.begin(); _viRender != _vRender.end(); ++_viRender)
-		{
-			(*_viRender)->rc = RectMake((*_viRender)->rc.left, (*_viRender)->rc.top - 3, (*_viRender)->width, (*_viRender)->height);
-		}
-	}
-
-	//왼쪽키
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-	{
-		for (int i = 0; i < TOTALTILE(TILENUM); i++)
-		{
-			_vTile[i]->pivotX += 3;
-			_vTile[i]->rc = RectMake(_vTile[i]->rc.left + 3, _vTile[i]->rc.top, _vTile[i]->width, _vTile[i]->height);
-		}
-
-		for (_viRender = _vRender.begin(); _viRender != _vRender.end(); ++_viRender)
-		{
-			(*_viRender)->rc = RectMake((*_viRender)->rc.left + 3, (*_viRender)->rc.top, (*_viRender)->width, (*_viRender)->height);
-		}
-	}
-
-	//오른쪽키
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-		for (int i = 0; i < TOTALTILE(TILENUM); i++)
-		{
-			_vTile[i]->pivotX -= 3;
-			_vTile[i]->rc = RectMake(_vTile[i]->rc.left - 3, _vTile[i]->rc.top, _vTile[i]->width, _vTile[i]->height);
-		}
-
-		for (_viRender = _vRender.begin(); _viRender != _vRender.end(); ++_viRender)
-		{
-			(*_viRender)->rc = RectMake((*_viRender)->rc.left - 3, (*_viRender)->rc.top, (*_viRender)->width, (*_viRender)->height);
-		}
-	}
+	moveTile();
 
 	if (KEYMANAGER->isOnceKeyDown('A'))
 	{
@@ -921,6 +862,54 @@ void mapTool::setFirstRender()
 			rnd->draw = false;
 
 			_vRender.push_back(rnd);
+			count++;
+		}
+	}
+}
+
+void mapTool::moveTile()
+{
+	// 임시 맵스크롤 키 입력 만들자
+	if (KEYMANAGER->isStayKeyDown(VK_UP) && _vTile[0]->rc.top < 0)
+	{
+		_vTile[0]->pivotY += 3;
+		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+	}
+
+	//다운키
+	if (KEYMANAGER->isStayKeyDown(VK_DOWN) && _vTile[TOTALTILE(TILENUM) - 1]->rc.bottom > WINSIZEY - 15)
+	{
+		_vTile[0]->pivotY -= 3;
+		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+	}
+
+	//왼쪽키
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && _vTile[TOTALTILE(TILENUM) - TILENUM - 1]->rc.left > 300)
+	{
+		_vTile[0]->pivotX += 3;
+		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+	}
+
+	//오른쪽키
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	{
+		_vTile[0]->pivotX -= 3;
+		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
+	}
+}
+
+void mapTool::setTile(float firstPivotX, float firstPivotY)
+{
+	int count = 0;
+	POINT firstPivot = { firstPivotX, firstPivotY };
+	for (int i = 0; i < TILENUM; i++)      // 세로 ( 열 )
+	{
+		for (int j = 0; j < TILENUM; j++)   // 가로 ( 행 )
+		{
+			_vTile[count]->rc = RectMakeCenter(firstPivot.x + j * _vTile[count]->width / 2 - i * _vTile[count]->width / 2, firstPivot.y + j * _vTile[count]->width / 4 + i * _vTile[count]->width / 4, _vTile[count]->width, _vTile[count]->height);
+			_vTile[count]->pivotX = (_vTile[count]->rc.left + _vTile[count]->rc.right) / 2;
+			_vTile[count]->pivotY = (_vTile[count]->rc.top + _vTile[count]->rc.bottom) / 2;
+
 			count++;
 		}
 	}

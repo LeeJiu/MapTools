@@ -19,9 +19,14 @@ HRESULT town::init()
 	IMAGEMANAGER->addFrameImage("entrance_battle", "image/background/entrance_battle.bmp", 2695, 266, 11, 1, false, false);
 	IMAGEMANAGER->addFrameImage("entrance_store", "image/background/entrance_store.bmp", 3969, 220, 27, 1, false, false);
 	IMAGEMANAGER->addFrameImage("entrance_etc", "image/background/entrance_etc.bmp", 1694, 279, 7, 1, false, false);
+	IMAGEMANAGER->addFrameImage("mercenary", "image/character/mercenary_idle.bmp", 498, 616, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("store", "image/character/store_idle.bmp", 498, 305, 6, 2, true, 0xff00ff);
 
 	_town = IMAGEMANAGER->findImage("town_background");
 	_townPixel = IMAGEMANAGER->findImage("town_background_pixel");
+	_storeNPC = IMAGEMANAGER->findImage("store");
+	_mercenaryNPC = IMAGEMANAGER->findImage("mercenary");
+	_mercenaryNPC->setFrameY(1);
 
 	_battlePortal = IMAGEMANAGER->findImage("entrance_battle");
 	_storePortal = IMAGEMANAGER->findImage("entrance_store");
@@ -70,6 +75,10 @@ void town::render()
 
 	_etcPortal->frameRender(getMemDC(), 1134 - _sourX, 478 - _sourY,
 		_etcPortal->getFrameX(), _etcPortal->getFrameY());
+
+	_mercenaryNPC->frameRender(getMemDC(), 1208 - _sourX, 535 - _sourY, _mercenaryNPC->getFrameX(), _mercenaryNPC->getFrameY());
+	_storeNPC->frameRender(getMemDC(), 1628 - _sourX, 405 - _sourY, _storeNPC->getFrameX(), _storeNPC->getFrameY());
+
 
 	_prinny->render();
 }
@@ -213,6 +222,26 @@ void town::setFrame()
 		if (_etcPortal->getFrameX() >= _etcPortal->getMaxFrameX())
 		{
 			_etcPortal->setFrameX(0);
+		}
+	}
+
+	if (_count % 8 == 0)
+	{
+		_mercenaryNPC->setFrameX(_mercenaryNPC->getFrameX() + 1);
+
+		if (_mercenaryNPC->getFrameX() >= _mercenaryNPC->getMaxFrameX())
+		{
+			_mercenaryNPC->setFrameX(0);
+		}
+	}
+
+	if (_count % 8 == 0)
+	{
+		_storeNPC->setFrameX(_storeNPC->getFrameX() + 1);
+
+		if (_storeNPC->getFrameX() >= _storeNPC->getMaxFrameX())
+		{
+			_storeNPC->setFrameX(0);
 		}
 	}
 }

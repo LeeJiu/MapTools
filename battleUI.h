@@ -11,8 +11,6 @@ class gameObjectManager;
 class battleUI : public gameNode
 {
 private:
-	bool _isFirstInit;
-
 	image* _imageSkillTitleBack;          //스킬 타이틀 BACKGROUND IMAGE
 	image* _imageStatusBack;             //캐릭터 상태 창 BACKGROUND IMAGE
 	image* _imageBottomStatusBack;          //캐릭터 상태 창(바닥) BACKGROUND IMAGE
@@ -101,7 +99,8 @@ private:
 	progressBar* _progressBarHp;
 	progressBar* _progressBarSp;
 
-	
+	bool _isOnSelectTarget;
+	int _selectTargetNumber;
 
 	bool _isSelectCharacter;
 	int _selectCharacterNumber;

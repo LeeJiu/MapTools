@@ -50,8 +50,8 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("flonne_etc", "image/character/flonne_etc.bmp", 236, 620, 2, 4, true, 0xff00ff);
 
 	//배틀씬에서 사용될 이미지 추가
-	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 192, 96, true, 0xff00ff);
-	IMAGEMANAGER->addImage("attackable", "image/battle/attackable_tile.bmp", 192, 96, true, 0xff00ff);
+	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 128, 64, true, 0xff00ff);
+	IMAGEMANAGER->addImage("attackable", "image/battle/attackable_tile.bmp", 128, 64, true, 0xff00ff);
 	
 	//오브젝트 이미지 추가
 	IMAGEMANAGER->addImage("tree1", "image/mapTool/object_tree.bmp", 222, 265, true, 0xff00ff);
@@ -76,8 +76,6 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("prinny_lift", "image/character/prinny_lift.bmp", 720, 524, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("prinny_etc", "image/character/prinny_etc.bmp", 468, 528, 4, 4, true, 0xff00ff);
 
-	//임시로 확인용 이미지임
-	IMAGEMANAGER->addImage("tile_green", "image/tile_green.bmp", 192, 96, true, 0xff00ff);
 
 	SCENEMANAGER->changeScene("title");
 
