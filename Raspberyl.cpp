@@ -13,7 +13,7 @@ raspberyl::~raspberyl()
 
 HRESULT raspberyl::init()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT raspberyl::init(vector<TagTile*> tile)
@@ -69,12 +69,48 @@ void raspberyl::setFrame()
 
 void raspberyl::saveData()
 {
+	vector<string> vStr;
+
+	vStr.push_back(std::to_string(_level));
+	vStr.push_back(std::to_string(_counter));
+	vStr.push_back(std::to_string(_mv));
+	vStr.push_back(std::to_string(_jm));
+	vStr.push_back(std::to_string(_hp));
+	vStr.push_back(std::to_string(_sp));
+	vStr.push_back(std::to_string(_atk));
+	vStr.push_back(std::to_string(_int));
+	vStr.push_back(std::to_string(_def));
+	vStr.push_back(std::to_string(_spd));
+	vStr.push_back(std::to_string(_hit));
+	vStr.push_back(std::to_string(_res));
+	vStr.push_back(std::to_string(_exp));
+	vStr.push_back(std::to_string(_next));
+	vStr.push_back(std::to_string(_equipWeapon));
+
+	TXTDATA->txtSave("raspberyl.txt", vStr);
 }
 
 void raspberyl::loadData()
 {
-}
+	vector<string> vStr;
 
-void raspberyl::setItem(const char * itemName)
-{
+	vStr = TXTDATA->txtLoad("raspberyl.txt");
+
+	int idx = 0;
+
+	_level = atoi(vStr[idx++].c_str());
+	_counter = atoi(vStr[idx++].c_str());
+	_mv = atoi(vStr[idx++].c_str());
+	_jm = atoi(vStr[idx++].c_str());
+	_hp = atoi(vStr[idx++].c_str());
+	_sp = atoi(vStr[idx++].c_str());
+	_atk = atoi(vStr[idx++].c_str());
+	_int = atoi(vStr[idx++].c_str());
+	_def = atoi(vStr[idx++].c_str());
+	_spd = atoi(vStr[idx++].c_str());
+	_hit = atoi(vStr[idx++].c_str());
+	_res = atoi(vStr[idx++].c_str());
+	_exp = atoi(vStr[idx++].c_str());
+	_next = atoi(vStr[idx++].c_str());
+	_equipWeapon = (WEAPON_TYPE)atoi(vStr[idx++].c_str());
 }

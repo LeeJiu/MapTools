@@ -72,7 +72,7 @@ public:
 	virtual void setTilePosition(float x, float y);
 
 	// setÇÔ¼ö
-	virtual void setItem(const char* itemName) = 0;
+	virtual void setItem(const char* itemName, bool isWear) = 0;
 	virtual void setMercenary(const char* characterName) = 0;
 	virtual void setHell(int hell) = 0;
 	virtual void setIsShowPossibleMoveTile(bool isShowPossibleMoveTile) { _isShowPossibleMoveTile = isShowPossibleMoveTile; }

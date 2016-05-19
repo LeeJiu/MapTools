@@ -14,10 +14,10 @@ store::~store()
 HRESULT store::init()
 {
 	//판매할 아이템을 세팅
-	_item.setItem("sword");
-	_item.setItem("staff");
-	_item.setItem("wand");
-	_item.setItem("bow");
+	_item.setItem("sword", false);
+	_item.setItem("staff", false);
+	_item.setItem("wand", false);
+	_item.setItem("bow", false);
 	
 	/*			store ui			*/
 	
@@ -127,7 +127,7 @@ void store::buyItem(const char* itemName)
 	if (remainHell >= 0)
 	{
 		_prinny->setHell(remainHell);
-		_prinny->setItem(itemName);
+		_prinny->setItem(itemName, false);
 		_hell = std::to_string(remainHell);
 	}
 }
