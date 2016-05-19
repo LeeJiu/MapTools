@@ -18,7 +18,7 @@ public:
 
 	virtual void setMercenary(const char* characterName);
 
-	virtual void setItem(const char* itemName);
+	virtual void setItem(const char* itemName, bool isWear);
 	virtual int getHell();
 	virtual void setHell(int hell);
 };

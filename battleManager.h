@@ -8,7 +8,8 @@ enum ORDER_TYPE
 struct tagOrder
 {
 	int _character;
-	int _target;
+	int _targetX;
+	int _targetY;
 	ORDER_TYPE _order;
 	bool _isDone;
 };

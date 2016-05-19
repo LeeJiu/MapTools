@@ -66,7 +66,7 @@ void orc::setMercenary(const char * characterName)
 {
 }
 
-void orc::setItem(const char* itemName)
+void orc::setItem(const char* itemName, bool isWear)
 {
 
 }
