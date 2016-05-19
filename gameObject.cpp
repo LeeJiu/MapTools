@@ -26,6 +26,11 @@ HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<
 	return S_OK;
 }
 
+HRESULT gameObject::init(int x, int y, vector<TagTile*> tile)
+{
+	return E_NOTIMPL;
+}
+
 void gameObject::release()
 {
 }

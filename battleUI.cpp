@@ -222,7 +222,7 @@ void battleUI::render()
 
 void battleUI::setCharacterList()
 {
-	_characterSize = _gameObjMgr->getGameObject().size();
+	_characterSize = _gameObjMgr->getCharSize();
 	for (int i = 0; i < _characterSize; i++)
 	{
 		_vCharacterList.push_back(_gameObjMgr->getGameObject()[i]->getName());
