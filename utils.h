@@ -63,15 +63,11 @@ struct TagObject
 	OBJSTATE state;
 };
 
-
-<<<<<<< HEAD
 enum WEAPON_TYPE
 {
 	NONE, SWORD, WAND, STAFF, BOW
 };
 
-=======
->>>>>>> refs/remotes/origin/jihyun
 struct OBJ_Y_RENDER
 {
 	bool operator()(const TagObject* obj1, const TagObject* obj2)

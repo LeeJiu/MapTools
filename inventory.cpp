@@ -139,7 +139,7 @@ void inventory::keyControl()
 		{
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				if (!_item.getVItem()[i].isWear && !_isWear/* && !_onItemButton*/)
+				if (!_item.getVItem()[i].isWear && !_isWear)
 				{
 					_onItemButton = true;		//버튼 그린다.
 					_equip = IMAGEMANAGER->findImage("inven_equip");
@@ -158,6 +158,9 @@ void inventory::keyControl()
 		{
 			if (!_isWear && _onItemButton)
 			{
+				//장착 불가능 하면 아무것도 안 한다.
+				if (!checkEquip()) return;
+
 				_onItemButton = false;		//버튼 안 그린다.
 				
 				_item.getVItem()[_selectItemNum].isWear = true;
@@ -263,6 +266,38 @@ void inventory::closeInventory()
 	for (int i = 0; i < size; ++i)
 	{
 		_item.getVItem()[i].rc = RectMake(0, 0, 0, 0);
+	}
+}
+
+bool inventory::checkEquip()
+{
+	if (strcmp(_item.getVItem()[_selectItemNum].name, "sword") == 0)
+	{
+		if (strcmp(_name, "prinny") == 0)
+			return true;
+		else
+			return false;
+	}
+	else if (strcmp(_item.getVItem()[_selectItemNum].name, "staff") == 0)
+	{
+		if (strcmp(_name, "flonne") == 0)
+			return true;
+		else
+			return false;
+	}
+	else if (strcmp(_item.getVItem()[_selectItemNum].name, "wand") == 0)
+	{
+		if (strcmp(_name, "raspberyl") == 0)
+			return true;
+		else
+			return false;
+	}
+	else if (strcmp(_item.getVItem()[_selectItemNum].name, "bow") == 0)
+	{
+		if (strcmp(_name, "etna") == 0)
+			return true;
+		else
+			return false;
 	}
 }
 

@@ -144,22 +144,7 @@ void gameObject::loadData()
 
 void gameObject::setDirectionImage()
 {
-	if (_isRight)
-	{
-		if (_isUp)
-		{
-			_characterDir = RT;
-		}
-		else _characterDir = RB;
-	}
-	else
-	{
-		if (_isUp)
-		{
-			_characterDir = LT;
-		}
-		else _characterDir = LB;
-	}
+	
 }
 
 void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)

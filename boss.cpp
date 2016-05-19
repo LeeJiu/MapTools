@@ -43,9 +43,8 @@ void boss::showPossibleMoveTile()
 
 }
 
-void boss::setItem(const char* itemName)
+void boss::setItem(const char * itemName, bool isWear)
 {
-
 }
 
 int boss::getHell()
