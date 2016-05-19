@@ -41,6 +41,8 @@ class gameObjectManager : public gameNode
 	int vObjSize;
 	int vEnmSize;
 
+	int _zenPosX, _zenPosY;
+
 	bool _isAction;
 	bool isCharacterTurn;
 

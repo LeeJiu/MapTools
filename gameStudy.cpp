@@ -85,7 +85,7 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("prinny_etc", "image/character/prinny_etc.bmp", 468, 528, 4, 4, true, 0xff00ff);
 
 
-	SCENEMANAGER->changeScene("selectStage");
+	SCENEMANAGER->changeScene("title");
 
 	return S_OK;
 }

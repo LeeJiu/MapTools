@@ -16,7 +16,7 @@ HRESULT raspberyl::init()
 	return S_OK;
 }
 
-HRESULT raspberyl::init(vector<TagTile*> tile)
+HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
 {
 	for (int i = 0; i < 100; i++)
 	{
@@ -29,10 +29,12 @@ HRESULT raspberyl::init(vector<TagTile*> tile)
 
 	_character = IMAGEMANAGER->findImage("raspberyl_idle");
 	_characterState = IDLE;
-	_characterDir = LB;
+	_characterDir = RT;
 	_curFrameX = 0;
 	_count = 0;
 
+	_isRight = true;
+	_isUp = true;
 	_isShow = false;
 
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
@@ -41,6 +43,8 @@ HRESULT raspberyl::init(vector<TagTile*> tile)
 	}
 
 	_vTile = tile;
+	_indexX = x;
+	_indexY = y;
 
 	_moveSpeed = 3;
 
@@ -53,6 +57,7 @@ void raspberyl::release()
 
 void raspberyl::update()
 {
+	gameObject::setDirectionImage();
 	setImage();
 
 	if (!_isMove)
@@ -86,23 +91,6 @@ void raspberyl::battleKeyControl()
 
 void raspberyl::setImage()
 {
-	if (_isRight)
-	{
-		if (_isUp)
-		{
-			_characterDir = RT;
-		}
-		else _characterDir = RB;
-	}
-	else
-	{
-		if (_isUp)
-		{
-			_characterDir = LT;
-		}
-		else _characterDir = LB;
-	}
-
 	switch (_characterState)
 	{
 	case IDLE:
