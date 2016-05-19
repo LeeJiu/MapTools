@@ -81,10 +81,7 @@ void prinny::release()
 
 void prinny::update()
 {
-<<<<<<< HEAD
 	setImage();
-=======
->>>>>>> refs/remotes/origin/moobin
 
 	if (_isbattle)
 	{

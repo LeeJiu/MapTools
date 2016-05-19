@@ -391,10 +391,10 @@ void battleUI::orderListClick(int orderNumber)
 	switch (orderNumber)
 	{
 	case 0:	//공격개시
-		_battleMgr->setActionAttack();
+		_battleMgr->doActionAttack();
 		break;
 	case 1:	//턴 종료
-		_isTurnType = false;
+		_isTurnType = _battleMgr->getTurnType();
 		turnChange();
 		_battleMgr->setTurnChange();
 		break;
@@ -428,7 +428,6 @@ void battleUI::unitOrderListClick(int unitOrderNumber)
 		break;
 	case 1:	//공격
 		_isOnSelectTarget = true;
-		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(false);
 		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleAttackTile(true);
 		break;
 	case 2:	//특수기술
@@ -635,7 +634,7 @@ void battleUI::LButtonClick()
 				if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
 				{
 					_isOnStatus = true;
-					_isOnCharacterList = true;					
+					_isOnCharacterList = true;
 				}
 				else
 				{
@@ -658,11 +657,12 @@ void battleUI::LButtonClick()
 						}
 					}				
 				}
+
 				else
 				{
 					//선택한 캐릭터의 MOVE SHOW가 FALSE인지 체크하자
 					if (!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile()
-						|| !_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleAttackTile())
+						&& !_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleAttackTile())
 					{
 						//캐릭터의 MOVE SHOW 가 FALSE라면 카메라를 해당 캐릭터의 위치로 포커스를 잡는다
 						_isOnOrderList = false;
@@ -810,6 +810,13 @@ void battleUI::setArrowFrame()
 		{
 			IMAGEMANAGER->findImage("ui_arrow_blue")->setFrameX(0);
 		}
+
+		IMAGEMANAGER->findImage("ui_arrow_red")->setFrameX(IMAGEMANAGER->findImage("ui_arrow_red")->getFrameX() + 1);
+		if (IMAGEMANAGER->findImage("ui_arrow_red")->getFrameX() >= IMAGEMANAGER->findImage("ui_arrow_red")->getMaxFrameX())
+		{
+			IMAGEMANAGER->findImage("ui_arrow_red")->setFrameX(0);
+		}
+
 	}
 }
 

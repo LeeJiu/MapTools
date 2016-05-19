@@ -19,6 +19,7 @@ HRESULT battleManager::init()
 
 	_orderNumber = 0;
 	_orderComplete = false;
+	_isDoOrdering = false;
 
 	return S_OK;
 }
@@ -41,27 +42,12 @@ void battleManager::update()
 
 	}
 
-
-	if (_vOrder[_orderNumber].isDone == false)
+	if (_orderNumber < _vOrder.size())
 	{
-		if (_gameObjMgr->getIsAction() == FALSE)
+		if (_isDoOrdering)
 		{
-			switch (_vOrder[_orderNumber].order)
-			{
-			case ORDER_NONE:
-				_vOrder[_orderNumber].isDone = true;
-				break;
-			case ORDER_ATTACK:
-				_gameObjMgr->setUnitAttack(_vOrder[_orderNumber].character, _vOrder[_orderNumber].targetX, _vOrder[_orderNumber].targetY);
-				break;
-			case ORDER_SKILL:
-				break;
-			case ORDER_DEFENCE:
-				break;
-			default:
-				break;
-			}
-		}	
+			doOrdering();
+		}
 	}
 }
 
@@ -93,11 +79,38 @@ void battleManager::setCharacterSkill(int character, int targetX, int targetY)
 {
 }
 
-void battleManager::setActionAttack()
-{
-}
-
 void battleManager::setTurnChange()
 {
 	_isTurnType = !_isTurnType;
+	_isDoOrdering = true;
+}
+
+void battleManager::doActionAttack()
+{
+	_isDoOrdering = true;
+}
+
+void battleManager::doOrdering()
+{
+	if (_vOrder[_orderNumber].isDone == false)
+	{
+		if (_gameObjMgr->getIsAction() == FALSE)
+		{
+			switch (_vOrder[_orderNumber].order)
+			{
+			case ORDER_NONE:
+				_vOrder[_orderNumber].isDone = true;
+				break;
+			case ORDER_ATTACK:
+				_gameObjMgr->setUnitAttack(_vOrder[_orderNumber].character, _vOrder[_orderNumber].targetX, _vOrder[_orderNumber].targetY);
+				break;
+			case ORDER_SKILL:
+				break;
+			case ORDER_DEFENCE:
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }

@@ -45,22 +45,19 @@ void gameObjectManager::render()
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 
-	_battleUI->renderOverlapSelectTile();
-	_battleUI->renderOverlapAttackSelectTile();
-
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
-<<<<<<< HEAD
 
-	int _size = _vToTalRender.size();
-=======
+	//int _size = _vToTalRender.size();
 	int _size = vCharSize + vObjSize + 2;
 
 
->>>>>>> refs/remotes/origin/moobin
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->render();
 	}
+
+	_battleUI->renderOverlapSelectTile();
+	_battleUI->renderOverlapAttackSelectTile();
 
 	//char str[128];
 	//sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
