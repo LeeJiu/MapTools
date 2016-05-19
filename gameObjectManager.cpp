@@ -27,10 +27,10 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-	int _size = _vGameObject.size();
+	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
-		_vGameObject[i]->update();
+		_vToTalRender[i]->update();
 	}
 }
 
@@ -45,10 +45,10 @@ void gameObjectManager::render()
 
 	_battleUI->renderOverlapSelectTile();
 
-	int _size = _vGameObject.size();
+	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
-		_vGameObject[i]->render();
+		_vToTalRender[i]->render();
 	}
 
 	_size = _vToTalRender.size();
@@ -239,8 +239,6 @@ void gameObjectManager::setObject()
 		}
 		else continue;
 	}
-
-	int a = 0;
 }
 
 void gameObjectManager::setAstar()
