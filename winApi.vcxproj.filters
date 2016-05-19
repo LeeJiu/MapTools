@@ -249,6 +249,12 @@
     <ClInclude Include="selectStageData.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="soundManager.h">
+      <Filter>2D Framework\manager</Filter>
+    </ClInclude>
+=======
+>>>>>>> refs/remotes/origin/development
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
@@ -395,6 +401,12 @@
     <ClCompile Include="selectStageData.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="soundManager.cpp">
+      <Filter>2D Framework\manager</Filter>
+    </ClCompile>
+=======
+>>>>>>> refs/remotes/origin/development
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>

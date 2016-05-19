@@ -48,6 +48,14 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("flonne_attack", "image/character/flonne_attack.bmp", 824, 612, 4, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("flonne_lift", "image/character/flonne_lift.bmp", 396, 664, 4, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("flonne_etc", "image/character/flonne_etc.bmp", 236, 620, 2, 4, true, 0xff00ff);
+	//raspberyl
+	IMAGEMANAGER->addFrameImage("raspberyl_idle", "image/character/raspberyl_idle.bmp", 396, 588, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("raspberyl_walk", "image/character/raspberyl_walk.bmp", 552, 580, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("raspberyl_attack", "image/character/raspberyl_attack.bmp", 460, 592, 5, 4, true, 0xff00ff);
+	//etna
+	IMAGEMANAGER->addFrameImage("etna_idle", "image/character/etna_idle.bmp", 588, 676, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("etna_walk", "image/character/etna_walk.bmp", 588, 700, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("etna_attack", "image/character/etna_attack.bmp", 720, 660, 4, 4, true, 0xff00ff);
 
 	//배틀씬에서 사용될 이미지 추가
 	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 128, 64, true, 0xff00ff);
