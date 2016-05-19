@@ -54,13 +54,13 @@ void battleScene::release()
 void battleScene::update()
 {
 	_gameObjMgr->update();
-	//_battleMgr->update();
+	_battleMgr->update();
 	_battleUI->update();
 }
 
 void battleScene::render()
 {
 	_gameObjMgr->render();
-	//_battleMgr->render();
+	_battleMgr->render();
 	_battleUI->render();
 }
