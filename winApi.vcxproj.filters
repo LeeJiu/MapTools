@@ -1,104 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="2D Framework">
-      <UniqueIdentifier>{321d935e-5001-4633-9e8a-2a4f972760a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\manager">
-      <UniqueIdentifier>{9dcb2374-bcff-497c-bfa4-c3af2dfae3ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy">
-      <UniqueIdentifier>{5175af2c-33b5-416f-9a8d-3629ef86e079}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\image">
-      <UniqueIdentifier>{eed549ce-5e2d-4151-a1de-2d00125f8e8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\utils">
-      <UniqueIdentifier>{3328be04-0136-4080-a655-8dcf186e7857}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\timer">
-      <UniqueIdentifier>{9692d7be-c46d-4d58-940d-d02e1963d7ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\txtData">
-      <UniqueIdentifier>{ae96a1d9-2b3a-4d00-99cf-7339ad0a95d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\progressBar">
-      <UniqueIdentifier>{359ebc3d-c1c5-49cc-b6ac-1c1e2198a7b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\effect">
-      <UniqueIdentifier>{179d6a22-c41c-4167-a330-fa850e163d98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\animation">
-      <UniqueIdentifier>{2b311d5d-1ac9-49fd-a166-94223b303a4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\button">
-      <UniqueIdentifier>{ddb096a9-05ed-4b4e-bcd8-5010100f7698}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\database">
-      <UniqueIdentifier>{3c0c4b94-c4f5-43a8-a41d-243799c65199}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\action">
-      <UniqueIdentifier>{871f14ef-c28f-4271-bee8-5e817dc909a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\gameObject">
-      <UniqueIdentifier>{99284ba3-ec4e-448c-87ab-f3eaa23887b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\Item">
-      <UniqueIdentifier>{9f094041-a58f-4eb2-a790-7d4dfdbc32da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\Inventory">
-      <UniqueIdentifier>{59054f80-2a0c-42c5-bbf5-289aab86eb25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\gameObject\character">
-      <UniqueIdentifier>{0d024b93-6385-44e6-b912-38eaaed231dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\gameObject\objects">
-      <UniqueIdentifier>{4988893b-edc8-4c26-849d-1c0bd15674b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\mapTool">
-      <UniqueIdentifier>{9f35cf64-8f62-495e-ae09-361557e7e2bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\selectStage">
-      <UniqueIdentifier>{36a15745-eabb-466f-8260-308e4c9ad48f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\store">
-      <UniqueIdentifier>{b442965c-48ee-443a-9347-d40bd4f9f75e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\title">
-      <UniqueIdentifier>{bc7778c8-82d3-44f5-acab-bc2269eb2666}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\town">
-      <UniqueIdentifier>{486f0fce-e6c3-46c4-ae77-eed2d81e2097}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\battle">
-      <UniqueIdentifier>{e067cd68-6528-41df-ab16-ad00349bb31c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\gameObject\enemy">
-      <UniqueIdentifier>{7e0b8823-1df5-4bd4-859e-902e0fe6e59a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\gameObject\npc">
-      <UniqueIdentifier>{09b1c888-e044-4d54-a54a-32b5527e1229}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\aStar">
-      <UniqueIdentifier>{42f0b6f3-d929-4bce-80ee-ef9c0cf56edf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\mercenaryStore">
-      <UniqueIdentifier>{64058e20-93fa-4101-9bf9-639a665f94f5}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="action.cpp" />
+    <ClCompile Include="actionManager.cpp" />
+    <ClCompile Include="animation.cpp" />
+    <ClCompile Include="aStar.cpp" />
+    <ClCompile Include="battleCamera.cpp" />
+    <ClCompile Include="battleManager.cpp" />
+    <ClCompile Include="battleScene.cpp" />
+    <ClCompile Include="battleUI.cpp" />
+    <ClCompile Include="boss.cpp" />
+    <ClCompile Include="button.cpp" />
+    <ClCompile Include="character.cpp" />
+    <ClCompile Include="database.cpp" />
+    <ClCompile Include="effect.cpp" />
+    <ClCompile Include="effectManager.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="etna.cpp" />
+    <ClCompile Include="flonne.cpp" />
+    <ClCompile Include="gameNode.cpp" />
+    <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="gameObjectManager.cpp" />
+    <ClCompile Include="gameStudy.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="imageManager.cpp" />
+    <ClCompile Include="inventory.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="keyManager.cpp" />
+    <ClCompile Include="mapTool.cpp" />
+    <ClCompile Include="mercenaryStore.cpp" />
+    <ClCompile Include="npc.cpp" />
+    <ClCompile Include="objects.cpp" />
+    <ClCompile Include="orc.cpp" />
+    <ClCompile Include="prinny.cpp" />
+    <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="raspberyl.cpp" />
+    <ClCompile Include="sceneManager.cpp" />
+    <ClCompile Include="selectStage.cpp" />
+    <ClCompile Include="selectStageData.cpp" />
+    <ClCompile Include="soundManager.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="store.cpp" />
+    <ClCompile Include="timeManager.cpp" />
+    <ClCompile Include="timer.cpp" />
+    <ClCompile Include="title.cpp" />
+    <ClCompile Include="town.cpp" />
+    <ClCompile Include="txtData.cpp" />
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="winApi.cpp" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -401,8 +353,63 @@
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
+=======
+    <ClInclude Include="action.h" />
+    <ClInclude Include="actionManager.h" />
+    <ClInclude Include="animation.h" />
+    <ClInclude Include="aStar.h" />
+    <ClInclude Include="battleCamera.h" />
+    <ClInclude Include="battleManager.h" />
+    <ClInclude Include="battleScene.h" />
+    <ClInclude Include="battleUI.h" />
+    <ClInclude Include="boss.h" />
+    <ClInclude Include="button.h" />
+    <ClInclude Include="character.h" />
+    <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="database.h" />
+    <ClInclude Include="effect.h" />
+    <ClInclude Include="effectManager.h" />
+    <ClInclude Include="enemy.h" />
+    <ClInclude Include="etna.h" />
+    <ClInclude Include="flonne.h" />
+    <ClInclude Include="gameNode.h" />
+    <ClInclude Include="gameObject.h" />
+    <ClInclude Include="gameObjectManager.h" />
+    <ClInclude Include="gameStudy.h" />
+    <ClInclude Include="image.h" />
+    <ClInclude Include="imageManager.h" />
+    <ClInclude Include="inventory.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="keyManager.h" />
+    <ClInclude Include="mapTool.h" />
+    <ClInclude Include="mercenaryStore.h" />
+    <ClInclude Include="npc.h" />
+    <ClInclude Include="objects.h" />
+    <ClInclude Include="orc.h" />
+    <ClInclude Include="prinny.h" />
+    <ClInclude Include="progressBar.h" />
+    <ClInclude Include="randomFunction.h" />
+    <ClInclude Include="raspberyl.h" />
+    <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="selectStage.h" />
+    <ClInclude Include="selectStageData.h" />
+    <ClInclude Include="singletonBase.h" />
+    <ClInclude Include="soundManager.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="store.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="timeManager.h" />
+    <ClInclude Include="timer.h" />
+    <ClInclude Include="title.h" />
+    <ClInclude Include="town.h" />
+    <ClInclude Include="txtData.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+>>>>>>> origin/development
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
 </Project>
