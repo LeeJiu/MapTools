@@ -240,6 +240,7 @@ void gameObjectManager::setObject()
 				_vTile);
 
 			_vToTalRender.push_back(rnd);
+			vObjSize++;
 		}
 		else continue;
 	}
@@ -279,7 +280,7 @@ void gameObjectManager::loadMapData()
 			(*_viTile)->image->setFrameY((*_viTile)->imageNum / 4);
 		}
 
-		if ((*_viTile)->state == S_ONOBJ) vObjSize++;
-		if ((*_viTile)->state == S_ONENM) vEnmSize++;
+		//if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == S_ZEN) vObjSize++;
+		//if ((*_viTile)->state == S_ONENM) vEnmSize++;
 	}
 }

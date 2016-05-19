@@ -101,11 +101,6 @@ void objects::showPossibleMoveTile()
 
 }
 
-void objects::setItem(const char* itemName)
-{
-
-}
-
 int objects::getHell()
 {
 
@@ -114,6 +109,10 @@ int objects::getHell()
 void objects::setHell(int hell)
 {
 
+}
+
+void objects::setItem(const char * itemName, bool isWear)
+{
 }
 
 void objects::setMercenary(const char* characterName)
