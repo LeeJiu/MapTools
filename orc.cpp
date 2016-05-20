@@ -40,7 +40,7 @@ HRESULT orc::init(int x, int y, vector<TagTile*> tile)
 
 void orc::release()
 {
-
+	SAFE_DELETE(_character);
 }
 
 void orc::update()

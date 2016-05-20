@@ -24,6 +24,7 @@ HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
 	}
 
 	_name = "raspberyl";
+	loadData();
 
 	_isCharacter = true;
 

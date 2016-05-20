@@ -2,9 +2,7 @@
 #include "enemy.h"
 class orc : public enemy
 {
-protected:
-	bool _isUp, _isRight, _isShow;
-
+private:
 	int _curFrameX, _curFrameY, _count;
 
 public:
