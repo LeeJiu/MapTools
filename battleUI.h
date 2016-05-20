@@ -149,6 +149,7 @@ public:
 	void renderOverlapSelectTile();				//마우스 오버 랩 된 타일에 SelectTile Image를 출력
 	void renderOverlapAttackSelectTile();		//마우스 오버 랩 된 공격 타일에 SelectTile Image를 출력
 
+	bool checkTileOnCharacter(int i, int j);
 	void orderListClick(int orderNumber);
 	void unitOrderListClick(int unitOrderNumber);
 	void turnChange();

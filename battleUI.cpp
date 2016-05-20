@@ -249,11 +249,11 @@ void battleUI::setCharacterList()
 		_vCharacterList.push_back(_gameObjMgr->getGameObject()[i]->getName());
 	}
 
-	for (int i = 0; i < _characterSize; i++)										 //캐릭터 소환 목록 창 BACKGROUND IMAGE BODY~
-	{																				 //														 
-		image* tempBody = new image;												 //														 
-		tempBody->init("image/battleUI/ui_characterList_body.bmp", 250, 30, false, false);	 //														 
-		_imageCharacterListBody.push_back(tempBody);								 //														 
+	for (int i = 0; i < _characterSize; i++)										 
+	{
+		image* tempBody = new image;
+		tempBody->init("image/battleUI/ui_characterList_body.bmp", 250, 30, false, false);
+		_imageCharacterListBody.push_back(tempBody);
 	}
 
 	for (int i = 0; i < _characterSize; i++)
@@ -296,7 +296,7 @@ void battleUI::initUnitOrderList()
 	for (int i = 0; i < _unitOrderListSize; i++)																					  //유닛 명령 창 리스트 BACKGROUND IMAGE BODY
 	{																																  //
 		image* tempBody = new image;																								  //
-		tempBody->init("image/battleUI/ui_orderlist_body.bmp", 254, 30, false, false);														  //
+		tempBody->init("image/battleUI/ui_orderlist_body.bmp", 254, 30, false, false);												  //
 		_imageUnitOrderListBody.push_back(tempBody);																				  //
 	}																																  //~ 유닛 명령 창 리스트 BACKGROUND IMAGE BODY
 	_imageUnitOrderListBottom = IMAGEMANAGER->findImage("orderlist_bottom");														  //유닛 명령 창 리스트 BACKGROUND IMAGE BOTTOM
@@ -318,6 +318,7 @@ void battleUI::renderOverlapSelectTile()
 {
 	if (!_isOnCharacterList)
 	{
+		//공격 타일을 출력 중이 아닌 상태일 때
 		if (!_isOnSelectTarget)
 		{
 			// 셀렉트 타일 + 케릭터 위 에로우출력
@@ -338,6 +339,7 @@ void battleUI::renderOverlapSelectTile()
 			}
 		}
 
+		//공격 타일을 출력 중이라면 SelectTile을 선택한 캐릭터 위치로 고정시키자
 		if (_isOnSelectTarget)
 		{
 			int tempX = _gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexX();
@@ -379,11 +381,24 @@ void battleUI::renderOverlapAttackSelectTile()
 					}
 				}
 			}
-		}
-
-
-		
+		}		
 	}
+}
+
+bool battleUI::checkTileOnCharacter(int i, int j)
+{
+	for (int k = 0; k < _characterSize; k++)
+	{
+		if(_gameObjMgr->getGameObject()[k]->getIndexX() == i && _gameObjMgr->getGameObject()[k]->getIndexY() == j)
+		{
+			if (_gameObjMgr->getGameObject()[k]->getIsShow())
+			{
+				_selectCharacterNumber = k;
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void battleUI::orderListClick(int orderNumber)
@@ -392,10 +407,10 @@ void battleUI::orderListClick(int orderNumber)
 	switch (orderNumber)
 	{
 	case 0:	//공격개시
-		_battleMgr->setActionAttack();
+		_battleMgr->doActionAttack();
 		break;
 	case 1:	//턴 종료
-		_isTurnType = false;
+		_isTurnType = _battleMgr->getTurnType();
 		turnChange();
 		_battleMgr->setTurnChange();
 		break;
@@ -409,7 +424,7 @@ void battleUI::orderListClick(int orderNumber)
 
 		break;
 	case 5:	//포기
-
+		SCENEMANAGER->changeScene("selectStage");
 		break;
 	case 6:	//설정
 
@@ -429,7 +444,6 @@ void battleUI::unitOrderListClick(int unitOrderNumber)
 		break;
 	case 1:	//공격
 		_isOnSelectTarget = true;
-		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(false);
 		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleAttackTile(true);
 		break;
 	case 2:	//특수기술
@@ -455,6 +469,7 @@ void battleUI::unitOrderListClick(int unitOrderNumber)
 	}
 }
 
+//TURN CHANGE SHOW 출력
 void battleUI::turnChange()
 {
 	_isTurnShow = true;
@@ -520,9 +535,7 @@ void battleUI::turnChange()
 				}
 			}
 		}
-	}
-	//_isTurnType = !_isTurnType;
-	
+	}	
 
 	//처음 턴일 때 STAGE START 출력
 	if (_isFirstShow)
@@ -561,9 +574,10 @@ void battleUI::turnChange()
 //마우스 왼쪽 버튼 클릭 이벤트
 void battleUI::LButtonClick()
 {
-	//캐릭터 리스트 중에 어떤 것을 선택했는지 체크하자
+	//캐릭터 소환 리스트가 켜져 있는 상태
 	if (_isOnCharacterList)
 	{
+		//캐릭터 리스트 중에 어떤 것을 선택했는지 체크하자
 		for (int i = 0; i < _characterSize; i++)
 		{
 			if (PtInRect(&_rcCharacterListBody[i], _ptMouse))
@@ -576,6 +590,7 @@ void battleUI::LButtonClick()
 		}
 	}
 
+	//일반 명령창이 켜져 있는 상태
 	if (_isOnOrderList)
 	{
 		//일반 명령창을 선택했는지 체크하자
@@ -590,6 +605,7 @@ void battleUI::LButtonClick()
 		}
 	}
 
+	//유닛 명령창이 켜져 있는 상태
 	if (_isOnUnitOrderList)
 	{
 		//유닛의 명령창을 선택했는지 체크하자
@@ -598,52 +614,13 @@ void battleUI::LButtonClick()
 			if (PtInRect(&_rcUnitOrderListBody[i], _ptMouse))
 			{
 				unitOrderListClick(i);
-				_isOnUnitOrderList = false;
 				return;
 			}
 		}
 	}
 	
-	for (int i = 0; i < TOTALTILE(TILENUM); i++)
-	{
-		
-	}
-
-	//어떤 캐릭터를 선택했는지 체크하자
-	for (int i = 0; i < _characterSize; i++)
-	{
-		if (PtInRect(&_gameObjMgr->getGameObject()[i]->getCharacterRect(), _ptMouse))
-		{
-			//공격할 캐릭터를 선택하는 중이라면
-			if (_isOnSelectTarget)
-			{
-				
-			}
-
-			//그냥 일반적인 상황이라면
-			else
-			{
-				if (_gameObjMgr->getGameObject()[i]->getIsShow())
-				{
-					_selectCharacterNumber = i;
-					_isSelectCharacter = true;
-					_isOnUnitOrderList = true;
-					_battleCamera->setCameraTile(_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexX(), _gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexY());
-					return;
-				}
-				else
-				{
-					_isSelectCharacter = false;
-					_selectCharacterNumber = 0;
-					_isSelectCharacter = false;
-					_isOnUnitOrderList = false;
-				}
-			}
-		}
-	}
-
 	//타일을 클릭했는지 체크하자
-	for (int i = 0; i < _gameObjMgr->getTile().size(); i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
 		{
@@ -652,36 +629,85 @@ void battleUI::LButtonClick()
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 			{
-				// 최근 선택한 케릭터의 이동가능한 타일이 보여지지 않으면 카메라를 움직여라
-				if(!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile())
-					_isOnOrderList = false;
-
-				//선택한 캐릭터의 MOVE SHOW가 FALSE인지 체크하자
-				if (!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile())
-				{
-					//캐릭터의 MOVE SHOW 가 FALSE라면 카메라를 해당 캐릭터의 위치로 포커스를 잡는다
-					_battleCamera->setCameraTile(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
-				}
-				// 케릭터의 이동 가능한 타일이 보여진다면
-				else
-				{
-					// 케릭터 이동 함수를 호출한다
-					_gameObjMgr->setUnitMove(_selectCharacterNumber, _gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
-					// 이동가능한 타일을 꺼준다.		
-					_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(false);
-					
-				}
-
 				//소환 타일을 선택했는지 체크하자
 				if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
 				{
-					_isOnStatus = true;
-					_isOnCharacterList = true;
+					// 그 위치에 케릭터가 있다면 
+					if (checkTileOnCharacter(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y))
+					{
+						_battleCamera->setCameraTile(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+						_isSelectCharacter = true;
+						_isOnUnitOrderList = true;
+					}
+					// 아니라면 케릭터리스트 보여주자
+					else
+					{
+						_isOnStatus = true;
+						_isOnCharacterList = true;
+					}
+				}
+				else if (_gameObjMgr->getTile()[i]->state == S_ONENM)
+				{
+					// 케릭터 공격가능한 타일이 표시되어있지 않다면
+					if (!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleAttackTile())
+					{
+						_battleCamera->setCameraTile(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+					}
+					// 케릭터 공격가능한 타일이 표시되어 있다면
+					else if (_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleAttackTile())
+					{
+						_battleMgr->setCharacterAttack(_selectCharacterNumber, _gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+						_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleAttackTile(false);
+						_isOnUnitOrderList = false;
+						_isSelectCharacter = false;
+						_isOnSelectTarget = false;
+					}
+				}
+				else if (_gameObjMgr->getTile()[i]->state == S_ONCHAR)
+				{
+					for (int j = 0; j < _characterSize; j++)
+					{
+						if (_gameObjMgr->getGameObject()[j]->getIndexX() == _gameObjMgr->getTile()[i]->x
+							&& _gameObjMgr->getGameObject()[j]->getIndexY() == _gameObjMgr->getTile()[i]->y)
+						{
+							_selectCharacterNumber = j;
+							_isSelectCharacter = true;
+							_isOnUnitOrderList = true;
+							_battleCamera->setCameraTile(_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexX(), _gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexY());
+							break;
+						}
+					}
+				}
+				else if (_gameObjMgr->getTile()[i]->state == S_NONE)
+				{
+					// 케릭터 이동가능한 타일이 표시되어있지 않다면
+					if (!_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile())
+					{
+						_battleCamera->setCameraTile(_gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+					}
+					// 케릭터 이동가능한 타일이 표시되어있다면
+					else if (_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIsShowPossibleMoveTile())
+					{
+						//	케릭터 이동 함수를 호출한다
+						_gameObjMgr->setUnitMove(_selectCharacterNumber, _gameObjMgr->getTile()[i]->x, _gameObjMgr->getTile()[i]->y);
+						// 이동가능한 타일을 꺼준다
+						_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(false);
+						_isSelectCharacter = false;
+					}
 				}
 				else
 				{
-					_isOnStatus = false;
-					_isOnCharacterList = false;
+					if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
+					{
+						_isOnStatus = true;
+						_isOnCharacterList = true;
+					}
+					else
+					{
+						_isOnStatus = false;
+						_isOnCharacterList = false;
+					}
+
 				}
 			}
 		}
@@ -698,15 +724,21 @@ void battleUI::RButtonClick()
 	}
 	else
 	{
-		_isOnStatus = false;
-		_isOnCharacterList = false;
-		_isOnSkillTitle = false;
-		_isOnBottomStatus = false;
-		_isOnOrderList = false;
-		_isOnUnitOrderList = false;
+		_isOnStatus			= false;
+		_isOnSkillTitle		= false;
+		_isOnBottomStatus	= false;
+		_isOnCharacterList	= false;
+		_isOnOrderList		= false;
+		_isOnUnitOrderList	= false;
+		_isOnSelectTile		= false;
+		_isOnSelectTarget	= false;
+		_isSelectCharacter	= false;
+		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleAttackTile(false);
+		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(false);
 	}
 }
 
+//리스트에 마우스가 올려져있는지 확인하고 ARROW 출력
 void battleUI::checkMouseOverList()
 {
 	if (_isOnCharacterList)
@@ -769,9 +801,9 @@ void battleUI::checkMouseOverCharacter()
 								_statusBottomName = _gameObjMgr->getGameObject()[j]->getName();
 								_progressBarHp->gauge(_gameObjMgr->getGameObject()[j]->getHp(), 100);
 								_progressBarSp->gauge(_gameObjMgr->getGameObject()[j]->getSp(), 100);
-							}
-							
+							}							
 						}
+
 					}
 				}
 			}
@@ -795,6 +827,13 @@ void battleUI::setArrowFrame()
 		{
 			IMAGEMANAGER->findImage("ui_arrow_blue")->setFrameX(0);
 		}
+
+		IMAGEMANAGER->findImage("ui_arrow_red")->setFrameX(IMAGEMANAGER->findImage("ui_arrow_red")->getFrameX() + 1);
+		if (IMAGEMANAGER->findImage("ui_arrow_red")->getFrameX() >= IMAGEMANAGER->findImage("ui_arrow_red")->getMaxFrameX())
+		{
+			IMAGEMANAGER->findImage("ui_arrow_red")->setFrameX(0);
+		}
+
 	}
 }
 

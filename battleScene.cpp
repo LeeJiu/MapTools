@@ -20,8 +20,8 @@ HRESULT battleScene::init()
 	_battleMgr->init();
 	
 	_gameObjMgr->setTile();
-	_gameObjMgr->setCharacter();
 	_gameObjMgr->setObject();
+	_gameObjMgr->setCharacter();
 	_gameObjMgr->setEnemy();
 	_gameObjMgr->setAstar();
 

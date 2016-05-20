@@ -16,17 +16,30 @@ HRESULT flonne::init()
 	return S_OK;
 }
 
-HRESULT flonne::init(vector<TagTile*> tile)
+HRESULT flonne::init(int x, int y, vector<TagTile*> tile)
 {
 	_name = "flonne";
 
 	loadData();
 	_isCharacter = true;
-	_character = IMAGEMANAGER->findImage("prinny_idle");
+	_character = IMAGEMANAGER->findImage("flonne_idle");
 	_characterState = IDLE;
-	_characterDir = LB;
+	_characterDir = RT;
 	_curFrameX = 0;
 	_count = 0;
+
+	_isRight = true;
+	_isUp = true;
+	_isShow = false;
+
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	{
+		_tile[i % TILENUM][i / TILENUM] = tile[i];
+	}
+
+	_vTile = tile;
+	_indexX = x;
+	_indexY = y;
 
 	_moveSpeed = 3;
 
@@ -39,10 +52,27 @@ void flonne::release()
 
 void flonne::update()
 {
+	gameObject::setDirectionImage();
+	setImage();
+
+	if (!_isMove)
+	{
+		_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+		_x = (_rc.right + _rc.left) / 2;
+		_y = (_rc.top + _rc.bottom) / 2;
+	}
+	battleKeyControl();
+	gameObject::move();
 }
 
 void flonne::render()
 {
+	if (_isShow)
+	{
+		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
+		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+	}
 }
 
 void flonne::keyControl()
@@ -56,10 +86,30 @@ void flonne::battleKeyControl()
 
 void flonne::setImage()
 {
-}
+	switch (_characterState)
+	{
+	case IDLE:
+		_character = IMAGEMANAGER->findImage("flonne_idle");
+		break;
 
-void flonne::setFrame()
-{
+	case WALK:
+		_character = IMAGEMANAGER->findImage("flonne_walk");
+		break;
+
+	case ATTACK:
+		_character = IMAGEMANAGER->findImage("flonne_attack");
+		break;
+
+	case LIFT:
+		_character = IMAGEMANAGER->findImage("flonne_lift");
+		break;
+
+	case ETC:
+		_character = IMAGEMANAGER->findImage("flonne_etc");
+		break;
+	}
+
+	gameObject::setFrame();
 }
 
 void flonne::saveData()
@@ -108,4 +158,21 @@ void flonne::loadData()
 	_exp = atoi(vStr[idx++].c_str());
 	_next = atoi(vStr[idx++].c_str());
 	_equipWeapon = (WEAPON_TYPE)atoi(vStr[idx++].c_str());
+}
+
+void flonne::setItem(const char * itemName, bool isWear)
+{
+}
+
+void flonne::setMercenary(const char * characterName)
+{
+}
+
+void flonne::setHell(int hell)
+{
+}
+
+int flonne::getHell()
+{
+	return 0;
 }

@@ -126,6 +126,8 @@ void gameObject::attack(int targetX, int targetY)
 		_characterDir = LB;
 	}
 	_characterState = ATTACK;
+	_character->setFrameX(0);
+	_isOrdering = true;
 }
 
 void gameObject::setImage()
@@ -134,6 +136,46 @@ void gameObject::setImage()
 
 void gameObject::setFrame()
 {
+	_count++;
+
+	switch (_characterDir)
+	{
+	case LB:
+		_curFrameY = 0;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RB:
+		_curFrameY = 1;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RT:
+		_curFrameY = 2;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case LT:
+		_curFrameY = 3;
+		_character->setFrameY(_curFrameY);
+		break;
+	}
+
+	if (_count % 10 == 0)
+	{
+		_curFrameX++;
+		if (_curFrameX > _character->getMaxFrameX())
+		{
+			_curFrameX = 0;
+			/*if (_characterState == ATTACK)
+			{
+				_characterState = IDLE;
+				_isOrdering = false;
+				return;
+			}*/
+		}
+		_character->setFrameX(_curFrameX);
+	}
 }
 
 void gameObject::saveData()
@@ -168,7 +210,7 @@ void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
 {
 	if (!_isMove)
 	{
-		if(_tile[_indexX][_indexY]->state != S_ZEN) _tile[_indexX][_indexY]->state = S_NONE;
+		if(_tile[_indexX][_indexY]->state != ZEN_POINT) _tile[_indexX][_indexY]->state = S_NONE;
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
@@ -212,26 +254,6 @@ void gameObject::showPossibleMoveTile()
 
 void gameObject::showPossibleAttackTile()
 {
-	/*for (int i = 0; i < TOTALTILE(TILENUM); i++)
-	{
-		if (_indexX == _vTile[i]->x && _indexY - 1 == _vTile[i]->y)
-		{
-			IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
-		}
-		else if (_indexX == _vTile[i]->x && _indexY + 1 == _vTile[i]->y)
-		{
-			IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
-		}
-		else if (_indexX - 1 == _vTile[i]->x && _indexY == _vTile[i]->y)
-		{
-			IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
-		}
-		else if (_indexX + 1== _vTile[i]->x && _indexY == _vTile[i]->y)
-		{
-			IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
-		}
-	}*/
-
 	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX + 1][_indexY]->rc.left, _tile[_indexX + 1][_indexY]->rc.top);
 	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX - 1][_indexY]->rc.left, _tile[_indexX - 1][_indexY]->rc.top);
 	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX][_indexY + 1]->rc.left, _tile[_indexX][_indexY + 1]->rc.top);

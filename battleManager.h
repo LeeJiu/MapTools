@@ -7,10 +7,11 @@ enum ORDER_TYPE
 };
 struct tagOrder
 {
-	int _character;
-	int _target;
-	ORDER_TYPE _order;
-	bool _isDone;
+	int character;
+	int targetX;
+	int targetY;
+	ORDER_TYPE order;
+	bool isDone;
 };
 
 class gameObjectManager;
@@ -20,8 +21,13 @@ class battleManager : public singletonBase<battleManager>
 private:
 	int _turnCount;
 	bool _isTurnType;
+	bool _isDoOrdering;
+
+	bool _isCompleteAction;
 
 	vector<tagOrder> _vOrder;
+	int _orderNumber;
+
 	bool _orderComplete;
 	
 
@@ -37,17 +43,20 @@ public:
 	void update();
 	void render();
 
-	void setCharacterNone(int character, int target);
-	void setCharacterAttack(int character, int target);
+	void doActionAttack();
+	void doOrdering();
+
+	void setCharacterNone(int character, int targetX, int targetY);
+	void setCharacterAttack(int character, int targetX, int targetY);
 	void setCharacterDefence(int character);
-	void setCharacterSkill(int character, int target);
+	void setCharacterSkill(int character, int targetX, int targetY);
 	
-
-	void setActionAttack();
 	void setTurnChange();
+	void setCompleteAction() { _isCompleteAction = true; }
 
-
+	bool getTurnType() { return _isTurnType; }
 	int getTurnCount() { return _turnCount; }
+	
 
 	void setGameObjectManagerMemoryLink(gameObjectManager* gameObjMgr) { _gameObjMgr = gameObjMgr; }
 	void setBattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }

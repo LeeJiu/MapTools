@@ -37,7 +37,7 @@ HRESULT prinny::init()
 	return S_OK;
 }
 
-HRESULT prinny::init(vector<TagTile*> tile)
+HRESULT prinny::init(int x, int y, vector<TagTile*> tile)
 {
 	_inventory = new inventory;
 	_inventory->init();
@@ -52,8 +52,11 @@ HRESULT prinny::init(vector<TagTile*> tile)
 	_curFrameX = 0;
 	_count = 0;
 
-	_indexX = 4;
-	_indexY = 9;
+	_isRight = true;
+	_isUp = true;
+
+	_indexX = x;
+	_indexY = y;
 	_mv = 4;
 	_isShow = false;
 	_isbattle = true;
@@ -78,8 +81,8 @@ void prinny::release()
 
 void prinny::update()
 {
-	setImage();
 	gameObject::setDirectionImage();
+	setImage();
 
 	if (_isbattle)
 	{
@@ -98,6 +101,9 @@ void prinny::update()
 		_inventory->update();
 		keyControl();
 	}
+
+	setImage();
+	gameObject::setDirectionImage();
 }
 
 void prinny::render()
@@ -115,7 +121,7 @@ void prinny::render()
 			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 			{
-				Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+				//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 				_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			}
 		}
@@ -186,7 +192,6 @@ void prinny::keyControl()
 			_invenExit = RectMake(0, 0, 0, 0);
 			_invenNext = RectMake(0, 0, 0, 0);
 		}
-		
 	}
 
 	if (PtInRect(&_invenExit, _ptMouse))
@@ -247,46 +252,8 @@ void prinny::setImage()
 		_character = IMAGEMANAGER->findImage("prinny_etc");
 		break;
 	}
-	
-	setFrame();
-}
 
-void prinny::setFrame()
-{
-	_count++;
-
-	switch (_characterDir)
-	{
-	case LB:
-		_curFrameY = 0;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case RB:
-		_curFrameY = 1;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case RT:
-		_curFrameY = 2;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case LT:
-		_curFrameY = 3;
-		_character->setFrameY(_curFrameY);
-		break;
-	}
-
-	if (_count % 7 == 0)
-	{
-		_curFrameX++;
-		if (_curFrameX > _character->getMaxFrameX())
-		{
-			_curFrameX = 0;
-		}
-		_character->setFrameX(_curFrameX);
-	}
+	gameObject::setFrame();
 }
 
 void prinny::saveData()

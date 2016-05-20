@@ -64,7 +64,6 @@ struct TagObject
 };
 
 
-
 enum WEAPON_TYPE
 {
 	NONE, SWORD, WAND, STAFF, BOW

@@ -16,7 +16,7 @@ HRESULT raspberyl::init()
 	return S_OK;
 }
 
-HRESULT raspberyl::init(vector<TagTile*> tile)
+HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
 {
 	for (int i = 0; i < 100; i++)
 	{
@@ -24,14 +24,28 @@ HRESULT raspberyl::init(vector<TagTile*> tile)
 	}
 
 	_name = "raspberyl";
+	loadData();
 
 	_isCharacter = true;
 
-	_character = IMAGEMANAGER->findImage("prinny_idle");
+	_character = IMAGEMANAGER->findImage("raspberyl_idle");
 	_characterState = IDLE;
-	_characterDir = LB;
+	_characterDir = RT;
 	_curFrameX = 0;
 	_count = 0;
+
+	_isRight = true;
+	_isUp = true;
+	_isShow = false;
+
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	{
+		_tile[i % TILENUM][i / TILENUM] = tile[i];
+	}
+
+	_vTile = tile;
+	_indexX = x;
+	_indexY = y;
 
 	_moveSpeed = 3;
 
@@ -44,10 +58,27 @@ void raspberyl::release()
 
 void raspberyl::update()
 {
+	gameObject::setDirectionImage();
+	setImage();
+
+	if (!_isMove)
+	{
+		_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+		_x = (_rc.right + _rc.left) / 2;
+		_y = (_rc.top + _rc.bottom) / 2;
+	}
+	battleKeyControl();
+	gameObject::move();
 }
 
 void raspberyl::render()
 {
+	if (_isShow)
+	{
+		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
+		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+	}
 }
 
 void raspberyl::keyControl()
@@ -61,10 +92,30 @@ void raspberyl::battleKeyControl()
 
 void raspberyl::setImage()
 {
-}
+	switch (_characterState)
+	{
+	case IDLE:
+		_character = IMAGEMANAGER->findImage("raspberyl_idle");
+		break;
 
-void raspberyl::setFrame()
-{
+	case WALK:
+		_character = IMAGEMANAGER->findImage("raspberyl_walk");
+		break;
+
+	case ATTACK:
+		_character = IMAGEMANAGER->findImage("raspberyl_attack");
+		break;
+
+	case LIFT:
+		_character = IMAGEMANAGER->findImage("raspberyl_lift");
+		break;
+
+	case ETC:
+		_character = IMAGEMANAGER->findImage("raspberyl_etc");
+		break;
+	}
+
+	gameObject::setFrame();
 }
 
 void raspberyl::saveData()
@@ -113,4 +164,21 @@ void raspberyl::loadData()
 	_exp = atoi(vStr[idx++].c_str());
 	_next = atoi(vStr[idx++].c_str());
 	_equipWeapon = (WEAPON_TYPE)atoi(vStr[idx++].c_str());
+}
+
+void raspberyl::setItem(const char * itemName, bool isWear)
+{
+}
+
+void raspberyl::setMercenary(const char * characterName)
+{
+}
+
+void raspberyl::setHell(int hell)
+{
+}
+
+int raspberyl::getHell()
+{
+	return 0;
 }

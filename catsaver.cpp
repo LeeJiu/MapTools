@@ -63,7 +63,7 @@ void catsaver::render()
 	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 	{
-		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 	}
 }

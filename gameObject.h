@@ -11,6 +11,7 @@ protected:
 	const char* _name;																//캐릭터 이름
 	int _level, _counter, _mv, _jm;													//캐릭터 능력치 1
 	int _maxHp, _maxSp, _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp;			//캐릭터 능력치 2
+	int _curFrameX, _curFrameY, _count;
 
 	image* _character;
 	RECT _rc;
@@ -31,8 +32,8 @@ protected:
 	bool _isMove;																	// 움직이고 있는지 유무
 	bool _isShowPossibleMoveTile;													// 이동가능한 타일 보여주는지 유무
 	bool _isShowPossibleAttackTile;													// 공격가능한 타일 보여주는지 유무
-	bool _isOrdering;																// 명령수행중인지 유무
 	bool _isCharacter;																// 적인지 플레이언지 판단 변수
+	bool _isOrdering;																// 명령수행중인지 유무
 	bool _isAction;																	// 명령받은 액션이 있는지 판단 변수
 
 	CHARACTER_STATE _characterState;
@@ -59,7 +60,6 @@ public:
 	virtual void keyControl();
 	virtual void battleKeyControl();
 	virtual void setImage();
-	virtual void setFrame();
 	virtual void saveData();
 	virtual void loadData();
 
@@ -72,6 +72,7 @@ public:
 	virtual void setDirectionImage();
 	virtual void setCharacterMove(int endX, int endY, vector<TagTile*> vRoute);
 	virtual void setTilePosition(float x, float y);
+	virtual void setFrame();
 
 	// set함수
 	virtual void setItem(const char* itemName, bool isWear) = 0;
@@ -114,5 +115,5 @@ public:
 	virtual bool getIsAction() { return _isAction; }
 	virtual vector<string>& getMercenary() { return _mercenary; }
 	virtual bool getIsShowPossibleMoveTile() { return _isShowPossibleMoveTile; }
-	virtual bool getIsShowPossibleAttackTile() { return _isShowPossibleMoveTile; }
+	virtual bool getIsShowPossibleAttackTile() { return _isShowPossibleAttackTile; }
 };

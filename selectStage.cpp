@@ -12,7 +12,7 @@ selectStage::~selectStage()
 
 HRESULT selectStage::init()
 {
-	_mapListSize = 3;
+	_mapListSize = 5;
 
 	IMAGEMANAGER->addImage("selectScene", "image/battleUI/selectScene.bmp", 1280, 720, false, false);
 	_imageListTop = IMAGEMANAGER->addImage("dialog_List_top", "image/battleUI/dialog_List_top.bmp", 300, 18, false, false);
@@ -25,9 +25,9 @@ HRESULT selectStage::init()
 	}
 	_imageListBottom = IMAGEMANAGER->addImage("dialog_List_Bottom", "image/battleUI/dialog_List_Bottom.bmp", 300, 19, false, false);
 
-	_imageTitleBack = IMAGEMANAGER->addImage("title", "image/battleUI/dialog_type_title.bmp", 162, 65, false, false);
+	_imageTitleBack = IMAGEMANAGER->addImage("title", "image/battleUI/ui_selectmap.bmp", 162, 65, false, false);
 	_imageBottomBack = IMAGEMANAGER->addImage("dialog_bottom", "image/battleUI/dialog_type_bottom.bmp", 1050, 60, false, false);
-	_imageGoingBack = IMAGEMANAGER->addImage("exit", "image/battleUI/dialog_type_going.bmp", 254, 115, false, false);
+	_imageGoingBack = IMAGEMANAGER->addImage("exit", "image/battleUI/ui_goingmenu.bmp", 254, 115, false, false);
 	_imageArrow = IMAGEMANAGER->addImage("arrow", "image/battleUI/ui_arrow.bmp", 35, 35, true, 0xff00ff);
 
 	_rcListTop = RectMakeCenter(180, 200, _imageListTop->getWidth(), _imageListTop->getHeight());
@@ -46,7 +46,7 @@ HRESULT selectStage::init()
 	_rcGoing = RectMakeCenter(WINSIZEX - 242, _rcBottom.top - 70, _imageGoingBack->getWidth(), _imageGoingBack->getHeight());
 	_rcArrow = RectMakeCenter(_rcListBody[0].left, _rcListBody[0].top + _imageArrow->getHeight() / 2, _imageArrow->getWidth(), _imageArrow->getHeight());
 
-	_rcTitleStr = RectMakeCenter(CENTERX + 25, _rcTitle.top + (_rcTitle.bottom - _rcTitle.top) / 2, _imageTitleBack->getWidth(), 20);
+	//_rcTitleStr = RectMakeCenter(CENTERX + 25, _rcTitle.top + (_rcTitle.bottom - _rcTitle.top) / 2, _imageTitleBack->getWidth(), 20);
 	_rcGoingStart = RectMakeCenter(WINSIZEX - 195, _rcBottom.top - 90, _imageGoingBack->getWidth(), _imageGoingBack->getHeight() / 3);
 	_rcGoingSkip = RectMakeCenter(WINSIZEX - 195, _rcBottom.top - 60, _imageGoingBack->getWidth(), _imageGoingBack->getHeight() / 3);
 	_rcGoingExit = RectMakeCenter(WINSIZEX - 195, _rcBottom.top - 30, _imageGoingBack->getWidth(), _imageGoingBack->getHeight() / 3);
@@ -132,17 +132,17 @@ void selectStage::render()
 	_imageArrow->render(getMemDC(), _rcArrow.left, _rcArrow.top);
 
 	HFONT font, oldFont;
-	font = CreateFont(20, 0, 0, 0, 800, false, 0, 0, HANGEUL_CHARSET, 0, 0, 0, 0, TEXT("굴림"));
+	font = CreateFont(20, 0, 0, 0, 1000, false, 0, 0, HANGEUL_CHARSET, 0, 0, 0, 0, TEXT("굴림"));
 	oldFont = (HFONT)SelectObject(getMemDC(), font);
 
-	DrawText(getMemDC(), TEXT("Select Map"), -1, &_rcTitleStr, DT_LEFT | DT_VCENTER);
-	DrawText(getMemDC(), TEXT("Start"), -1, &_rcGoingStart, DT_LEFT | DT_VCENTER);
-	DrawText(getMemDC(), TEXT("Skip Story"), -1, &_rcGoingSkip, DT_LEFT | DT_VCENTER);
-	DrawText(getMemDC(), TEXT("Exit"), -1, &_rcGoingExit, DT_LEFT | DT_VCENTER);
+	//DrawText(getMemDC(), TEXT("Select Map"), -1, &_rcTitleStr, DT_LEFT | DT_VCENTER);
+	//DrawText(getMemDC(), TEXT("Start"), -1, &_rcGoingStart, DT_LEFT | DT_VCENTER);
+	//DrawText(getMemDC(), TEXT("Skip Story"), -1, &_rcGoingSkip, DT_LEFT | DT_VCENTER);
+	//DrawText(getMemDC(), TEXT("Exit"), -1, &_rcGoingExit, DT_LEFT | DT_VCENTER);
 
-	_imageShortcutStart->render(getMemDC(), _rcGoingStart.left - 35, _rcGoingStart.top - 3);
-	_imageShortcutSkip->render(getMemDC(), _rcGoingSkip.left - 35, _rcGoingSkip.top - 3);
-	_imageShortcutExit->render(getMemDC(), _rcGoingExit.left - 35, _rcGoingExit.top - 3);
+	//_imageShortcutStart->render(getMemDC(), _rcGoingStart.left - 35, _rcGoingStart.top - 3);
+	//_imageShortcutSkip->render(getMemDC(), _rcGoingSkip.left - 35, _rcGoingSkip.top - 3);
+	//_imageShortcutExit->render(getMemDC(), _rcGoingExit.left - 35, _rcGoingExit.top - 3);
 
 	for (int i = 0; i < _mapListSize; i++) DrawText(getMemDC(), TEXT(_vMapList[i]), -1, &_vRcMapListStr[i], DT_LEFT | DT_VCENTER);
 
@@ -156,11 +156,11 @@ void selectStage::mapListInit()
 {
 	for (int i = 0; i < _mapListSize; i++)
 	{
-		if (i == 0) _vMapList.push_back("BASIC BATTLE 1");
-		if (i == 1) _vMapList.push_back("BASIC BATTLE 2");
-		if (i == 2) _vMapList.push_back("BASIC BATTLE 3");
-		if (i == 3) _vMapList.push_back("BASIC BATTLE 4");
-		if (i == 4) _vMapList.push_back("BASIC BATTLE 5");
+		if (i == 0) _vMapList.push_back("서울게임 아카데미 4층");
+		if (i == 1) _vMapList.push_back("서울게임 아카데미 5층");
+		if (i == 2) _vMapList.push_back("서울게임 아카데미 6층");
+		if (i == 3) _vMapList.push_back("보스 방 : 장명호");
+		if (i == 4) _vMapList.push_back("보스 방 : 양호성");
 		if (i == 5) _vMapList.push_back("BASIC BATTLE 6");
 		if (i == 6) _vMapList.push_back("BASIC BATTLE 7");
 		if (i == 7) _vMapList.push_back("BASIC BATTLE 8");
