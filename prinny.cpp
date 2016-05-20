@@ -156,7 +156,6 @@ void prinny::keyControl()
 		{
 			_characterState = WALK;
 		}
-		
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
