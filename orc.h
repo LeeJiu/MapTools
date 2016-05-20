@@ -4,7 +4,7 @@
 class orc : public enemy
 {
 private:
-	int _curFrameX, _curFrameY, _count;
+	int _curFrameX, _curFrameY;
 
 public:
 	orc();
@@ -14,9 +14,9 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
-
+	virtual void setImage();
+	virtual void setFrame();
 	virtual void setMercenary(const char* characterName);
-
 	virtual void setItem(const char* itemName, bool isWear);
 	virtual int getHell();
 	virtual void setHell(int hell);

@@ -47,6 +47,9 @@ void catsaver::release()
 
 void catsaver::update()
 {
+	setImage();
+	setFrame();
+
 	if (!_isMove)
 	{
 		_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
@@ -68,6 +71,67 @@ void catsaver::render()
 	}
 }
 
+void catsaver::setImage()
+{
+	switch (_characterState)
+	{
+	case IDLE:
+		_character->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
+		break;
+	case WALK:
+		_character->init("image/character/catsaver_idle.bmp", 744, 528, 6, 4, true, 0xff00ff);
+		break;
+	case ATTACK:
+		_character->init("image/character/catsaver_attack.bmp", 1295, 856, 5, 4, true, 0xff00ff);
+		break;
+	case PAIN:
+		_character->init("image/character/catsaver_pain.bmp", 101, 416, 1, 1, true, 0xff00ff);
+	}
+}
+
+void catsaver::setFrame()
+{
+	_count++;
+
+	switch (_characterDir)
+	{
+	case LB:
+		_curFrameY = 0;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RB:
+		_curFrameY = 1;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RT:
+		_curFrameY = 2;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case LT:
+		_curFrameY = 3;
+		_character->setFrameY(_curFrameY);
+		break;
+	}
+
+	if (_count % 7 == 0)
+	{
+		_curFrameX++;
+		if (_curFrameX > _character->getMaxFrameX())
+		{
+			_curFrameX = 0;
+			/*if (_characterState == ATTACK)
+			{
+			_characterState = IDLE;
+			_isOrdering = false;
+			return;
+			}*/
+		}
+		_character->setFrameX(_curFrameX);
+	}
+}
 void catsaver::setMercenary(const char * characterName)
 {
 }

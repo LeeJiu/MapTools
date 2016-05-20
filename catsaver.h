@@ -16,7 +16,8 @@ public:
 	void release();
 	void update();
 	void render();
-
+	virtual void setImage();
+	virtual void setFrame();
 	virtual void setMercenary(const char* characterName);
 
 	virtual void setItem(const char* itemName, bool isWear);
