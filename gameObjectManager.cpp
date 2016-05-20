@@ -27,7 +27,7 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-	int _size = vCharSize + vObjSize + 2;
+	int _size = vCharSize + vObjSize + vEnmSize;
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->update();
@@ -45,14 +45,11 @@ void gameObjectManager::render()
 
 	_battleUI->renderOverlapSelectTile();
 
-<<<<<<< HEAD
-	int _size = vCharSize + vObjSize + 2;
+	//int _size = vCharSize + vObjSize + 2;
 
-=======
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
 
 	int _size = _vToTalRender.size();
->>>>>>> refs/remotes/origin/jihyun
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->render();
@@ -149,61 +146,46 @@ void gameObjectManager::setCharacter()
 
 void gameObjectManager::setEnemy()
 {
-	//DATABASE->getElementData(std::to_string(i))->;
-
-	//---------------------------------------------------------------------------------
-
-	//|,0,2,2,5,0,|,1,2,3,5,0,|,2,2,4,5,0
-	// 
-
-
-
 	// 에너미파일 로드
 	DATABASE->loadDatabase("battleMap1_enm.txt");
 	
-		// 위에 보면 에너미저장된 데이터는 저렇게 되어있음 구분자 "|" 를 기준으로 3개가 있는데
-		// 0번째가 DATABASE의 맵 키값이 되는거?
-		// 그리고 몬스터를 구분할려면 어떤걸 쓰는거?
-		// 그리고 사이즈가 3이면 포문을 돌리면서 벡터에 넣어줄려고하는데 어떤식으로 포문을 돌아야하는지
-		
-		// 아래는 예시 이렇게 할 생각임
-
-	for (int i = 0; i < vEnmSize; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		//gameObject* enemy;
-		//switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
-		//{
-		//case 0:
-		//	enemy = new orc;
-		//	enemy->init();
-		//	break;
-		//case 1:
-		//	enemy = new boss;
-		//	enemy->init();
-		//	break;
-		//default:
-		//	break;
-		//}
-		//
-		//_vGameObject.push_back(enemy);
+		int imageNum = DATABASE->getElementData(std::to_string(i))->imageNum;
+		if (imageNum < 100)
+		{
+			gameObject* enemy;
+			int imageNum = DATABASE->getElementData(std::to_string(i))->imageNum;
+			int x = 0;
+			int y = 0;
+			switch (imageNum)   // (몬스터의 종류)
+			{
+			case 1:
+				enemy = new orc;
+				enemy->init(
+					DATABASE->getElementData(std::to_string(i))->x,
+					DATABASE->getElementData(std::to_string(i))->y,
+					_vTile);
+				break;
+			case 2:
+				enemy = new catsaver;
+				enemy->init(
+					DATABASE->getElementData(std::to_string(i))->x,
+					DATABASE->getElementData(std::to_string(i))->y,
+					_vTile);
+				break;
+			default:
+				break;
+			}
+	
+			_vGameObject.push_back(enemy);
+			_vToTalRender.push_back(enemy);
+			vEnmSize++;
+		}
+		else continue;
 	}
-
-	gameObject* _orc = new orc;
-	_orc->init(4, 7, _vTile);
-	_vGameObject.push_back(_orc);
-	_vToTalRender.push_back(_orc);
-
-	gameObject* _orc1 = new orc;
-	_orc1->init(6, 7, _vTile);
-	_vGameObject.push_back(_orc1);
-	_vToTalRender.push_back(_orc1);
-
-	//---------------------------------------------------------------------------------
-		//DATABASE->getElementData(std::to_string(i))->;
-		//_vStr[4] -> 몹 구별 넘버값이면 이걸로 스위치 돌리고
-		//_vStr[3] _vStr[2]-> x, y 타일 넘버 넘겨주면서 인잇하고 벡터 넣어준다.
-
 }
+	
 
 void gameObjectManager::setObject()
 {
@@ -237,8 +219,6 @@ void gameObjectManager::setObject()
 			default:
 				break;
 			}
-
-
 			rnd->init(imageName,
 				DATABASE->getElementData(std::to_string(i))->x,
 				DATABASE->getElementData(std::to_string(i))->y,

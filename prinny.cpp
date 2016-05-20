@@ -57,14 +57,14 @@ HRESULT prinny::init(vector<TagTile*> tile)
 	_mv = 4;
 	_isShow = false;
 	_isbattle = true;
-
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 	}
 
 	_vTile = tile;
-
+	_pivotY = _tile[_indexX][_indexY]->pivotY;
+	
 	_moveSpeed = 3;
 
 	return S_OK;
@@ -88,6 +88,7 @@ void prinny::update()
 			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
 			_x = (_rc.right + _rc.left) / 2;
 			_y = (_rc.top + _rc.bottom) / 2;
+			//_pivotY = _tile[_x][_y]->pivotY;
 		}
 		battleKeyControl();
 		gameObject::move();
@@ -103,6 +104,7 @@ void prinny::render()
 {
 	if (!_isbattle)
 	{
+		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_inventory->render();
 	}
@@ -112,7 +114,10 @@ void prinny::render()
 		{
 			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+			{
+				Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+				_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+			}
 		}
 	}
 }
@@ -242,7 +247,7 @@ void prinny::setImage()
 		_character = IMAGEMANAGER->findImage("prinny_etc");
 		break;
 	}
-
+	
 	setFrame();
 }
 
