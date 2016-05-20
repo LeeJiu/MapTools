@@ -46,7 +46,7 @@ HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
 	_vTile = tile;
 	_indexX = x;
 	_indexY = y;
-
+	
 	_moveSpeed = 3;
 
 	return S_OK;
@@ -58,6 +58,8 @@ void raspberyl::release()
 
 void raspberyl::update()
 {
+	_pivotY = _tile[_indexX][_indexY]->pivotY;
+
 	gameObject::setDirectionImage();
 	setImage();
 

@@ -27,15 +27,14 @@ HRESULT orc::init(int x, int y, vector<TagTile*> tile)
 	_characterState = IDLE;
 	_characterDir = LB;
 	_curFrameX = 0;
-	_count = 0;
 	_hp = 100;
 	_sp = 50;
-	_mv = 3;
+	_mv = 5;
+	_moveSpeed = 3;
 	_isShow = false;
 
 	_vTile = tile;
 
-	_moveSpeed = 3;
 	_pivotY = _tile[_indexX][_indexY]->pivotY;
 	
 	return S_OK;
@@ -48,6 +47,10 @@ void orc::release()
 
 void orc::update()
 {
+	gameObject::setDirectionImage();
+	setImage();
+	setFrame();
+
 	if (!_isMove)
 	{
 		_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
@@ -55,7 +58,7 @@ void orc::update()
 		_y = (_rc.top + _rc.bottom) / 2;
 	}
 	_pivotY = _tile[_indexX][_indexY]->pivotY;
-	battleKeyControl();
+	
 	gameObject::move();
 }
 
@@ -67,6 +70,68 @@ void orc::render()
 		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 	}
+}
+
+void orc::setImage()
+{
+	switch (_characterState)
+	{
+	case IDLE:
+		_character->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+		break;
+	case WALK:
+		_character->init("image/character/orc_walk.bmp", 534, 668, 6, 4, true, 0xff00ff);
+		break;
+	case ATTACK:
+		_character->init("image/character/orc_attack.bmp", 1764, 668, 7, 4, true, 0xff00ff);
+		break;
+	case PAIN:
+		_character->init("image/character/orc_pain.bmp", 468, 528, 4, 4, true, 0xff00ff);
+	}
+}
+
+void orc::setFrame()
+{
+		_count++;
+
+		switch (_characterDir)
+		{
+		case LB:
+			_curFrameY = 0;
+			_character->setFrameY(_curFrameY);
+			break;
+
+		case RB:
+			_curFrameY = 1;
+			_character->setFrameY(_curFrameY);
+			break;
+
+		case RT:
+			_curFrameY = 2;
+			_character->setFrameY(_curFrameY);
+			break;
+
+		case LT:
+			_curFrameY = 3;
+			_character->setFrameY(_curFrameY);
+			break;
+		}
+
+		if (_count % 7 == 0)
+		{
+			_curFrameX++;
+			if (_curFrameX > _character->getMaxFrameX())
+			{
+				_curFrameX = 0;
+				/*if (_characterState == ATTACK)
+				{
+				_characterState = IDLE;
+				_isOrdering = false;
+				return;
+				}*/
+			}
+			_character->setFrameX(_curFrameX);
+		}
 }
 
 void orc::setMercenary(const char * characterName)

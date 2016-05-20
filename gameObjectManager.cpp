@@ -30,7 +30,7 @@ void gameObjectManager::release()
 void gameObjectManager::update()
 {
 
-	int _size = vCharSize + vObjSize + vEnmSize;
+	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->update();
@@ -48,13 +48,17 @@ void gameObjectManager::render()
 	}
 
 
+	char str[512];
+	sprintf_s(str, "x = %d, y = %d", _vToTalRender[0]->getIndexX(), _vToTalRender[0]->getIndexY());
+	TextOut(getMemDC(), 10, 10, str, strlen(str));
+
 	_battleUI->renderOverlapSelectTile();
 
 	//int _size = vCharSize + vObjSize + 2;
 
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
 
-	int _size = _vToTalRender.size();//사이즈 맞는거냐데스
+	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->render();

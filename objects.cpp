@@ -51,7 +51,7 @@ HRESULT objects::init(const char* strkey, int x, int y, int imageNum, vector<Tag
 	_count = 0;
 	_curFrameX = 0;
 	
-
+	_pivotY = _tile[_indexX][_indexY]->pivotY;
 	return S_OK;
 }
 

@@ -67,7 +67,6 @@ HRESULT prinny::init(int x, int y, vector<TagTile*> tile)
 
 	_vTile = tile;
 	_pivotY = _tile[_indexX][_indexY]->pivotY;
-	
 	_moveSpeed = 3;
 
 	return S_OK;
@@ -91,7 +90,7 @@ void prinny::update()
 			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
 			_x = (_rc.right + _rc.left) / 2;
 			_y = (_rc.top + _rc.bottom) / 2;
-			//_pivotY = _tile[_x][_y]->pivotY;
+			_pivotY = _tile[_indexX][_indexY]->pivotY;
 		}
 		battleKeyControl();
 		gameObject::move();
@@ -101,6 +100,8 @@ void prinny::update()
 		_inventory->update();
 		keyControl();
 	}
+
+	
 
 	setImage();
 	gameObject::setDirectionImage();
