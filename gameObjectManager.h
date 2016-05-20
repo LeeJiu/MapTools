@@ -7,14 +7,18 @@
 #include "flonne.h"
 #include "raspberyl.h"
 #include "orc.h"
+#include "catsaver.h"
 #include "boss.h"
 #include "objects.h"
+
+#include <algorithm>
 
 struct GOBJ_Y_RENDER
 {
 	bool operator()(gameObject* obj1, gameObject* obj2)
 	{
-		return obj1->getIndexY() < obj2->getIndexY();
+		//return obj1->getRect().bottom < obj2->getRect().bottom;
+		return obj1->getPivotY() < obj2->getPivotY();
 	}
 };
 

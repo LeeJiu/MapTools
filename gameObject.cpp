@@ -21,14 +21,14 @@ HRESULT gameObject::init(vector<TagTile*> tile)
 	return S_OK;
 }
 
-HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile)
+HRESULT gameObject::init(int x, int y, vector<TagTile*> tile)
 {
 	return S_OK;
 }
 
-HRESULT gameObject::init(int x, int y, vector<TagTile*> tile)
+HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile)
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 void gameObject::release()
@@ -66,6 +66,8 @@ void gameObject::move()
 			else _vRoute[_idx]->state = S_ONENM;
 			_characterState = IDLE;
 			_idx = 0;
+			
+			_pivotY = _tile[_indexX][_indexY]->pivotY;
 			return;
 		}
 		else

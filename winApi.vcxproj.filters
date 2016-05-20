@@ -255,8 +255,13 @@
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="progressBar2.h">
       <Filter>2D Framework\progressBar</Filter>
+=======
+    <ClInclude Include="catsaver.h">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+>>>>>>> refs/remotes/origin/development
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -404,8 +409,13 @@
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="progressBar2.cpp">
       <Filter>2D Framework\progressBar</Filter>
+=======
+    <ClCompile Include="catsaver.cpp">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+>>>>>>> refs/remotes/origin/development
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
