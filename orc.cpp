@@ -64,7 +64,7 @@ void orc::render()
 	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 	{
-		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 	}
 }
@@ -73,11 +73,8 @@ void orc::setMercenary(const char * characterName)
 {
 }
 
-<<<<<<< HEAD
-void orc::setItem(const char * itemName, bool isWear)
-=======
+
 void orc::setItem(const char* itemName, bool isWear)
->>>>>>> refs/remotes/origin/jihyun
 {
 }
 

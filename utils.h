@@ -63,11 +63,7 @@ struct TagObject
 	OBJSTATE state;
 };
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> refs/remotes/origin/jihyun
 enum WEAPON_TYPE
 {
 	NONE, SWORD, WAND, STAFF, BOW

@@ -255,12 +255,9 @@
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
-<<<<<<< HEAD
-=======
     <ClInclude Include="catsaver.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
->>>>>>> refs/remotes/origin/jihyun
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -407,12 +404,9 @@
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
-<<<<<<< HEAD
-=======
     <ClCompile Include="catsaver.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
->>>>>>> refs/remotes/origin/jihyun
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -120,15 +120,10 @@ void prinny::render()
 		{
 			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-<<<<<<< HEAD
-			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-=======
 			{
-				Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+				//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 				_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			}
->>>>>>> refs/remotes/origin/jihyun
 		}
 	}
 }
@@ -257,51 +252,8 @@ void prinny::setImage()
 		_character = IMAGEMANAGER->findImage("prinny_etc");
 		break;
 	}
-<<<<<<< HEAD
 
 	gameObject::setFrame();
-=======
-	
-	setFrame();
-}
-
-void prinny::setFrame()
-{
-	_count++;
-
-	switch (_characterDir)
-	{
-	case LB:
-		_curFrameY = 0;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case RB:
-		_curFrameY = 1;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case RT:
-		_curFrameY = 2;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case LT:
-		_curFrameY = 3;
-		_character->setFrameY(_curFrameY);
-		break;
-	}
-
-	if (_count % 7 == 0)
-	{
-		_curFrameX++;
-		if (_curFrameX > _character->getMaxFrameX())
-		{
-			_curFrameX = 0;
-		}
-		_character->setFrameX(_curFrameX);
-	}
->>>>>>> refs/remotes/origin/jihyun
 }
 
 void prinny::saveData()
