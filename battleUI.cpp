@@ -806,11 +806,12 @@ void battleUI::checkMouseOverCharacter()
 
 					}
 				}
+				else
+				{
+					_isOnBottomStatus = false;
+				}
 			}
-			else
-			{
-				_isOnBottomStatus = false;
-			}
+			
 		}
 	}	
 

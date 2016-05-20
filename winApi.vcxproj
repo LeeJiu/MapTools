@@ -115,6 +115,7 @@
     <ClInclude Include="orc.h" />
     <ClInclude Include="prinny.h" />
     <ClInclude Include="progressBar.h" />
+    <ClInclude Include="progressBar2.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="raspberyl.h" />
     <ClInclude Include="sceneManager.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="orc.cpp" />
     <ClCompile Include="prinny.cpp" />
     <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="progressBar2.cpp" />
     <ClCompile Include="raspberyl.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="selectStage.cpp" />
