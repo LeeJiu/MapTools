@@ -46,7 +46,7 @@ HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
 	_vTile = tile;
 	_indexX = x;
 	_indexY = y;
-
+	
 	_moveSpeed = 3;
 
 	_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
@@ -71,9 +71,13 @@ void raspberyl::release()
 
 void raspberyl::update()
 {
+<<<<<<< HEAD
 	_hpBar->setX(_x);
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
+=======
+	_pivotY = _tile[_indexX][_indexY]->pivotY;
+>>>>>>> refs/remotes/origin/jihyun
 
 	gameObject::setDirectionImage();
 	setImage();
