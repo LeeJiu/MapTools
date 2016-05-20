@@ -255,6 +255,9 @@
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="progressBar2.h">
+      <Filter>2D Framework\progressBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -400,6 +403,9 @@
     </ClCompile>
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="progressBar2.cpp">
+      <Filter>2D Framework\progressBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

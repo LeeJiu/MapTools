@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+#include "progressBar2.h"
 
 class gameObject : public gameNode
 {
@@ -36,6 +37,8 @@ protected:
 
 	CHARACTER_STATE _characterState;
 	CHARACTER_DIRECTION _characterDir;
+
+	progressBar2* _hpBar;
 
 public:
 	gameObject();
