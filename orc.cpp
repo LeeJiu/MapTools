@@ -36,7 +36,6 @@ HRESULT orc::init(int x, int y, vector<TagTile*> tile)
 	_vTile = tile;
 
 	_moveSpeed = 3;
-<<<<<<< HEAD
 
 	_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
 		_character->getFrameWidth(), _character->getFrameHeight());
@@ -49,10 +48,8 @@ HRESULT orc::init(int x, int y, vector<TagTile*> tile)
 	_hpBar->init(_x, _rc.top - 10, 120, 10);
 	_hpBar->gauge(_hp, _maxHp);
 
-=======
 	_pivotY = _tile[_indexX][_indexY]->pivotY;
 	
->>>>>>> refs/remotes/origin/development
 	return S_OK;
 }
 
@@ -84,15 +81,8 @@ void orc::render()
 {
 	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-<<<<<<< HEAD
 	_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 	_hpBar->render();
-=======
-	{
-		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-	}
->>>>>>> refs/remotes/origin/development
 }
 
 void orc::setMercenary(const char * characterName)

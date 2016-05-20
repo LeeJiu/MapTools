@@ -138,16 +138,9 @@ void prinny::render()
 		{
 			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-<<<<<<< HEAD
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 			_hpBar->render();
-=======
-			{
-				//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-				_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-			}
->>>>>>> refs/remotes/origin/development
 		}
 	}
 }
