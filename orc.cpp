@@ -35,7 +35,6 @@ HRESULT orc::init(int x, int y, vector<TagTile*> tile)
 
 	_vTile = tile;
 
-<<<<<<< HEAD
 	_moveSpeed = 3;
 
 	_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
@@ -49,8 +48,6 @@ HRESULT orc::init(int x, int y, vector<TagTile*> tile)
 	_hpBar->init(_x, _rc.top - 10, 120, 10);
 	_hpBar->gauge(_hp, _maxHp);
 
-=======
->>>>>>> refs/remotes/origin/jihyun
 	_pivotY = _tile[_indexX][_indexY]->pivotY;
 	
 	return S_OK;
@@ -65,15 +62,13 @@ void orc::release()
 
 void orc::update()
 {
-<<<<<<< HEAD
 	_hpBar->setX(_x);
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
-=======
+
 	gameObject::setDirectionImage();
 	setImage();
 	setFrame();
->>>>>>> refs/remotes/origin/jihyun
 
 	if (!_isMove)
 	{

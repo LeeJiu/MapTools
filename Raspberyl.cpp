@@ -71,13 +71,11 @@ void raspberyl::release()
 
 void raspberyl::update()
 {
-<<<<<<< HEAD
 	_hpBar->setX(_x);
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
-=======
+
 	_pivotY = _tile[_indexX][_indexY]->pivotY;
->>>>>>> refs/remotes/origin/jihyun
 
 	gameObject::setDirectionImage();
 	setImage();
