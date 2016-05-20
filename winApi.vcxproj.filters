@@ -97,6 +97,9 @@
     <Filter Include="gameStudy\mercenaryStore">
       <UniqueIdentifier>{64058e20-93fa-4101-9bf9-639a665f94f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameStudy\battle\AI">
+      <UniqueIdentifier>{0cdf2978-b5fa-4700-8e5c-e717be6c4a8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -255,6 +258,9 @@
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyAI.h">
+      <Filter>gameStudy\battle\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -400,6 +406,9 @@
     </ClCompile>
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAI.cpp">
+      <Filter>gameStudy\battle\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

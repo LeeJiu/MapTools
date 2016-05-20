@@ -100,7 +100,7 @@ public:
 
 	//·»´õ
 	void render(HDC hdc);
-	void render( HDC hdc, int destX, int destY );
+	void render(HDC hdc, int destX, int destY);
 	void render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight);
 
 	void render(HDC hdc, int destX, int destY, int destWidth, int destHeight, int sourX, int sourY, int sourWidth, int sourHeight);

@@ -22,16 +22,16 @@ private:
 	int _turnCount;
 	bool _isTurnType;
 	bool _isDoOrdering;
+	bool _ishaveToChange;
+	bool _isDidOrderTurnShow;
 
 	vector<tagOrder> _vOrder;
 	int _orderNumber;
-
 	bool _orderComplete;
 	
 
 	battleUI* _battleUI;
 	gameObjectManager* _gameObjMgr;
-
 public:
 	battleManager();
 	~battleManager();
@@ -41,7 +41,7 @@ public:
 	void update();
 	void render();
 
-	void doActionAttack();
+	void doAction();
 	void doOrdering();
 
 	void setCharacterNone(int character, int targetX, int targetY);
@@ -50,7 +50,7 @@ public:
 	void setCharacterSkill(int character, int targetX, int targetY);
 	
 	void setTurnChange();
-	void setOrderNumber() { _orderNumber++; if (_orderNumber > _vOrder.size()) _orderNumber = 0; }
+	void setOrderNumber();
 
 	bool getTurnType() { return _isTurnType; }
 	int getTurnCount() { return _turnCount; }
