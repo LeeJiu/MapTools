@@ -20,7 +20,7 @@ HRESULT battleManager::init()
 	_orderNumber = 0;
 	_orderComplete = false;
 	_isDoOrdering = false;
-
+	_isCompleteAction = false;
 	return S_OK;
 }
 
@@ -33,21 +33,31 @@ void battleManager::update()
 	//(PLAYER TURN)
 	if (_isTurnType)
 	{
-
 	}
 
 	//(ENEMY TURN)
 	if (!_isTurnType)
 	{
-
 	}
 
-	if (_orderNumber < _vOrder.size())
+	if (_orderNumber <= _vOrder.size())
 	{
 		if (_isDoOrdering)
 		{
 			doOrdering();
 		}
+	}
+	else
+	{
+		_isDoOrdering = false;
+		_vOrder.clear();
+		_orderNumber = 0;
+	}
+
+	if (_isCompleteAction)
+	{
+		_isCompleteAction = false;
+		_orderNumber++;
 	}
 }
 
@@ -111,6 +121,7 @@ void battleManager::doOrdering()
 			default:
 				break;
 			}
+			_isCompleteAction = false;
 		}
 	}
 }
