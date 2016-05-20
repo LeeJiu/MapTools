@@ -43,6 +43,10 @@ void boss::showPossibleMoveTile()
 
 }
 
+void boss::setMercenary(const char * characterName)
+{
+}
+
 void boss::setItem(const char * itemName, bool isWear)
 {
 }

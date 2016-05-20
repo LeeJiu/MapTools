@@ -29,7 +29,8 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-	int _size = vCharSize + vObjSize + 2;
+	int _size = _vToTalRender.size();
+	//int _size = vCharSize + vObjSize + vEnmSize;
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->update();
@@ -48,8 +49,8 @@ void gameObjectManager::render()
 
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
 
-	//int _size = _vToTalRender.size();
-	int _size = vCharSize + vObjSize + 2;
+	int _size = _vToTalRender.size();
+	//int _size = vCharSize + vObjSize + vEnmSize;
 
 
 	for (int i = 0; i < _size; i++)
@@ -183,41 +184,32 @@ void gameObjectManager::setEnemy()
 	// 에너미파일 로드
 	DATABASE->loadDatabase("battleMap1_enm.txt");
 
-	for (int i = 0; i < vEnmSize; i++)
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		//gameObject* enemy;
-		//switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
-		//{
-		//case 0:
-		//	enemy = new orc;
-		//	enemy->init();
-		//	break;
+		gameObject* enemy;
+		switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
+		{
+		case 1:
+			enemy = new orc;
+			enemy->init(DATABASE->getElementData(std::to_string(i))->x, DATABASE->getElementData(std::to_string(i))->y, _vTile);
+			_vGameObject.push_back(enemy);
+			_vToTalRender.push_back(enemy);
+			vEnmSize++;
+			break;
 		//case 1:
 		//	enemy = new boss;
-		//	enemy->init();
+		//	enemy->init(DATABASE->getElementData(std::to_string(i))->x, DATABASE->getElementData(std::to_string(i))->y, _vTile);
+		//	_vGameObject.push_back(enemy);
+		//	_vToTalRender.push_back(enemy);
+		//	vEnmSize++;
 		//	break;
-		//default:
-		//	break;
-		//}
-		//
-		//_vGameObject.push_back(enemy);
+		}
 	}
-
-	gameObject* _orc = new orc;
-	_orc->init(3, 7, _vTile);
-	_vGameObject.push_back(_orc);
-	_vToTalRender.push_back(_orc);
-
-	gameObject* _orc1 = new orc;
-	_orc1->init(5, 7, _vTile);
-	_vGameObject.push_back(_orc1);
-	_vToTalRender.push_back(_orc1);
 
 	//---------------------------------------------------------------------------------
 		//DATABASE->getElementData(std::to_string(i))->;
 		//_vStr[4] -> 몹 구별 넘버값이면 이걸로 스위치 돌리고
 		//_vStr[3] _vStr[2]-> x, y 타일 넘버 넘겨주면서 인잇하고 벡터 넣어준다.
-
 }
 
 void gameObjectManager::setObject()
@@ -304,6 +296,6 @@ void gameObjectManager::loadMapData()
 		}
 
 		//if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == S_ZEN) vObjSize++;
-		//if ((*_viTile)->state == S_ONENM) vEnmSize++;
+		//if ((*_viTile)->state == S_ONENM || (*_viTile)->state == BOSS) vEnmSize++;
 	}
 }
