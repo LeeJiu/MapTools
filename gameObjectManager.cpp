@@ -29,8 +29,12 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
+<<<<<<< HEAD
 	int _size = _vToTalRender.size();
 	//int _size = vCharSize + vObjSize + vEnmSize;
+=======
+	int _size = vCharSize + vObjSize + vEnmSize;
+>>>>>>> refs/remotes/origin/jihyun
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->update();
@@ -47,12 +51,22 @@ void gameObjectManager::render()
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 
+<<<<<<< HEAD
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
 
 	int _size = _vToTalRender.size();
 	//int _size = vCharSize + vObjSize + vEnmSize;
 
 
+=======
+	_battleUI->renderOverlapSelectTile();
+
+	//int _size = vCharSize + vObjSize + 2;
+
+	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
+
+	int _size = _vToTalRender.size();
+>>>>>>> refs/remotes/origin/jihyun
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->render();
@@ -183,6 +197,7 @@ void gameObjectManager::setEnemy()
 {
 	// 에너미파일 로드
 	DATABASE->loadDatabase("battleMap1_enm.txt");
+<<<<<<< HEAD
 
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
@@ -210,7 +225,46 @@ void gameObjectManager::setEnemy()
 		//DATABASE->getElementData(std::to_string(i))->;
 		//_vStr[4] -> 몹 구별 넘버값이면 이걸로 스위치 돌리고
 		//_vStr[3] _vStr[2]-> x, y 타일 넘버 넘겨주면서 인잇하고 벡터 넣어준다.
+=======
+	
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	{
+		int imageNum = DATABASE->getElementData(std::to_string(i))->imageNum;
+		if (imageNum < 100)
+		{
+			gameObject* enemy;
+			int imageNum = DATABASE->getElementData(std::to_string(i))->imageNum;
+			int x = 0;
+			int y = 0;
+			switch (imageNum)   // (몬스터의 종류)
+			{
+			case 1:
+				enemy = new orc;
+				enemy->init(
+					DATABASE->getElementData(std::to_string(i))->x,
+					DATABASE->getElementData(std::to_string(i))->y,
+					_vTile);
+				break;
+			case 2:
+				enemy = new catsaver;
+				enemy->init(
+					DATABASE->getElementData(std::to_string(i))->x,
+					DATABASE->getElementData(std::to_string(i))->y,
+					_vTile);
+				break;
+			default:
+				break;
+			}
+	
+			_vGameObject.push_back(enemy);
+			_vToTalRender.push_back(enemy);
+			vEnmSize++;
+		}
+		else continue;
+	}
+>>>>>>> refs/remotes/origin/jihyun
 }
+	
 
 void gameObjectManager::setObject()
 {
@@ -246,8 +300,6 @@ void gameObjectManager::setObject()
 			default:
 				break;
 			}
-
-
 			rnd->init(imageName,
 				DATABASE->getElementData(std::to_string(i))->x,
 				DATABASE->getElementData(std::to_string(i))->y,

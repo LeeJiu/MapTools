@@ -20,6 +20,8 @@ protected:
 	int _indexX, _indexY;															// 전투맵의 현재의 x, y 인덱스
 	int _destX, _destY;																// 전투맵의 목적지 x, y 인덱스
 
+	float _pivotY;
+
 	vector<string> _mercenary;
 
 	int _idx;																		// 이동시 vRoute에서 사용될 인덱스
@@ -106,6 +108,7 @@ public:
 	virtual int getExp() { return _exp; }
 	virtual int getIndexX() { return _indexX; }
 	virtual int getIndexY() { return _indexY; }
+	virtual float getPivotY() { return _pivotY; }
 	virtual bool getIsOrdering() { return _isOrdering; } 
 	virtual RECT getCharacterRect() { return _rc; }
 	virtual bool getIsShow() { return _isShow; }

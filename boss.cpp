@@ -14,7 +14,6 @@ boss::~boss()
 HRESULT boss::init()
 {
 	_mv = 1;
-
 	return S_OK;
 }
 

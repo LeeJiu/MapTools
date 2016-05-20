@@ -22,6 +22,10 @@ HRESULT battleScene::init()
 	_gameObjMgr->setTile();
 	_gameObjMgr->setObject();
 	_gameObjMgr->setCharacter();
+<<<<<<< HEAD
+=======
+	_gameObjMgr->setObject();
+>>>>>>> refs/remotes/origin/jihyun
 	_gameObjMgr->setEnemy();
 	_gameObjMgr->setAstar();
 

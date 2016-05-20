@@ -1,19 +1,19 @@
 #include "stdafx.h"
-#include "orc.h"
+#include "catsaver.h"
 
 
-orc::orc()
+catsaver::catsaver()
 {
 }
 
 
-orc::~orc()
+catsaver::~catsaver()
 {
 }
 
-HRESULT orc::init(int x, int y, vector<TagTile*> tile)
+HRESULT catsaver::init(int x, int y, vector<TagTile*> tile)
 {
-	_kind = "orc";
+	_name = "catsaver";
 
 	_indexX = x;
 	_indexY = y;
@@ -22,31 +22,30 @@ HRESULT orc::init(int x, int y, vector<TagTile*> tile)
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 	}
 
+	_pivotY = _tile[_indexX][_indexY]->pivotY;
 	_character = new image;
-	_character->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+	_character->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
 	_characterState = IDLE;
 	_characterDir = LB;
 	_curFrameX = 0;
 	_count = 0;
-	_hp = 100;
-	_sp = 50;
+
 	_mv = 3;
 	_isShow = false;
 
 	_vTile = tile;
 
 	_moveSpeed = 3;
-	_pivotY = _tile[_indexX][_indexY]->pivotY;
-	
+
 	return S_OK;
 }
 
-void orc::release()
+void catsaver::release()
 {
-	SAFE_DELETE(_character);
+
 }
 
-void orc::update()
+void catsaver::update()
 {
 	if (!_isMove)
 	{
@@ -59,7 +58,7 @@ void orc::update()
 	gameObject::move();
 }
 
-void orc::render()
+void catsaver::render()
 {
 	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
@@ -69,24 +68,21 @@ void orc::render()
 	}
 }
 
-void orc::setMercenary(const char * characterName)
+void catsaver::setMercenary(const char * characterName)
 {
 }
 
-<<<<<<< HEAD
-void orc::setItem(const char * itemName, bool isWear)
-=======
-void orc::setItem(const char* itemName, bool isWear)
->>>>>>> refs/remotes/origin/jihyun
+void catsaver::setItem(const char* itemName, bool isWear)
 {
+
 }
 
-int orc::getHell()
+int catsaver::getHell()
 {
 	return 0;
 }
 
-void orc::setHell(int hell)
+void catsaver::setHell(int hell)
 {
 
 }
