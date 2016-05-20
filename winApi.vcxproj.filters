@@ -97,6 +97,9 @@
     <Filter Include="gameStudy\mercenaryStore">
       <UniqueIdentifier>{64058e20-93fa-4101-9bf9-639a665f94f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameStudy\battle\AI">
+      <UniqueIdentifier>{60b915c1-cf3e-4117-9f8b-b0be5a345c47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -252,15 +255,12 @@
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="EnemyAI.h">
-      <Filter>gameStudy\battle\AI</Filter>
-    </ClInclude>
     <ClInclude Include="selectStageData.h">
       <Filter>gameStudy\selectStage</Filter>
     </ClInclude>
-=======
->>>>>>> parent of 625f908... Update : BattleMgr - TurnChange Complete
+    <ClInclude Include="EnemyAI.h">
+      <Filter>gameStudy\battle\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -404,15 +404,12 @@
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="EnemyAI.cpp">
-      <Filter>gameStudy\battle\AI</Filter>
-    </ClCompile>
     <ClCompile Include="selectStageData.cpp">
       <Filter>gameStudy\selectStage</Filter>
     </ClCompile>
-=======
->>>>>>> parent of 625f908... Update : BattleMgr - TurnChange Complete
+    <ClCompile Include="EnemyAI.cpp">
+      <Filter>gameStudy\battle\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
