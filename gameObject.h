@@ -67,7 +67,6 @@ public:
 	virtual void previousState();												// 이전으로 돌아가는 함수
 	virtual void attack(int targetX, int targetY);
 	virtual void move();
-	virtual void pain(int x, int y, int damage);
 	virtual void setDirectionImage();
 	virtual void setCharacterMove(int endX, int endY, vector<TagTile*> vRoute);
 	virtual void setTilePosition(float x, float y);

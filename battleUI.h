@@ -89,7 +89,7 @@ private:
 	image* _imageTurnStr;           //TURN IMAGE STR
 	image* _imageTurnBack;          //TURN IMAGE BACKGROUND
 	int _turnBackPosX;              //TURN RECT의 LEFT 위치
-	float _turnShowTime;			//TURN IMAGE가 중앙까지 왔을 때 몇 초간 지연 시킬 용도의 TIME
+	float _turnShowTime;			//TURN IMAGE가 중앙까지 왔을 때 1초간 지연 시킬 용도의 TIME
 	
 
 	// ------------ 마우스 오버 랩 된 SELECT TILE 출력용 변수 ------------
@@ -140,16 +140,19 @@ public:
 	void release();
 	void update();
 	void render();
+	void setCharacterList();
 
-	void initCharacterList();
 	void initOrderList();
 	void initUnitOrderList();
 
+	void setTurnShow() { _isTurnShow = true; }	//외부에서 Turn Show를 시켜야 할 때 이 함수를 이용하여 Turn을 Show 시킨다
 	void renderOverlapSelectTile();				//마우스 오버 랩 된 타일에 SelectTile Image를 출력
 	void renderOverlapAttackSelectTile();		//마우스 오버 랩 된 공격 타일에 SelectTile Image를 출력
 
 	bool checkTileOnCharacter(int i, int j);
-	void showTurnChange();
+	void orderListClick(int orderNumber);
+	void unitOrderListClick(int unitOrderNumber);
+	void turnChange();
 
 	//클릭 이벤트
 	void LButtonClick();
@@ -157,16 +160,11 @@ public:
 	void checkMouseOverList();
 	void checkMouseOverCharacter();
 
-	void orderListClick(int orderNumber);			//일반 명령 이벤트
-	void unitOrderListClick(int unitOrderNumber);	//유닛 명령 이벤트
+	void setTurnTypeChangeToPlayer() { _isTurnType = true; }         //ENEMY에서 PLAYER TURN으로 넘어갈 떄 호출해서 PLAYER TURN IMAGE를 호출
 
-	BOOL getIsShowTurnChanging() { return _isTurnShow; }
-
-	void setIsShowTurnChanging(BOOL isTurnShow) { _isTurnShow = isTurnShow; }
 	void setArrowFrame();
 	void setCamera();
 	void setGameObjectSize();
-
 	void setObjectManagerMemoryLink(gameObjectManager* gameObjMgr) { _gameObjMgr = gameObjMgr; }
 	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
 };

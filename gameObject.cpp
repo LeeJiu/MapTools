@@ -105,10 +105,6 @@ void gameObject::move()
 	gameObject::setTilePosition(_tile[0][0]->pivotX, _tile[0][0]->pivotY);
 }
 
-void gameObject::pain(int x, int y, int damage)
-{
-}
-
 void gameObject::attack(int targetX, int targetY)
 {
 	if (_indexX > targetX && _indexY == targetY)

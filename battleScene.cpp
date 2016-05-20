@@ -36,7 +36,7 @@ HRESULT battleScene::init()
 
 	_battleUI->setObjectManagerMemoryLink(_gameObjMgr);
 	_battleUI->setBattleManagerMemoryLink(_battleMgr);
-	_battleUI->initCharacterList();
+	_battleUI->setCharacterList();
 
 	_battleUI->setGameObjectSize();
 	_battleUI->setCamera();
@@ -63,6 +63,4 @@ void battleScene::render()
 	_gameObjMgr->render();
 	_battleMgr->render();
 	_battleUI->render();
-
-	_battleUI->showTurnChange();
 }

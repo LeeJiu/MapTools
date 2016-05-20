@@ -99,20 +99,6 @@ void gameObjectManager::setUnitDefence()
 {
 }
 
-void gameObjectManager::setUnitPain(int destX, int destY, int attacker)
-{
-	for (int i = 0; i < vCharSize; i++)
-	{
-		if (_vGameObject[i]->getIndexX() == destX &&
-			_vGameObject[i]->getIndexY() == destY)
-		{
-			_vGameObject[i]->pain(_vGameObject[attacker]->getIndexX(), _vGameObject[attacker]->getIndexY(), _vGameObject[attacker]->getAtk());
-		}
-
-	}
-}
-
-
 void gameObjectManager::setActionAttack()
 {
 

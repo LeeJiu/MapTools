@@ -64,7 +64,6 @@ public:
 	void setUnitMove(int i, int destX, int destY);
 	void setUnitAttack(int i, int destX, int destY);
 	void setUnitDefence();
-	void setUnitPain(int destX, int destY, int attacker);
 
 	void setActionAttack();
 	void setChangeTurn();
