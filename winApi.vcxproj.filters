@@ -255,9 +255,6 @@
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="catsaver.h">
-      <Filter>gameStudy\gameObject\enemy</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -402,9 +399,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="boss.cpp">
-      <Filter>gameStudy\gameObject\enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="catsaver.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
   </ItemGroup>

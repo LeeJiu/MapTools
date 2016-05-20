@@ -69,6 +69,17 @@ HRESULT prinny::init(int x, int y, vector<TagTile*> tile)
 	_pivotY = _tile[_indexX][_indexY]->pivotY;
 	_moveSpeed = 3;
 
+	_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
+		_character->getFrameWidth(), _character->getFrameHeight());
+	_x = (_rc.right + _rc.left) / 2;
+	_y = (_rc.top + _rc.bottom) / 2;
+
+	_maxHp = _hp;
+
+	_hpBar = new progressBar2;
+	_hpBar->init(_x, _rc.top - 10, 120, 10);
+	_hpBar->gauge(_hp, _maxHp);
+
 	return S_OK;
 }
 
@@ -76,6 +87,9 @@ void prinny::release()
 {
 	SAFE_DELETE(_inventory);
 	_mercenary.clear();
+
+	_hpBar->release();
+	SAFE_DELETE(_hpBar);
 }
 
 void prinny::update()
@@ -85,6 +99,10 @@ void prinny::update()
 
 	if (_isbattle)
 	{
+		_hpBar->setX(_x);
+		_hpBar->setY(_rc.top - 10);
+		_hpBar->update();
+
 		if (!_isMove)
 		{
 			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
@@ -121,10 +139,9 @@ void prinny::render()
 		{
 			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-			{
-				//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-				_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-			}
+			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+			_hpBar->render();
 		}
 	}
 }
