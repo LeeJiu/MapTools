@@ -17,6 +17,7 @@ public:
 	~objects();
 
 	HRESULT init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile);
+	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, gameObjectManager* gom);
 	void release();
 	void update();
 	void render();
