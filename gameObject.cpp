@@ -13,6 +13,8 @@ gameObject::~gameObject()
 
 HRESULT gameObject::init()
 {
+
+
 	return S_OK;
 }
 

@@ -13,6 +13,8 @@ mercenaryStore::~mercenaryStore()
 
 HRESULT mercenaryStore::init()
 {
+	SOUNDMANAGER->stop("step");
+
 	/*			store ui			*/
 	_rcStoreTitle = RectMake(30, 30, 162, 65);
 	_rcListTitle = RectMake(80, 120, 200, 50);
@@ -170,6 +172,7 @@ void mercenaryStore::keyControl()
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
 			buyMercenary(_name);
+			SOUNDMANAGER->play("sell", 1);
 		}
 	}
 

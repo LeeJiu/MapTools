@@ -13,6 +13,9 @@ title::~title()
 
 HRESULT title::init()
 {
+	_volume = 0;
+	SOUNDMANAGER->play("title", _volume);
+
 	IMAGEMANAGER->addImage("title_background", "image/title/title_background.bmp", WINSIZEX, WINSIZEY, false, false);
 	IMAGEMANAGER->addImage("title_logo", "image/title/title_logo.bmp", 1500, 553, true, 0xff00ff);
 	IMAGEMANAGER->addImage("title_dialog_type_small", "image/title/title_dialog_type_small.bmp", 264, 63, false, false);
@@ -41,10 +44,14 @@ HRESULT title::init()
 
 void title::release()
 {
+	SOUNDMANAGER->stop("title");
 }
 
 void title::update()
 {
+	if (_volume < 0.8f) _volume += 0.005f;
+	SOUNDMANAGER->setVolum("title", _volume);
+
 	showLogo();
 	clickMenu();
 
@@ -161,14 +168,17 @@ void title::clickMenu()
 	{
 		if (_startButton)
 		{
+			SOUNDMANAGER->play("button", 1.f);
 			SCENEMANAGER->changeScene("town");
 		}
 		else if (_maptoolButton)
 		{
+			SOUNDMANAGER->play("button", 1.f);
 			SCENEMANAGER->changeScene("mapTool");
 		}
 		else if (_exitButton)
 		{
+			SOUNDMANAGER->play("button", 1.f);
 			PostQuitMessage(0);
 		}
 	}

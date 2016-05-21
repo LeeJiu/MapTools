@@ -13,6 +13,8 @@ town::~town()
 
 HRESULT town::init()
 {
+	SOUNDMANAGER->play("town_bg", 1.f);
+
 	IMAGEMANAGER->addImage("town_background", "image/background/town_background.bmp", 4155, 1704, true, 0xff00ff);
 	IMAGEMANAGER->addImage("town_background_pixel", "image/background/town_background_pixel.bmp", 4155, 1704, false, false);
 
@@ -48,6 +50,8 @@ HRESULT town::init()
 void town::release()
 {
 	SAFE_DELETE(_prinny);
+
+	//SOUNDMANAGER->stop("town_bg");
 }
 
 void town::update()

@@ -15,6 +15,7 @@ protected:
 	int _curFrameX, _curFrameY, _count;
 
 	image* _character;
+	image* _shadow;
 	RECT _rc;
 	int _x, _y;																		// 이미지(렉트) 센터x 센터y
 	int _oldX, _oldY;																// 전투맵의 이전의 x, y 인덱스
