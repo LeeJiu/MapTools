@@ -13,6 +13,9 @@ prinny::~prinny()
 
 HRESULT prinny::init()
 {
+	_volume = 0.f;
+	SOUNDMANAGER->play("step", _volume);
+
 	_inventory = new inventory;
 	_inventory->init();
 
@@ -90,10 +93,14 @@ void prinny::release()
 
 	_hpBar->release();
 	SAFE_DELETE(_hpBar);
+
+	SOUNDMANAGER->stop("step");
 }
 
 void prinny::update()
 {
+	SOUNDMANAGER->setVolum("step", _volume);
+
 	gameObject::setDirectionImage();
 	setImage();
 
@@ -182,6 +189,15 @@ void prinny::keyControl()
 		}
 	}
 
+	//if (KEYMANAGER->isOnceKeyDown(VK_LEFT) ||
+	//	KEYMANAGER->isOnceKeyDown(VK_RIGHT) ||
+	//	KEYMANAGER->isOnceKeyDown(VK_UP) ||
+	//	KEYMANAGER->isOnceKeyDown(VK_DOWN))
+	//{
+
+	//}
+
+
 	if(KEYMANAGER->isOnceKeyUp(VK_LEFT) || KEYMANAGER->isOnceKeyUp(VK_RIGHT) 
 		|| KEYMANAGER->isOnceKeyUp(VK_UP) || KEYMANAGER->isOnceKeyUp(VK_DOWN))
 	{
@@ -189,10 +205,13 @@ void prinny::keyControl()
 		_curFrameX = 0;
 	}
 
+
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
 		if (!_isOpenInven)
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_isOpenInven = true;
 			changeLoadData(_characterNum);
 			setInventory();
@@ -202,6 +221,8 @@ void prinny::keyControl()
 		}
 		else
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_isOpenInven = false;
 			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
 			changeSaveData();	//넘기기 전에 정보를 저장
@@ -215,6 +236,8 @@ void prinny::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_isOpenInven = false;
 			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
 			changeSaveData();	//넘기기 전에 정보를 저장
@@ -228,6 +251,8 @@ void prinny::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
 			changeSaveData();	//넘기기 전에 정보를 저장
 
@@ -251,22 +276,27 @@ void prinny::setImage()
 	{
 	case IDLE:
 		_character = IMAGEMANAGER->findImage("prinny_idle");
+		_volume = 0.f;
 		break;
 
 	case WALK:
 		_character = IMAGEMANAGER->findImage("prinny_walk");
+		_volume = 1.f;
 		break;
 
 	case ATTACK:
 		_character = IMAGEMANAGER->findImage("prinny_attack");
+		_volume = 0.f;
 		break;
 
 	case LIFT:
 		_character = IMAGEMANAGER->findImage("prinny_lift");
+		_volume = 0.f;
 		break;
 
 	case ETC:
 		_character = IMAGEMANAGER->findImage("prinny_etc");
+		_volume = 0.f;
 		break;
 	}
 

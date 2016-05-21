@@ -45,7 +45,6 @@ void character::battleKeyControl()
 
 void character::move(int endX, int endY)
 {
-
 }
 
 void character::setImage()

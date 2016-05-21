@@ -37,6 +37,7 @@ HRESULT gameNode::init(bool managerInit)
 		SCENEMANAGER->init();
 		DATABASE->init();
 		ACTIONMANAGER->init();
+		SOUNDMANAGER->init();
 	}
 
 	return S_OK;
@@ -64,6 +65,8 @@ void gameNode::release()
 		DATABASE->releaseSingleton();
 		ACTIONMANAGER->release();
 		ACTIONMANAGER->releaseSingleton();
+		SOUNDMANAGER->release();
+		SOUNDMANAGER->releaseSingleton();
 	}
 
 	//받아온 DC 해제 해주자

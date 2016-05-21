@@ -582,6 +582,22 @@ void battleUI::LButtonClick()
 		{
 			if (PtInRect(&_rcCharacterListBody[i], _ptMouse))
 			{
+				switch (i)
+				{
+				case 0 : 
+					SOUNDMANAGER->play("prinny_on", 1);
+					break;
+				case 1:
+					SOUNDMANAGER->play("flonne_on", 1);
+					break;
+				case 2:
+					SOUNDMANAGER->play("rasberyl_on", 1);
+					break;
+				case 3:
+					SOUNDMANAGER->play("etna_on", 1);
+					break;
+				}
+				
 				_gameObjMgr->getGameObject()[i]->setIsShow(true);
 				_isOnStatus = false;
 				_isOnCharacterList = false;

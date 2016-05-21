@@ -91,6 +91,31 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("orc_attack", "image/character/orc_attack.bmp", 1764, 668, 7, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("orc_etc", "image/character/orc_pain.bmp", 468, 528, 4, 4, true, 0xff00ff);
 
+	
+	//사운드
+	//배경음
+	SOUNDMANAGER->addSound("town_bg", "sound/town.mp3", true, true);
+	SOUNDMANAGER->addSound("title_bg", "sound/title.mp3", true, true);
+	SOUNDMANAGER->addSound("battleScene_bg", "sound/battleScene.mp3", true, true);
+	SOUNDMANAGER->addSound("selectStage_bg", "sound/selectStage_bg.mp3", true, true);
+
+	//효과음
+	SOUNDMANAGER->addSound("step", "sound/step.wav", true, true);
+	SOUNDMANAGER->addSound("sell", "sound/sell.wav", false, false);
+	SOUNDMANAGER->addSound("equip", "sound/equip.wav", false, false);
+	SOUNDMANAGER->addSound("ban", "sound/ban.wav", false, false);
+	SOUNDMANAGER->addSound("button", "sound/button.wav", false, false);
+	SOUNDMANAGER->addSound("click", "sound/click.wav", false, false);
+	SOUNDMANAGER->addSound("pain", "sound/pain.wav", false, false);
+	SOUNDMANAGER->addSound("heal", "sound/heal.wav", false, false);
+	SOUNDMANAGER->addSound("heal2", "sound/heal2.wav", false, false);
+	SOUNDMANAGER->addSound("prinny_on", "sound/prinny_on.wav", false, false);
+	SOUNDMANAGER->addSound("prinny_go", "sound/prinny_go.wav", false, false);
+	SOUNDMANAGER->addSound("prinny_attack", "sound/prinny_attack.wav", true, true);
+	SOUNDMANAGER->addSound("stage_clear", "sound/stage_clear.wav", false, false);
+	SOUNDMANAGER->addSound("skill_cut", "sound/skill_cut.wav", false, false);
+
+
 	SCENEMANAGER->changeScene("title");
 
 	return S_OK;

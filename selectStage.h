@@ -4,6 +4,8 @@
 class selectStage : public gameNode
 {
 private:
+	float _volume;
+
 	image* _imageListTop;
 	vector<image*> _imageListBody;
 	image* _imageListBottom;

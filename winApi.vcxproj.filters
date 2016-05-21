@@ -255,11 +255,25 @@
     <ClInclude Include="progressBar2.h">
       <Filter>2D Framework\progressBar</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="soundManager.h">
       <Filter>2D Framework\manager</Filter>
     </ClInclude>
     <ClInclude Include="selectStageData.h">
       <Filter>gameStudy\battle</Filter>
+=======
+    <ClInclude Include="boss.h">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="progressBar2.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="catsaver.h">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+>>>>>>> refs/remotes/origin/development
+    </ClInclude>
+    <ClInclude Include="soundManager.h">
+      <Filter>2D Framework\manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -407,11 +421,25 @@
     <ClCompile Include="progressBar2.cpp">
       <Filter>2D Framework\progressBar</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="soundManager.cpp">
       <Filter>2D Framework\manager</Filter>
     </ClCompile>
     <ClCompile Include="selectStageData.cpp">
       <Filter>gameStudy\battle</Filter>
+=======
+    <ClCompile Include="boss.cpp">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="progressBar2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="catsaver.cpp">
+      <Filter>gameStudy\gameObject\enemy</Filter>
+>>>>>>> refs/remotes/origin/development
+    </ClCompile>
+    <ClCompile Include="soundManager.cpp">
+      <Filter>2D Framework\manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

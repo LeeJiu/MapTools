@@ -10,11 +10,11 @@
 #pragma comment(lib, "lib/fmodex_vc.lib")
 
 //사운드 버퍼(크기)
-#define TOTAL_SOUND_CHANNEL 15
+#define TOTAL_SOUND_CHANNEL 1024
 
 using namespace FMOD;
 
-class soundManager
+class soundManager : public singletonBase<soundManager>
 {
 private:
 	typedef map<string, Sound**> arrSounds;
@@ -37,12 +37,13 @@ public:
 	void update();
 
 	//사운드 추가
-	void addSound(string keyName, string soundName, bool background = false, bool loop = false);
+	void addSound(string keyName, string soundName, bool background, bool loop);
 	void play(string keyName, float volume);
 	void stop(string keyName);
 	void pause(string keyName);
 	void resume(string keyName);
 	bool isPauseSound(string keyNmae);
 	bool isPlaySound(string keyName);
+	void setVolum(string keyName, float volume);
 };
 
