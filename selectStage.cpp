@@ -12,6 +12,12 @@ selectStage::~selectStage()
 
 HRESULT selectStage::init()
 {
+	_volume = 0;
+	SOUNDMANAGER->stop("step");
+	//SOUNDMANAGER->stop("town_bg");
+	SOUNDMANAGER->play("selectStage_bg", _volume);
+
+
 	_mapListSize = 5;
 
 	IMAGEMANAGER->addImage("selectScene", "image/battleUI/selectScene.bmp", 1280, 720, false, false);
@@ -63,6 +69,7 @@ HRESULT selectStage::init()
 
 void selectStage::release()
 {
+	SOUNDMANAGER->stop("selectStage_bg");
 	for (int i = 0; i < _imageListBody.size(); i++)
 	{
 		_imageListBody.erase(_imageListBody.begin() + i);
@@ -72,8 +79,13 @@ void selectStage::release()
 
 void selectStage::update()
 {
+	if (_volume < 1.f) _volume += 0.005f;
+	SOUNDMANAGER->setVolum("selectStage_bg", _volume);
+
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
+		SOUNDMANAGER->play("click", 1.f);
+
 		//CHECK MAPLIST SELECT
 		for (int i = 0; i < _mapListSize; i++)
 		{

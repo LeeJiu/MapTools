@@ -13,6 +13,8 @@ mercenaryStore::~mercenaryStore()
 
 HRESULT mercenaryStore::init()
 {
+	SOUNDMANAGER->stop("step");
+
 	/*			store ui			*/
 	_rcStoreTitle = RectMake(30, 30, 162, 65);
 	_rcListTitle = RectMake(80, 120, 200, 50);
@@ -140,6 +142,8 @@ void mercenaryStore::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			//용병 캐릭터 넘기기
 			if (_ptMouse.x < (_rcMercenaryList.left + _rcMercenaryList.right) / 3)
 			{
@@ -170,6 +174,7 @@ void mercenaryStore::keyControl()
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
 			buyMercenary(_name);
+			SOUNDMANAGER->play("sell", 1);
 		}
 	}
 
@@ -178,6 +183,7 @@ void mercenaryStore::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
 			saveMercenaryData();
 			_prinny->saveData();
 			SCENEMANAGER->changeScene("town");

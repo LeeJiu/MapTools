@@ -2,7 +2,7 @@
 
 #include "image.h"
 
-static image* _backBuffer = IMAGEMANAGER->addImage("backBuffer", WINSIZEX, WINSIZEY);
+static image* _backBuffer = IMAGEMANAGER->addImage("backBuffer", WINSIZEX * 3, WINSIZEY * 3);
 
 class gameNode
 {

@@ -14,7 +14,6 @@ boss::~boss()
 HRESULT boss::init()
 {
 	_mv = 1;
-
 	return S_OK;
 }
 
@@ -41,6 +40,10 @@ void boss::previousState()
 void boss::showPossibleMoveTile()
 {
 
+}
+
+void boss::setMercenary(const char * characterName)
+{
 }
 
 void boss::setItem(const char * itemName, bool isWear)

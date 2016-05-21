@@ -13,6 +13,7 @@ private:
 	int _selectItemNum;
 
 	//캐릭터 정보 세팅
+	image* _icon;
 	const char* _name;
 	string _hell;
 	string _level, _counter, _mv, _jm;
@@ -47,7 +48,7 @@ public:
 	bool checkEquip();
 
 	void setItem(const char* itemName, bool isWear);
-	void setName(const char* name) { _name = name; }
+	void setName(const char* name);
 	void setHell(int hell) { _hell = std::to_string(hell); };
 	void setClassStates(int level, int counter, int mv, int jm);
 	void setCharacterStates(int hp, int sp, int atk, int intel, int def,
