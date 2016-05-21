@@ -11,7 +11,7 @@ catsaver::~catsaver()
 {
 }
 
-HRESULT catsaver::init(int x, int y, vector<TagTile*> tile)
+HRESULT catsaver::init(int x, int y, vector<TagTile*>& tile)
 {
 	_name = "catsaver";
 

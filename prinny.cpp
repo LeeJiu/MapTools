@@ -40,7 +40,7 @@ HRESULT prinny::init()
 	return S_OK;
 }
 
-HRESULT prinny::init(int x, int y, vector<TagTile*> tile)
+HRESULT prinny::init(int x, int y, vector<TagTile*>& tile)
 {
 	_inventory = new inventory;
 	_inventory->init();

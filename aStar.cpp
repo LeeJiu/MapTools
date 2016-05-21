@@ -146,7 +146,7 @@ void aStar::checkTile()
 	_vOpenList.erase(_vOpenList.begin());
 }
 
-vector<TagTile*> aStar::moveCharacter(int startX, int startY, int endX, int endY)
+vector<TagTile*>& aStar::moveCharacter(int startX, int startY, int endX, int endY)
 {
 	_start = { startX, startY };
 	_end = { endX, endY };
@@ -177,7 +177,7 @@ void aStar::resultRoute(int x, int y)
 	else resultRoute(_tile[x][y]->parent->x, _tile[x][y]->parent->y);
 }
 
-void aStar::setTile(vector<TagTile*> tile)
+void aStar::setTile(vector<TagTile*>& tile)
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{

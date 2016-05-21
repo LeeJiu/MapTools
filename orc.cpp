@@ -11,7 +11,7 @@ orc::~orc()
 {
 }
 
-HRESULT orc::init(int x, int y, vector<TagTile*> tile)
+HRESULT orc::init(int x, int y, vector<TagTile*>& tile)
 {
 	_kind = "orc";
 

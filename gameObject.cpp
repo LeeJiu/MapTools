@@ -23,12 +23,12 @@ HRESULT gameObject::init(vector<TagTile*> tile)
 	return S_OK;
 }
 
-HRESULT gameObject::init(int x, int y, vector<TagTile*> tile)
+HRESULT gameObject::init(int x, int y, vector<TagTile*>& tile)
 {
 	return S_OK;
 }
 
-HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile)
+HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile)
 {
 	return S_OK;
 }
@@ -109,6 +109,7 @@ void gameObject::move()
 	gameObject::setTilePosition(_tile[0][0]->pivotX, _tile[0][0]->pivotY);
 }
 
+//타겟의 x, y를 보낸다.
 void gameObject::attack(int targetX, int targetY)
 {
 	if (_indexX > targetX && _indexY == targetY)
@@ -128,6 +129,33 @@ void gameObject::attack(int targetX, int targetY)
 		_characterDir = LB;
 	}
 	_characterState = ATTACK;
+	_character->setFrameX(0);
+	_isOrdering = true;
+}
+
+//딜러의 x, y, damage를 보낸다.
+void gameObject::pain(int x, int y, int damage)
+{
+	_hp -= damage;
+	_hpBar->gauge(_hp, _maxHp);
+
+	if (_indexX > x && _indexY == y)
+	{
+		_characterDir = LT;
+	}
+	else if (_indexX < x && _indexY == y)
+	{
+		_characterDir = RB;
+	}
+	else if (_indexX == x && _indexY > y)
+	{
+		_characterDir = RT;
+	}
+	else if (_indexX == x && _indexY < y)
+	{
+		_characterDir = LB;
+	}
+	_characterState = ETC;
 	_character->setFrameX(0);
 	_isOrdering = true;
 }
@@ -208,7 +236,7 @@ void gameObject::setDirectionImage()
 	}
 }
 
-void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
+void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute)
 {
 	if (!_isMove)
 	{
