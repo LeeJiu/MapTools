@@ -192,23 +192,6 @@ void gameObjectManager::setEnemy()
 {
 	// 에너미파일 로드
 	DATABASE->loadDatabase("battleMap1_enm.txt");
-
-
-	//for (int i = 0; i < TOTALTILE(TILENUM); i++)
-	//{
-	//	gameObject* enemy;
-	//	switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
-	//	{
-	//	case 1:
-	//		enemy = new orc;
-	//		enemy->init(DATABASE->getElementData(std::to_string(i))->x, DATABASE->getElementData(std::to_string(i))->y, _vTile);
-	//		_vGameObject.push_back(enemy);
-	//		_vToTalRender.push_back(enemy);
-	//		vEnmSize++;
-	//		break;
-	//	}
-	//}
-
 	
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
@@ -217,8 +200,6 @@ void gameObjectManager::setEnemy()
 		{
 			gameObject* enemy;
 			int imageNum = DATABASE->getElementData(std::to_string(i))->imageNum;
-			int x = 0;
-			int y = 0;
 			switch (imageNum)   // (몬스터의 종류)
 			{
 			case 1:

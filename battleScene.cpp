@@ -67,7 +67,6 @@ void battleScene::update()
 	SOUNDMANAGER->setVolum("battleScene_bg", _volume);
 	SOUNDMANAGER->setVolum("step", _Prinny_voluem);
 
-	//_Prinny_voluem = 
 
 	_gameObjMgr->update();
 	_battleMgr->update();

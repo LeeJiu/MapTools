@@ -59,11 +59,11 @@ void catsaver::update()
 	_hpBar->setX(_x);
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
-
+	
 	gameObject::setDirectionImage();
 	setImage();
 	setFrame();
-
+	
 	if (!_isMove)
 	{
 		_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
@@ -71,7 +71,7 @@ void catsaver::update()
 		_y = (_rc.top + _rc.bottom) / 2;
 	}
 	_pivotY = _tile[_indexX][_indexY]->pivotY;
-	battleKeyControl();
+	
 	gameObject::move();
 }
 
