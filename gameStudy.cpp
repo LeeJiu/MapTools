@@ -98,6 +98,8 @@ HRESULT gameStudy::init()
 	SOUNDMANAGER->addSound("title_bg", "sound/title.mp3", true, true);
 	SOUNDMANAGER->addSound("battleScene_bg", "sound/battleScene.mp3", true, true);
 	SOUNDMANAGER->addSound("selectStage_bg", "sound/selectStage_bg.mp3", true, true);
+	SOUNDMANAGER->addSound("store_bg", "sound/store.mp3", true, true);
+	SOUNDMANAGER->addSound("mer_store_bg", "sound/mer_store.mp3", true, true);
 
 	//효과음
 	SOUNDMANAGER->addSound("step", "sound/step.wav", true, true);
