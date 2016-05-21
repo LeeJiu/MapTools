@@ -62,7 +62,7 @@ HRESULT orc::init(int x, int y, gameObjectManager * gom)
 	_indexY = y;
 	
 
-
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = new image;
 	_character->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
 	_characterState = IDLE;

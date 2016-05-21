@@ -70,6 +70,7 @@ HRESULT raspberyl::init(int x, int y, gameObjectManager * gom)
 
 	_isCharacter = true;
 
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = IMAGEMANAGER->findImage("raspberyl_idle");
 	_characterState = IDLE;
 	_characterDir = RT;
