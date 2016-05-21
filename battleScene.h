@@ -10,7 +10,7 @@
 class battleScene : public gameNode
 {
 private:
-	float _volume;
+	float _volume, _Prinny_voluem;
 	int _count;
 
 	battleUI* _battleUI;

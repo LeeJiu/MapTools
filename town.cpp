@@ -51,7 +51,7 @@ void town::release()
 {
 	SAFE_DELETE(_prinny);
 
-	//SOUNDMANAGER->stop("town_bg");
+	SOUNDMANAGER->stop("town_bg");
 }
 
 void town::update()

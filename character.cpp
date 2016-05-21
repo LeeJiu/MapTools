@@ -45,7 +45,6 @@ void character::battleKeyControl()
 
 void character::move(int endX, int endY)
 {
-	SOUNDMANAGER->play("step", 1.f);
 }
 
 void character::setImage()

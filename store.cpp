@@ -144,6 +144,8 @@ void store::keyControl()
 		{
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
+				SOUNDMANAGER->play("click", 1.f);
+
 				showItemInfoAll(i);
 				_buyItemIdx = i;
 				break;
@@ -161,6 +163,8 @@ void store::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_prinny->saveData();
 			SCENEMANAGER->changeScene("town");
 		}

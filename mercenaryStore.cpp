@@ -142,6 +142,8 @@ void mercenaryStore::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			//용병 캐릭터 넘기기
 			if (_ptMouse.x < (_rcMercenaryList.left + _rcMercenaryList.right) / 3)
 			{
@@ -181,6 +183,7 @@ void mercenaryStore::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
 			saveMercenaryData();
 			_prinny->saveData();
 			SCENEMANAGER->changeScene("town");

@@ -210,6 +210,8 @@ void prinny::keyControl()
 	{
 		if (!_isOpenInven)
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_isOpenInven = true;
 			changeLoadData(_characterNum);
 			setInventory();
@@ -219,6 +221,8 @@ void prinny::keyControl()
 		}
 		else
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_isOpenInven = false;
 			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
 			changeSaveData();	//넘기기 전에 정보를 저장
@@ -232,6 +236,8 @@ void prinny::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_isOpenInven = false;
 			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
 			changeSaveData();	//넘기기 전에 정보를 저장
@@ -245,6 +251,8 @@ void prinny::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
 			changeSaveData();	//넘기기 전에 정보를 저장
 

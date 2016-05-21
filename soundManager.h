@@ -10,7 +10,7 @@
 #pragma comment(lib, "lib/fmodex_vc.lib")
 
 //사운드 버퍼(크기)
-#define TOTAL_SOUND_CHANNEL 100
+#define TOTAL_SOUND_CHANNEL 1024
 
 using namespace FMOD;
 

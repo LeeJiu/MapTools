@@ -14,7 +14,9 @@ title::~title()
 HRESULT title::init()
 {
 	_volume = 0;
-	SOUNDMANAGER->play("title", _volume);
+	_buttonVolume = 0;
+	SOUNDMANAGER->play("title_bg", _volume);
+	SOUNDMANAGER->play("button", _buttonVolume);
 
 	IMAGEMANAGER->addImage("title_background", "image/title/title_background.bmp", WINSIZEX, WINSIZEY, false, false);
 	IMAGEMANAGER->addImage("title_logo", "image/title/title_logo.bmp", 1500, 553, true, 0xff00ff);
@@ -44,13 +46,13 @@ HRESULT title::init()
 
 void title::release()
 {
-	SOUNDMANAGER->stop("title");
+	SOUNDMANAGER->stop("title_bg");
 }
 
 void title::update()
 {
 	if (_volume < 0.8f) _volume += 0.005f;
-	SOUNDMANAGER->setVolum("title", _volume);
+	SOUNDMANAGER->setVolum("title_bg", _volume);
 
 	showLogo();
 	clickMenu();
@@ -65,6 +67,8 @@ void title::update()
 		_y = 0;
 		_showMenu = true;
 	}
+
+	SOUNDMANAGER->setVolum("button", _buttonVolume);
 }
 
 void title::render()
@@ -137,16 +141,19 @@ void title::showArrow()
 			switch (i)
 			{
 			case 0:
+				_buttonVolume = 1;
 				_startButton = true;
 				_maptoolButton = false;
 				_exitButton = false;
 				return;
 			case 1:
+				_buttonVolume = 1;
 				_startButton = false;
 				_maptoolButton = true;
 				_exitButton = false;
 				return;
 			case 2:
+				_buttonVolume = 1;
 				_startButton = false;
 				_maptoolButton = false;
 				_exitButton = true;
@@ -155,6 +162,7 @@ void title::showArrow()
 		}
 		else
 		{
+			_buttonVolume = 0;
 			_startButton = false;
 			_maptoolButton = false;
 			_exitButton = false;
@@ -168,17 +176,16 @@ void title::clickMenu()
 	{
 		if (_startButton)
 		{
-			SOUNDMANAGER->play("button", 1.f);
+			SOUNDMANAGER->play("click", 1.f);
 			SCENEMANAGER->changeScene("town");
 		}
 		else if (_maptoolButton)
 		{
-			SOUNDMANAGER->play("button", 1.f);
+			SOUNDMANAGER->play("click", 1.f);
 			SCENEMANAGER->changeScene("mapTool");
 		}
 		else if (_exitButton)
 		{
-			SOUNDMANAGER->play("button", 1.f);
 			PostQuitMessage(0);
 		}
 	}
