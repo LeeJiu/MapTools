@@ -13,6 +13,8 @@ private:
 
 	image* _mercenaryNPC;
 	image* _storeNPC;
+	image* _mercenaryShadow;
+	image* _storeShadow;
 
 	RECT _rcStore, _rcMercenary, _rcBattle;
 

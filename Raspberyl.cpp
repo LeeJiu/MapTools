@@ -25,9 +25,8 @@ HRESULT raspberyl::init(int x, int y, vector<TagTile*>& tile)
 
 	_name = "raspberyl";
 	loadData();
-
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_isCharacter = true;
-
 	_character = IMAGEMANAGER->findImage("raspberyl_idle");
 	_characterState = IDLE;
 	_characterDir = RT;
@@ -96,6 +95,7 @@ void raspberyl::render()
 	{
 		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+		_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_hpBar->render();
 	}
