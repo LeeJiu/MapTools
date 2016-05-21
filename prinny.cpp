@@ -13,6 +13,9 @@ prinny::~prinny()
 
 HRESULT prinny::init()
 {
+	_volume = 0.f;
+	SOUNDMANAGER->play("step", _volume);
+
 	_inventory = new inventory;
 	_inventory->init();
 
@@ -37,7 +40,7 @@ HRESULT prinny::init()
 	return S_OK;
 }
 
-HRESULT prinny::init(int x, int y, vector<TagTile*> tile)
+HRESULT prinny::init(int x, int y, vector<TagTile*>& tile)
 {
 	_inventory = new inventory;
 	_inventory->init();
@@ -60,15 +63,25 @@ HRESULT prinny::init(int x, int y, vector<TagTile*> tile)
 	_mv = 4;
 	_isShow = false;
 	_isbattle = true;
-
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 	}
 
 	_vTile = tile;
-
+	_pivotY = _tile[_indexX][_indexY]->pivotY;
 	_moveSpeed = 3;
+
+	_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
+		_character->getFrameWidth(), _character->getFrameHeight());
+	_x = (_rc.right + _rc.left) / 2;
+	_y = (_rc.top + _rc.bottom) / 2;
+
+	_maxHp = _hp;
+
+	_hpBar = new progressBar2;
+	_hpBar->init(_x, _rc.top - 10, 120, 10);
+	_hpBar->gauge(_hp, _maxHp);
 
 	return S_OK;
 }
@@ -77,20 +90,32 @@ void prinny::release()
 {
 	SAFE_DELETE(_inventory);
 	_mercenary.clear();
+
+	_hpBar->release();
+	SAFE_DELETE(_hpBar);
+
+	SOUNDMANAGER->stop("step");
 }
 
 void prinny::update()
 {
+	SOUNDMANAGER->setVolum("step", _volume);
+
 	gameObject::setDirectionImage();
 	setImage();
 
 	if (_isbattle)
 	{
+		_hpBar->setX(_x);
+		_hpBar->setY(_rc.top - 10);
+		_hpBar->update();
+
 		if (!_isMove)
 		{
 			_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
 			_x = (_rc.right + _rc.left) / 2;
 			_y = (_rc.top + _rc.bottom) / 2;
+			_pivotY = _tile[_indexX][_indexY]->pivotY;
 		}
 		battleKeyControl();
 		gameObject::move();
@@ -101,6 +126,8 @@ void prinny::update()
 		keyControl();
 	}
 
+	
+
 	setImage();
 	gameObject::setDirectionImage();
 }
@@ -109,6 +136,7 @@ void prinny::render()
 {
 	if (!_isbattle)
 	{
+		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_inventory->render();
 	}
@@ -120,6 +148,7 @@ void prinny::render()
 			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+			_hpBar->render();
 		}
 	}
 }
@@ -134,7 +163,6 @@ void prinny::keyControl()
 		{
 			_characterState = WALK;
 		}
-		
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
@@ -161,6 +189,15 @@ void prinny::keyControl()
 		}
 	}
 
+	//if (KEYMANAGER->isOnceKeyDown(VK_LEFT) ||
+	//	KEYMANAGER->isOnceKeyDown(VK_RIGHT) ||
+	//	KEYMANAGER->isOnceKeyDown(VK_UP) ||
+	//	KEYMANAGER->isOnceKeyDown(VK_DOWN))
+	//{
+
+	//}
+
+
 	if(KEYMANAGER->isOnceKeyUp(VK_LEFT) || KEYMANAGER->isOnceKeyUp(VK_RIGHT) 
 		|| KEYMANAGER->isOnceKeyUp(VK_UP) || KEYMANAGER->isOnceKeyUp(VK_DOWN))
 	{
@@ -168,10 +205,13 @@ void prinny::keyControl()
 		_curFrameX = 0;
 	}
 
+
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
 		if (!_isOpenInven)
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_isOpenInven = true;
 			changeLoadData(_characterNum);
 			setInventory();
@@ -181,6 +221,8 @@ void prinny::keyControl()
 		}
 		else
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_isOpenInven = false;
 			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
 			changeSaveData();	//넘기기 전에 정보를 저장
@@ -194,6 +236,8 @@ void prinny::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_isOpenInven = false;
 			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
 			changeSaveData();	//넘기기 전에 정보를 저장
@@ -207,6 +251,8 @@ void prinny::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			setChangeData();	//인벤에서 변경된 정보를 프리니에 세팅
 			changeSaveData();	//넘기기 전에 정보를 저장
 
@@ -230,22 +276,27 @@ void prinny::setImage()
 	{
 	case IDLE:
 		_character = IMAGEMANAGER->findImage("prinny_idle");
+		_volume = 0.f;
 		break;
 
 	case WALK:
 		_character = IMAGEMANAGER->findImage("prinny_walk");
+		_volume = 1.f;
 		break;
 
 	case ATTACK:
 		_character = IMAGEMANAGER->findImage("prinny_attack");
+		_volume = 0.f;
 		break;
 
 	case LIFT:
 		_character = IMAGEMANAGER->findImage("prinny_lift");
+		_volume = 0.f;
 		break;
 
 	case ETC:
 		_character = IMAGEMANAGER->findImage("prinny_etc");
+		_volume = 0.f;
 		break;
 	}
 

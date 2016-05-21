@@ -15,6 +15,8 @@ gameObjectManager::~gameObjectManager()
 HRESULT gameObjectManager::init()
 {
 	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
+
+
 	_aStar = new aStar;
 	_aStar->init();
 	vEnmSize = vObjSize = 0;
@@ -29,7 +31,8 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-	int _size = vCharSize + vObjSize + 2;
+
+	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->update();
@@ -46,12 +49,18 @@ void gameObjectManager::render()
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 
+
+	char str[512];
+	sprintf_s(str, "x = %d, y = %d", _vToTalRender[0]->getIndexX(), _vToTalRender[0]->getIndexY());
+	TextOut(getMemDC(), 10, 10, str, strlen(str));
+
+	_battleUI->renderOverlapSelectTile();
+
+	//int _size = vCharSize + vObjSize + 2;
+
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
 
-	//int _size = _vToTalRender.size();
-	int _size = vCharSize + vObjSize + 2;
-
-
+	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->render();
@@ -68,6 +77,7 @@ void gameObjectManager::render()
 void gameObjectManager::setUnitMove(int i, int destX, int destY)
 {
 	_vGameObject[i]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
+	SOUNDMANAGER->play("step", 1);
 }
 
 void gameObjectManager::setUnitAttack(int i, int destX, int destY)
@@ -76,6 +86,7 @@ void gameObjectManager::setUnitAttack(int i, int destX, int destY)
 	{
 		_vGameObject[i]->attack(destX, destY);
 		_isAction = true;
+		SOUNDMANAGER->play("prinny_attack", 1);
 	}
 	else
 	{
@@ -183,42 +194,60 @@ void gameObjectManager::setEnemy()
 	// 에너미파일 로드
 	DATABASE->loadDatabase("battleMap1_enm.txt");
 
-	for (int i = 0; i < vEnmSize; i++)
+
+	//for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	//{
+	//	gameObject* enemy;
+	//	switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
+	//	{
+	//	case 1:
+	//		enemy = new orc;
+	//		enemy->init(DATABASE->getElementData(std::to_string(i))->x, DATABASE->getElementData(std::to_string(i))->y, _vTile);
+	//		_vGameObject.push_back(enemy);
+	//		_vToTalRender.push_back(enemy);
+	//		vEnmSize++;
+	//		break;
+	//	}
+	//}
+
+	
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		//gameObject* enemy;
-		//switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
-		//{
-		//case 0:
-		//	enemy = new orc;
-		//	enemy->init();
-		//	break;
-		//case 1:
-		//	enemy = new boss;
-		//	enemy->init();
-		//	break;
-		//default:
-		//	break;
-		//}
-		//
-		//_vGameObject.push_back(enemy);
+		int imageNum = DATABASE->getElementData(std::to_string(i))->imageNum;
+		if (imageNum < 100)
+		{
+			gameObject* enemy;
+			int imageNum = DATABASE->getElementData(std::to_string(i))->imageNum;
+			int x = 0;
+			int y = 0;
+			switch (imageNum)   // (몬스터의 종류)
+			{
+			case 1:
+				enemy = new orc;
+				enemy->init(
+					DATABASE->getElementData(std::to_string(i))->x,
+					DATABASE->getElementData(std::to_string(i))->y,
+					_vTile);
+				break;
+			case 2:
+				enemy = new catsaver;
+				enemy->init(
+					DATABASE->getElementData(std::to_string(i))->x,
+					DATABASE->getElementData(std::to_string(i))->y,
+					_vTile);
+				break;
+			default:
+				break;
+			}
+	
+			_vGameObject.push_back(enemy);
+			_vToTalRender.push_back(enemy);
+			vEnmSize++;
+		}
+		else continue;
 	}
-
-	gameObject* _orc = new orc;
-	_orc->init(3, 7, _vTile);
-	_vGameObject.push_back(_orc);
-	_vToTalRender.push_back(_orc);
-
-	gameObject* _orc1 = new orc;
-	_orc1->init(5, 7, _vTile);
-	_vGameObject.push_back(_orc1);
-	_vToTalRender.push_back(_orc1);
-
-	//---------------------------------------------------------------------------------
-		//DATABASE->getElementData(std::to_string(i))->;
-		//_vStr[4] -> 몹 구별 넘버값이면 이걸로 스위치 돌리고
-		//_vStr[3] _vStr[2]-> x, y 타일 넘버 넘겨주면서 인잇하고 벡터 넣어준다.
-
 }
+	
 
 void gameObjectManager::setObject()
 {
@@ -254,8 +283,6 @@ void gameObjectManager::setObject()
 			default:
 				break;
 			}
-
-
 			rnd->init(imageName,
 				DATABASE->getElementData(std::to_string(i))->x,
 				DATABASE->getElementData(std::to_string(i))->y,
@@ -304,6 +331,6 @@ void gameObjectManager::loadMapData()
 		}
 
 		//if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == S_ZEN) vObjSize++;
-		//if ((*_viTile)->state == S_ONENM) vEnmSize++;
+		//if ((*_viTile)->state == S_ONENM || (*_viTile)->state == BOSS) vEnmSize++;
 	}
 }

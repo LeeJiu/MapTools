@@ -141,6 +141,8 @@ void inventory::keyControl()
 			{
 				if (!_item.getVItem()[i].isWear && !_isWear)
 				{
+					SOUNDMANAGER->play("click", 1.f);
+
 					_onItemButton = true;		//버튼 그린다.
 					_equip = IMAGEMANAGER->findImage("inven_equip");
 
@@ -159,17 +161,23 @@ void inventory::keyControl()
 			if (!_isWear && _onItemButton)
 			{
 				//장착 불가능 하면 아무것도 안 한다.
-				if (!checkEquip()) return;
+				if (!checkEquip())
+				{
+					SOUNDMANAGER->play("ban", 1.f);
+					return;
+				}
 
 				_onItemButton = false;		//버튼 안 그린다.
 				
 				_item.getVItem()[_selectItemNum].isWear = true;
 				_isWear = _item.getVItem()[_selectItemNum].isWear;
 				//현재 캐릭터의 장비 상태를 변경한다.
+
+				SOUNDMANAGER->play("equip", 1.f);
+
 				setEquip(_isWear);
 				//착용한 아이템을 목록에서 삭제한다.
 				_item.removeItem(_selectItemNum);
-
 				if (_item.getVItem().size() <= 0) return;
 
 				updateItemInfo(_item.getVItem().front());
@@ -180,6 +188,9 @@ void inventory::keyControl()
 
 				//착용했던 장비를 아이템 목록에 추가한다.
 				_item.setItem(_weapon.c_str(), false);
+
+				SOUNDMANAGER->play("equip", 1.f);
+
 				_isWear = _item.getVItem().back().isWear;
 
 				//현재 캐릭터의 장비 상태를 변경한다.
@@ -304,6 +315,7 @@ bool inventory::checkEquip()
 void inventory::setItem(const char* itemName, bool isWear)
 {
 	_item.setItem(itemName, isWear);
+	//
 }
 
 void inventory::setClassStates(int level, int counter, int mv, int jm)

@@ -11,7 +11,7 @@ objects::~objects()
 {
 }
 
-HRESULT objects::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile)
+HRESULT objects::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile)
 {
 	_name = strkey;
 	
@@ -50,7 +50,8 @@ HRESULT objects::init(const char* strkey, int x, int y, int imageNum, vector<Tag
 
 	_count = 0;
 	_curFrameX = 0;
-
+	
+	_pivotY = _tile[_indexX][_indexY]->pivotY;
 	return S_OK;
 }
 
@@ -87,9 +88,11 @@ void objects::render()
 	if (_isFrame)
 		_character->frameRender(getMemDC(), _rc.left, _rc.top);
 	else
+	{
+		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 		_character->render(getMemDC(), _rc.left, _rc.top);
+	}
 
-	//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 }
 
 void objects::previousState()

@@ -424,7 +424,7 @@ void battleUI::orderListClick(int orderNumber)
 
 		break;
 	case 5:	//포기
-		SCENEMANAGER->changeScene("town");
+		SCENEMANAGER->changeScene("selectStage");
 		break;
 	case 6:	//설정
 
@@ -469,6 +469,7 @@ void battleUI::unitOrderListClick(int unitOrderNumber)
 	}
 }
 
+//TURN CHANGE SHOW 출력
 void battleUI::turnChange()
 {
 	_isTurnShow = true;
@@ -534,9 +535,7 @@ void battleUI::turnChange()
 				}
 			}
 		}
-	}
-	//_isTurnType = !_isTurnType;
-	
+	}	
 
 	//처음 턴일 때 STAGE START 출력
 	if (_isFirstShow)
@@ -583,6 +582,22 @@ void battleUI::LButtonClick()
 		{
 			if (PtInRect(&_rcCharacterListBody[i], _ptMouse))
 			{
+				switch (i)
+				{
+				case 0 : 
+					SOUNDMANAGER->play("prinny_on", 1);
+					break;
+				case 1:
+					SOUNDMANAGER->play("flonne_on", 1);
+					break;
+				case 2:
+					SOUNDMANAGER->play("rasberyl_on", 1);
+					break;
+				case 3:
+					SOUNDMANAGER->play("etna_on", 1);
+					break;
+				}
+				
 				_gameObjMgr->getGameObject()[i]->setIsShow(true);
 				_isOnStatus = false;
 				_isOnCharacterList = false;
@@ -620,22 +635,6 @@ void battleUI::LButtonClick()
 		}
 	}
 	
-	//if (_gameObjMgr->getGameObject()[i]->getIsShow())
-	//{
-	//	_selectCharacterNumber = i;
-	//	_isSelectCharacter = true;
-	//	_isOnUnitOrderList = true;
-	//	_battleCamera->setCameraTile(_gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexX(), _gameObjMgr->getGameObject()[_selectCharacterNumber]->getIndexY());
-	//	return;
-	//}
-	//else
-	//{
-	//	_isSelectCharacter = false;
-	//	_selectCharacterNumber = 0;
-	//	_isSelectCharacter = false;
-	//	_isOnUnitOrderList = false;
-	//}
-
 	//타일을 클릭했는지 체크하자
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
@@ -646,6 +645,7 @@ void battleUI::LButtonClick()
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
 				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 			{
+				//소환 타일을 선택했는지 체크하자
 				if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
 				{
 					// 그 위치에 케릭터가 있다면 
@@ -711,7 +711,20 @@ void battleUI::LButtonClick()
 						_isSelectCharacter = false;
 					}
 				}
-				
+				else
+				{
+					if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
+					{
+						_isOnStatus = true;
+						_isOnCharacterList = true;
+					}
+					else
+					{
+						_isOnStatus = false;
+						_isOnCharacterList = false;
+					}
+
+				}
 			}
 		}
 	}
@@ -809,11 +822,12 @@ void battleUI::checkMouseOverCharacter()
 
 					}
 				}
+				else
+				{
+					_isOnBottomStatus = false;
+				}
 			}
-			else
-			{
-				_isOnBottomStatus = false;
-			}
+			
 		}
 	}	
 

@@ -13,6 +13,8 @@ store::~store()
 
 HRESULT store::init()
 {
+	SOUNDMANAGER->stop("step");
+
 	//판매할 아이템을 세팅
 	_item.setItem("sword", false);
 	_item.setItem("staff", false);
@@ -128,6 +130,7 @@ void store::buyItem(const char* itemName)
 	{
 		_prinny->setHell(remainHell);
 		_prinny->setItem(itemName, false);
+		SOUNDMANAGER->play("sell", 1);
 		_hell = std::to_string(remainHell);
 	}
 }
@@ -141,6 +144,8 @@ void store::keyControl()
 		{
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
+				SOUNDMANAGER->play("click", 1.f);
+
 				showItemInfoAll(i);
 				_buyItemIdx = i;
 				break;
@@ -158,6 +163,8 @@ void store::keyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
+			SOUNDMANAGER->play("click", 1.f);
+
 			_prinny->saveData();
 			SCENEMANAGER->changeScene("town");
 		}

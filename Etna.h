@@ -7,7 +7,7 @@ public:
 	~etna();
 
 	virtual HRESULT init();
-	virtual HRESULT init(int x, int y, vector<TagTile*> tile);
+	virtual HRESULT init(int x, int y, vector<TagTile*>& tile);
 	void release();
 	void update();
 	void render();

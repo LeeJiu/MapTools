@@ -16,7 +16,7 @@ HRESULT raspberyl::init()
 	return S_OK;
 }
 
-HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
+HRESULT raspberyl::init(int x, int y, vector<TagTile*>& tile)
 {
 	for (int i = 0; i < 100; i++)
 	{
@@ -24,6 +24,7 @@ HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
 	}
 
 	_name = "raspberyl";
+	loadData();
 
 	_isCharacter = true;
 
@@ -45,18 +46,37 @@ HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
 	_vTile = tile;
 	_indexX = x;
 	_indexY = y;
-
+	
 	_moveSpeed = 3;
+
+	_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
+		_character->getFrameWidth(), _character->getFrameHeight());
+	_x = (_rc.right + _rc.left) / 2;
+	_y = (_rc.top + _rc.bottom) / 2;
+
+	_maxHp = _hp;
+
+	_hpBar = new progressBar2;
+	_hpBar->init(_x, _rc.top - 10, 120, 10);
+	_hpBar->gauge(100, 100);
 
 	return S_OK;
 }
 
 void raspberyl::release()
 {
+	_hpBar->release();
+	SAFE_DELETE(_hpBar);
 }
 
 void raspberyl::update()
 {
+	_hpBar->setX(_x);
+	_hpBar->setY(_rc.top - 10);
+	_hpBar->update();
+
+	_pivotY = _tile[_indexX][_indexY]->pivotY;
+
 	gameObject::setDirectionImage();
 	setImage();
 
@@ -77,6 +97,7 @@ void raspberyl::render()
 		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+		_hpBar->render();
 	}
 }
 

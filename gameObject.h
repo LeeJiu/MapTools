@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+#include "progressBar2.h"
 
 class gameObject : public gameNode
 {
@@ -14,11 +15,14 @@ protected:
 	int _curFrameX, _curFrameY, _count;
 
 	image* _character;
+	image* _shadow;
 	RECT _rc;
 	int _x, _y;																		// 이미지(렉트) 센터x 센터y
 	int _oldX, _oldY;																// 전투맵의 이전의 x, y 인덱스
 	int _indexX, _indexY;															// 전투맵의 현재의 x, y 인덱스
 	int _destX, _destY;																// 전투맵의 목적지 x, y 인덱스
+
+	float _pivotY;
 
 	vector<string> _mercenary;
 
@@ -37,6 +41,8 @@ protected:
 	CHARACTER_STATE _characterState;
 	CHARACTER_DIRECTION _characterDir;
 
+	progressBar2* _hpBar;
+
 public:
 	gameObject();
 	~gameObject();
@@ -46,8 +52,8 @@ public:
 
 	//전투맵 init
 	virtual HRESULT init(vector<TagTile*> tile);
-	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile);
-	virtual HRESULT init(int x, int y, vector<TagTile*> tile);
+	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile);
+	virtual HRESULT init(int x, int y, vector<TagTile*>& tile);
 	virtual void release();
 	virtual void update();
 	virtual void render();
@@ -66,9 +72,10 @@ public:
 	virtual void showPossibleAttackTile();											// 공격가능한 타일 보여주는 함수
 	virtual void previousState();												// 이전으로 돌아가는 함수
 	virtual void attack(int targetX, int targetY);
+	virtual void pain(int x, int y, int damage);
 	virtual void move();
 	virtual void setDirectionImage();
-	virtual void setCharacterMove(int endX, int endY, vector<TagTile*> vRoute);
+	virtual void setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute);
 	virtual void setTilePosition(float x, float y);
 	virtual void setFrame();
 
@@ -78,7 +85,7 @@ public:
 	virtual void setHell(int hell) = 0;
 	virtual void setIsShowPossibleMoveTile(bool isShowPossibleMoveTile) { _isShowPossibleMoveTile = isShowPossibleMoveTile; }
 	virtual void setIsShowPossibleAttackTile(bool isSHowPossibleAttackTile) { _isShowPossibleAttackTile = isSHowPossibleAttackTile; }
-	virtual void setVRoute(vector<TagTile*> tile) { _vRoute = tile; }
+	virtual void setVRoute(vector<TagTile*>& tile) { _vRoute = tile; }
 	virtual void setIsMove(bool isMove) { _isMove = isMove; }
 	virtual void setIsShow(bool isShow) { _isShow = isShow; }
 	virtual void setHp(int damage) { _hp -= damage; if (_hp < 0) _hp = 0; }
@@ -106,6 +113,7 @@ public:
 	virtual int getExp() { return _exp; }
 	virtual int getIndexX() { return _indexX; }
 	virtual int getIndexY() { return _indexY; }
+	virtual float getPivotY() { return _pivotY; }
 	virtual bool getIsOrdering() { return _isOrdering; } 
 	virtual RECT getCharacterRect() { return _rc; }
 	virtual bool getIsShow() { return _isShow; }

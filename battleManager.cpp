@@ -33,16 +33,14 @@ void battleManager::update()
 	//(PLAYER TURN)
 	if (_isTurnType)
 	{
-
 	}
 
 	//(ENEMY TURN)
 	if (!_isTurnType)
 	{
-
 	}
 
-	if (_orderNumber < _vOrder.size())
+	if (_orderNumber <= _vOrder.size())
 	{
 		if (_isDoOrdering)
 		{
