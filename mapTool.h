@@ -100,7 +100,6 @@ public:
 	void setPickNum();
 
 	void keyControl();
-	void selectMap();
 	void saveMapData();
 	void loadMapData();
 	void resetMapData();

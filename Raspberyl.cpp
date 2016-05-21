@@ -16,7 +16,7 @@ HRESULT raspberyl::init()
 	return S_OK;
 }
 
-HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
+HRESULT raspberyl::init(int x, int y, vector<TagTile*>& tile)
 {
 	for (int i = 0; i < 100; i++)
 	{

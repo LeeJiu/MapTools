@@ -11,7 +11,7 @@ battleCamera::~battleCamera()
 {
 }
 
-HRESULT battleCamera::init(vector<TagTile*> tile)
+HRESULT battleCamera::init(vector<TagTile*>& tile)
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{

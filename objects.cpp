@@ -11,7 +11,7 @@ objects::~objects()
 {
 }
 
-HRESULT objects::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile)
+HRESULT objects::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile)
 {
 	_name = strkey;
 	

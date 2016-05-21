@@ -16,7 +16,7 @@ HRESULT flonne::init()
 	return S_OK;
 }
 
-HRESULT flonne::init(int x, int y, vector<TagTile*> tile)
+HRESULT flonne::init(int x, int y, vector<TagTile*>& tile)
 {
 	_name = "flonne";
 

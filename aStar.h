@@ -34,9 +34,9 @@ public:
 	void reset();
 	void eraseVector(int x, int y);
 	void resultRoute(int x, int y);
-	void setTile(vector<TagTile*> tile);
+	void setTile(vector<TagTile*>& tile);
 
-	vector<TagTile*> moveCharacter(int startX, int startY, int endX, int endY);
+	vector<TagTile*>& moveCharacter(int startX, int startY, int endX, int endY);
 
 	static bool cmp(TagTile* start, TagTile* end) { return start->f < end->f; }
 };
