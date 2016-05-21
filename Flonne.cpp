@@ -21,6 +21,7 @@ HRESULT flonne::init(int x, int y, vector<TagTile*>& tile)
 	_name = "flonne";
 
 	loadData();
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_isCharacter = true;
 	_character = IMAGEMANAGER->findImage("flonne_idle");
 	_characterState = IDLE;
@@ -88,6 +89,7 @@ void flonne::render()
 	{
 		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+		_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_hpBar->render();
 	}
