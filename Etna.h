@@ -8,6 +8,7 @@ public:
 
 	virtual HRESULT init();
 	virtual HRESULT init(int x, int y, vector<TagTile*>& tile);
+	virtual HRESULT init(int x, int y, gameObjectManager* gom);
 	void release();
 	void update();
 	void render();

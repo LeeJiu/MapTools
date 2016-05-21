@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "etna.h"
-
+#include "gameObjectManager.h"
 
 etna::etna()
 {
@@ -33,19 +33,58 @@ HRESULT etna::init(int x, int y, vector<TagTile*>& tile)
 	_isUp = true;
 	_isShow = false;
 
-	for (int i = 0; i < TOTALTILE(TILENUM); i++)
-	{
-		_tile[i % TILENUM][i / TILENUM] = tile[i];
-	}
+	//for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	//{
+	//	_tile[i % TILENUM][i / TILENUM] = tile[i];
+	//}
 
-	_vTile = tile;
+	//_vTile = tile;
 	_indexX = x;
 	_indexY = y;
 
 	_moveSpeed = 3;
 
-	_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, 
-		_character->getFrameWidth(), _character->getFrameHeight());
+	/*_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, 
+		_character->getFrameWidth(), _character->getFrameHeight());*/
+	_x = (_rc.right + _rc.left) / 2;
+	_y = (_rc.top + _rc.bottom) / 2;
+
+	_maxHp = _hp;
+
+	_hpBar = new progressBar2;
+	_hpBar->init(_x, _rc.top - 10, 120, 10);
+	_hpBar->gauge(_hp, _maxHp);
+
+	return S_OK;
+}
+
+HRESULT etna::init(int x, int y, gameObjectManager * gom)
+{
+	_name = "etna";
+
+	loadData();
+
+	_isCharacter = true;
+	_character = IMAGEMANAGER->findImage("etna_idle");
+	_characterState = IDLE;
+	_characterDir = RT;
+	_curFrameX = 0;
+	_count = 0;
+
+	_isRight = true;
+	_isUp = true;
+	_isShow = false;
+
+	_gameObjMgr = gom;
+	
+	_indexX = x;
+	_indexY = y;
+
+	_moveSpeed = 3;
+
+	_rc = RectMakeIso(_gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+	/*_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
+		_character->getFrameWidth(), _character->getFrameHeight());*/
 	_x = (_rc.right + _rc.left) / 2;
 	_y = (_rc.top + _rc.bottom) / 2;
 
@@ -75,7 +114,7 @@ void etna::update()
 
 	if (!_isMove)
 	{
-		_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+		_rc = RectMakeIso(_gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
 		_x = (_rc.right + _rc.left) / 2;
 		_y = (_rc.top + _rc.bottom) / 2;
 	}
