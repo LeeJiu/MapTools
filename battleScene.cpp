@@ -13,9 +13,13 @@ battleScene::~battleScene()
 
 HRESULT battleScene::init()
 {	
+
+
 	_count = 0;
 	_volume = 0.2f;
-	SOUNDMANAGER->play("battleScene", _volume);
+	_Prinny_voluem = 0;
+	SOUNDMANAGER->play("step", _Prinny_voluem);
+	SOUNDMANAGER->play("battleScene_bg", _volume);
 
 	_gameObjMgr = new gameObjectManager;
 	_gameObjMgr->init();
@@ -53,12 +57,17 @@ void battleScene::release()
 	_gameObjMgr->release();
 	_battleMgr->release();
 	_battleUI->release();
+
+	SOUNDMANAGER->stop("battleScene_bg");
 }
 
 void battleScene::update()
 {
 	if (_volume < 0.8f) _volume += 0.005f;
-	SOUNDMANAGER->setVolum("battleScene", _volume);
+	SOUNDMANAGER->setVolum("battleScene_bg", _volume);
+	SOUNDMANAGER->setVolum("step", _Prinny_voluem);
+
+	//_Prinny_voluem = 
 
 	_gameObjMgr->update();
 	_battleMgr->update();

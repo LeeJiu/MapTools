@@ -93,15 +93,28 @@ HRESULT gameStudy::init()
 
 	
 	//사운드
-	//마을
+	//배경음
 	SOUNDMANAGER->addSound("town_bg", "sound/town.mp3", true, true);
+	SOUNDMANAGER->addSound("title_bg", "sound/title.mp3", true, true);
+	SOUNDMANAGER->addSound("battleScene_bg", "sound/battleScene.mp3", true, true);
+	SOUNDMANAGER->addSound("selectStage_bg", "sound/selectStage_bg.mp3", true, true);
+
+	//효과음
 	SOUNDMANAGER->addSound("step", "sound/step.wav", true, true);
 	SOUNDMANAGER->addSound("sell", "sound/sell.wav", false, false);
-	SOUNDMANAGER->addSound("title", "sound/title.mp3", true, true);
-	SOUNDMANAGER->addSound("battleScene", "sound/battleScene.mp3", true, true);
 	SOUNDMANAGER->addSound("equip", "sound/equip.wav", false, false);
 	SOUNDMANAGER->addSound("ban", "sound/ban.wav", false, false);
 	SOUNDMANAGER->addSound("button", "sound/button.wav", false, false);
+	SOUNDMANAGER->addSound("click", "sound/click.wav", false, false);
+	SOUNDMANAGER->addSound("pain", "sound/pain.wav", false, false);
+	SOUNDMANAGER->addSound("heal", "sound/heal.wav", false, false);
+	SOUNDMANAGER->addSound("heal2", "sound/heal2.wav", false, false);
+	SOUNDMANAGER->addSound("prinny_on", "sound/prinny_on.wav", false, false);
+	SOUNDMANAGER->addSound("prinny_go", "sound/prinny_go.wav", false, false);
+	SOUNDMANAGER->addSound("prinny_attack", "sound/prinny_attack.wav", true, true);
+	SOUNDMANAGER->addSound("stage_clear", "sound/stage_clear.wav", false, false);
+	SOUNDMANAGER->addSound("skill_cut", "sound/skill_cut.wav", false, false);
+
 
 	SCENEMANAGER->changeScene("title");
 

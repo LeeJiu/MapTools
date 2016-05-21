@@ -141,6 +141,8 @@ void inventory::keyControl()
 			{
 				if (!_item.getVItem()[i].isWear && !_isWear)
 				{
+					SOUNDMANAGER->play("click", 1.f);
+
 					_onItemButton = true;		//버튼 그린다.
 					_equip = IMAGEMANAGER->findImage("inven_equip");
 

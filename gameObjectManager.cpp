@@ -15,6 +15,8 @@ gameObjectManager::~gameObjectManager()
 HRESULT gameObjectManager::init()
 {
 	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
+
+
 	_aStar = new aStar;
 	_aStar->init();
 	vEnmSize = vObjSize = 0;
@@ -75,6 +77,7 @@ void gameObjectManager::render()
 void gameObjectManager::setUnitMove(int i, int destX, int destY)
 {
 	_vGameObject[i]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
+	SOUNDMANAGER->play("step", 1);
 }
 
 void gameObjectManager::setUnitAttack(int i, int destX, int destY)
@@ -83,6 +86,7 @@ void gameObjectManager::setUnitAttack(int i, int destX, int destY)
 	{
 		_vGameObject[i]->attack(destX, destY);
 		_isAction = true;
+		SOUNDMANAGER->play("prinny_attack", 1);
 	}
 	else
 	{
