@@ -64,6 +64,7 @@ HRESULT flonne::init(int x, int y, gameObjectManager * gom)
 
 	loadData();
 	_isCharacter = true;
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = IMAGEMANAGER->findImage("flonne_idle");
 	_characterState = IDLE;
 	_characterDir = RT;

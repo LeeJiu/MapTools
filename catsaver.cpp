@@ -22,12 +22,8 @@ HRESULT catsaver::init(int x, int y, vector<TagTile*>& tile)
 	//	_tile[i % TILENUM][i / TILENUM] = tile[i];
 	//}
 
-<<<<<<< HEAD
 	//_pivotY = _tile[_indexX][_indexY]->pivotY;
-=======
-	_pivotY = _tile[_indexX][_indexY]->pivotY;
 	_shadow = IMAGEMANAGER->findImage("shadow");
->>>>>>> origin/development
 	_character = new image;
 	_character->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
 	_characterState = IDLE;
@@ -53,7 +49,7 @@ HRESULT catsaver::init(int x, int y, gameObjectManager * gom)
 	_indexY = y;
 
 	_gameObjMgr = gom;
-
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = new image;
 	_character->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
 	_characterState = IDLE;
