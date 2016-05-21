@@ -126,9 +126,20 @@ void orc::render()
 {
 	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+<<<<<<< HEAD
 	_shadow->render(getMemDC(), _rc.left + 15, _rc.bottom - _shadow->getFrameHeight() / 2);
 	_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 	_hpBar->render();
+=======
+
+	if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
+	{
+		_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
+		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+		_hpBar->render();
+
+	}
+>>>>>>> refs/remotes/origin/development
 }
 
 void orc::setImage()

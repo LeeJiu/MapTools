@@ -44,6 +44,7 @@ void gameObjectManager::render()
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
+		if (_vTile[i]->pivotX > _cameraX && _vTile[i]->pivotX < _cameraX + WINSIZEX && _vTile[i]->pivotY > _cameraY && _vTile[i]->pivotY < _cameraY + WINSIZEY)
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 

@@ -123,18 +123,23 @@ void objects::update()
 		_rc = RectMake(_gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotX - _width / 2, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotY + WIDTH / 4 - _height / 2, _width, _height);
 	else if (_height > WIDTH / 2)
 		_rc = RectMake(_gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotX - _width / 2, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->rc.bottom - _height, _width, _height);
+
+	_x = (_rc.right + _rc.left) / 2;
+	_y = (_rc.top + _rc.bottom) / 2;
 }
 
 void objects::render()
 {
-	if (_isFrame)
-		_character->frameRender(getMemDC(), _rc.left, _rc.top);
-	else
+	if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
 	{
-		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-		_character->render(getMemDC(), _rc.left, _rc.top);
+		if (_isFrame)
+			_character->frameRender(getMemDC(), _rc.left, _rc.top);
+		else
+		{
+			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+			_character->render(getMemDC(), _rc.left, _rc.top);
+		}
 	}
-
 }
 
 void objects::previousState()

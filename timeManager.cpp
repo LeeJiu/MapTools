@@ -52,7 +52,7 @@ void timeManager::render(HDC hdc)
 		{
 			//프레임 찍어주자
 			sprintf_s(str, "framePerSec : %d", _timer->getFrameRate());
-			TextOut(hdc, 800, 0, str, strlen(str));
+			TextOut(hdc, _click.x, _click.y, str, strlen(str));
 
 			//월드 타임 찍어주자
 			sprintf_s(str, "worldTime : %f", _timer->getWorldTime());
