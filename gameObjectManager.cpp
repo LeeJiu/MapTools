@@ -154,7 +154,7 @@ void gameObjectManager::setCharacter()
 {
 	// 프리니정보 로드해온다 (용병 개수 + 이름)
 	gameObject* _prinny = new prinny;
-	_prinny->init(_zenPosX, _zenPosY, _vTile);
+	_prinny->init(_zenPosX, _zenPosY, this);
 	_vGameObject.push_back(_prinny);
 	_vToTalRender.push_back(_prinny);
 	vCharSize++;
@@ -166,21 +166,21 @@ void gameObjectManager::setCharacter()
 		if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "etna") == 0)
 		{
 			gameObject* _etna = new etna;
-			_etna->init(_zenPosX, _zenPosY, _vTile);
+			_etna->init(_zenPosX, _zenPosY, this);
 			_vGameObject.push_back(_etna);
 			_vToTalRender.push_back(_etna);
 		}
 		else if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "flonne") == 0)
 		{
 			gameObject* _flonne = new flonne;
-			_flonne->init(_zenPosX, _zenPosY, _vTile);
+			_flonne->init(_zenPosX, _zenPosY, this);
 			_vGameObject.push_back(_flonne);
 			_vToTalRender.push_back(_flonne);
 		}
 		else if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "raspberyl") == 0)
 		{
 			gameObject* _raspberyl = new raspberyl;
-			_raspberyl->init(_zenPosX, _zenPosY, _vTile);
+			_raspberyl->init(_zenPosX, _zenPosY, this);
 			_vGameObject.push_back(_raspberyl);
 			_vToTalRender.push_back(_raspberyl);
 		}
@@ -226,14 +226,14 @@ void gameObjectManager::setEnemy()
 				enemy->init(
 					DATABASE->getElementData(std::to_string(i))->x,
 					DATABASE->getElementData(std::to_string(i))->y,
-					_vTile);
+					this);
 				break;
 			case 2:
 				enemy = new catsaver;
 				enemy->init(
 					DATABASE->getElementData(std::to_string(i))->x,
 					DATABASE->getElementData(std::to_string(i))->y,
-					_vTile);
+					this);
 				break;
 			default:
 				break;
@@ -286,7 +286,7 @@ void gameObjectManager::setObject()
 				DATABASE->getElementData(std::to_string(i))->x,
 				DATABASE->getElementData(std::to_string(i))->y,
 				DATABASE->getElementData(std::to_string(i))->imageNum,
-				_vTile);
+				this);
 
 			_vToTalRender.push_back(rnd);
 			vObjSize++;
