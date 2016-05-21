@@ -13,8 +13,6 @@ gameObject::~gameObject()
 
 HRESULT gameObject::init()
 {
-
-
 	return S_OK;
 }
 
@@ -64,11 +62,11 @@ void gameObject::move()
 			_indexX = _destX;
 			_indexY = _destY;
 			_isMove = false;
-			if(_isCharacter) _vRoute[_idx]->state = S_ONCHAR;
+			if (_isCharacter) _vRoute[_idx]->state = S_ONCHAR;
 			else _vRoute[_idx]->state = S_ONENM;
 			_characterState = IDLE;
 			_idx = 0;
-			
+
 			_pivotY = _tile[_indexX][_indexY]->pivotY;
 			return;
 		}
@@ -109,7 +107,6 @@ void gameObject::move()
 	gameObject::setTilePosition(_tile[0][0]->pivotX, _tile[0][0]->pivotY);
 }
 
-//타겟의 x, y를 보낸다.
 void gameObject::attack(int targetX, int targetY)
 {
 	if (_indexX > targetX && _indexY == targetY)
@@ -133,31 +130,9 @@ void gameObject::attack(int targetX, int targetY)
 	_isOrdering = true;
 }
 
-//딜러의 x, y, damage를 보낸다.
 void gameObject::pain(int x, int y, int damage)
 {
-	_hp -= damage;
-	_hpBar->gauge(_hp, _maxHp);
 
-	if (_indexX > x && _indexY == y)
-	{
-		_characterDir = LT;
-	}
-	else if (_indexX < x && _indexY == y)
-	{
-		_characterDir = RB;
-	}
-	else if (_indexX == x && _indexY > y)
-	{
-		_characterDir = RT;
-	}
-	else if (_indexX == x && _indexY < y)
-	{
-		_characterDir = LB;
-	}
-	_characterState = ETC;
-	_character->setFrameX(0);
-	_isOrdering = true;
 }
 
 void gameObject::setImage()
@@ -199,9 +174,9 @@ void gameObject::setFrame()
 			_curFrameX = 0;
 			/*if (_characterState == ATTACK)
 			{
-				_characterState = IDLE;
-				_isOrdering = false;
-				return;
+			_characterState = IDLE;
+			_isOrdering = false;
+			return;
 			}*/
 		}
 		_character->setFrameX(_curFrameX);
@@ -240,7 +215,7 @@ void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute)
 {
 	if (!_isMove)
 	{
-		if(_tile[_indexX][_indexY]->state != ZEN_POINT) _tile[_indexX][_indexY]->state = S_NONE;
+		if (_tile[_indexX][_indexY]->state != ZEN_POINT) _tile[_indexX][_indexY]->state = S_NONE;
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
@@ -276,8 +251,8 @@ void gameObject::showPossibleMoveTile()
 	{
 		if (abs(_indexX - _vTile[i]->x) + abs(_indexY - _vTile[i]->y) <= _mv)
 		{
-			if(_vTile[i]->state == S_NONE)
-			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+			if (_vTile[i]->state == S_NONE)
+				IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 		}
 	}
 }

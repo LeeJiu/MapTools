@@ -11,6 +11,9 @@ bool _leftButtonDown = false;
 bool _rightButtonDown = false;
 int _scrollPosX = 0;
 int _scrollPosY = 0;
+float _cameraX;
+float _cameraY;
+POINT _click = { _ptMouse.x + _cameraX, _ptMouse.y + _cameraY };
 
 gameStudy _gs;
 

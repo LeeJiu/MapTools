@@ -45,7 +45,6 @@ void gameObjectManager::render()
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		if (_vTile[i]->pivotX < -WIDTH / 2 || _vTile[i]->pivotX > WINSIZEX + WIDTH / 2 || _vTile[i]->pivotY < -WIDTH / 4 || _vTile[i]->pivotY > WINSIZEY + WIDTH / 4) continue;
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 
@@ -120,7 +119,7 @@ void gameObjectManager::setChangeTurn()
 void gameObjectManager::setTile()
 {	
 	// 미리 타일 셋해놓자
-	POINT firstPivot = { (316 + WINSIZEX) / 2, WIDTH / 4 };
+	POINT firstPivot = { WINSIZEX , WINSIZEY - TILENUM * WIDTH / 4 };
 
 	int count = 0;
 	for (int j = 0; j < TILENUM; j++)      // 세로 ( 열 )

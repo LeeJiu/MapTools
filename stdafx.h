@@ -71,3 +71,6 @@ extern bool _leftButtonDown;
 extern bool _rightButtonDown;
 extern int _scrollPosX;
 extern int _scrollPosY;
+extern float _cameraX;
+extern float _cameraY;
+extern POINT _click;
