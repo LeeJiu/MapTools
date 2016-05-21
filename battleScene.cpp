@@ -34,12 +34,15 @@ HRESULT battleScene::init()
 	_battleMgr->setBattleUIMemoryLink(_battleUI);
 	_battleMgr->setGameObjectManagerMemoryLink(_gameObjMgr);
 
+
 	_battleUI->setObjectManagerMemoryLink(_gameObjMgr);
 	_battleUI->setBattleManagerMemoryLink(_battleMgr);
 	_battleUI->setCharacterList();
 
 	_battleUI->setGameObjectSize();
 	_battleUI->setCamera();
+
+	_battleMgr->setEnemyAi();
 
 	return S_OK;
 }
@@ -63,4 +66,5 @@ void battleScene::render()
 	_gameObjMgr->render();
 	_battleMgr->render();
 	_battleUI->render();
+	_battleMgr->renderTurnShow();
 }

@@ -1,13 +1,16 @@
 #pragma once
+#include "gameNode.h"
 
 class battleManager;
 class gameObjectManager;
-class EnemyAI 
+class EnemyAI : public gameNode
 {
 private:
 	bool _isDoOrderAction;
 	int _orderCount;
 	int _enemySize;
+
+	vector<int> _vRndMoveTile;
 
 	battleManager* _battleMgr;
 	gameObjectManager* _gameObjMgr;
@@ -16,11 +19,12 @@ public:
 	~EnemyAI();
 
 	HRESULT init();
+	HRESULT init(battleManager* bm, gameObjectManager* gom);
 	void release();
 	void update();
 	void render();
 
-	void checkAllUnitOrder();
+	void checkAllEnemyUnitOrder();
 	void checkSelectedUnitClosedEnemy();
 	void setEnemyUnitMove();
 	void setEnemyUnitAttack();
@@ -28,7 +32,7 @@ public:
 
 	void setDoOrderAction() { _isDoOrderAction = true; }
 
-	void setbattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
-	void setgameObjectManagerMemoryLink(gameObjectManager* gameObjMgr) { _gameObjMgr = gameObjMgr; }
+	//void setbattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
+	//void setgameObjectManagerMemoryLink(gameObjectManager* gameObjMgr) { _gameObjMgr = gameObjMgr; }
 };
 

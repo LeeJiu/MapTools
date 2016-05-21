@@ -80,18 +80,6 @@ private:
 	char* _strTurnCount;					//현재 턴 표기용 char*
 
 
-	// ------------ 턴 표기용 변수들 ------------
-	bool _isTurnType;				//현재 TURN이 누구의 턴인가? TRUE = PLAYER, FALSE = ENEMY
-	bool _isTurnShow;				//TURN IMAGE를 SHOW 해줘야 하는가 말아야하는가?
-	bool _isFirstShow;				//BATTLE SCENE에 처음 들어왔는가?
-	bool _isTurnBackCenter;			//TURN IMAGE가 중앙까지 왔는가?
-	RECT _rcTurnBack;				//TURN IMAGE의 뒷 배경 RECT
-	image* _imageTurnStr;           //TURN IMAGE STR
-	image* _imageTurnBack;          //TURN IMAGE BACKGROUND
-	int _turnBackPosX;              //TURN RECT의 LEFT 위치
-	float _turnShowTime;			//TURN IMAGE가 중앙까지 왔을 때 1초간 지연 시킬 용도의 TIME
-	
-
 	// ------------ 마우스 오버 랩 된 SELECT TILE 출력용 변수 ------------
 	image* _imageSelectTile;        //선택 한 타일의 테두리 이미지
 	RECT _rcSelectTile;				//선택 한 타일의 테두리 출력용 RECT
@@ -145,22 +133,22 @@ public:
 	void initOrderList();
 	void initUnitOrderList();
 
-	void setTurnShow() { _isTurnShow = true; }	//외부에서 Turn Show를 시켜야 할 때 이 함수를 이용하여 Turn을 Show 시킨다
+	
 	void renderOverlapSelectTile();				//마우스 오버 랩 된 타일에 SelectTile Image를 출력
 	void renderOverlapAttackSelectTile();		//마우스 오버 랩 된 공격 타일에 SelectTile Image를 출력
 
 	bool checkTileOnCharacter(int i, int j);
 	void orderListClick(int orderNumber);
 	void unitOrderListClick(int unitOrderNumber);
-	void turnChange();
+		
+	void setIsOnStatus() { _isOnStatus = false; }
+	void setIsOnCharacterList() { _isOnCharacterList = false; }
 
 	//클릭 이벤트
 	void LButtonClick();
 	void RButtonClick();
 	void checkMouseOverList();
 	void checkMouseOverCharacter();
-
-	void setTurnTypeChangeToPlayer() { _isTurnType = true; }         //ENEMY에서 PLAYER TURN으로 넘어갈 떄 호출해서 PLAYER TURN IMAGE를 호출
 
 	void setArrowFrame();
 	void setCamera();

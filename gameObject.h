@@ -110,6 +110,7 @@ public:
 	virtual RECT getCharacterRect() { return _rc; }
 	virtual bool getIsShow() { return _isShow; }
 	virtual bool getIsAction() { return _isAction; }
+	virtual bool getIsCharacter() { return _isCharacter; }
 	virtual vector<string>& getMercenary() { return _mercenary; }
 	virtual bool getIsShowPossibleMoveTile() { return _isShowPossibleMoveTile; }
 	virtual bool getIsShowPossibleAttackTile() { return _isShowPossibleAttackTile; }

@@ -21,6 +21,10 @@
 #define WIDTH 128
 #define OFFSET 48
 #define TOTALTILE(tileNum) (tileNum) * (tileNum)
+enum TURN_TYPE
+{
+	PLAYER_TURN, ENEMY_TURN
+};
 
 enum TILESTATE
 {
