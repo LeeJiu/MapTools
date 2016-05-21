@@ -31,7 +31,6 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-
 	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{

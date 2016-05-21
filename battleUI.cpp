@@ -128,7 +128,7 @@ void battleUI::update()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) LButtonClick();
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON)) RButtonClick();
-
+	
 	checkMouseOverCharacter();
 	checkMouseOverList();
 
@@ -136,7 +136,7 @@ void battleUI::update()
 	updateRectPos();
 	setArrowFrame();
 	_count++;
-
+	
 	_progressBarHp->update();
 	_progressBarSp->update();
 }

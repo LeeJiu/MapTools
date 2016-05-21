@@ -13,8 +13,6 @@ battleScene::~battleScene()
 
 HRESULT battleScene::init()
 {	
-
-
 	_count = 0;
 	_volume = 0.2f;
 	_Prinny_voluem = 0;
