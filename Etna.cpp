@@ -16,12 +16,12 @@ HRESULT etna::init()
 	return S_OK;
 }
 
-HRESULT etna::init(int x, int y, vector<TagTile*> tile)
+HRESULT etna::init(int x, int y, vector<TagTile*>& tile)
 {
 	_name = "etna";
 
 	loadData();
-
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_isCharacter = true;
 	_character = IMAGEMANAGER->findImage("etna_idle");
 	_characterState = IDLE;
@@ -89,6 +89,7 @@ void etna::render()
 	{
 		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+		_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_hpBar->render();
 	}

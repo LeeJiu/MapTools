@@ -18,7 +18,7 @@ public:
 	virtual ~character();
 
 	virtual HRESULT init();
-	virtual HRESULT init(int x, int y, vector<TagTile*> tile);
+	virtual HRESULT init(int x, int y, vector<TagTile*>& tile);
 	virtual void release();
 	virtual void update();
 	virtual void render();

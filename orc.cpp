@@ -11,7 +11,7 @@ orc::~orc()
 {
 }
 
-HRESULT orc::init(int x, int y, vector<TagTile*> tile)
+HRESULT orc::init(int x, int y, vector<TagTile*>& tile)
 {
 	_kind = "orc";
 
@@ -22,6 +22,7 @@ HRESULT orc::init(int x, int y, vector<TagTile*> tile)
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
 	}
 
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = new image;
 	_character->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
 	_characterState = IDLE;
@@ -85,6 +86,7 @@ void orc::render()
 {
 	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+	_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
 	_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 	_hpBar->render();
 }

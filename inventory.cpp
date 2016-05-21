@@ -28,6 +28,7 @@ HRESULT inventory::init()
 
 	_itemImage = IMAGEMANAGER->findImage("none");
 	_equip = IMAGEMANAGER->findImage("none");
+	_icon = IMAGEMANAGER->findImage("prinny_icon");
 
 	return S_OK;
 }
@@ -46,6 +47,8 @@ void inventory::render()
 {
 	if (_invenOpen)
 	{
+		_icon->render(getMemDC(), _rcStatus.left + 5, _rcStatus.top + 67);
+
 		IMAGEMANAGER->findImage("inven_ch_status")->render(getMemDC(), _rcStatus.left, _rcStatus.top);
 		IMAGEMANAGER->findImage("inven_list")->render(getMemDC(), _rcItemList.left, _rcItemList.top);
 		IMAGEMANAGER->findImage("inven_info")->render(getMemDC(), _rcItemInfo.left, _rcItemInfo.top);
@@ -315,7 +318,28 @@ bool inventory::checkEquip()
 void inventory::setItem(const char* itemName, bool isWear)
 {
 	_item.setItem(itemName, isWear);
-	//
+}
+
+void inventory::setName(const char * name)
+{
+	_name = name;
+
+	if (strcmp(_name, "prinny") == 0)
+	{
+		_icon = IMAGEMANAGER->findImage("prinny_icon");
+	}
+	else if (strcmp(_name, "etna") == 0)
+	{
+		_icon = IMAGEMANAGER->findImage("etna_icon");
+	}
+	else if (strcmp(_name, "flonne") == 0)
+	{
+		_icon = IMAGEMANAGER->findImage("flonne_icon");
+	}
+	else if (strcmp(_name, "raspberyl") == 0)
+	{
+		_icon = IMAGEMANAGER->findImage("raspberyl_icon");
+	}
 }
 
 void inventory::setClassStates(int level, int counter, int mv, int jm)

@@ -30,6 +30,9 @@ HRESULT town::init()
 	_mercenaryNPC = IMAGEMANAGER->findImage("mercenary");
 	_mercenaryNPC->setFrameY(1);
 
+	_mercenaryShadow = IMAGEMANAGER->findImage("shadow");
+	_storeShadow = IMAGEMANAGER->findImage("shadow");
+
 	_battlePortal = IMAGEMANAGER->findImage("entrance_battle");
 	_storePortal = IMAGEMANAGER->findImage("entrance_store");
 	_etcPortal = IMAGEMANAGER->findImage("entrance_etc");
@@ -80,9 +83,11 @@ void town::render()
 	_etcPortal->frameRender(getMemDC(), 1134 - _sourX, 478 - _sourY,
 		_etcPortal->getFrameX(), _etcPortal->getFrameY());
 
+	_mercenaryShadow->render(getMemDC(), 1208 - _sourX - 15, 535 - _sourY + 120);
+	_storeShadow->render(getMemDC(), 1628 - _sourX - 15, 405 - _sourY + 120);
+
 	_mercenaryNPC->frameRender(getMemDC(), 1208 - _sourX, 535 - _sourY, _mercenaryNPC->getFrameX(), _mercenaryNPC->getFrameY());
 	_storeNPC->frameRender(getMemDC(), 1628 - _sourX, 405 - _sourY, _storeNPC->getFrameX(), _storeNPC->getFrameY());
-
 
 	_prinny->render();
 }

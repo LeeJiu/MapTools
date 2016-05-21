@@ -13,8 +13,6 @@ gameObject::~gameObject()
 
 HRESULT gameObject::init()
 {
-
-
 	return S_OK;
 }
 
@@ -23,12 +21,12 @@ HRESULT gameObject::init(vector<TagTile*> tile)
 	return S_OK;
 }
 
-HRESULT gameObject::init(int x, int y, vector<TagTile*> tile)
+HRESULT gameObject::init(int x, int y, vector<TagTile*>& tile)
 {
 	return S_OK;
 }
 
-HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile)
+HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile)
 {
 	return S_OK;
 }
@@ -64,11 +62,11 @@ void gameObject::move()
 			_indexX = _destX;
 			_indexY = _destY;
 			_isMove = false;
-			if(_isCharacter) _vRoute[_idx]->state = S_ONCHAR;
+			if (_isCharacter) _vRoute[_idx]->state = S_ONCHAR;
 			else _vRoute[_idx]->state = S_ONENM;
 			_characterState = IDLE;
 			_idx = 0;
-			
+
 			_pivotY = _tile[_indexX][_indexY]->pivotY;
 			return;
 		}
@@ -132,6 +130,11 @@ void gameObject::attack(int targetX, int targetY)
 	_isOrdering = true;
 }
 
+void gameObject::pain(int x, int y, int damage)
+{
+
+}
+
 void gameObject::setImage()
 {
 }
@@ -171,9 +174,9 @@ void gameObject::setFrame()
 			_curFrameX = 0;
 			/*if (_characterState == ATTACK)
 			{
-				_characterState = IDLE;
-				_isOrdering = false;
-				return;
+			_characterState = IDLE;
+			_isOrdering = false;
+			return;
 			}*/
 		}
 		_character->setFrameX(_curFrameX);
@@ -208,11 +211,11 @@ void gameObject::setDirectionImage()
 	}
 }
 
-void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
+void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute)
 {
 	if (!_isMove)
 	{
-		if(_tile[_indexX][_indexY]->state != ZEN_POINT) _tile[_indexX][_indexY]->state = S_NONE;
+		if (_tile[_indexX][_indexY]->state != ZEN_POINT) _tile[_indexX][_indexY]->state = S_NONE;
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
@@ -248,8 +251,8 @@ void gameObject::showPossibleMoveTile()
 	{
 		if (abs(_indexX - _vTile[i]->x) + abs(_indexY - _vTile[i]->y) <= _mv)
 		{
-			if(_vTile[i]->state == S_NONE)
-			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+			if (_vTile[i]->state == S_NONE)
+				IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 		}
 	}
 }

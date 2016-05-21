@@ -14,21 +14,14 @@ battleUI::~battleUI()
 
 HRESULT battleUI::init()
 {
-	_vOrderList.push_back("공격개시");
 	_vOrderList.push_back("턴 종료");
-	_vOrderList.push_back("보너스 표");
-	_vOrderList.push_back("캐릭터 명단");
-	_vOrderList.push_back("전투지식");
 	_vOrderList.push_back("포기");
-	_vOrderList.push_back("설정");
 
 	_vUnitOrderList.push_back("이동");
 	_vUnitOrderList.push_back("공격");
 	_vUnitOrderList.push_back("특수기술");
 	_vUnitOrderList.push_back("? ? ? ?");
 	_vUnitOrderList.push_back("방어");
-	_vUnitOrderList.push_back("아이템");
-	_vUnitOrderList.push_back("장비");
 	_vUnitOrderList.push_back("스테이터스");
 
 	_unitOrderListSize = _vUnitOrderList.size();
@@ -42,7 +35,7 @@ HRESULT battleUI::init()
 	_imageCharacterListTop = IMAGEMANAGER->addImage("character_list_top", "image/battleUI/ui_characterList_top.bmp", 250, 50, false, false);				//캐릭터 소환 목록 창 BACKGROUND IMAGE TOP
 																																							//~캐릭터 소환 목록 창 BACKGROUND IMAGE BODY
 	_imageCharacterListBottom = IMAGEMANAGER->addImage("character_list_bottom", "image/battleUI/ui_characterList_bottom.bmp", 250, 30, false, false);		//캐릭터 소환 목록 창 BACKGROUND IMAGE BOTTOM
-	
+
 	_rcStatus = RectMake(50, 100, _imageStatusBack->getWidth(), _imageStatusBack->getHeight());										  //캐릭터 상태 창 RECT
 	_rcBottomStatus = RectMake(50, WINSIZEY - 180, _imageBottomStatusBack->getWidth(), _imageBottomStatusBack->getHeight());		  //캐릭터 상태 창(바닥) RECT
 	_rcSkillTitle = RectMakeCenter(CENTERX, 50, _imageSkillTitleBack->getWidth(), _imageSkillTitleBack->getHeight());				  //스킬 타이틀 RECT
@@ -60,7 +53,7 @@ HRESULT battleUI::init()
 	_isOnBottomStatus = false;		//출력 여부 캐릭터 상태 창(바닥)
 	_isOnOrderList = false;			//출력 여부 일반 명령창
 	_isOnUnitOrderList = false;		//출력 여부 유닛 명령창
-	
+
 
 	IMAGEMANAGER->addImage("turnStart", "image/battleUI/ui_turnback_start.bmp", 461, 54, true, 0xff00ff);	   //TURN IMAGE STAGE START
 	IMAGEMANAGER->addImage("turnPlayer", "image/battleUI/ui_turnback_player.bmp", 489, 53, true, 0xff00ff);	   //TURN IMAGE PLAYER TURN
@@ -80,12 +73,12 @@ HRESULT battleUI::init()
 
 	_imageTurnCountBackground = IMAGEMANAGER->addImage("turnCountBack", "image/battleUI/ui_turnCountBack.bmp", 254, 56, false, false);	//TURN COUNT 출력 용 IMAGE
 	_rcTurnCountBack = RectMake(_rcOrderListTop.left, _rcOrderListTop.top - _imageTurnCountBackground->getHeight(),						//TURN COUNT 출력 용 RECT
-								_imageTurnCountBackground->getWidth(), _imageTurnCountBackground->getHeight());							//TURN COUNT 출력 용 RECT
+		_imageTurnCountBackground->getWidth(), _imageTurnCountBackground->getHeight());							//TURN COUNT 출력 용 RECT
 	_strTurnCount = 0;																													//TURN COUNT 출력 용 STR(INT)
 	_rcTurnCountStr = RectMake(_rcTurnCountBack.left + 10, _rcTurnCountBack.top + 15, 100, 40);
 
 	IMAGEMANAGER->addFrameImage("ui_arrow_blue", "image/battleUI/ui_arrow_blue.bmp", 711, 100, 9, 1, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("ui_arrow_red", "image/battleUI/ui_arrow_red.bmp", 711, 100, 9, 1, true, 0xff00ff); 
+	IMAGEMANAGER->addFrameImage("ui_arrow_red", "image/battleUI/ui_arrow_red.bmp", 711, 100, 9, 1, true, 0xff00ff);
 	_imageSelectTile = IMAGEMANAGER->addImage("selectTile", "image/battleUI/ui_selectTile.bmp", 128, 64, true, 0xff00ff);
 
 	_isOnSelectTarget = false;
@@ -126,7 +119,7 @@ void battleUI::update()
 		turnChange();
 		return;
 	}
-	
+
 	if (_isTurnShow)
 	{
 		turnChange();
@@ -140,6 +133,7 @@ void battleUI::update()
 	checkMouseOverList();
 
 	_battleCamera->update();
+	updateRectPos();
 	setArrowFrame();
 	_count++;
 
@@ -166,7 +160,7 @@ void battleUI::render()
 	font = CreateFont(20, 0, 0, 0, 800, false, 0, 0, HANGEUL_CHARSET, 0, 0, 0, 0, TEXT("굴림"));
 	oldFont = (HFONT)SelectObject(getMemDC(), font);
 
-	if(_isOnStatus) _imageStatusBack->render(getMemDC(), _rcStatus.left, _rcStatus.top);
+	if (_isOnStatus) _imageStatusBack->render(getMemDC(), _rcStatus.left, _rcStatus.top);
 	if (_isOnBottomStatus)
 	{
 		_imageBottomStatusBack->render(getMemDC(), _rcBottomStatus.left, _rcBottomStatus.top);
@@ -175,7 +169,7 @@ void battleUI::render()
 		_progressBarHp->render();
 		_progressBarSp->render();
 	}
-	if(_isOnSkillTitle) _imageSkillTitleBack->render(getMemDC(), _rcSkillTitle.left, _rcSkillTitle.top);
+	if (_isOnSkillTitle) _imageSkillTitleBack->render(getMemDC(), _rcSkillTitle.left, _rcSkillTitle.top);
 
 	// 케릭터 리스트 출력
 	if (_isOnCharacterList)
@@ -199,7 +193,7 @@ void battleUI::render()
 			DrawText(getMemDC(), TEXT(_vCharacterList[i].c_str()), -1, &_rcCharacterListStr[i], DT_LEFT | DT_VCENTER);
 		}
 
-		if(_IsOnListArrow) _imageListArrow->render(getMemDC(), _rcListArrow.left, _rcListArrow.top);
+		if (_IsOnListArrow) _imageListArrow->render(getMemDC(), _rcListArrow.left, _rcListArrow.top);
 	}
 
 	if (_isOnOrderList)
@@ -212,7 +206,7 @@ void battleUI::render()
 
 		_strTurnCount = " 턴 : ";
 		//strcat(_strTurnCount, itoa(_battleMgr->getTurnCount(), _strTurnCount, 10));
-		DrawText(getMemDC(), TEXT(_strTurnCount), -1, &_rcTurnCountStr, DT_LEFT|DT_VCENTER);
+		DrawText(getMemDC(), TEXT(_strTurnCount), -1, &_rcTurnCountStr, DT_LEFT | DT_VCENTER);
 		if (_IsOnListArrow) _imageListArrow->render(getMemDC(), _rcListArrow.left, _rcListArrow.top);
 	}
 
@@ -226,10 +220,10 @@ void battleUI::render()
 		if (_IsOnListArrow) _imageListArrow->render(getMemDC(), _rcListArrow.left, _rcListArrow.top);
 	}
 
-	
+
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
-	
+
 	// 스테이지시작, 에너미턴, 플레이어턴 출력
 	if (_isTurnShow)
 	{
@@ -249,7 +243,7 @@ void battleUI::setCharacterList()
 		_vCharacterList.push_back(_gameObjMgr->getGameObject()[i]->getName());
 	}
 
-	for (int i = 0; i < _characterSize; i++)										 
+	for (int i = 0; i < _characterSize; i++)
 	{
 		image* tempBody = new image;
 		tempBody->init("image/battleUI/ui_characterList_body.bmp", 250, 30, false, false);
@@ -291,7 +285,7 @@ void battleUI::initOrderList()
 }
 
 void battleUI::initUnitOrderList()
-{	
+{
 	_imageUnitOrderListTop = IMAGEMANAGER->findImage("orderlist_top");																  //유닛 명령 창 리스트 BACKGROUND IMAGE TOP
 	for (int i = 0; i < _unitOrderListSize; i++)																					  //유닛 명령 창 리스트 BACKGROUND IMAGE BODY
 	{																																  //
@@ -306,7 +300,7 @@ void battleUI::initUnitOrderList()
 	{																																													   //
 		RECT tempBody = RectMake(_rcUnitOrderListTop.left, _rcUnitOrderListTop.bottom + (30 * i), 254, 30);																				   //
 		_rcUnitOrderListBody.push_back(tempBody);																																		   //
-																																															//
+																																														   //
 		RECT tempRect = RectMake(_rcUnitOrderListBody[i].left + 20, _rcUnitOrderListBody[i].top + 5, _imageUnitOrderListTop->getWidth(), _imageUnitOrderListTop->getHeight());			   //
 		_rcUnitOrderListStr.push_back(tempRect);																																		   //
 	}																																													   //~유닛 명령 창 TOP RECT
@@ -324,12 +318,12 @@ void battleUI::renderOverlapSelectTile()
 			// 셀렉트 타일 + 케릭터 위 에로우출력
 			for (int i = 0; i < TOTALTILE(TILENUM); i++)
 			{
-				if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
+				if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _click))
 				{
-					if ((_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
-						(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
-						(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
-						(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
+					if ((_click.y - _gameObjMgr->getTile()[i]->pivotY) > -0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+						(_click.y - _gameObjMgr->getTile()[i]->pivotY) >  0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+						(_click.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
+						(_click.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 					{
 						_imageSelectTile->render(getMemDC(), _gameObjMgr->getTile()[i]->rc.left, _gameObjMgr->getTile()[i]->rc.top);
 						IMAGEMANAGER->findImage("ui_arrow_blue")->frameRender(getMemDC(), (_gameObjMgr->getTile()[i]->rc.left + _gameObjMgr->getTile()[i]->rc.right) / 2 - IMAGEMANAGER->findImage("ui_arrow_blue")->getFrameWidth() / 2
@@ -363,12 +357,12 @@ void battleUI::renderOverlapAttackSelectTile()
 	{
 		for (int i = 0; i < TOTALTILE(TILENUM); i++)
 		{
-			if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
+			if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _click))
 			{
-				if ((_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
-					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
-					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
-					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <= 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
+				if ((_click.y - _gameObjMgr->getTile()[i]->pivotY) > -0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+					(_click.y - _gameObjMgr->getTile()[i]->pivotY) >  0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+					(_click.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
+					(_click.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 				{
 					if (_gameObjMgr->getTile()[i]->state == S_ONENM)
 					{
@@ -381,7 +375,7 @@ void battleUI::renderOverlapAttackSelectTile()
 					}
 				}
 			}
-		}		
+		}
 	}
 }
 
@@ -389,7 +383,7 @@ bool battleUI::checkTileOnCharacter(int i, int j)
 {
 	for (int k = 0; k < _characterSize; k++)
 	{
-		if(_gameObjMgr->getGameObject()[k]->getIndexX() == i && _gameObjMgr->getGameObject()[k]->getIndexY() == j)
+		if (_gameObjMgr->getGameObject()[k]->getIndexX() == i && _gameObjMgr->getGameObject()[k]->getIndexY() == j)
 		{
 			if (_gameObjMgr->getGameObject()[k]->getIsShow())
 			{
@@ -507,7 +501,7 @@ void battleUI::turnChange()
 		}
 
 		//TURN FALSE = ENEMY TURN
-		if (! _isTurnType)
+		if (!_isTurnType)
 		{
 			_imageTurnStr = IMAGEMANAGER->findImage("turnEnemy");
 			if (!_isTurnBackCenter)
@@ -535,7 +529,7 @@ void battleUI::turnChange()
 				}
 			}
 		}
-	}	
+	}
 
 	//처음 턴일 때 STAGE START 출력
 	if (_isFirstShow)
@@ -563,12 +557,51 @@ void battleUI::turnChange()
 					_turnBackPosX = 0 - WINSIZEX;
 					_turnShowTime = 0;
 					_isTurnBackCenter = false;
-					
+
 				}
 			}
 		}
 	}
 
+}
+
+void battleUI::updateRectPos()
+{
+	_rcBottomStatus = RectMake(_cameraX + 50, _cameraY + WINSIZEY - 180, _imageBottomStatusBack->getWidth(), _imageBottomStatusBack->getHeight());		  //캐릭터 상태 창(바닥) RECT
+	_rcIconCharacter = RectMake(_cameraX + _rcBottomStatus.left + 20, _cameraY + _rcBottomStatus.top + 20, 110, 110);
+	_rcOrderListTop = RectMake(_cameraX + WINSIZEX - 300, _cameraY + 100, _imageOrderListTop->getWidth(), _imageOrderListTop->getHeight());
+	_rcUnitOrderListTop = RectMake(_cameraX + WINSIZEX - 300, _cameraY + 100, _imageUnitOrderListTop->getWidth(), _imageUnitOrderListTop->getHeight());
+	_rcCharacterListTop = RectMake(_cameraX + WINSIZEX - 400, _cameraY + 50, _imageCharacterListTop->getWidth(), _imageCharacterListTop->getHeight());
+	_rcCharacterListBottom = RectMake(_cameraX + WINSIZEX - 400, _rcCharacterListBody[_characterSize - 1].bottom, _imageCharacterListBottom->getWidth(), _imageCharacterListBottom->getHeight());
+	_rcStatus = RectMake(_cameraX + 50, _cameraY + 100, _imageStatusBack->getWidth(), _imageStatusBack->getHeight());
+
+	for (int i = 0; i < _rcCharacterListBody.size(); i++)
+	{
+		_rcCharacterListBody[i] = RectMake(_rcCharacterListTop.left, _rcCharacterListTop.bottom + (30 * i), 250, 30);
+		_rcCharacterListStr[i] = RectMake(_rcCharacterListBody[i].left + 20, _rcCharacterListBody[i].top + 5, 250, 30);
+	}
+	for (int i = 0; i < 6; i++)
+	{
+		_rcUnitOrderListBody[i] = RectMake(_rcUnitOrderListTop.left, _rcUnitOrderListTop.bottom + (30 * i), 254, 30);
+		_rcUnitOrderListStr[i] = RectMake(_rcUnitOrderListBody[i].left + 20, _rcUnitOrderListBody[i].top + 5, _imageUnitOrderListTop->getWidth(), _imageUnitOrderListTop->getHeight());
+	}
+
+	_rcUnitOrderListBottom = RectMake(_cameraX + WINSIZEX - 300, _rcUnitOrderListBody[_unitOrderListSize - 1].bottom, _imageUnitOrderListBottom->getWidth(), _imageUnitOrderListBottom->getHeight());
+
+	for (int i = 0; i < 2; i++)
+	{
+		_rcOrderListBody[i] = RectMake(_rcOrderListTop.left, _rcOrderListTop.bottom + (30 * i), 254, 30);
+		_rcOrderListStr[i] = RectMake(_rcOrderListBody[i].left + 20, _rcOrderListBody[i].top + 5, _imageOrderListTop->getWidth(), _imageOrderListTop->getHeight());
+	}
+
+	_rcOrderListBottom = RectMake(_cameraX + WINSIZEX - 300, _rcOrderListBody[_orderListSize - 1].bottom, _imageOrderListBottom->getWidth(), _imageOrderListBottom->getHeight());
+	_rcStatusBottomName = RectMake(_rcBottomStatus.left + 140, _rcBottomStatus.top + 20, 200, 40);
+	/*	_rcTurnCountBack
+	_rcTurnCountStr
+	_rcTurnBack
+	_rcSelectTile
+	_rcStatusBottomName
+	_rcSkillTitle*/
 }
 
 //마우스 왼쪽 버튼 클릭 이벤트
@@ -580,24 +613,8 @@ void battleUI::LButtonClick()
 		//캐릭터 리스트 중에 어떤 것을 선택했는지 체크하자
 		for (int i = 0; i < _characterSize; i++)
 		{
-			if (PtInRect(&_rcCharacterListBody[i], _ptMouse))
+			if (PtInRect(&_rcCharacterListBody[i], _click))
 			{
-				switch (i)
-				{
-				case 0 : 
-					SOUNDMANAGER->play("prinny_on", 1);
-					break;
-				case 1:
-					SOUNDMANAGER->play("flonne_on", 1);
-					break;
-				case 2:
-					SOUNDMANAGER->play("rasberyl_on", 1);
-					break;
-				case 3:
-					SOUNDMANAGER->play("etna_on", 1);
-					break;
-				}
-				
 				_gameObjMgr->getGameObject()[i]->setIsShow(true);
 				_isOnStatus = false;
 				_isOnCharacterList = false;
@@ -612,7 +629,7 @@ void battleUI::LButtonClick()
 		//일반 명령창을 선택했는지 체크하자
 		for (int i = 0; i < _orderListSize; i++)
 		{
-			if (PtInRect(&_rcOrderListBody[i], _ptMouse))
+			if (PtInRect(&_rcOrderListBody[i], _click))
 			{
 				orderListClick(i);
 				_isOnOrderList = false;
@@ -627,23 +644,23 @@ void battleUI::LButtonClick()
 		//유닛의 명령창을 선택했는지 체크하자
 		for (int i = 0; i < _unitOrderListSize; i++)
 		{
-			if (PtInRect(&_rcUnitOrderListBody[i], _ptMouse))
+			if (PtInRect(&_rcUnitOrderListBody[i], _click))
 			{
 				unitOrderListClick(i);
 				return;
 			}
 		}
 	}
-	
+
 	//타일을 클릭했는지 체크하자
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
+		if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _click))
 		{
-			if ((_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) > -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
-				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) >  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
-				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
-				(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
+			if ((_click.y - _gameObjMgr->getTile()[i]->pivotY) > -0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+				(_click.y - _gameObjMgr->getTile()[i]->pivotY) >  0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+				(_click.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
+				(_click.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 			{
 				//소환 타일을 선택했는지 체크하자
 				if (_gameObjMgr->getTile()[i]->state == ZEN_POINT)
@@ -734,21 +751,21 @@ void battleUI::LButtonClick()
 void battleUI::RButtonClick()
 {
 	if (!_isOnStatus && !_isOnCharacterList && !_isOnSkillTitle &&
-		!_isOnBottomStatus&& !_isOnOrderList && !_isOnUnitOrderList)
+		!_isOnBottomStatus && !_isOnOrderList && !_isOnUnitOrderList)
 	{
 		_isOnOrderList = true;
 	}
 	else
 	{
-		_isOnStatus			= false;
-		_isOnSkillTitle		= false;
-		_isOnBottomStatus	= false;
-		_isOnCharacterList	= false;
-		_isOnOrderList		= false;
-		_isOnUnitOrderList	= false;
-		_isOnSelectTile		= false;
-		_isOnSelectTarget	= false;
-		_isSelectCharacter	= false;
+		_isOnStatus = false;
+		_isOnSkillTitle = false;
+		_isOnBottomStatus = false;
+		_isOnCharacterList = false;
+		_isOnOrderList = false;
+		_isOnUnitOrderList = false;
+		_isOnSelectTile = false;
+		_isOnSelectTarget = false;
+		_isSelectCharacter = false;
 		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleAttackTile(false);
 		_gameObjMgr->getGameObject()[_selectCharacterNumber]->setIsShowPossibleMoveTile(false);
 	}
@@ -761,7 +778,7 @@ void battleUI::checkMouseOverList()
 	{
 		for (int i = 0; i < _characterSize; i++)
 		{
-			if (PtInRect(&_rcCharacterListBody[i], _ptMouse))
+			if (PtInRect(&_rcCharacterListBody[i], _click))
 			{
 				_rcListArrow = RectMake(_rcCharacterListBody[i].left - _imageListArrow->getWidth() / 2, _rcCharacterListBody[i].top, _imageListArrow->getWidth(), _imageListArrow->getHeight());
 				_IsOnListArrow = true;
@@ -772,7 +789,7 @@ void battleUI::checkMouseOverList()
 	{
 		for (int i = 0; i < _orderListSize; i++)
 		{
-			if (PtInRect(&_rcOrderListBody[i], _ptMouse))
+			if (PtInRect(&_rcOrderListBody[i], _click))
 			{
 				_rcListArrow = RectMake(_rcOrderListBody[i].left - _imageListArrow->getWidth() / 2, _rcOrderListBody[i].top, _imageListArrow->getWidth(), _imageListArrow->getHeight());
 				_IsOnListArrow = true;
@@ -783,7 +800,7 @@ void battleUI::checkMouseOverList()
 	{
 		for (int i = 0; i < _unitOrderListSize; i++)
 		{
-			if (PtInRect(&_rcUnitOrderListBody[i], _ptMouse))
+			if (PtInRect(&_rcUnitOrderListBody[i], _click))
 			{
 				_rcListArrow = RectMake(_rcUnitOrderListBody[i].left - _imageListArrow->getWidth() / 2, _rcUnitOrderListBody[i].top, _imageListArrow->getWidth(), _imageListArrow->getHeight());
 				_IsOnListArrow = true;
@@ -795,29 +812,29 @@ void battleUI::checkMouseOverList()
 
 //마우스 커서가 캐릭터에 오버 랩 되어있으면 캐릭터 상태 창(바닥)을 출력
 void battleUI::checkMouseOverCharacter()
-{	
+{
 	for (int i = 0; i < TILENUM * TILENUM; i++)
 	{
 		if (_gameObjMgr->getTile()[i]->state == S_ONCHAR || _gameObjMgr->getTile()[i]->state == S_ZEN)
 		{
-			if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _ptMouse))
+			if (PtInRect(&_gameObjMgr->getTile()[i]->rc, _click))
 			{
-				if ((_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) > -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
-					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) > 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
-					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
-					(_ptMouse.y - _gameObjMgr->getTile()[i]->pivotY) < 0.5 * (_ptMouse.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
+				if ((_click.y - _gameObjMgr->getTile()[i]->pivotY) > -0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+					(_click.y - _gameObjMgr->getTile()[i]->pivotY) >  0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) - WIDTH / 4 &&
+					(_click.y - _gameObjMgr->getTile()[i]->pivotY) < -0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4 &&
+					(_click.y - _gameObjMgr->getTile()[i]->pivotY) <  0.5 * (_click.x - _gameObjMgr->getTile()[i]->pivotX) + WIDTH / 4)
 				{
 					for (int j = 0; j < _characterSize; j++)
 					{
 						if (_gameObjMgr->getGameObject()[j]->getIsShow())
 						{
-							if (PtInRect(&_gameObjMgr->getGameObject()[j]->getCharacterRect(), _ptMouse))
+							if (PtInRect(&_gameObjMgr->getGameObject()[j]->getCharacterRect(), _click))
 							{
 								_isOnBottomStatus = true;
 								_statusBottomName = _gameObjMgr->getGameObject()[j]->getName();
 								_progressBarHp->gauge(_gameObjMgr->getGameObject()[j]->getHp(), 100);
 								_progressBarSp->gauge(_gameObjMgr->getGameObject()[j]->getSp(), 100);
-							}							
+							}
 						}
 
 					}
@@ -827,11 +844,11 @@ void battleUI::checkMouseOverCharacter()
 					_isOnBottomStatus = false;
 				}
 			}
-			
-		}
-	}	
 
-	
+		}
+	}
+
+
 }
 
 void battleUI::setArrowFrame()

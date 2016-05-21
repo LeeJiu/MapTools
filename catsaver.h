@@ -12,7 +12,7 @@ public:
 	catsaver();
 	~catsaver();
 
-	HRESULT init(int x, int y, vector<TagTile*> tile);
+	HRESULT init(int x, int y, vector<TagTile*>& tile);
 	void release();
 	void update();
 	void render();
