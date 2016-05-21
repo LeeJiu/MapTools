@@ -6,6 +6,8 @@
 class prinny : public character
 {
 private:
+	float _volume;
+
 	int _hell;
 	int _itemNum;			//소지 중인 아이템 수
 	int _mercenaryNum;		//고용 중인 용병 수
@@ -16,7 +18,7 @@ private:
 	RECT _invenExit, _invenNext;
 
 	bool _isbattle, _isOpenInven;
-
+	bool _isWalking;
 public:
 	prinny();
 	~prinny();

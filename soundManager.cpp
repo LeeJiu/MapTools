@@ -191,3 +191,19 @@ bool soundManager::isPlaySound(string keyName)
 
 	return isPlay;
 }
+
+
+void soundManager::setVolum(string keyName, float volume)
+{
+	arrSoundsIter iter = _mTotalSounds.begin();
+	int count = 0;
+	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	{
+		if (keyName == iter->first)
+		{
+			// º¼·ý ¼³Á¤
+			_channal[count]->setVolume(volume);
+			break;
+		}
+	}
+}

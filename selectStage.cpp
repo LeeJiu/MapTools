@@ -12,6 +12,9 @@ selectStage::~selectStage()
 
 HRESULT selectStage::init()
 {
+	SOUNDMANAGER->stop("step");
+	SOUNDMANAGER->stop("town_bg");
+
 	_mapListSize = 5;
 
 	IMAGEMANAGER->addImage("selectScene", "image/battleUI/selectScene.bmp", 1280, 720, false, false);

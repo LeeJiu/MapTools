@@ -91,6 +91,18 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("orc_attack", "image/character/orc_attack.bmp", 1764, 668, 7, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("orc_etc", "image/character/orc_pain.bmp", 468, 528, 4, 4, true, 0xff00ff);
 
+	
+	//사운드
+	//마을
+	SOUNDMANAGER->addSound("town_bg", "sound/town.mp3", true, true);
+	SOUNDMANAGER->addSound("step", "sound/step.wav", true, true);
+	SOUNDMANAGER->addSound("sell", "sound/sell.wav", false, false);
+	SOUNDMANAGER->addSound("title", "sound/title.mp3", true, true);
+	SOUNDMANAGER->addSound("battleScene", "sound/battleScene.mp3", true, true);
+	SOUNDMANAGER->addSound("equip", "sound/equip.wav", false, false);
+	SOUNDMANAGER->addSound("ban", "sound/ban.wav", false, false);
+	SOUNDMANAGER->addSound("button", "sound/button.wav", false, false);
+
 	SCENEMANAGER->changeScene("title");
 
 	return S_OK;

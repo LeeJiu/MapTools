@@ -13,6 +13,9 @@ prinny::~prinny()
 
 HRESULT prinny::init()
 {
+	_volume = 0.f;
+	SOUNDMANAGER->play("step", _volume);
+
 	_inventory = new inventory;
 	_inventory->init();
 
@@ -90,10 +93,14 @@ void prinny::release()
 
 	_hpBar->release();
 	SAFE_DELETE(_hpBar);
+
+	SOUNDMANAGER->stop("step");
 }
 
 void prinny::update()
 {
+	SOUNDMANAGER->setVolum("step", _volume);
+
 	gameObject::setDirectionImage();
 	setImage();
 
@@ -156,7 +163,6 @@ void prinny::keyControl()
 		{
 			_characterState = WALK;
 		}
-		
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
@@ -183,12 +189,22 @@ void prinny::keyControl()
 		}
 	}
 
+	//if (KEYMANAGER->isOnceKeyDown(VK_LEFT) ||
+	//	KEYMANAGER->isOnceKeyDown(VK_RIGHT) ||
+	//	KEYMANAGER->isOnceKeyDown(VK_UP) ||
+	//	KEYMANAGER->isOnceKeyDown(VK_DOWN))
+	//{
+
+	//}
+
+
 	if(KEYMANAGER->isOnceKeyUp(VK_LEFT) || KEYMANAGER->isOnceKeyUp(VK_RIGHT) 
 		|| KEYMANAGER->isOnceKeyUp(VK_UP) || KEYMANAGER->isOnceKeyUp(VK_DOWN))
 	{
 		_characterState = IDLE;
 		_curFrameX = 0;
 	}
+
 
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
@@ -252,22 +268,27 @@ void prinny::setImage()
 	{
 	case IDLE:
 		_character = IMAGEMANAGER->findImage("prinny_idle");
+		_volume = 0.f;
 		break;
 
 	case WALK:
 		_character = IMAGEMANAGER->findImage("prinny_walk");
+		_volume = 1.f;
 		break;
 
 	case ATTACK:
 		_character = IMAGEMANAGER->findImage("prinny_attack");
+		_volume = 0.f;
 		break;
 
 	case LIFT:
 		_character = IMAGEMANAGER->findImage("prinny_lift");
+		_volume = 0.f;
 		break;
 
 	case ETC:
 		_character = IMAGEMANAGER->findImage("prinny_etc");
+		_volume = 0.f;
 		break;
 	}
 

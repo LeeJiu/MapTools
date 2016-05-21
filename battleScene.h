@@ -10,6 +10,9 @@
 class battleScene : public gameNode
 {
 private:
+	float _volume;
+	int _count;
+
 	battleUI* _battleUI;
 	gameObjectManager* _gameObjMgr;
 	battleManager* _battleMgr;
