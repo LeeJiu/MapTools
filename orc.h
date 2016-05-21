@@ -11,6 +11,7 @@ public:
 	~orc();
 
 	virtual HRESULT init(int x, int y, vector<TagTile*>& tile);
+	virtual HRESULT init(int x, int y, gameObjectManager* gom);
 	virtual void release();
 	virtual void update();
 	virtual void render();
