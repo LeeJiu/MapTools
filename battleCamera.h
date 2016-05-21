@@ -28,7 +28,5 @@ public:
 	void cameraTile();
 	void cameraFree();
 
-	void setTile(float firstPivotX, float firstPivotY);
-
 };
 

@@ -139,7 +139,7 @@ void gameStudy::render()
 {
 	//백버퍼에서 뿌려준다
 	
-	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
+	PatBlt(getMemDC(), 0, 0, WINSIZEX * 3, WINSIZEY * 3, BLACKNESS);
 	//======================
 	//이 사이에서 그려주면 됨.
 
@@ -147,7 +147,7 @@ void gameStudy::render()
 
 	//======================
 	TIMEMANAGER->render(getMemDC());
-	this->getBackBuffer()->render(getHDC(), 0, 0);
+	this->getBackBuffer()->render(getHDC(), 0, 0, _cameraX, _cameraY, WINSIZEX, WINSIZEY);
 }
 
 
