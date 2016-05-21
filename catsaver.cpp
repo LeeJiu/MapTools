@@ -22,7 +22,12 @@ HRESULT catsaver::init(int x, int y, vector<TagTile*>& tile)
 	//	_tile[i % TILENUM][i / TILENUM] = tile[i];
 	//}
 
+<<<<<<< HEAD
 	//_pivotY = _tile[_indexX][_indexY]->pivotY;
+=======
+	_pivotY = _tile[_indexX][_indexY]->pivotY;
+	_shadow = IMAGEMANAGER->findImage("shadow");
+>>>>>>> origin/development
 	_character = new image;
 	_character->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
 	_characterState = IDLE;
@@ -61,16 +66,29 @@ HRESULT catsaver::init(int x, int y, gameObjectManager * gom)
 
 	_moveSpeed = 3;
 
+	_maxHp = _hp = 100;
+
+	_hpBar = new progressBar2;
+	_hpBar->init(_x, _rc.top - 10, 120, 10);
+	_hpBar->gauge(_hp, _maxHp);
+
 	return S_OK;
 }
 
 void catsaver::release()
 {
-
+	SAFE_DELETE(_character);
+	_hpBar->release();
+	SAFE_DELETE(_hpBar);
 }
 
 void catsaver::update()
 {
+	_hpBar->setX(_x);
+	_hpBar->setY(_rc.top - 10);
+	_hpBar->update();
+
+	gameObject::setDirectionImage();
 	setImage();
 	setFrame();
 
@@ -89,10 +107,10 @@ void catsaver::render()
 {
 	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-	{
-		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-	}
+	_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
+	//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+	_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+	_hpBar->render();
 }
 
 void catsaver::setImage()

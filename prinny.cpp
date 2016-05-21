@@ -26,6 +26,7 @@ HRESULT prinny::init()
 	//character 정보를 load 해오기
 	loadData();
 
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
 	_characterDir = LB;
@@ -46,8 +47,8 @@ HRESULT prinny::init(int x, int y, vector<TagTile*>& tile)
 	_inventory->init();
 
 	_name = "prinny";
-
 	loadData();
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_isCharacter = true;
 	_character = IMAGEMANAGER->findImage("prinny_idle");
 	_characterState = IDLE;
@@ -178,7 +179,8 @@ void prinny::render()
 {
 	if (!_isbattle)
 	{
-		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+		_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_inventory->render();
 	}
@@ -188,6 +190,7 @@ void prinny::render()
 		{
 			if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 			if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+			_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 			_hpBar->render();
@@ -230,14 +233,6 @@ void prinny::keyControl()
 			_characterState = WALK;
 		}
 	}
-
-	//if (KEYMANAGER->isOnceKeyDown(VK_LEFT) ||
-	//	KEYMANAGER->isOnceKeyDown(VK_RIGHT) ||
-	//	KEYMANAGER->isOnceKeyDown(VK_UP) ||
-	//	KEYMANAGER->isOnceKeyDown(VK_DOWN))
-	//{
-
-	//}
 
 
 	if(KEYMANAGER->isOnceKeyUp(VK_LEFT) || KEYMANAGER->isOnceKeyUp(VK_RIGHT) 
