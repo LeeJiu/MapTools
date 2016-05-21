@@ -16,11 +16,10 @@ HRESULT battleManager::init()
 	_turnCount = 0;					// TURN COUNT
 	_isTurnType = true;				// TURN TYPE = true(PLAYER) || false(ENEMY)
 	
-
 	_orderNumber = 0;
 	_orderComplete = false;
 	_isDoOrdering = false;
-	_isCompleteAction = false;
+
 	return S_OK;
 }
 
@@ -40,7 +39,8 @@ void battleManager::update()
 	{
 	}
 
-	if (_orderNumber <= _vOrder.size())
+	if (_orderNumber < _vOrder.size())
+
 	{
 		if (_isDoOrdering)
 		{
@@ -52,12 +52,6 @@ void battleManager::update()
 		_isDoOrdering = false;
 		_vOrder.clear();
 		_orderNumber = 0;
-	}
-
-	if (_isCompleteAction)
-	{
-		_isCompleteAction = false;
-		_orderNumber++;
 	}
 }
 
@@ -104,24 +98,20 @@ void battleManager::doOrdering()
 {
 	if (_vOrder[_orderNumber].isDone == false)
 	{
-		if (_gameObjMgr->getIsAction() == FALSE)
+		switch (_vOrder[_orderNumber].order)
 		{
-			switch (_vOrder[_orderNumber].order)
-			{
-			case ORDER_NONE:
-				_vOrder[_orderNumber].isDone = true;
-				break;
-			case ORDER_ATTACK:
-				_gameObjMgr->setUnitAttack(_vOrder[_orderNumber].character, _vOrder[_orderNumber].targetX, _vOrder[_orderNumber].targetY);
-				break;
-			case ORDER_SKILL:
-				break;
-			case ORDER_DEFENCE:
-				break;
-			default:
-				break;
-			}
-			_isCompleteAction = false;
+		case ORDER_NONE:
+			_vOrder[_orderNumber].isDone = true;
+			break;
+		case ORDER_ATTACK:
+			_gameObjMgr->setUnitAttack(_vOrder[_orderNumber].character, _vOrder[_orderNumber].targetX, _vOrder[_orderNumber].targetY);
+			break;
+		case ORDER_SKILL:
+			break;
+		case ORDER_DEFENCE:
+			break;
+		default:
+			break;
 		}
 	}
 }
