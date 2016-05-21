@@ -147,7 +147,7 @@ void gameStudy::render()
 {
 	//백버퍼에서 뿌려준다
 	
-	PatBlt(getMemDC(), 0, 0, WINSIZEX * 3, WINSIZEY * 3, BLACKNESS);
+	PatBlt(getMemDC(), 0, 0, WINSIZEX * 3, WINSIZEY * 3, WHITENESS);
 	//======================
 	//이 사이에서 그려주면 됨.
 
