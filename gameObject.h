@@ -2,11 +2,13 @@
 #include "gameNode.h"
 #include "progressBar2.h"
 
+class gameObjectManager;
+
 class gameObject : public gameNode
 {
 protected:
-	TagTile* _tile[TILENUM][TILENUM];
-	vector<TagTile*> _vTile;
+	//TagTile* _tile[TILENUM][TILENUM];
+	//vector<TagTile*> _vTile;
 	vector<TagTile*> _vRoute;
 
 	const char* _name;																//캐릭터 이름
@@ -15,6 +17,7 @@ protected:
 	int _curFrameX, _curFrameY, _count;
 
 	image* _character;
+	image* _shadow;
 	RECT _rc;
 	int _x, _y;																		// 이미지(렉트) 센터x 센터y
 	int _oldX, _oldY;																// 전투맵의 이전의 x, y 인덱스
@@ -42,6 +45,8 @@ protected:
 
 	progressBar2* _hpBar;
 
+	gameObjectManager* _gameObjMgr;
+
 public:
 	gameObject();
 	~gameObject();
@@ -50,9 +55,11 @@ public:
 	virtual HRESULT init();
 
 	//전투맵 init
-	virtual HRESULT init(vector<TagTile*> tile);
-	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile);
-	virtual HRESULT init(int x, int y, vector<TagTile*> tile);
+	//virtual HRESULT init(vector<TagTile*> tile);
+	//virtual HRESULT init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile);
+	//virtual HRESULT init(int x, int y, vector<TagTile*>& tile);
+	virtual HRESULT init(int x, int y, gameObjectManager* gom);
+	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, gameObjectManager* gom);
 	virtual void release();
 	virtual void update();
 	virtual void render();
@@ -71,10 +78,10 @@ public:
 	virtual void showPossibleAttackTile();											// 공격가능한 타일 보여주는 함수
 	virtual void previousState();												// 이전으로 돌아가는 함수
 	virtual void attack(int targetX, int targetY);
+	virtual void pain(int x, int y, int damage);
 	virtual void move();
 	virtual void setDirectionImage();
-	virtual void setCharacterMove(int endX, int endY, vector<TagTile*> vRoute);
-	virtual void setTilePosition(float x, float y);
+	virtual void setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute);
 	virtual void setFrame();
 
 	// set함수
@@ -83,7 +90,7 @@ public:
 	virtual void setHell(int hell) = 0;
 	virtual void setIsShowPossibleMoveTile(bool isShowPossibleMoveTile) { _isShowPossibleMoveTile = isShowPossibleMoveTile; }
 	virtual void setIsShowPossibleAttackTile(bool isSHowPossibleAttackTile) { _isShowPossibleAttackTile = isSHowPossibleAttackTile; }
-	virtual void setVRoute(vector<TagTile*> tile) { _vRoute = tile; }
+	virtual void setVRoute(vector<TagTile*>& tile) { _vRoute = tile; }
 	virtual void setIsMove(bool isMove) { _isMove = isMove; }
 	virtual void setIsShow(bool isShow) { _isShow = isShow; }
 	virtual void setHp(int damage) { _hp -= damage; if (_hp < 0) _hp = 0; }

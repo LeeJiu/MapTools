@@ -31,6 +31,7 @@
 #include "database.h"
 #include "actionManager.h"
 #include "selectStageData.h"
+#include "soundManager.h"
 
 using namespace MY_UTIL;
 
@@ -60,6 +61,7 @@ using namespace MY_UTIL;
 #define DATABASE database::getSingleton()
 #define ACTIONMANAGER actionManager::getSingleton()
 #define STAGEDATA selectStageData::getSingleton()
+#define SOUNDMANAGER soundManager::getSingleton()
 
 /* ===== 전역 변수 ===== */
 extern POINT _ptMouse;
@@ -69,3 +71,6 @@ extern bool _leftButtonDown;
 extern bool _rightButtonDown;
 extern int _scrollPosX;
 extern int _scrollPosY;
+extern float _cameraX;
+extern float _cameraY;
+extern POINT _click;

@@ -89,7 +89,7 @@ public:
 	void loadMapData();
 
 
-	vector<TagTile*> getTile() { return _vTile; }
-	vector<gameObject*> getGameObject() { return _vGameObject; }
+	vector<TagTile*>& getTile() { return _vTile; }
+	vector<gameObject*>& getGameObject() { return _vGameObject; }
 };
 

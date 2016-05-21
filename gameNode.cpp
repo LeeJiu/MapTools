@@ -37,6 +37,7 @@ HRESULT gameNode::init(bool managerInit)
 		SCENEMANAGER->init();
 		DATABASE->init();
 		ACTIONMANAGER->init();
+		SOUNDMANAGER->init();
 	}
 
 	return S_OK;
@@ -64,6 +65,8 @@ void gameNode::release()
 		DATABASE->releaseSingleton();
 		ACTIONMANAGER->release();
 		ACTIONMANAGER->releaseSingleton();
+		SOUNDMANAGER->release();
+		SOUNDMANAGER->releaseSingleton();
 	}
 
 	//받아온 DC 해제 해주자
@@ -106,6 +109,8 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 	case WM_MOUSEMOVE:
 		_ptMouse.x = LOWORD(lParam);
 		_ptMouse.y = HIWORD(lParam);
+		_click.x = _cameraX + _ptMouse.x;
+		_click.y = _cameraY + _ptMouse.y;
 		break;
 	case WM_MOUSEWHEEL:
 		if (KEYMANAGER->isStayKeyDown(VK_CONTROL))

@@ -16,9 +16,14 @@ enemy::~enemy()
 //	return S_OK;
 //}
 
-HRESULT enemy::init(int x, int y, vector<TagTile*> tile)
+HRESULT enemy::init(int x, int y, vector<TagTile*>& tile)
 {
 	return S_OK;
+}
+
+HRESULT enemy::init(int x, int y, gameObjectManager * gom)
+{
+	return E_NOTIMPL;
 }
 
 void enemy::release()

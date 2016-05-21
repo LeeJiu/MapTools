@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "raspberyl.h"
-
+#include "gameObjectManager.h"
 
 raspberyl::raspberyl()
 {
@@ -16,18 +16,17 @@ HRESULT raspberyl::init()
 	return S_OK;
 }
 
-HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
+HRESULT raspberyl::init(int x, int y, vector<TagTile*>& tile)
 {
-	for (int i = 0; i < 100; i++)
+	/*for (int i = 0; i < 100; i++)
 	{
 		_tile[i % TILENUM][i / TILENUM] = tile[i];
-	}
+	}*/
 
 	_name = "raspberyl";
 	loadData();
-
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_isCharacter = true;
-
 	_character = IMAGEMANAGER->findImage("raspberyl_idle");
 	_characterState = IDLE;
 	_characterDir = RT;
@@ -38,19 +37,59 @@ HRESULT raspberyl::init(int x, int y, vector<TagTile*> tile)
 	_isUp = true;
 	_isShow = false;
 
-	for (int i = 0; i < TOTALTILE(TILENUM); i++)
-	{
-		_tile[i % TILENUM][i / TILENUM] = tile[i];
-	}
+	//for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	//{
+	//	_tile[i % TILENUM][i / TILENUM] = tile[i];
+	//}
 
-	_vTile = tile;
+	//_vTile = tile;
 	_indexX = x;
 	_indexY = y;
 	
 	_moveSpeed = 3;
 
-	_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
-		_character->getFrameWidth(), _character->getFrameHeight());
+	//_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
+	//	_character->getFrameWidth(), _character->getFrameHeight());
+	_x = (_rc.right + _rc.left) / 2;
+	_y = (_rc.top + _rc.bottom) / 2;
+
+	_maxHp = _hp;
+
+	_hpBar = new progressBar2;
+	_hpBar->init(_x, _rc.top - 10, 120, 10);
+	_hpBar->gauge(100, 100);
+
+	return S_OK;
+}
+
+HRESULT raspberyl::init(int x, int y, gameObjectManager * gom)
+{
+
+	_name = "raspberyl";
+	loadData();
+
+	_isCharacter = true;
+
+	_shadow = IMAGEMANAGER->findImage("shadow");
+	_character = IMAGEMANAGER->findImage("raspberyl_idle");
+	_characterState = IDLE;
+	_characterDir = RT;
+	_curFrameX = 0;
+	_count = 0;
+
+	_isRight = true;
+	_isUp = true;
+	_isShow = false;
+
+
+	_indexX = x;
+	_indexY = y;
+
+	_moveSpeed = 3;
+
+	_gameObjMgr = gom;
+
+	_rc = RectMakeIso(_gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
 	_x = (_rc.right + _rc.left) / 2;
 	_y = (_rc.top + _rc.bottom) / 2;
 
@@ -75,14 +114,14 @@ void raspberyl::update()
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
 
-	_pivotY = _tile[_indexX][_indexY]->pivotY;
+	_pivotY = _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotY;
 
 	gameObject::setDirectionImage();
 	setImage();
 
 	if (!_isMove)
 	{
-		_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+		_rc = RectMakeIso(_gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
 		_x = (_rc.right + _rc.left) / 2;
 		_y = (_rc.top + _rc.bottom) / 2;
 	}
@@ -96,8 +135,13 @@ void raspberyl::render()
 	{
 		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-		_hpBar->render();
+
+		if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
+		{
+			_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
+			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+			_hpBar->render();
+		}
 	}
 }
 

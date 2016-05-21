@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "gameObject.h"
-
+#include "gameObjectManager.h"
 
 gameObject::gameObject()
 {
@@ -16,20 +16,30 @@ HRESULT gameObject::init()
 	return S_OK;
 }
 
-HRESULT gameObject::init(vector<TagTile*> tile)
+//HRESULT gameObject::init(vector<TagTile*> tile)
+//{
+//	return S_OK;
+//}
+//
+//HRESULT gameObject::init(int x, int y, vector<TagTile*>& tile)
+//{
+//	return S_OK;
+//}
+
+HRESULT gameObject::init(int x, int y, gameObjectManager * gom)
 {
-	return S_OK;
+	return E_NOTIMPL;
 }
 
-HRESULT gameObject::init(int x, int y, vector<TagTile*> tile)
+HRESULT gameObject::init(const char * strkey, int x, int y, int imageNum, gameObjectManager * gom)
 {
-	return S_OK;
+	return E_NOTIMPL;
 }
 
-HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*> tile)
-{
-	return S_OK;
-}
+//HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile)
+//{
+//	return S_OK;
+//}
 
 void gameObject::release()
 {
@@ -62,12 +72,12 @@ void gameObject::move()
 			_indexX = _destX;
 			_indexY = _destY;
 			_isMove = false;
-			if(_isCharacter) _vRoute[_idx]->state = S_ONCHAR;
+			if (_isCharacter) _vRoute[_idx]->state = S_ONCHAR;
 			else _vRoute[_idx]->state = S_ONENM;
 			_characterState = IDLE;
 			_idx = 0;
-			
-			_pivotY = _tile[_indexX][_indexY]->pivotY;
+
+			_pivotY = _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotY;
 			return;
 		}
 		else
@@ -78,33 +88,41 @@ void gameObject::move()
 
 	//x축 검사하자
 
+
 	// 길찾기 다음 벡터의 pivotX의 위치가 케릭터의 왼쪽이라면 [0][0]의 pivotX의 위치를 오른쪽으로 옴기자
-	if (_vRoute[_idx]->pivotX < _x)
+	if (abs(_vRoute[_idx]->pivotX - _x) < _moveSpeed * 2)
 	{
+		_x = _vRoute[_idx]->pivotX;
+	}
+	else if (_vRoute[_idx]->pivotX < _x)
+	{
+		_x -= _moveSpeed * 2;
 		_isRight = false;
-		_tile[0][0]->pivotX += _moveSpeed * 2;
 	}
 	// 길찾기 다음 벡터의 pivotX의 위치가 케릭터의 오른쪽이라면 [0][0]의 pivotX의 위치를 왼쪽으로 옴기자
 	else if (_vRoute[_idx]->pivotX > _x)
 	{
+		_x += _moveSpeed * 2;
 		_isRight = true;
-		_tile[0][0]->pivotX -= _moveSpeed * 2;
 	}
 
 	//y축 검사하자
-	if (_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 < _y)
+	if (abs(_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 - _y) < _moveSpeed)
 	{
+		_y = _vRoute[_idx]->pivotY - _character->getFrameHeight() / 2;
+	}
+	else if (_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 < _y)
+	{
+		_y -= _moveSpeed;
 		_isUp = true;
-		_tile[0][0]->pivotY += _moveSpeed;
 	}
 	else if (_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 > _y)
 	{
+		_y += _moveSpeed;
 		_isUp = false;
-		_tile[0][0]->pivotY -= _moveSpeed;
 	}
 
-	// [0][0]번째의 pivot기준으로 렉트 재갱신 하자
-	gameObject::setTilePosition(_tile[0][0]->pivotX, _tile[0][0]->pivotY);
+	_rc = RectMakeCenter(_x, _y, _character->getFrameWidth(), _character->getFrameHeight());
 }
 
 void gameObject::attack(int targetX, int targetY)
@@ -128,6 +146,11 @@ void gameObject::attack(int targetX, int targetY)
 	_characterState = ATTACK;
 	_character->setFrameX(0);
 	_isOrdering = true;
+}
+
+void gameObject::pain(int x, int y, int damage)
+{
+
 }
 
 void gameObject::setImage()
@@ -169,10 +192,17 @@ void gameObject::setFrame()
 			_curFrameX = 0;
 			if (_characterState == ATTACK)
 			{
+<<<<<<< HEAD
 				_characterState = IDLE;
 				_isOrdering = false;
 				return;
 			}
+=======
+			_characterState = IDLE;
+			_isOrdering = false;
+			return;
+			}*/
+>>>>>>> origin/development
 		}
 		_character->setFrameX(_curFrameX);
 	}
@@ -206,32 +236,16 @@ void gameObject::setDirectionImage()
 	}
 }
 
-void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*> vRoute)
+void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute)
 {
 	if (!_isMove)
 	{
-		if(_tile[_indexX][_indexY]->state != ZEN_POINT) _tile[_indexX][_indexY]->state = S_NONE;
+		if (_gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT) _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
 		_vRoute = vRoute;
 		_characterState = WALK;
-	}
-}
-
-void gameObject::setTilePosition(float x, float y)
-{
-	POINT firstPivot = { x, y };
-
-	for (int i = 0; i < TILENUM; i++)		// 세로 ( 열 )
-	{
-		for (int j = 0; j < TILENUM; j++)	// 가로 ( 행 )
-		{
-			_tile[j][i]->rc = RectMakeCenter(firstPivot.x + j * _tile[j][i]->width / 2 - i * _tile[j][i]->width / 2,
-				firstPivot.y + j * _tile[j][i]->width / 4 + i * _tile[j][i]->width / 4, _tile[j][i]->width, _tile[j][i]->height);
-			_tile[j][i]->pivotX = (_tile[j][i]->rc.left + _tile[j][i]->rc.right) / 2;
-			_tile[j][i]->pivotY = (_tile[j][i]->rc.top + _tile[j][i]->rc.bottom) / 2;
-		}
 	}
 }
 
@@ -244,19 +258,18 @@ void gameObject::showPossibleMoveTile()
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		if (abs(_indexX - _vTile[i]->x) + abs(_indexY - _vTile[i]->y) <= _mv)
+		if (abs(_indexX - _gameObjMgr->getTile()[i]->x) + abs(_indexY - _gameObjMgr->getTile()[i]->y) <= _mv)
 		{
-			if(_vTile[i]->state == S_NONE)
-			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+			if (_gameObjMgr->getTile()[i]->state == S_NONE)
+				IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _gameObjMgr->getTile()[i]->rc.left, _gameObjMgr->getTile()[i]->rc.top);
 		}
 	}
 }
 
 void gameObject::showPossibleAttackTile()
 {
-	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX + 1][_indexY]->rc.left, _tile[_indexX + 1][_indexY]->rc.top);
-	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX - 1][_indexY]->rc.left, _tile[_indexX - 1][_indexY]->rc.top);
-	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX][_indexY + 1]->rc.left, _tile[_indexX][_indexY + 1]->rc.top);
-	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _tile[_indexX][_indexY - 1]->rc.left, _tile[_indexX][_indexY - 1]->rc.top);
-
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _gameObjMgr->getTile()[_indexY * TILENUM + _indexX + 1]->rc.left, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX + 1]->rc.top);
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _gameObjMgr->getTile()[_indexY * TILENUM + _indexX - 1]->rc.left, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX - 1]->rc.top);
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _gameObjMgr->getTile()[_indexY * TILENUM + _indexX + TILENUM]->rc.left, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX + TILENUM]->rc.top);
+	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _gameObjMgr->getTile()[_indexY * TILENUM + _indexX - TILENUM]->rc.left, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX - TILENUM]->rc.top);
 }

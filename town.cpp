@@ -13,6 +13,8 @@ town::~town()
 
 HRESULT town::init()
 {
+	SOUNDMANAGER->play("town_bg", 1.f);
+
 	IMAGEMANAGER->addImage("town_background", "image/background/town_background.bmp", 4155, 1704, true, 0xff00ff);
 	IMAGEMANAGER->addImage("town_background_pixel", "image/background/town_background_pixel.bmp", 4155, 1704, false, false);
 
@@ -27,6 +29,9 @@ HRESULT town::init()
 	_storeNPC = IMAGEMANAGER->findImage("store");
 	_mercenaryNPC = IMAGEMANAGER->findImage("mercenary");
 	_mercenaryNPC->setFrameY(1);
+
+	_mercenaryShadow = IMAGEMANAGER->findImage("shadow");
+	_storeShadow = IMAGEMANAGER->findImage("shadow");
 
 	_battlePortal = IMAGEMANAGER->findImage("entrance_battle");
 	_storePortal = IMAGEMANAGER->findImage("entrance_store");
@@ -48,6 +53,8 @@ HRESULT town::init()
 void town::release()
 {
 	SAFE_DELETE(_prinny);
+
+	SOUNDMANAGER->stop("town_bg");
 }
 
 void town::update()
@@ -76,9 +83,11 @@ void town::render()
 	_etcPortal->frameRender(getMemDC(), 1134 - _sourX, 478 - _sourY,
 		_etcPortal->getFrameX(), _etcPortal->getFrameY());
 
+	_mercenaryShadow->render(getMemDC(), 1208 - _sourX - 15, 535 - _sourY + 120);
+	_storeShadow->render(getMemDC(), 1628 - _sourX - 15, 405 - _sourY + 120);
+
 	_mercenaryNPC->frameRender(getMemDC(), 1208 - _sourX, 535 - _sourY, _mercenaryNPC->getFrameX(), _mercenaryNPC->getFrameY());
 	_storeNPC->frameRender(getMemDC(), 1628 - _sourX, 405 - _sourY, _storeNPC->getFrameX(), _storeNPC->getFrameY());
-
 
 	_prinny->render();
 }

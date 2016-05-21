@@ -4,6 +4,8 @@
 class title : public gameNode
 {
 private:
+	float _volume, _buttonVolume;
+
 	int _alpha;
 	int _x, _y;
 

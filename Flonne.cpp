@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "flonne.h"
-
+#include "gameObjectManager.h"
 
 flonne::flonne()
 {
@@ -16,11 +16,12 @@ HRESULT flonne::init()
 	return S_OK;
 }
 
-HRESULT flonne::init(int x, int y, vector<TagTile*> tile)
+HRESULT flonne::init(int x, int y, vector<TagTile*>& tile)
 {
 	_name = "flonne";
 
 	loadData();
+	_shadow = IMAGEMANAGER->findImage("shadow");
 	_isCharacter = true;
 	_character = IMAGEMANAGER->findImage("flonne_idle");
 	_characterState = IDLE;
@@ -32,19 +33,57 @@ HRESULT flonne::init(int x, int y, vector<TagTile*> tile)
 	_isUp = true;
 	_isShow = false;
 
-	for (int i = 0; i < TOTALTILE(TILENUM); i++)
-	{
-		_tile[i % TILENUM][i / TILENUM] = tile[i];
-	}
+	//for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	//{
+	//	_tile[i % TILENUM][i / TILENUM] = tile[i];
+	//}
 
-	_vTile = tile;
+	//_vTile = tile;
 	_indexX = x;
 	_indexY = y;
 
 	_moveSpeed = 3;
 
-	_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
-		_character->getFrameWidth(), _character->getFrameHeight());
+	/*_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY,
+		_character->getFrameWidth(), _character->getFrameHeight());*/
+	_x = (_rc.right + _rc.left) / 2;
+	_y = (_rc.top + _rc.bottom) / 2;
+
+	_maxHp = _hp;
+
+	_hpBar = new progressBar2;
+	_hpBar->init(_x, _rc.top - 10, 120, 10);
+	_hpBar->gauge(_hp, _maxHp);
+
+	return S_OK;
+}
+
+HRESULT flonne::init(int x, int y, gameObjectManager * gom)
+{
+	_name = "flonne";
+
+	loadData();
+	_isCharacter = true;
+	_shadow = IMAGEMANAGER->findImage("shadow");
+	_character = IMAGEMANAGER->findImage("flonne_idle");
+	_characterState = IDLE;
+	_characterDir = RT;
+	_curFrameX = 0;
+	_count = 0;
+
+	_isRight = true;
+	_isUp = true;
+	_isShow = false;
+
+	_indexX = x;
+	_indexY = y;
+
+	_moveSpeed = 3;
+
+	_gameObjMgr = gom;
+
+	_rc = RectMakeIso(_gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+
 	_x = (_rc.right + _rc.left) / 2;
 	_y = (_rc.top + _rc.bottom) / 2;
 
@@ -74,7 +113,7 @@ void flonne::update()
 
 	if (!_isMove)
 	{
-		_rc = RectMakeIso(_tile[_indexX][_indexY]->pivotX, _tile[_indexX][_indexY]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
+		_rc = RectMakeIso(_gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotY, _character->getFrameWidth(), _character->getFrameHeight());
 		_x = (_rc.right + _rc.left) / 2;
 		_y = (_rc.top + _rc.bottom) / 2;
 	}
@@ -88,8 +127,14 @@ void flonne::render()
 	{
 		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-		_hpBar->render();
+
+		if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
+		{
+			_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
+			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+			_hpBar->render();
+
+		}
 	}
 }
 
