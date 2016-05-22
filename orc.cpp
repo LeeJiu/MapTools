@@ -45,7 +45,7 @@ HRESULT orc::init(int x, int y, vector<TagTile*>& tile)
 
 	_maxHp = _hp = 100;
 
-	_hpBar = new progressBar2;
+	_hpBar = new progressBar;
 	_hpBar->init(_x, _rc.top - 10, 120, 10);
 	_hpBar->gauge(_hp, _maxHp);
 
@@ -85,7 +85,7 @@ HRESULT orc::init(int x, int y, gameObjectManager * gom)
 
 	_maxHp = _hp = 100;
 
-	_hpBar = new progressBar2;
+	_hpBar = new progressBar;
 	_hpBar->init(_x, _rc.top - 10, 120, 10);
 	_hpBar->gauge(_hp, _maxHp);
 
@@ -126,7 +126,6 @@ void orc::render()
 {
 	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-
 	if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
 	{
 		_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);

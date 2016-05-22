@@ -1,21 +1,13 @@
 #pragma once
 #include "gameNode.h"
-#include "aStar.h"
-
 #include "battleUI.h"
-#include "gameObjectManager.h"
-#include "battleManager.h"
-
 
 class battleScene : public gameNode
 {
 private:
-	float _volume, _Prinny_voluem;
-	int _count;
+	battleUI* _ui;
 
-	battleUI* _battleUI;
-	gameObjectManager* _gameObjMgr;
-	battleManager* _battleMgr;
+	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onAction;
 
 public:
 	battleScene();
@@ -25,5 +17,7 @@ public:
 	void release();
 	void update();
 	void render();
+
+	void keyControl();
 };
 

@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
-#include "battleUI.h"
-#include "battleManager.h"
 
 gameObjectManager::gameObjectManager()
 {
@@ -21,6 +19,8 @@ HRESULT gameObjectManager::init()
 	_aStar->init();
 	vEnmSize = vObjSize = 0;
 
+	_isAction = false;
+
 	return S_OK;
 }
 
@@ -31,7 +31,6 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-
 	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
@@ -49,15 +48,11 @@ void gameObjectManager::render()
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 
-
 	char str[512];
 	sprintf_s(str, "x = %d, y = %d", _vToTalRender[0]->getIndexX(), _vToTalRender[0]->getIndexY());
 	TextOut(getMemDC(), 10, 10, str, strlen(str));
 
-	_battleUI->renderOverlapSelectTile();
-
-	//int _size = vCharSize + vObjSize + 2;
-
+	//Y축 정렬
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
 
 	int _size = _vToTalRender.size();
@@ -65,56 +60,6 @@ void gameObjectManager::render()
 	{
 		_vToTalRender[i]->render();
 	}
-
-	_battleUI->renderOverlapSelectTile();
-	_battleUI->renderOverlapAttackSelectTile();
-
-	//char str[128];
-	//sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
-	//TextOut(getMemDC(), 10, 10, str, strlen(str));
-}
-
-void gameObjectManager::setUnitMove(int i, int destX, int destY)
-{
-	_vGameObject[i]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
-	SOUNDMANAGER->play("step", 1);
-}
-
-void gameObjectManager::setUnitAttack(int i, int destX, int destY)
-{
-	if (!_isAction)
-	{
-		_vGameObject[i]->attack(destX, destY);
-		_isAction = true;
-		SOUNDMANAGER->play("prinny_attack", 1);
-	}
-	else
-	{
-		// 오더가 끝났다면
-		if (!_vGameObject[i]->getIsOrdering())
-		{
-			_isAction = false;
-			_battleMgr->setCompleteAction();
-		}
-		// 오더가 수행중이라면
-		else
-		{
-			return;
-		}
-	}
-}
-
-void gameObjectManager::setUnitDefence()
-{
-}
-
-void gameObjectManager::setActionAttack()
-{
-
-}
-
-void gameObjectManager::setChangeTurn()
-{
 }
 
 void gameObjectManager::setTile()

@@ -190,12 +190,19 @@ void gameObject::setFrame()
 		if (_curFrameX > _character->getMaxFrameX())
 		{
 			_curFrameX = 0;
-			/*if (_characterState == ATTACK)
+			if (_characterState == ATTACK)
 			{
+<<<<<<< HEAD
+				_characterState = IDLE;
+				_isOrdering = false;
+				return;
+			}
+=======
 			_characterState = IDLE;
 			_isOrdering = false;
 			return;
 			}*/
+>>>>>>> origin/development
 		}
 		_character->setFrameX(_curFrameX);
 	}
