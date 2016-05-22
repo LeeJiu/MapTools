@@ -15,8 +15,6 @@ HRESULT battleManager::init()
 {
 	_ui = new battleUI;
 	_ui->init();
-	_camera = new battleCamera;
-	_camera->init();
 
 	_isPlayerTurn = true;	//플레이어 먼저 시작
 
@@ -26,9 +24,7 @@ HRESULT battleManager::init()
 void battleManager::release()
 {
 	_ui->release();
-	_camera->release();
 	SAFE_DELETE(_ui);
-	SAFE_DELETE(_camera);
 }
 
 void battleManager::update()
@@ -43,12 +39,7 @@ void battleManager::update()
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
-<<<<<<< HEAD
-		if (_leftButtonDown)
-		{
-=======
 		if(_leftButtonDown)
->>>>>>> refs/remotes/origin/development
 			keyControl();
 	}
 	//에너미의 턴일 때
@@ -86,9 +77,9 @@ void battleManager::keyControl()
 		{
 			//아이소 타일 클릭 조건
 			if ((_click.y - _objectMgr->getVTile()[i]->pivotY) >= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
-				(_click.y - _objectMgr->getVTile()[i]->pivotY) >= 0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) >=  0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
 				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4 &&
-				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= 0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4)
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) <=  0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4)
 			{
 				switch (_objectMgr->getVTile()[i]->state)
 				{
@@ -136,6 +127,8 @@ void battleManager::clickCharacter(int x, int y, int i)
 {
 	//명령창을 띄운다. (현재 캐릭터의 인덱스 저장)
 	int charSize = _objectMgr->getVCharacter().size();
+
+	_ui->onOrder(true);
 
 	for (int i = 0; i < charSize; i++)
 	{

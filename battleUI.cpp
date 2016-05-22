@@ -56,7 +56,14 @@ void battleUI::update()
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
 		keyControl();
+	}
+
+	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+	{
+		_onCharacterList = _onSummary = _onStatus = _onOrder = _onAction = false;
+	}
 }
 
 void battleUI::render()
