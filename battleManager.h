@@ -4,7 +4,7 @@
 
 enum ORDERKIND
 {
-	ATTACK, DEFENCE, SKILL
+	O_ATTACK, O_DEFENCE, O_SKILL
 };
 
 struct tagOrder

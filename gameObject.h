@@ -69,9 +69,9 @@ public:
 	virtual void loadData();
 
 	// 케릭터 공통으로 쓰는 함수들
-	virtual void showPossibleMoveTile();											// 이동가능한 타일 보여주는 함수
-	virtual void showPossibleAttackTile();											// 공격가능한 타일 보여주는 함수
-	virtual void previousState();												// 이전으로 돌아가는 함수
+	virtual void showPossibleMoveTile();					// 이동가능한 타일 보여주는 함수
+	virtual void showPossibleAttackTile();					// 공격가능한 타일 보여주는 함수
+	virtual void previousState();							// 이전으로 돌아가는 함수
 	virtual void attack(int targetX, int targetY);
 	virtual void pain(int x, int y, int damage);
 	virtual void move();
