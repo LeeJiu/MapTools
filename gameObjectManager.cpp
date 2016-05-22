@@ -13,6 +13,7 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
+
 	setTile();
 
 	_aStar = new aStar;
@@ -148,8 +149,6 @@ void gameObjectManager::setEnemy()
 		{
 			gameObject* enemy;
 			int imageNum = DATABASE->getElementData(std::to_string(i))->imageNum;
-			int x = 0;
-			int y = 0;
 			switch (imageNum)   // (몬스터의 종류)
 			{
 			case 1:

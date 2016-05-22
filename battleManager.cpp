@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "battleManager.h"
 #include "gameObjectManager.h"
+#include "battleCamera.h"
 
 battleManager::battleManager()
 {
@@ -14,6 +15,8 @@ HRESULT battleManager::init()
 {
 	_ui = new battleUI;
 	_ui->init();
+	_camera = new battleCamera;
+	_camera->init();
 
 	_isPlayerTurn = true;	//플레이어 먼저 시작
 
@@ -23,13 +26,16 @@ HRESULT battleManager::init()
 void battleManager::release()
 {
 	_ui->release();
+	_camera->release();
 	SAFE_DELETE(_ui);
+	SAFE_DELETE(_camera);
+
+
 }
 
 void battleManager::update()
 {
 	_ui->update();
-
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
@@ -69,19 +75,19 @@ void battleManager::keyControl()
 					break;
 
 				case S_ONCHAR:			//캐릭터
-					clickCharacter(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y);
+					clickCharacter(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
 					break;
 
 				case S_ONENM:			//적
-					clickEnemy(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y);
+					clickEnemy(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
 					break;
 
 				case S_ONOBJ: case S_ETC://이동 불가능한 타일/장애물
-					clickObject();
+					clickObject(i);
 					break;
 
 				case S_NONE:			//이동 가능한 타일
-					clickTile(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y);
+					clickTile(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
 					break;
 				}
 				break;
@@ -99,10 +105,10 @@ void battleManager::clickZenPoint()
 
 }
 
-void battleManager::clickCharacter(int x, int y)
+void battleManager::clickCharacter(int x, int y, int i)
 {
 	//명령창을 띄운다. (현재 캐릭터의 인덱스 저장)
-	int charSize = _objectMgr->getVCharacter().size;
+	int charSize = _objectMgr->getVCharacter().size();
 
 	for (int i = 0; i < charSize; i++)
 	{
@@ -113,11 +119,11 @@ void battleManager::clickCharacter(int x, int y)
 		}
 	}
 	//카메라 포커스 맞춘다.
-
+	_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
 
 }
 
-void battleManager::clickEnemy(int x, int y)
+void battleManager::clickEnemy(int x, int y, int i)
 {
 	/* 일단은 공격만 짜놓고 나중에 스킬을 추가하게 된다면 한번더 조건(공격인지 스킬인지)를 걸면 될듯 */
 
@@ -154,19 +160,20 @@ void battleManager::clickEnemy(int x, int y)
 	else
 	{
 		//카메라 포커스를 맞춘다.
-		
+		_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
 	}
 
 
 }
 
-void battleManager::clickObject()
+void battleManager::clickObject(int i)
 {
 	//카메라 포커스를 맞춘다.
+	_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
 
 }
 
-void battleManager::clickTile(int x, int y)
+void battleManager::clickTile(int x, int y, int i)
 {
 	//캐릭터 이동한다.
 	
@@ -179,5 +186,6 @@ void battleManager::clickTile(int x, int y)
 	else
 	{
 		//카메라 포커스 맞춘다.
+		_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
 	}
 }
