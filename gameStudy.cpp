@@ -60,6 +60,7 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("etna_idle", "image/character/etna_idle.bmp", 588, 656, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("etna_walk", "image/character/etna_walk.bmp", 588, 700, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("etna_attack", "image/character/etna_attack.bmp", 720, 660, 4, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("etna_pain", "image/character/etna_pain.bmp", 103, 596, 1, 4, true, 0xff00ff);
 
 	//배틀씬에서 사용될 이미지 추가
 	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 128, 64, true, 0xff00ff);

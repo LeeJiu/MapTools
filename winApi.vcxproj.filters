@@ -97,6 +97,9 @@
     <Filter Include="gameStudy\mercenaryStore">
       <UniqueIdentifier>{64058e20-93fa-4101-9bf9-639a665f94f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameStudy\battle\AI">
+      <UniqueIdentifier>{60b915c1-cf3e-4117-9f8b-b0be5a345c47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -252,16 +255,11 @@
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="catsaver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="catsaver.h">
-      <Filter>헤더 파일</Filter>
-=======
-    <ClInclude Include="numberData.h">
+    <ClInclude Include="selectStageData.h">
       <Filter>gameStudy\selectStage</Filter>
->>>>>>> refs/remotes/origin/moobin
+    </ClInclude>
+    <ClInclude Include="EnemyAI.h">
+      <Filter>gameStudy\battle\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -406,16 +404,11 @@
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="catsaver.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="catsaver.cpp">
-      <Filter>소스 파일</Filter>
-=======
-    <ClCompile Include="numberData.cpp">
+    <ClCompile Include="selectStageData.cpp">
       <Filter>gameStudy\selectStage</Filter>
->>>>>>> refs/remotes/origin/moobin
+    </ClCompile>
+    <ClCompile Include="EnemyAI.cpp">
+      <Filter>gameStudy\battle\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
