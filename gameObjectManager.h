@@ -21,7 +21,7 @@ struct GOBJ_Y_RENDER
 
 class gameObjectManager : public gameNode
 {
-	TagTile* _tile[TILENUM][TILENUM];
+	TagTile _tile[TILENUM][TILENUM];
 
 	vector<TagTile*> _vTile;
 	vector<TagTile*>::iterator _viTile;

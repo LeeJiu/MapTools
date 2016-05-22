@@ -25,6 +25,12 @@ HRESULT gameObjectManager::init()
 void gameObjectManager::release()
 {
 	SAFE_DELETE(_aStar);
+
+	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
+	{
+		SAFE_DELETE((*_viTile)->image);
+	}
+	_vTile.clear();
 }
 
 void gameObjectManager::update()
@@ -65,22 +71,21 @@ void gameObjectManager::setTile()
 	{
 		for (int i = 0; i < TILENUM; i++)   // 가로 ( 행 )
 		{
-			_tile[i][j] = new TagTile;
-			_tile[i][j]->image = new image;
-			_tile[i][j]->image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
-			_tile[i][j]->width = WIDTH;
-			_tile[i][j]->height = WIDTH / 2;
-			_tile[i][j]->rc = RectMakeCenter(firstPivot.x + i * _tile[i][j]->width / 2 - j * _tile[i][j]->width / 2, firstPivot.y + i * _tile[i][j]->width / 4 + j * _tile[i][j]->width / 4, _tile[i][j]->width, _tile[i][j]->height);
-			_tile[i][j]->pivotX = (_tile[i][j]->rc.left + _tile[i][j]->rc.right) / 2;
-			_tile[i][j]->pivotY = (_tile[i][j]->rc.top + _tile[i][j]->rc.bottom) / 2;
-			_tile[i][j]->x = i;
-			_tile[i][j]->y = j;
-			_tile[i][j]->imageNum = 100;   //이미지 넘버.
-			_tile[i][j]->number = count;
-			_tile[i][j]->state = S_NONE;
-			_tile[i][j]->draw = false;
+			_tile[i][j].image = new image;
+			_tile[i][j].image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
+			_tile[i][j].width = WIDTH;
+			_tile[i][j].height = WIDTH / 2;
+			_tile[i][j].rc = RectMakeCenter(firstPivot.x + i * _tile[i][j].width / 2 - j * _tile[i][j].width / 2, firstPivot.y + i * _tile[i][j].width / 4 + j * _tile[i][j].width / 4, _tile[i][j].width, _tile[i][j].height);
+			_tile[i][j].pivotX = (_tile[i][j].rc.left + _tile[i][j].rc.right) / 2;
+			_tile[i][j].pivotY = (_tile[i][j].rc.top + _tile[i][j].rc.bottom) / 2;
+			_tile[i][j].x = i;
+			_tile[i][j].y = j;
+			_tile[i][j].imageNum = 100;   //이미지 넘버.
+			_tile[i][j].number = count;
+			_tile[i][j].state = S_NONE;
+			_tile[i][j].draw = false;
 
-			_vTile.push_back(_tile[i][j]);
+			_vTile.push_back(&_tile[i][j]);
 
 			count++;
 		}
