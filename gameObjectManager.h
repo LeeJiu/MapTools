@@ -48,6 +48,8 @@ public:
 
 	void loadMapData();
 
+	void characterMove(int index, int destX, int destY);			// 플레이어 무브 함수 
+	void enemyMove(int index, int destX, int destY);			// 에너미 무브 함수
 
 	//set함수
 	void setTile();

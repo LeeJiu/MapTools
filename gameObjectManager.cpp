@@ -254,3 +254,13 @@ void gameObjectManager::loadMapData()
 		}
 	}
 }
+
+void gameObjectManager::characterMove(int index, int destX, int destY)
+{
+	_vCharacter[index]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vCharacter[index]->getIndexX(), _vCharacter[index]->getIndexY(), destX, destY));
+}
+
+void gameObjectManager::enemyMove(int index, int destX, int destY)
+{
+	_vEnemy[index]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), destX, destY));
+}

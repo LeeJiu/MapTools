@@ -25,9 +25,10 @@ private:
 	gameObjectManager* _objectMgr;
 	battleUI* _ui;
 
-	vector<tagOrder> _vOrder;	//플레이어 명령 리스트
+	vector<tagOrder> _vOrder;	// 플레이어 명령 리스트
 
-	int _orderNum;	//명령 수행해야할 벡터 인덱스 넘버
+	int _selectCharIdx;			// 선택한 케릭터의 인덱스
+	int _orderNum;				// 명령 수행해야할 벡터 인덱스 넘버
 
 	//turn 상태 변수
 	bool _isPlayerTurn;
@@ -48,10 +49,10 @@ public:
 	void keyControl();
 
 	void clickZenPoint();
-	void clickCharacter();
-	void clickEnemy();
+	void clickCharacter(int x, int y);
+	void clickEnemy(int x, int y);			// 매개변수 타일의 인덱스
 	void clickObject();
-	void clickTile();
+	void clickTile(int x, int y);
 
 	void setObjectMgrMemoryLink(gameObjectManager* objectMgr) { _objectMgr = objectMgr; }
 };
