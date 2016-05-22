@@ -74,3 +74,5 @@ extern int _scrollPosY;
 extern float _cameraX;
 extern float _cameraY;
 extern POINT _click;
+extern int _sourWidth;
+extern int _sourHeight;

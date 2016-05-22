@@ -32,6 +32,7 @@ void battleScene::update()
 
 void battleScene::render()
 {
+	
 	_ui->render();
 }
 

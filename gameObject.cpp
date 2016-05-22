@@ -16,16 +16,6 @@ HRESULT gameObject::init()
 	return S_OK;
 }
 
-//HRESULT gameObject::init(vector<TagTile*> tile)
-//{
-//	return S_OK;
-//}
-//
-//HRESULT gameObject::init(int x, int y, vector<TagTile*>& tile)
-//{
-//	return S_OK;
-//}
-
 HRESULT gameObject::init(int x, int y, gameObjectManager * gom)
 {
 	return E_NOTIMPL;
@@ -35,11 +25,6 @@ HRESULT gameObject::init(const char * strkey, int x, int y, int imageNum, gameOb
 {
 	return E_NOTIMPL;
 }
-
-//HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile)
-//{
-//	return S_OK;
-//}
 
 void gameObject::release()
 {
@@ -82,12 +67,13 @@ void gameObject::move()
 		}
 		else
 		{
+			_indexX = _vRoute[_idx]->x;
+			_indexY = _vRoute[_idx]->y;
 			_idx++;
 		}
 	}
 
 	//x축 검사하자
-
 
 	// 길찾기 다음 벡터의 pivotX의 위치가 케릭터의 왼쪽이라면 [0][0]의 pivotX의 위치를 오른쪽으로 옴기자
 	if (abs(_vRoute[_idx]->pivotX - _x) < _moveSpeed * 2)
@@ -96,12 +82,14 @@ void gameObject::move()
 	}
 	else if (_vRoute[_idx]->pivotX < _x)
 	{
+		_cameraX -= _moveSpeed * 2;
 		_x -= _moveSpeed * 2;
 		_isRight = false;
 	}
 	// 길찾기 다음 벡터의 pivotX의 위치가 케릭터의 오른쪽이라면 [0][0]의 pivotX의 위치를 왼쪽으로 옴기자
 	else if (_vRoute[_idx]->pivotX > _x)
 	{
+		_cameraX += _moveSpeed * 2;
 		_x += _moveSpeed * 2;
 		_isRight = true;
 	}
@@ -113,11 +101,13 @@ void gameObject::move()
 	}
 	else if (_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 < _y)
 	{
+		_cameraY -= _moveSpeed;
 		_y -= _moveSpeed;
 		_isUp = true;
 	}
 	else if (_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 > _y)
 	{
+		_cameraY += _moveSpeed;
 		_y += _moveSpeed;
 		_isUp = false;
 	}
@@ -192,17 +182,10 @@ void gameObject::setFrame()
 			_curFrameX = 0;
 			if (_characterState == ATTACK)
 			{
-<<<<<<< HEAD
 				_characterState = IDLE;
 				_isOrdering = false;
 				return;
 			}
-=======
-			_characterState = IDLE;
-			_isOrdering = false;
-			return;
-			}*/
->>>>>>> origin/development
 		}
 		_character->setFrameX(_curFrameX);
 	}

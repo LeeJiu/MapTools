@@ -29,7 +29,6 @@ class gameObjectManager : public gameNode
 	image* _imageTurn;
 	bool _isTurnCenter;
 
-
 	TagTile* _tile[TILENUM][TILENUM];
 
 	vector<TagTile*> _vTile;
