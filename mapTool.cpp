@@ -238,8 +238,8 @@ void mapTool::render()
 			TextOut(getMemDC(), _vIsoEnemy[i]->rc.left, _vIsoEnemy[i]->rc.top, str, strlen(str));
 		}
 	}
-	sprintf_s(str, "x : %d, y : %d", _ptMouse.x, _ptMouse.y);
-	TextOut(getMemDC(), _ptMouse.x, _ptMouse.y, str, strlen(str));
+	//sprintf_s(str, "x : %d, y : %d", _ptMouse.x, _ptMouse.y);
+	//TextOut(getMemDC(), _ptMouse.x, _ptMouse.y, str, strlen(str));
 }
 ///////////////////////////////////////////////////////////랜더 끝////////////////////////////////////////////////////////////////////
 
@@ -769,23 +769,24 @@ void mapTool::setTile()
 	{
 		for (int j = 0; j < TILENUM; j++)   // 가로 ( 행 )
 		{
-			TagTile* tile;
-			tile = new TagTile;
-			tile->image = new image;
-			tile->image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
-			tile->width = WIDTH;
-			tile->height = WIDTH / 2;
-			tile->rc = RectMakeCenter(firstPivot.x + j * tile->width / 2 - i * tile->width / 2, firstPivot.y + j * tile->width / 4 + i * tile->width / 4, tile->width, tile->height);
-			tile->pivotX = (tile->rc.left + tile->rc.right) / 2;
-			tile->pivotY = (tile->rc.top + tile->rc.bottom) / 2;
-			tile->x = j;
-			tile->y = i;
-			tile->imageNum = 100;	//이미지 넘버.
-			tile->number = count;
-			tile->state = S_NONE;
-			tile->draw = false;
+			//TagTile* tile;
+			//tile = new TagTile;
+			_tile[j][i].image = new image;
+			_tile[j][i].image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
+			_tile[j][i].width = WIDTH;
+			_tile[j][i].height = WIDTH / 2;
+			_tile[j][i].rc = RectMakeCenter(firstPivot.x + j * _tile[j][i].width / 2 - i * _tile[j][i].width / 2, 
+											firstPivot.y + j * _tile[j][i].width / 4 + i * _tile[j][i].width / 4, _tile[j][i].width, _tile[j][i].height);
+			_tile[j][i].pivotX = (_tile[j][i].rc.left + _tile[j][i].rc.right) / 2;
+			_tile[j][i].pivotY = (_tile[j][i].rc.top + _tile[j][i].rc.bottom) / 2;
+			_tile[j][i].x = j;
+			_tile[j][i].y = i;
+			_tile[j][i].imageNum = 100;	//이미지 넘버.
+			_tile[j][i].number = count;
+			_tile[j][i].state = S_NONE;
+			_tile[j][i].draw = false;
 
-			_vTile.push_back(tile);
+			_vTile.push_back(&_tile[j][i]);
 
 			count++;
 		}
@@ -968,26 +969,27 @@ void mapTool::setSampleTile()
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			TagTile* tile;
-			tile = new TagTile;
-			tile->image = new image;
-			tile->image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
-			tile->width = WIDTH;
-			tile->height = WIDTH / 2;
-			tile->rc = RectMake(10, 190 + tile->image->getFrameHeight() * j, tile->image->getFrameWidth(), tile->image->getFrameHeight());
-			tile->pivotX = (tile->rc.left + tile->rc.right) / 2;
-			tile->pivotY = (tile->rc.top + tile->rc.bottom) / 2;
-			tile->number = count; // imageNum으로 불러올수있는 샘플타일 인덱스
-			tile->draw = true;
+			//TagTile* tile;
+			//_sampleTile[j][i]
+			//tile = new TagTile;
+			_sampleTile[j][i].image = new image;
+			_sampleTile[j][i].image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
+			_sampleTile[j][i].width = WIDTH;
+			_sampleTile[j][i].height = WIDTH / 2;
+			_sampleTile[j][i].rc = RectMake(10, 190 + _sampleTile[j][i].image->getFrameHeight() * j, _sampleTile[j][i].image->getFrameWidth(), _sampleTile[j][i].image->getFrameHeight());
+			_sampleTile[j][i].pivotX = (_sampleTile[j][i].rc.left + _sampleTile[j][i].rc.right) / 2;
+			_sampleTile[j][i].pivotY = (_sampleTile[j][i].rc.top + _sampleTile[j][i].rc.bottom) / 2;
+			_sampleTile[j][i].number = count; // imageNum으로 불러올수있는 샘플타일 인덱스
+			_sampleTile[j][i].draw = true;
 
-			tile->image->setFrameX(tile->number % 4);
-			tile->image->setFrameY(tile->number / 4);
+			_sampleTile[j][i].image->setFrameX(_sampleTile[j][i].number % 4);
+			_sampleTile[j][i].image->setFrameY(_sampleTile[j][i].number / 4);
 
-			if (tile->image->getFrameX() < 15)
-				tile->state = S_NONE;
+			if (_sampleTile[j][i].image->getFrameX() < 15)
+				_sampleTile[j][i].state = S_NONE;
 			else
-				tile->state = S_ECT;
-			_vIsoTile.push_back(tile);
+				_sampleTile[j][i].state = S_ECT;
+			_vIsoTile.push_back(&_sampleTile[j][i]);
 
 			count++;
 		}
