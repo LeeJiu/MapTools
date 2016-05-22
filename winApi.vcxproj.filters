@@ -255,6 +255,9 @@
     <ClInclude Include="battleScene.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
+    <ClInclude Include="battleManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -400,6 +403,9 @@
     </ClCompile>
     <ClCompile Include="battleScene.cpp">
       <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="battleManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

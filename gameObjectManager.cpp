@@ -12,12 +12,8 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
-	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
-
-
 	_aStar = new aStar;
 	_aStar->init();
-	vEnmSize = vObjSize = 0;
 
 	return S_OK;
 }
