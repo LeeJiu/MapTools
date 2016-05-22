@@ -7,8 +7,6 @@ class gameObjectManager;
 class gameObject : public gameNode
 {
 protected:
-	//TagTile* _tile[TILENUM][TILENUM];
-	//vector<TagTile*> _vTile;
 	vector<TagTile*> _vRoute;
 
 	const char* _name;																//캐릭터 이름
@@ -55,9 +53,6 @@ public:
 	virtual HRESULT init();
 
 	//전투맵 init
-	//virtual HRESULT init(vector<TagTile*> tile);
-	//virtual HRESULT init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile);
-	//virtual HRESULT init(int x, int y, vector<TagTile*>& tile);
 	virtual HRESULT init(int x, int y, gameObjectManager* gom);
 	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, gameObjectManager* gom);
 	virtual void release();
