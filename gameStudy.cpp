@@ -132,7 +132,7 @@ HRESULT gameStudy::init()
 	//SOUNDMANAGER->addSound("skill_cut", "sound/skill_cut.wav", false, false);
 
 
-	SCENEMANAGER->changeScene("title");
+	SCENEMANAGER->changeScene("selectStage");
 
 	return S_OK;
 }
