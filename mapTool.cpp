@@ -78,8 +78,8 @@ void mapTool::release()
 	//타일벡터 이미지 지우자
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
-		if (!(*_viTile)->image);
-		SAFE_DELETE((*_viTile)->image);
+		if (!(*_viTile)->image)
+			SAFE_DELETE((*_viTile)->image);
 	}
 	//타일벡터 클리어
 	_vTile.clear();
