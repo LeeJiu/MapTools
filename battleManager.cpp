@@ -15,8 +15,6 @@ HRESULT battleManager::init()
 {
 	_ui = new battleUI;
 	_ui->init();
-	_camera = new battleCamera;
-	_camera->init();
 
 	_isPlayerTurn = true;	//플레이어 먼저 시작
 
@@ -26,9 +24,7 @@ HRESULT battleManager::init()
 void battleManager::release()
 {
 	_ui->release();
-	_camera->release();
 	SAFE_DELETE(_ui);
-	SAFE_DELETE(_camera);
 }
 
 void battleManager::update()
@@ -72,18 +68,19 @@ void battleManager::keyControl()
 			
 			//캐릭터 리스트를 끈다.
 			_ui->onCharacterList(false);
+			_onUI = false;
 		}
 	}
 
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
 	{
-		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click))
+		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click) && !_onUI)
 		{
 			//아이소 타일 클릭 조건
 			if ((_click.y - _objectMgr->getVTile()[i]->pivotY) >= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
-				(_click.y - _objectMgr->getVTile()[i]->pivotY) >= 0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) >=  0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
 				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4 &&
-				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= 0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4)
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) <=  0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4)
 			{
 				switch (_objectMgr->getVTile()[i]->state)
 				{
@@ -122,8 +119,18 @@ void battleManager::clickZenPoint()
 
 	if (!_ui->isOnCharList())
 	{
-		//캐릭터 리스트를 보여준다.
-		_ui->onCharacterList(true);
+		if (_objectMgr->getVCharacter()[_selectCharIdx]->getIsShow())
+		{
+			//명령창을 보여준다.
+			_ui->onOrder(true);
+			_onUI = true;
+		}
+		else
+		{
+			//캐릭터 리스트를 보여준다.
+			_ui->onCharacterList(true);
+			_onUI = true;
+		}
 	}
 }
 
@@ -131,6 +138,8 @@ void battleManager::clickCharacter(int x, int y, int i)
 {
 	//명령창을 띄운다. (현재 캐릭터의 인덱스 저장)
 	int charSize = _objectMgr->getVCharacter().size();
+
+	_ui->onOrder(true);
 
 	for (int i = 0; i < charSize; i++)
 	{

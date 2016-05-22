@@ -39,7 +39,7 @@ private:
 	bool _isPlayerTurn;
 
 	//ui 상태 변수
-	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onAction;
+	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onAction, _onUI;
 
 public:
 	battleManager();

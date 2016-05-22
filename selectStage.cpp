@@ -95,7 +95,7 @@ void selectStage::update()
 		//START BUTTON
 		if (PtInRect(&_rcGoingStart, _ptMouse))
 		{
-			STAGEDATA->setSElectStageNumber(_selectMapNumber);
+			NUMBERDATA->setSElectStageNumber(_selectMapNumber);
 			SCENEMANAGER->changeScene("battleScene");
 		}
 

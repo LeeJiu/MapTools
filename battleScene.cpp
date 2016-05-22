@@ -18,9 +18,9 @@ HRESULT battleScene::init()
 
 	_objectMgr = new gameObjectManager;
 	_objectMgr->init();
+	_objectMgr->setObject();
 	_objectMgr->setCharacter();
 	_objectMgr->setEnemy();
-	_objectMgr->setObject();
 
 	_battleMgr = new battleManager;
 	_battleMgr->init();
