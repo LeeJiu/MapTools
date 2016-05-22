@@ -31,6 +31,7 @@ private:
 	vector<tagOrder> _vOrder;	// 플레이어 명령 리스트
 
 	bool _setUI;
+	bool _isOnZenPonit;			// 캐릭터가 젠포인트 위에 있는지 여부
 
 	int _selectCharIdx;			// 선택한 케릭터의 인덱스
 	int _orderNum;				// 명령 수행해야할 벡터 인덱스 넘버
@@ -50,7 +51,9 @@ public:
 	void update();
 	void render();
 
-	void keyControl();
+	void tileControl();
+	void UIControl();
+	void characterIsOnZenPoint();
 
 	void clickZenPoint();
 	void clickCharacter(int x, int y, int i);
