@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
 
+
 gameObjectManager::gameObjectManager()
 {
 }
@@ -12,10 +13,11 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
+	setTile();
+
 	_aStar = new aStar;
 	_aStar->init();
-
-	_isAction = false;
+	_aStar->setTile(_vTile);
 
 	return S_OK;
 }
@@ -33,7 +35,6 @@ void gameObjectManager::update()
 		_vToTalRender[i]->update();
 	}
 }
-
 
 //랜더
 void gameObjectManager::render()
@@ -97,36 +98,34 @@ void gameObjectManager::setCharacter()
 	// 프리니정보 로드해온다 (용병 개수 + 이름)
 	gameObject* _prinny = new prinny;
 	_prinny->init(_zenPosX, _zenPosY, this);
-	_vGameObject.push_back(_prinny);
+	_vCharacter.push_back(_prinny);
 	_vToTalRender.push_back(_prinny);
-	vCharSize++;
 
-	int size = _vGameObject[0]->getMercenary().size();
+	int size = _vCharacter[0]->getMercenary().size();
 	
 	for (int i = 0; i < size; ++i)
 	{
-		if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "etna") == 0)
+		if (strcmp(_vCharacter[0]->getMercenary()[i].c_str(), "etna") == 0)
 		{
 			gameObject* _etna = new etna;
 			_etna->init(_zenPosX, _zenPosY, this);
-			_vGameObject.push_back(_etna);
+			_vCharacter.push_back(_etna);
 			_vToTalRender.push_back(_etna);
 		}
-		else if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "flonne") == 0)
+		else if (strcmp(_vCharacter[0]->getMercenary()[i].c_str(), "flonne") == 0)
 		{
 			gameObject* _flonne = new flonne;
 			_flonne->init(_zenPosX, _zenPosY, this);
-			_vGameObject.push_back(_flonne);
+			_vCharacter.push_back(_flonne);
 			_vToTalRender.push_back(_flonne);
 		}
-		else if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "raspberyl") == 0)
+		else if (strcmp(_vCharacter[0]->getMercenary()[i].c_str(), "raspberyl") == 0)
 		{
 			gameObject* _raspberyl = new raspberyl;
 			_raspberyl->init(_zenPosX, _zenPosY, this);
-			_vGameObject.push_back(_raspberyl);
+			_vCharacter.push_back(_raspberyl);
 			_vToTalRender.push_back(_raspberyl);
 		}
-		vCharSize++;
 	}
 }
 
@@ -164,9 +163,8 @@ void gameObjectManager::setEnemy()
 				break;
 			}
 	
-			_vGameObject.push_back(enemy);
+			_vEnemy.push_back(enemy);
 			_vToTalRender.push_back(enemy);
-			vEnmSize++;
 		}
 		else continue;
 	}
@@ -214,15 +212,9 @@ void gameObjectManager::setObject()
 				this);
 
 			_vToTalRender.push_back(rnd);
-			vObjSize++;
 		}
 		else continue;
 	}
-}
-
-void gameObjectManager::setAstar()
-{
-	_aStar->setTile(_vTile);
 }
 
 void gameObjectManager::loadMapData()
@@ -253,8 +245,5 @@ void gameObjectManager::loadMapData()
 			(*_viTile)->image->setFrameX((*_viTile)->imageNum % 4);
 			(*_viTile)->image->setFrameY((*_viTile)->imageNum / 4);
 		}
-
-		//if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == S_ZEN) vObjSize++;
-		//if ((*_viTile)->state == S_ONENM || (*_viTile)->state == BOSS) vEnmSize++;
 	}
 }
