@@ -255,8 +255,13 @@
     <ClInclude Include="catsaver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="catsaver.h">
+      <Filter>헤더 파일</Filter>
+=======
     <ClInclude Include="numberData.h">
       <Filter>gameStudy\selectStage</Filter>
+>>>>>>> refs/remotes/origin/moobin
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -404,8 +409,13 @@
     <ClCompile Include="catsaver.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="catsaver.cpp">
+      <Filter>소스 파일</Filter>
+=======
     <ClCompile Include="numberData.cpp">
       <Filter>gameStudy\selectStage</Filter>
+>>>>>>> refs/remotes/origin/moobin
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
