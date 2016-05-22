@@ -55,10 +55,19 @@ void battleUI::update()
 		_vCharList[i].rc = RectMake(_rcCharacterList.left + 20, _rcCharacterList.top + 50 + (i * 50), 200, 50);
 	}
 
+	// 유닛 오더창의 렉트들
+	for (int i = 0; i < 5; i++)
+	{
+		_rcOrderList[i] = RectMake(_rcOrder.left + 20, _rcOrder.top + 25 + (i * 34), 200, 30);
+	}
+<<<<<<< HEAD
+=======
+
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		keyControl();
 	}
+>>>>>>> origin/development
 }
 
 void battleUI::render()
@@ -90,6 +99,7 @@ void battleUI::render()
 
 	if (_onAction)
 		_action->render(getMemDC(), _rcAction.left, _rcAction.top);
+
 
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
@@ -129,6 +139,14 @@ void battleUI::clickCharList()
 
 void battleUI::clickOrder()
 {
+	for (int i = 0; i < 5; ++i)
+	{
+		if (PtInRect(&_rcOrderList[i], _click))
+		{
+			_orderNumber = i + 1;
+			break;
+		}
+	}
 }
 
 void battleUI::clickAction()

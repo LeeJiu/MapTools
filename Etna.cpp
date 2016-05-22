@@ -36,8 +36,8 @@ HRESULT etna::init(int x, int y, gameObjectManager * gom)
 
 	_gameObjMgr = gom;
 	
-	_indexX = x;
-	_indexY = y;
+	_oldX = _indexX = x;
+	_oldY = _indexY = y;
 
 	_moveSpeed = 3;
 
