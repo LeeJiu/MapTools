@@ -51,7 +51,7 @@ HRESULT flonne::init(int x, int y, vector<TagTile*>& tile)
 
 	_maxHp = _hp;
 
-	_hpBar = new progressBar2;
+	_hpBar = new progressBar;
 	_hpBar->init(_x, _rc.top - 10, 120, 10);
 	_hpBar->gauge(_hp, _maxHp);
 
@@ -89,7 +89,7 @@ HRESULT flonne::init(int x, int y, gameObjectManager * gom)
 
 	_maxHp = _hp;
 
-	_hpBar = new progressBar2;
+	_hpBar = new progressBar;
 	_hpBar->init(_x, _rc.top - 10, 120, 10);
 	_hpBar->gauge(_hp, _maxHp);
 

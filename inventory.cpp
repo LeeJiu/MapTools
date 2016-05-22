@@ -16,7 +16,7 @@ HRESULT inventory::init()
 	_invenOpen = false;
 
 	//인벤토리 이미지 추가
-	IMAGEMANAGER->addImage("inven_ch_status", "image/ui/battle_ui_status.bmp", 300, 500, true, 0xff00ff);
+	IMAGEMANAGER->addImage("inven_ch_status", "image/ui/ui_status.bmp", 300, 500, true, 0xff00ff);
 	IMAGEMANAGER->addImage("inven_list", "image/ui/inventory_list.bmp", 250, 400, false, false);
 	IMAGEMANAGER->addImage("inven_info", "image/ui/inventory_info.bmp", 350, 556, false, false);
 	IMAGEMANAGER->addImage("inven_hell", "image/ui/inventory_hell.bmp", 250, 50, false, false);

@@ -12,16 +12,17 @@ progressBar::~progressBar()
 }
 
 
-HRESULT progressBar::init(float x, float y, int width, int height, bool type)
+HRESULT progressBar::init(int x, int y, int width, int height)
 {
 	_x = x;
 	_y = y;
-	_type = type;
-	_rcProgress = RectMake(_x, _y, width, height);
+
+	_rcProgress = RectMakeCenter(_x, _y, width, height);
 	
-	if(_type) _progressBarFront = IMAGEMANAGER->addImage("barTop_hp", "image/battleUI/ui_battle_bottom_hpbar.bmp", x, y, width, height, true, 0xff00ff);
-	if (!_type) _progressBarFront = IMAGEMANAGER->addImage("barTop_sp", "image/battleUI/ui_battle_bottom_spbar.bmp", x, y, width, height, true, 0xff00ff);
-	_progressBarBack = IMAGEMANAGER->addImage("barBottom", "image/battleUI/ui_battle_bottom_spbar_back.bmp", x, y, width + 2, height + 2, true, 0xff00ff);
+	_progressBarFront = new image;
+	_progressBarFront->init("image/ui/ui_hpBarFront.bmp", x, y, width, height, 1, 1, true, 0xff00ff);
+	_progressBarBack = new image;
+	_progressBarBack->init("image/ui/ui_hpBarBack.bmp", x, y, width, height, 1, 1, true, 0xff00ff);
 
 	_width = width;
 
@@ -30,39 +31,28 @@ HRESULT progressBar::init(float x, float y, int width, int height, bool type)
 
 void progressBar::release()
 {
-
+	SAFE_DELETE(_progressBarBack);
+	SAFE_DELETE(_progressBarFront);
 }
 
 void progressBar::update()
 {
-	_rcProgress = RectMake(_x, _y, _progressBarBack->getWidth(), _progressBarBack->getHeight());
+	_rcProgress = RectMakeCenter(_x, _y, _progressBarBack->getWidth(), _progressBarBack->getHeight());
 }
 
 void progressBar::render()
 {
-	IMAGEMANAGER->render("barBottom", getMemDC(),
+	_progressBarBack->render(getMemDC(),
 		_rcProgress.left,
-		_y,
+		_rcProgress.top,
 		0, 0, 
 		_progressBarBack->getWidth(), _progressBarBack->getHeight());
 
-	if (_type)
-	{
-		IMAGEMANAGER->render("barTop_hp", getMemDC(),
-			_rcProgress.left + 1,
-			_y + 1,
-			0, 0,
-			_width, _progressBarFront->getHeight());
-	}
-
-	if (!_type)
-	{
-		IMAGEMANAGER->render("barTop_sp", getMemDC(),
-			_rcProgress.left + 1,
-			_y + 1,
-			0, 0,
-			_width, _progressBarFront->getHeight());
-	}
+	_progressBarFront->render(getMemDC(),
+		_rcProgress.left,
+		_rcProgress.top,
+		0, 0, 
+		_width, _progressBarFront->getHeight());
 }
 
 //게이지 바

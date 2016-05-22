@@ -22,9 +22,6 @@ struct GOBJ_Y_RENDER
 	}
 };
 
-class battleUI;
-class battleManager;
-
 class gameObjectManager : public gameNode
 {
 	RECT _rcTurnBack;
@@ -51,8 +48,7 @@ class gameObjectManager : public gameNode
 	bool isCharacterTurn;
 
 	aStar* _aStar;
-	battleUI* _battleUI;
-	battleManager* _battleMgr;
+
 public:
 	gameObjectManager();
 	~gameObjectManager();
@@ -62,21 +58,8 @@ public:
 	void update();
 	void render();
 
-	void setBattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
-	void setBattleManagerMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
-
-	void setUnitMove(int i, int destX, int destY);
-	void setUnitAttack(int i, int destX, int destY);
-	void setUnitDefence();
-
-	void setActionAttack();
-	void setChangeTurn();
-
 	//get함수
 	
-	int getCharSize() { return vCharSize; }
-	int getEnmSize() { return vEnmSize; }
-	bool getIsAction() { return _isAction; }
 
 	//set함수
 	void setTile();
@@ -84,10 +67,8 @@ public:
 	void setEnemy();
 	void setObject();
 	void setAstar();
-	void setIsActiom(bool isAction) { _isAction = isAction; }
 
 	void loadMapData();
-
 
 	vector<TagTile*>& getTile() { return _vTile; }
 	vector<gameObject*>& getGameObject() { return _vGameObject; }

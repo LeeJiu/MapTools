@@ -6,19 +6,17 @@ class progressBar : public gameNode
 {
 private:
 	RECT _rcProgress;
-	float _x, _y;
+	int _x, _y;
 	float _width;
 
 	image* _progressBarFront;
 	image* _progressBarBack;
 
-	bool _type;
-
 public:
 	progressBar();
 	~progressBar();
 
-	HRESULT init(float x, float y, int width, int height, bool type);
+	HRESULT init(int x, int y, int width, int height);
 	void release();
 	void update();
 	void render();
