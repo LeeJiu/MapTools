@@ -12,71 +12,54 @@ battleScene::~battleScene()
 }
 
 HRESULT battleScene::init()
-{	
-
-
-	_count = 0;
-	_volume = 0.2f;
-	_Prinny_voluem = 0;
-	SOUNDMANAGER->play("step", _Prinny_voluem);
-	SOUNDMANAGER->play("battleScene_bg", _volume);
-
-	_gameObjMgr = new gameObjectManager;
-	_gameObjMgr->init();
-
-	_battleMgr = new battleManager;
-	_battleMgr->init();
-	
-	_gameObjMgr->setTile();
-	_gameObjMgr->setObject();
-	_gameObjMgr->setCharacter();
-	_gameObjMgr->setEnemy();
-	_gameObjMgr->setAstar();
-
-	_battleUI = new battleUI;
-	_battleUI->init();
-
-
-	_gameObjMgr->setBattleUIMemoryLink(_battleUI);
-	_gameObjMgr->setBattleManagerMemoryLink(_battleMgr);
-	_battleMgr->setBattleUIMemoryLink(_battleUI);
-	_battleMgr->setGameObjectManagerMemoryLink(_gameObjMgr);
-
-	_battleUI->setObjectManagerMemoryLink(_gameObjMgr);
-	_battleUI->setBattleManagerMemoryLink(_battleMgr);
-	_battleUI->setCharacterList();
-
-	_battleUI->setGameObjectSize();
-	_battleUI->setCamera();
+{
+	_ui = new battleUI;
+	_ui->init();
 
 	return S_OK;
 }
 
 void battleScene::release()
 {
-	_gameObjMgr->release();
-	_battleMgr->release();
-	_battleUI->release();
-
-	SOUNDMANAGER->stop("battleScene_bg");
 }
 
 void battleScene::update()
 {
-	if (_volume < 0.8f) _volume += 0.005f;
-	SOUNDMANAGER->setVolum("battleScene_bg", _volume);
-	SOUNDMANAGER->setVolum("step", _Prinny_voluem);
-
-	//_Prinny_voluem = 
-
-	_gameObjMgr->update();
-	_battleMgr->update();
-	_battleUI->update();
+	_ui->update();
+	
+	keyControl();
 }
 
 void battleScene::render()
 {
-	_gameObjMgr->render();
-	_battleMgr->render();
-	_battleUI->render();
+	_ui->render();
+}
+
+void battleScene::keyControl()
+{
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_onCharacterList = !_onCharacterList;
+		_ui->onCharacterList(_onCharacterList);
+	}
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		_onSummary = !_onSummary;
+		_ui->onSummary(_onSummary);
+	}
+	if (KEYMANAGER->isOnceKeyDown('3'))
+	{
+		_onStatus = !_onStatus;
+		_ui->onStatus(_onStatus);
+	}
+	if (KEYMANAGER->isOnceKeyDown('4'))
+	{
+		_onOrder = !_onOrder;
+		_ui->onOrder(_onOrder);
+	}
+	if (KEYMANAGER->isOnceKeyDown('5'))
+	{
+		_onAction = !_onAction;
+		_ui->onAction(_onAction);
+	}
 }

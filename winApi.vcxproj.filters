@@ -147,9 +147,6 @@
     <ClInclude Include="txtData.h">
       <Filter>2D Framework\txtData</Filter>
     </ClInclude>
-    <ClInclude Include="progressBar.h">
-      <Filter>2D Framework\progressBar</Filter>
-    </ClInclude>
     <ClInclude Include="effect.h">
       <Filter>2D Framework\effect</Filter>
     </ClInclude>
@@ -210,15 +207,6 @@
     <ClInclude Include="aStar.h">
       <Filter>gameStudy\aStar</Filter>
     </ClInclude>
-    <ClInclude Include="battleManager.h">
-      <Filter>gameStudy\battle</Filter>
-    </ClInclude>
-    <ClInclude Include="battleScene.h">
-      <Filter>gameStudy\battle</Filter>
-    </ClInclude>
-    <ClInclude Include="battleUI.h">
-      <Filter>gameStudy\battle</Filter>
-    </ClInclude>
     <ClInclude Include="prinny.h">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClInclude>
@@ -255,11 +243,26 @@
     <ClInclude Include="boss.h">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
+<<<<<<< HEAD
+=======
+    <ClInclude Include="soundManager.h">
+      <Filter>2D Framework\manager</Filter>
+    </ClInclude>
+>>>>>>> refs/remotes/origin/jiu
     <ClInclude Include="selectStageData.h">
       <Filter>gameStudy\selectStage</Filter>
     </ClInclude>
     <ClInclude Include="EnemyAI.h">
       <Filter>gameStudy\battle\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="battleUI.h">
+      <Filter>gameStudy\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="progressBar.h">
+      <Filter>2D Framework\progressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="battleScene.h">
+      <Filter>gameStudy\battle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -295,9 +298,6 @@
     </ClCompile>
     <ClCompile Include="txtData.cpp">
       <Filter>2D Framework\txtData</Filter>
-    </ClCompile>
-    <ClCompile Include="progressBar.cpp">
-      <Filter>2D Framework\progressBar</Filter>
     </ClCompile>
     <ClCompile Include="effect.cpp">
       <Filter>2D Framework\effect</Filter>
@@ -359,15 +359,6 @@
     <ClCompile Include="aStar.cpp">
       <Filter>gameStudy\aStar</Filter>
     </ClCompile>
-    <ClCompile Include="battleManager.cpp">
-      <Filter>gameStudy\battle</Filter>
-    </ClCompile>
-    <ClCompile Include="battleScene.cpp">
-      <Filter>gameStudy\battle</Filter>
-    </ClCompile>
-    <ClCompile Include="battleUI.cpp">
-      <Filter>gameStudy\battle</Filter>
-    </ClCompile>
     <ClCompile Include="prinny.cpp">
       <Filter>gameStudy\gameObject\character</Filter>
     </ClCompile>
@@ -404,11 +395,26 @@
     <ClCompile Include="boss.cpp">
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClCompile>
+<<<<<<< HEAD
+=======
+    <ClCompile Include="soundManager.cpp">
+      <Filter>2D Framework\manager</Filter>
+    </ClCompile>
+>>>>>>> refs/remotes/origin/jiu
     <ClCompile Include="selectStageData.cpp">
       <Filter>gameStudy\selectStage</Filter>
     </ClCompile>
     <ClCompile Include="EnemyAI.cpp">
       <Filter>gameStudy\battle\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="battleUI.cpp">
+      <Filter>gameStudy\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="progressBar.cpp">
+      <Filter>2D Framework\progressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="battleScene.cpp">
+      <Filter>gameStudy\battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

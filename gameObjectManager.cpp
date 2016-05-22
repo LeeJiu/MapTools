@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
-#include "battleUI.h"
-#include "battleManager.h"
 
 gameObjectManager::gameObjectManager()
 {
@@ -33,7 +31,6 @@ void gameObjectManager::release()
 
 void gameObjectManager::update()
 {
-
 	int _size = _vToTalRender.size();
 	for (int i = 0; i < _size; i++)
 	{
@@ -51,15 +48,11 @@ void gameObjectManager::render()
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
 
-
 	char str[512];
 	sprintf_s(str, "x = %d, y = %d", _vToTalRender[0]->getIndexX(), _vToTalRender[0]->getIndexY());
 	TextOut(getMemDC(), 10, 10, str, strlen(str));
 
-	_battleUI->renderOverlapSelectTile();
-
-	//int _size = vCharSize + vObjSize + 2;
-
+	//Y축 정렬
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
 
 	int _size = _vToTalRender.size();
@@ -67,6 +60,7 @@ void gameObjectManager::render()
 	{
 		_vToTalRender[i]->render();
 	}
+<<<<<<< HEAD
 
 	_battleUI->renderOverlapSelectTile();
 	_battleUI->renderOverlapAttackSelectTile();
@@ -117,6 +111,8 @@ void gameObjectManager::setActionAttack()
 
 void gameObjectManager::setChangeTurn()
 {
+=======
+>>>>>>> refs/remotes/origin/jiu
 }
 
 void gameObjectManager::setTile()
@@ -195,23 +191,6 @@ void gameObjectManager::setEnemy()
 {
 	// 에너미파일 로드
 	DATABASE->loadDatabase("battleMap1_enm.txt");
-
-
-	//for (int i = 0; i < TOTALTILE(TILENUM); i++)
-	//{
-	//	gameObject* enemy;
-	//	switch(DATABASE->getElementData(std::to_string(i))->imageNum)   // (몬스터의 종류)
-	//	{
-	//	case 1:
-	//		enemy = new orc;
-	//		enemy->init(DATABASE->getElementData(std::to_string(i))->x, DATABASE->getElementData(std::to_string(i))->y, _vTile);
-	//		_vGameObject.push_back(enemy);
-	//		_vToTalRender.push_back(enemy);
-	//		vEnmSize++;
-	//		break;
-	//	}
-	//}
-
 	
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{

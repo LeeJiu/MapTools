@@ -84,9 +84,8 @@
     <ClInclude Include="actionManager.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="aStar.h" />
-    <ClInclude Include="battleCamera.h" />
-    <ClInclude Include="battleManager.h" />
     <ClInclude Include="battleScene.h" />
+    <ClInclude Include="battleCamera.h" />
     <ClInclude Include="battleUI.h" />
     <ClInclude Include="boss.h" />
     <ClInclude Include="button.h" />
@@ -116,7 +115,6 @@
     <ClInclude Include="orc.h" />
     <ClInclude Include="prinny.h" />
     <ClInclude Include="progressBar.h" />
-    <ClInclude Include="progressBar2.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="raspberyl.h" />
     <ClInclude Include="sceneManager.h" />
@@ -139,9 +137,8 @@
     <ClCompile Include="actionManager.cpp" />
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="aStar.cpp" />
-    <ClCompile Include="battleCamera.cpp" />
-    <ClCompile Include="battleManager.cpp" />
     <ClCompile Include="battleScene.cpp" />
+    <ClCompile Include="battleCamera.cpp" />
     <ClCompile Include="battleUI.cpp" />
     <ClCompile Include="boss.cpp" />
     <ClCompile Include="button.cpp" />
@@ -170,7 +167,6 @@
     <ClCompile Include="orc.cpp" />
     <ClCompile Include="prinny.cpp" />
     <ClCompile Include="progressBar.cpp" />
-    <ClCompile Include="progressBar2.cpp" />
     <ClCompile Include="raspberyl.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="selectStage.cpp" />
