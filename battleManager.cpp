@@ -39,7 +39,7 @@ void battleManager::update()
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		if (_leftButtonDown)
 		{
 			keyControl();
 		}
