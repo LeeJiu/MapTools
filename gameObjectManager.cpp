@@ -13,6 +13,7 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
+
 	setTile();
 
 	_aStar = new aStar;
@@ -148,8 +149,6 @@ void gameObjectManager::setEnemy()
 		{
 			gameObject* enemy;
 			int imageNum = DATABASE->getElementData(std::to_string(i))->imageNum;
-			int x = 0;
-			int y = 0;
 			switch (imageNum)   // (몬스터의 종류)
 			{
 			case 1:
@@ -253,4 +252,14 @@ void gameObjectManager::loadMapData()
 			(*_viTile)->image->setFrameY((*_viTile)->imageNum / 4);
 		}
 	}
+}
+
+void gameObjectManager::characterMove(int index, int destX, int destY)
+{
+	_vCharacter[index]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vCharacter[index]->getIndexX(), _vCharacter[index]->getIndexY(), destX, destY));
+}
+
+void gameObjectManager::enemyMove(int index, int destX, int destY)
+{
+	_vEnemy[index]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), destX, destY));
 }

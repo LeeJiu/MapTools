@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "battleManager.h"
 #include "gameObjectManager.h"
+#include "battleCamera.h"
 
 battleManager::battleManager()
 {
@@ -14,6 +15,8 @@ HRESULT battleManager::init()
 {
 	_ui = new battleUI;
 	_ui->init();
+	_camera = new battleCamera;
+	_camera->init();
 
 	_isPlayerTurn = true;	//플레이어 먼저 시작
 
@@ -23,7 +26,11 @@ HRESULT battleManager::init()
 void battleManager::release()
 {
 	_ui->release();
+	_camera->release();
 	SAFE_DELETE(_ui);
+	SAFE_DELETE(_camera);
+
+
 }
 
 void battleManager::update()
@@ -35,12 +42,18 @@ void battleManager::update()
 	}
 
 	_ui->update();
-
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
+<<<<<<< HEAD
 		if(_leftButtonDown)
 			keyControl();
+=======
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		{
+			keyControl();
+		}
+>>>>>>> refs/remotes/origin/development
 	}
 	//에너미의 턴일 때
 	else
@@ -84,19 +97,19 @@ void battleManager::keyControl()
 					break;
 
 				case S_ONCHAR:			//캐릭터
-					clickCharacter();
+					clickCharacter(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
 					break;
 
 				case S_ONENM:			//적
-					clickEnemy();
+					clickEnemy(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
 					break;
 
 				case S_ONOBJ: case S_ETC://이동 불가능한 타일/장애물
-					clickObject();
+					clickObject(i);
 					break;
 
 				case S_NONE:			//이동 가능한 타일
-					clickTile();
+					clickTile(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
 					break;
 				}
 				break;
@@ -119,38 +132,87 @@ void battleManager::clickZenPoint()
 	}
 }
 
-void battleManager::clickCharacter()
+void battleManager::clickCharacter(int x, int y, int i)
 {
 	//명령창을 띄운다. (현재 캐릭터의 인덱스 저장)
+	int charSize = _objectMgr->getVCharacter().size();
+
+	for (int i = 0; i < charSize; i++)
+	{
+		if (_objectMgr->getVCharacter()[i]->getIndexX() == x && _objectMgr->getVCharacter()[i]->getIndexY() == y)
+		{
+			_selectCharIdx = i;
+			break;
+		}
+	}
 	//카메라 포커스 맞춘다.
+	_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
 
 }
 
-void battleManager::clickEnemy()
+void battleManager::clickEnemy(int x, int y, int i)
 {
-	//적의 인덱스를 저장하고,
-	//선택된 캐릭터의 공격 가능 타일을 끈다.
-	//->공격 명령을 push
+	/* 일단은 공격만 짜놓고 나중에 스킬을 추가하게 된다면 한번더 조건(공격인지 스킬인지)를 걸면 될듯 */
+
+	//만약에 선택된 케릭터의 공격가능한 타일이 보여지고있다면
+	if (_objectMgr->getVCharacter()[_selectCharIdx]->getIsShowPossibleAttackTile())
+	{
+		// 적이 담겨있는 사이즈를 받아와서 
+		int enemySize = _objectMgr->getVEnemy().size();
+	
+		for (int i = 0; i < enemySize; i++)
+		{	
+			// 해당 위치의 있는 적을 찾고 
+			if (_objectMgr->getVEnemy()[i]->getIndexX() == x && _objectMgr->getVEnemy()[i]->getIndexY() == y)
+			{
+				// 명령 수행할 내용을 벡터에 push_back 한다.
+				tagOrder _order;
+				_order.playerVIdx = _selectCharIdx;
+				_order.playerIdx.x = _objectMgr->getVCharacter()[_selectCharIdx]->getIndexX();
+				_order.playerIdx.y = _objectMgr->getVCharacter()[_selectCharIdx]->getIndexY();
+				_order.enemyVIdx = i;
+				_order.enemyIdx.x = x;
+				_order.enemyIdx.y = y;
+				_order.order = O_ATTACK;
+				_order.damage = _objectMgr->getVCharacter()[_selectCharIdx]->getAtk();
+
+				_vOrder.push_back(_order);
+				break;
+			}
+		}
+		// 공격가능한 타일을 꺼준다.
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(false);
+	}
+	// 공격타일이 보여지지 않고 있는 경우
+	else
+	{
+		//카메라 포커스를 맞춘다.
+		_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
+	}
 
 
-	//공격 가능 타일이 켜져있지 않은 경우,
+}
+
+void battleManager::clickObject(int i)
+{
 	//카메라 포커스를 맞춘다.
+	_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
 
 }
 
-void battleManager::clickObject()
+void battleManager::clickTile(int x, int y, int i)
 {
-	//카메라 포커스를 맞춘다.
-
-}
-
-void battleManager::clickTile()
-{
-	//이동 가능 타일이 켜진 경우,
 	//캐릭터 이동한다.
-
-
+	
+	//이동 가능 타일이 켜진 경우,
+	if (_objectMgr->getVCharacter()[_selectCharIdx]->getIsShowPossibleMoveTile())
+	{
+		_objectMgr->characterMove(_selectCharIdx, x, y);
+	}
 	//이동 가능 타일이 켜지지 않은 경우,
-	//카메라 포커스 맞춘다.
-
+	else
+	{
+		//카메라 포커스 맞춘다.
+		_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
+	}
 }

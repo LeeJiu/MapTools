@@ -64,11 +64,11 @@ void orc::update()
 	_hpBar->setX(_x);
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
-
+	
 	gameObject::setDirectionImage();
 	setImage();
 	setFrame();
-
+	
 	if (!_isMove)
 	{
 		_rc = RectMakeIso(_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY,

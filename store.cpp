@@ -14,6 +14,7 @@ store::~store()
 HRESULT store::init()
 {
 	SOUNDMANAGER->stop("step");
+	SOUNDMANAGER->play("store_bg", 0.7f);
 
 	//판매할 아이템을 세팅
 	_item.setItem("sword", false);
@@ -73,6 +74,8 @@ HRESULT store::init()
 void store::release()
 {
 	_item.getVItem().clear();
+
+	SOUNDMANAGER->stop("store_bg");
 }
 
 void store::update()

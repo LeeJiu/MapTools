@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "battleUI.h"
 
+
 enum ORDERKIND
 {
 	O_ATTACK, O_DEFENCE, O_SKILL
@@ -18,19 +19,26 @@ struct tagOrder
 };
 
 class gameObjectManager;
+class battleCamera;
 
 class battleManager : public gameNode
 {
 private:
 	gameObjectManager* _objectMgr;
 	battleUI* _ui;
+	battleCamera* _camera;
 
-	vector<tagOrder> _vOrder;	//플레이어 명령 리스트
+	vector<tagOrder> _vOrder;	// 플레이어 명령 리스트
 
+<<<<<<< HEAD
 	int _selectCharIdx;
 	int _orderNum;				//명령 수행해야할 벡터 인덱스 넘버
 
 	bool _setUI;
+=======
+	int _selectCharIdx;			// 선택한 케릭터의 인덱스
+	int _orderNum;				// 명령 수행해야할 벡터 인덱스 넘버
+>>>>>>> refs/remotes/origin/development
 
 	//turn 상태 변수
 	bool _isPlayerTurn;
@@ -50,11 +58,12 @@ public:
 	void keyControl();
 
 	void clickZenPoint();
-	void clickCharacter();
-	void clickEnemy();
-	void clickObject();
-	void clickTile();
+	void clickCharacter(int x, int y, int i);
+	void clickEnemy(int x, int y, int i);			// 매개변수 타일의 인덱스
+	void clickObject(int i);
+	void clickTile(int x, int y, int i);
 
 	void setObjectMgrMemoryLink(gameObjectManager* objectMgr) { _objectMgr = objectMgr; }
+	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }
 };
 

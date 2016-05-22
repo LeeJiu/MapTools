@@ -14,6 +14,7 @@ mercenaryStore::~mercenaryStore()
 HRESULT mercenaryStore::init()
 {
 	SOUNDMANAGER->stop("step");
+	SOUNDMANAGER->play("mer_store_bg", 0.7f);
 
 	/*			store ui			*/
 	_rcStoreTitle = RectMake(30, 30, 162, 65);
@@ -50,6 +51,7 @@ HRESULT mercenaryStore::init()
 
 void mercenaryStore::release()
 {
+	SOUNDMANAGER->stop("mer_store_bg");
 }
 
 void mercenaryStore::update()
