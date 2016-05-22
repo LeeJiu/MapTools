@@ -1,6 +1,6 @@
 #pragma once
 #include "gameNode.h"
-#include "progressBar2.h"
+#include "progressBar.h"
 
 class gameObjectManager;
 
@@ -43,7 +43,7 @@ protected:
 	CHARACTER_STATE _characterState;
 	CHARACTER_DIRECTION _characterDir;
 
-	progressBar2* _hpBar;
+	progressBar* _hpBar;
 
 	gameObjectManager* _gameObjMgr;
 

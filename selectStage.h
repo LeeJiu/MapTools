@@ -32,12 +32,9 @@ private:
 	vector<char*> _vMapList;
 	vector<RECT> _vRcMapListStr;
 
-	image* _imageShortcutStart;
-	image* _imageShortcutSkip;
-	image* _imageShortcutExit;
-
 	int _mapListSize;
 	int _selectMapNumber;
+
 public:
 	selectStage();
 	~selectStage();
