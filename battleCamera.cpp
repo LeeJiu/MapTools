@@ -110,7 +110,7 @@ void battleCamera::cameraVibrate()
 
 	_vibrateCount++;
 
-	if (_vibrateCount >= 20)
+	if (_vibrateCount > 20)
 	{
 		_vibrateCount = 0;
 		_isVibrate = false;

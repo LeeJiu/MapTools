@@ -253,5 +253,15 @@ void gameObject::showPossibleMoveTile()
 
 void gameObject::showPossibleAttackTile()
 {
+<<<<<<< HEAD
 
+=======
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	{
+		if (abs(_indexX + _indexY - _gameObjMgr->getTile()[i]->x - _gameObjMgr->getTile()[i]->y) == 1)
+		{
+			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _gameObjMgr->getTile()[i]->rc.left, _gameObjMgr->getTile()[i]->rc.top);
+		}
+	}
+>>>>>>> refs/remotes/origin/development
 }
