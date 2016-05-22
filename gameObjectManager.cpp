@@ -60,59 +60,6 @@ void gameObjectManager::render()
 	{
 		_vToTalRender[i]->render();
 	}
-<<<<<<< HEAD
-
-	_battleUI->renderOverlapSelectTile();
-	_battleUI->renderOverlapAttackSelectTile();
-
-	//char str[128];
-	//sprintf_s(str, "pivotX: %.f, pivotY: %.f", _vTile[0]->pivotX, _vTile[0]->pivotY);
-	//TextOut(getMemDC(), 10, 10, str, strlen(str));
-}
-
-void gameObjectManager::setUnitMove(int i, int destX, int destY)
-{
-	_vGameObject[i]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vGameObject[i]->getIndexX(), _vGameObject[i]->getIndexY(), destX, destY));
-	SOUNDMANAGER->play("step", 1);
-}
-
-void gameObjectManager::setUnitAttack(int i, int destX, int destY)
-{
-	if (!_isAction)
-	{
-		_vGameObject[i]->attack(destX, destY);
-		_isAction = true;
-		SOUNDMANAGER->play("prinny_attack", 1);
-	}
-	else
-	{
-		// 오더가 끝났다면
-		if (!_vGameObject[i]->getIsOrdering())
-		{
-			_isAction = false;
-			_battleMgr->setOrderNumber();
-		}
-		// 오더가 수행중이라면
-		else
-		{
-			return;
-		}
-	}
-}
-
-void gameObjectManager::setUnitDefence()
-{
-}
-
-void gameObjectManager::setActionAttack()
-{
-
-}
-
-void gameObjectManager::setChangeTurn()
-{
-=======
->>>>>>> refs/remotes/origin/jiu
 }
 
 void gameObjectManager::setTile()
