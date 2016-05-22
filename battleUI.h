@@ -1,6 +1,12 @@
 #pragma once
 #include "gameNode.h"
 
+struct tagCharList
+{
+	string name;
+	RECT rc;
+	int idx;
+};
 
 class battleUI : public gameNode
 {
@@ -13,8 +19,11 @@ private:
 
 	//캐릭터 리스트창, 요약정보창(name, hp, sp), 명령창, 실행창(턴종료, 중도포기), 상세정보창
 	RECT _rcCharacterList, _rcSummary, _rcOrder, _rcAction, _rcStatus;
-	
+
 	bool _onCharacterList, _onSummary, _onAction, _onOrder, _onStatus;
+	
+	vector<tagCharList> _vCharList;	//캐릭터 리스트
+	int _charIdx;					//objectMgr에서 캐릭터에 접근할 인덱스
 
 public:
 	battleUI();
@@ -37,5 +46,14 @@ public:
 	void clickCharList();
 	void clickOrder();
 	void clickAction();
+
+	void removeVCharList(int arrNum);
+
+	void setCharList(vector<string>& charName);
+	void setCharIdx(int charIdx) { _charIdx = charIdx; }
+
+	vector<tagCharList>& getVCharList() { return _vCharList; }
+	int getCharIdx() { return _charIdx; }
+	bool isOnCharList() { return _onCharacterList; }
 };
 

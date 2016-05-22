@@ -27,14 +27,16 @@ private:
 
 	vector<tagOrder> _vOrder;	//플레이어 명령 리스트
 
-	int _orderNum;	//명령 수행해야할 벡터 인덱스 넘버
+	int _selectCharIdx;
+	int _orderNum;				//명령 수행해야할 벡터 인덱스 넘버
+
+	bool _setUI;
 
 	//turn 상태 변수
 	bool _isPlayerTurn;
 
 	//ui 상태 변수
 	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onAction;
-
 
 public:
 	battleManager();
