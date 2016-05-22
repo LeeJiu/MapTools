@@ -29,8 +29,6 @@ void battleManager::release()
 	_camera->release();
 	SAFE_DELETE(_ui);
 	SAFE_DELETE(_camera);
-
-
 }
 
 void battleManager::update()
@@ -45,15 +43,8 @@ void battleManager::update()
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
-<<<<<<< HEAD
 		if(_leftButtonDown)
 			keyControl();
-=======
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-		{
-			keyControl();
-		}
->>>>>>> refs/remotes/origin/development
 	}
 	//에너미의 턴일 때
 	else
@@ -74,7 +65,11 @@ void battleManager::keyControl()
 		if (_ui->getCharIdx() != 100)
 		{
 			_selectCharIdx = _ui->getCharIdx();
+
+			_objectMgr->getVCharacter()[_selectCharIdx]->setIsShow(true);
+
 			_ui->setCharIdx(100);
+			
 			//캐릭터 리스트를 끈다.
 			_ui->onCharacterList(false);
 		}

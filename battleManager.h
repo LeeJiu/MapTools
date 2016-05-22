@@ -30,15 +30,10 @@ private:
 
 	vector<tagOrder> _vOrder;	// 플레이어 명령 리스트
 
-<<<<<<< HEAD
-	int _selectCharIdx;
-	int _orderNum;				//명령 수행해야할 벡터 인덱스 넘버
-
 	bool _setUI;
-=======
+
 	int _selectCharIdx;			// 선택한 케릭터의 인덱스
 	int _orderNum;				// 명령 수행해야할 벡터 인덱스 넘버
->>>>>>> refs/remotes/origin/development
 
 	//turn 상태 변수
 	bool _isPlayerTurn;
