@@ -15,6 +15,8 @@ HRESULT gameObjectManager::init()
 	_aStar = new aStar;
 	_aStar->init();
 
+	_isAction = false;
+
 	return S_OK;
 }
 
