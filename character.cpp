@@ -16,11 +16,6 @@ HRESULT character::init()
 	return S_OK;
 }
 
-HRESULT character::init(int x, int y, vector<TagTile*>& tile)
-{
-	return S_OK;
-}
-
 HRESULT character::init(int x, int y, gameObjectManager * gom)
 {
 	return E_NOTIMPL;

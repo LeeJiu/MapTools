@@ -78,8 +78,8 @@ void mapTool::release()
 	//타일벡터 이미지 지우자
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
-		if (!(*_viTile)->image);
-		SAFE_DELETE((*_viTile)->image);
+		if (!(*_viTile)->image)
+			SAFE_DELETE((*_viTile)->image);
 	}
 	//타일벡터 클리어
 	_vTile.clear();
@@ -329,7 +329,7 @@ void mapTool::keyControl()
 								if (_vTile[i]->image->getFrameY() < 15)
 									_vTile[i]->state = S_NONE;
 								else
-									_vTile[i]->state = S_ECT;
+									_vTile[i]->state = S_ETC;
 							}
 						}
 
@@ -450,8 +450,7 @@ void mapTool::keyControl()
 							//적
 							if (_state == SET_ENM)
 							{
-								if ((_vTile[i]->state == S_ONENM) ||
-									(_vTile[i]->state == BOSS))
+								if (_vTile[i]->state == S_ONENM)
 								{
 									_vEnemy[i]->draw = false;
 									_vEnemy[i]->rc = RectMake(0, 0, 0, 0);
@@ -992,7 +991,7 @@ void mapTool::setSampleTile()
 			if (_sampleTile[j][i].image->getFrameX() < 15)
 				_sampleTile[j][i].state = S_NONE;
 			else
-				_sampleTile[j][i].state = S_ECT;
+				_sampleTile[j][i].state = S_ETC;
 			_vIsoTile.push_back(&_sampleTile[j][i]);
 
 			count++;

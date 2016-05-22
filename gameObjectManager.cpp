@@ -38,6 +38,12 @@ void gameObjectManager::release()
 		SAFE_DELETE((*_viTile)->image);
 	}
 	_vTile.clear();
+
+	vector<gameObject*>::iterator iter;
+	for (iter = _vCharacter.begin(); iter != _vCharacter.end(); ++iter)
+	{
+		(*iter)->release();
+	}
 }
 
 void gameObjectManager::update()

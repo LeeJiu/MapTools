@@ -253,7 +253,11 @@
       <Filter>gameStudy\gameObject\enemy</Filter>
     </ClInclude>
     <ClInclude Include="soundManager.h">
+<<<<<<< HEAD
       <Filter>소스 파일</Filter>
+=======
+      <Filter>2D Framework\manager</Filter>
+>>>>>>> refs/remotes/origin/development
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
