@@ -11,12 +11,7 @@ enemy::~enemy()
 {
 }
 
-//HRESULT enemy::init()
-//{
-//	return S_OK;
-//}
-
-HRESULT enemy::init(int x, int y, vector<TagTile*>& tile)
+HRESULT enemy::init()
 {
 	return S_OK;
 }
