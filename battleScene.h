@@ -1,13 +1,15 @@
 #pragma once
 #include "gameNode.h"
-#include "battleUI.h"
+#include "battleManager.h"
+#include "battleCamera.h"
+#include "gameObjectManager.h"
 
 class battleScene : public gameNode
 {
 private:
-	battleUI* _ui;
-
-	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onAction;
+	gameObjectManager* _objectMgr;
+	battleManager* _battleMgr;
+	battleCamera* _camera;
 
 public:
 	battleScene();
@@ -17,7 +19,5 @@ public:
 	void release();
 	void update();
 	void render();
-
-	void keyControl();
 };
 
