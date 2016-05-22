@@ -19,6 +19,8 @@ struct GOBJ_Y_RENDER
 	}
 };
 
+class battleCamera;
+
 class gameObjectManager : public gameNode
 {
 	TagTile _tile[TILENUM][TILENUM];
@@ -33,6 +35,7 @@ class gameObjectManager : public gameNode
 	int _zenPosX, _zenPosY;
 
 	aStar* _aStar;
+	battleCamera* _camera;
 
 public:
 	gameObjectManager();
@@ -43,8 +46,8 @@ public:
 	void update();
 	void render();
 
-	//get함수
-	
+	void loadMapData();
+
 
 	//set함수
 	void setTile();
@@ -52,8 +55,13 @@ public:
 	void setEnemy();
 	void setObject();
 
-	void loadMapData();
 
-	vector<TagTile*>& getTile() { return _vTile; }
+	//get함수
+	vector<TagTile*>& getVTile() { return _vTile; }
+	vector<gameObject*>& getVCharacter() { return _vCharacter; }
+	vector<gameObject*>& getVEnemy() { return _vEnemy; }
+
+	//메모리 링크
+	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }
 };
 

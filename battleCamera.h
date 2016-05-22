@@ -30,10 +30,11 @@ public:
 	void setCameraTile(float x, float y);
 	void setCameraJoomIn();
 	void setCameraJoomOut();
-	void setIsVibrate(bool isVibrate) { _isVibrate = isVibrate; }
 
+	void setIsVibrate(bool isVibrate) { _isVibrate = isVibrate; }
 	void setIsJoomIn(bool isJoomIn) { _isJoomIn = isJoomIn; }
 	void setIsJoomOut(bool isJoomOut) { _isJoomOut = isJoomOut; }
+	
 	void cameraVibrate();
 	void cameraTile();
 	void cameraFree();
