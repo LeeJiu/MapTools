@@ -23,7 +23,7 @@ public:
 
 	/*			함수 추가			*/
 
-	RECT getRcSummon() { return _rcSommon; }
+	//RECT getRcSummon() { return _rcSommon; }
 
 	virtual void previousState();							// 이전으로 돌아가는 함수
 	virtual void showPossibleMoveTile();				// 이동가능한 타일 보여주는 함수

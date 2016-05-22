@@ -7,6 +7,8 @@
 class battleScene : public gameNode
 {
 private:
+	float _volume;
+
 	gameObjectManager* _objectMgr;
 	battleManager* _battleMgr;
 	battleCamera* _camera;

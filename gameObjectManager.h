@@ -37,6 +37,7 @@ class gameObjectManager : public gameNode
 	aStar* _aStar;
 	battleCamera* _camera;
 
+
 public:
 	gameObjectManager();
 	~gameObjectManager();
