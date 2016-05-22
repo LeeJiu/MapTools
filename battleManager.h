@@ -52,17 +52,10 @@ public:
 	void keyControl();
 
 	void clickZenPoint();
-<<<<<<< HEAD
-	void clickCharacter();
-	void clickEnemy();
+	void clickCharacter(int x, int y, int i);
+	void clickEnemy(int x, int y, int i);			// 매개변수 타일의 인덱스
 	void clickObject(int i);
-	void clickTile();
-=======
-	void clickCharacter(int x, int y);
-	void clickEnemy(int x, int y);			// 매개변수 타일의 인덱스
-	void clickObject();
-	void clickTile(int x, int y);
->>>>>>> refs/remotes/origin/development
+	void clickTile(int x, int y, int i);
 
 	void setObjectMgrMemoryLink(gameObjectManager* objectMgr) { _objectMgr = objectMgr; }
 	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }
