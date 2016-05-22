@@ -21,6 +21,14 @@ struct GOBJ_Y_RENDER
 
 class gameObjectManager : public gameNode
 {
+<<<<<<< HEAD
+=======
+	RECT _rcTurnBack;
+	RECT _rcTurnStr;
+	image* _imageTurn;
+	bool _isTurnCenter;
+
+>>>>>>> refs/remotes/origin/development
 	TagTile* _tile[TILENUM][TILENUM];
 
 	vector<TagTile*> _vTile;

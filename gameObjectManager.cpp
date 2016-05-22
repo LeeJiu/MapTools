@@ -13,7 +13,11 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
+<<<<<<< HEAD
 	setTile();
+=======
+	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
+>>>>>>> refs/remotes/origin/development
 
 	_aStar = new aStar;
 	_aStar->init();
@@ -62,7 +66,7 @@ void gameObjectManager::render()
 void gameObjectManager::setTile()
 {	
 	// 미리 타일 셋해놓자
-	POINT firstPivot = { WINSIZEX , WINSIZEY - TILENUM * WIDTH / 4 };
+	POINT firstPivot = { CENTERX + TILENUM * WIDTH / 2, CENTERY };
 
 	int count = 0;
 	for (int j = 0; j < TILENUM; j++)      // 세로 ( 열 )

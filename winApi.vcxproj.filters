@@ -207,9 +207,6 @@
     <ClInclude Include="aStar.h">
       <Filter>gameStudy\aStar</Filter>
     </ClInclude>
-    <ClInclude Include="battleManager.h">
-      <Filter>gameStudy\battle</Filter>
-    </ClInclude>
     <ClInclude Include="battleScene.h">
       <Filter>gameStudy\battle</Filter>
     </ClInclude>
@@ -255,9 +252,12 @@
     <ClInclude Include="selectStageData.h">
       <Filter>gameStudy\selectStage</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="battleManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+=======
+>>>>>>> refs/remotes/origin/development
     <ClInclude Include="catsaver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -359,9 +359,6 @@
     <ClCompile Include="aStar.cpp">
       <Filter>gameStudy\aStar</Filter>
     </ClCompile>
-    <ClCompile Include="battleManager.cpp">
-      <Filter>gameStudy\battle</Filter>
-    </ClCompile>
     <ClCompile Include="battleScene.cpp">
       <Filter>gameStudy\battle</Filter>
     </ClCompile>
@@ -407,9 +404,12 @@
     <ClCompile Include="selectStageData.cpp">
       <Filter>gameStudy\selectStage</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="battleManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+=======
+>>>>>>> refs/remotes/origin/development
     <ClCompile Include="catsaver.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
