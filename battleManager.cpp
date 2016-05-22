@@ -68,12 +68,13 @@ void battleManager::keyControl()
 			
 			//캐릭터 리스트를 끈다.
 			_ui->onCharacterList(false);
+			_onUI = false;
 		}
 	}
 
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
 	{
-		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click))
+		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click) && !_onUI)
 		{
 			//아이소 타일 클릭 조건
 			if ((_click.y - _objectMgr->getVTile()[i]->pivotY) >= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
@@ -118,8 +119,18 @@ void battleManager::clickZenPoint()
 
 	if (!_ui->isOnCharList())
 	{
-		//캐릭터 리스트를 보여준다.
-		_ui->onCharacterList(true);
+		if (_objectMgr->getVCharacter()[_selectCharIdx]->getIsShow())
+		{
+			//명령창을 보여준다.
+			_ui->onOrder(true);
+			_onUI = true;
+		}
+		else
+		{
+			//캐릭터 리스트를 보여준다.
+			_ui->onCharacterList(true);
+			_onUI = true;
+		}
 	}
 }
 
