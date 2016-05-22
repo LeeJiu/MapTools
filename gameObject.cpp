@@ -142,7 +142,26 @@ void gameObject::attack(int targetX, int targetY)
 
 void gameObject::pain(int x, int y, int damage)
 {
-
+	if (_indexX > x && _indexY == y)
+	{
+		_characterDir = LT;
+	}
+	else if (_indexX < x && _indexY == y)
+	{
+		_characterDir = RB;
+	}
+	else if (_indexX == x && _indexY > y)
+	{
+		_characterDir = RT;
+	}
+	else if (_indexX == x && _indexY < y)
+	{
+		_characterDir = LB;
+	}
+	_characterState = PAIN;
+	_character->setFrameX(0);
+	_character->setFrameY(2);
+	_isOrdering = true;
 }
 
 void gameObject::setImage()

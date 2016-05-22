@@ -29,20 +29,22 @@ void battleManager::release()
 	_camera->release();
 	SAFE_DELETE(_ui);
 	SAFE_DELETE(_camera);
-
-
 }
 
 void battleManager::update()
 {
+	if (!_setUI)
+	{
+		_ui->setCharList(_objectMgr->getVCharacter()[0]->getMercenary());
+		_setUI = true;
+	}
+
 	_ui->update();
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-		{
+		if(_leftButtonDown)
 			keyControl();
-		}
 	}
 	//에너미의 턴일 때
 	else
@@ -58,6 +60,21 @@ void battleManager::render()
 
 void battleManager::keyControl()
 {
+	if (_ui->isOnCharList())
+	{
+		if (_ui->getCharIdx() != 100)
+		{
+			_selectCharIdx = _ui->getCharIdx();
+
+			_objectMgr->getVCharacter()[_selectCharIdx]->setIsShow(true);
+
+			_ui->setCharIdx(100);
+			
+			//캐릭터 리스트를 끈다.
+			_ui->onCharacterList(false);
+		}
+	}
+
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
 	{
 		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click))
@@ -103,6 +120,11 @@ void battleManager::clickZenPoint()
 	//캐릭터 리스트에서 선택하면 (현재 클릭된 캐릭터 인덱스)
 	//캐릭터 리스트를 닫고, 명령창을 띄운다.
 
+	if (!_ui->isOnCharList())
+	{
+		//캐릭터 리스트를 보여준다.
+		_ui->onCharacterList(true);
+	}
 }
 
 void battleManager::clickCharacter(int x, int y, int i)
