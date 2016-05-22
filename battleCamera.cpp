@@ -142,17 +142,33 @@ void battleCamera::cameraFree()
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
 		_cameraY -= 5;
+		if (_cameraY <= 0)
+		{
+			_cameraY = 0;
+		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_cameraY += 5;
+		if ((TILENUM - 1) * WIDTH / 2 <= _cameraY)
+		{
+			_cameraY = (TILENUM - 1) * WIDTH / 2;
+		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		_cameraX += 5;
+		if ((TILENUM - 1) * WIDTH <= _cameraX)
+		{
+			_cameraX = (TILENUM - 1) * WIDTH;
+		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		_cameraX -= 5;
+		if (_cameraX <= 0)
+		{
+			_cameraX = 0;
+		}
 	}
 }
