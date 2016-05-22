@@ -192,17 +192,10 @@ void gameObject::setFrame()
 			_curFrameX = 0;
 			if (_characterState == ATTACK)
 			{
-<<<<<<< HEAD
 				_characterState = IDLE;
 				_isOrdering = false;
 				return;
 			}
-=======
-			_characterState = IDLE;
-			_isOrdering = false;
-			return;
-			}*/
->>>>>>> origin/development
 		}
 		_character->setFrameX(_curFrameX);
 	}

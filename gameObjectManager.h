@@ -10,7 +10,6 @@
 #include "catsaver.h"
 #include "boss.h"
 #include "objects.h"
-
 #include <algorithm>
 
 struct GOBJ_Y_RENDER

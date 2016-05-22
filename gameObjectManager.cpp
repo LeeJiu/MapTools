@@ -13,12 +13,8 @@ gameObjectManager::~gameObjectManager()
 HRESULT gameObjectManager::init()
 {
 	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
-
-
 	_aStar = new aStar;
 	_aStar->init();
-	vEnmSize = vObjSize = 0;
-
 	_isAction = false;
 
 	return S_OK;
@@ -255,8 +251,5 @@ void gameObjectManager::loadMapData()
 			(*_viTile)->image->setFrameX((*_viTile)->imageNum % 4);
 			(*_viTile)->image->setFrameY((*_viTile)->imageNum / 4);
 		}
-
-		//if ((*_viTile)->state == S_ONOBJ || (*_viTile)->state == S_ZEN) vObjSize++;
-		//if ((*_viTile)->state == S_ONENM || (*_viTile)->state == BOSS) vEnmSize++;
 	}
 }

@@ -238,8 +238,7 @@ void mapTool::render()
 			TextOut(getMemDC(), _vIsoEnemy[i]->rc.left, _vIsoEnemy[i]->rc.top, str, strlen(str));
 		}
 	}
-	sprintf_s(str, "x : %d, y : %d", _ptMouse.x, _ptMouse.y);
-	TextOut(getMemDC(), _ptMouse.x, _ptMouse.y, str, strlen(str));
+
 }
 ///////////////////////////////////////////////////////////·£´õ ³¡////////////////////////////////////////////////////////////////////
 

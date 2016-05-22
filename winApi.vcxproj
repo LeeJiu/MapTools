@@ -96,7 +96,6 @@
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="enemy.h" />
-    <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="etna.h" />
     <ClInclude Include="flonne.h" />
     <ClInclude Include="gameNode.h" />
@@ -148,7 +147,6 @@
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="etna.cpp" />
     <ClCompile Include="flonne.cpp" />
     <ClCompile Include="gameNode.cpp" />

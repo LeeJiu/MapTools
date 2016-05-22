@@ -25,20 +25,14 @@ void battleScene::release()
 
 void battleScene::update()
 {
-<<<<<<< HEAD
 	if (_volume < 0.8f) _volume += 0.005f;
 	SOUNDMANAGER->setVolum("battleScene_bg", _volume);
-	SOUNDMANAGER->setVolum("step", _Prinny_voluem);
+	
 
 
-	_gameObjMgr->update();
-	_battleMgr->update();
-	_battleUI->update();
-=======
 	_ui->update();
 	
 	keyControl();
->>>>>>> refs/remotes/origin/development
 }
 
 void battleScene::render()
