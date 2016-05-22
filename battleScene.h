@@ -7,16 +7,11 @@
 class battleScene : public gameNode
 {
 private:
-<<<<<<< HEAD
 	float _volume;
-	battleUI* _ui;
 
-	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onAction;
-=======
 	gameObjectManager* _objectMgr;
 	battleManager* _battleMgr;
 	battleCamera* _camera;
->>>>>>> refs/remotes/origin/development
 
 public:
 	battleScene();

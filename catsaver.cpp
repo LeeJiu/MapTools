@@ -71,12 +71,9 @@ void catsaver::update()
 		_x = (_rc.right + _rc.left) / 2;
 		_y = (_rc.top + _rc.bottom) / 2;
 	}
-<<<<<<< HEAD
 
-	_pivotY = _gameObjMgr->getTile()[_indexY * TILENUM + _indexX]->pivotY;
-=======
 	_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
->>>>>>> refs/remotes/origin/development
+
 	battleKeyControl();
 
 	gameObject::move();

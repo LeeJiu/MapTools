@@ -27,6 +27,7 @@ HRESULT battleScene::init()
 	
 	//메모리 링크
 	_objectMgr->setCameraMemoryLink(_camera);
+	_battleMgr->setCameraMemoryLink(_camera);
 	_battleMgr->setObjectMgrMemoryLink(_objectMgr);
 
 	return S_OK;
@@ -44,20 +45,13 @@ void battleScene::release()
 
 void battleScene::update()
 {
-<<<<<<< HEAD
+
 	if (_volume < 0.8f) _volume += 0.005f;
 	SOUNDMANAGER->setVolum("battleScene_bg", _volume);
-	
 
-
-	_ui->update();
-	
-	keyControl();
-=======
 	_camera->update();
 	_objectMgr->update();
 	_battleMgr->update();
->>>>>>> refs/remotes/origin/development
 }
 
 void battleScene::render()

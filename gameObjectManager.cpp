@@ -13,18 +13,12 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
-<<<<<<< HEAD
-	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
-	_aStar = new aStar;
-	_aStar->init();
-	_isAction = false;
-=======
+
 	setTile();
 
 	_aStar = new aStar;
 	_aStar->init();
 	_aStar->setTile(_vTile);
->>>>>>> refs/remotes/origin/development
 
 	return S_OK;
 }

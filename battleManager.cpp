@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "battleManager.h"
 #include "gameObjectManager.h"
+#include "battleCamera.h"
 
 battleManager::battleManager()
 {
@@ -14,6 +15,8 @@ HRESULT battleManager::init()
 {
 	_ui = new battleUI;
 	_ui->init();
+	_camera = new battleCamera;
+	_camera->init();
 
 	_isPlayerTurn = true;	//플레이어 먼저 시작
 
@@ -23,17 +26,23 @@ HRESULT battleManager::init()
 void battleManager::release()
 {
 	_ui->release();
+	_camera->release();
 	SAFE_DELETE(_ui);
+	SAFE_DELETE(_camera);
+
+
 }
 
 void battleManager::update()
 {
 	_ui->update();
-
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
-		keyControl();
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		{
+			keyControl();
+		}
 	}
 	//에너미의 턴일 때
 	else
@@ -74,7 +83,7 @@ void battleManager::keyControl()
 					break;
 
 				case S_ONOBJ: case S_ETC://이동 불가능한 타일/장애물
-					clickObject();
+					clickObject(i);
 					break;
 
 				case S_NONE:			//이동 가능한 타일
@@ -115,9 +124,10 @@ void battleManager::clickEnemy()
 
 }
 
-void battleManager::clickObject()
+void battleManager::clickObject(int i)
 {
 	//카메라 포커스를 맞춘다.
+	_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
 
 }
 
