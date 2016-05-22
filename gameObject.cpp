@@ -16,16 +16,6 @@ HRESULT gameObject::init()
 	return S_OK;
 }
 
-//HRESULT gameObject::init(vector<TagTile*> tile)
-//{
-//	return S_OK;
-//}
-//
-//HRESULT gameObject::init(int x, int y, vector<TagTile*>& tile)
-//{
-//	return S_OK;
-//}
-
 HRESULT gameObject::init(int x, int y, gameObjectManager * gom)
 {
 	return E_NOTIMPL;
@@ -35,11 +25,6 @@ HRESULT gameObject::init(const char * strkey, int x, int y, int imageNum, gameOb
 {
 	return E_NOTIMPL;
 }
-
-//HRESULT gameObject::init(const char* strkey, int x, int y, int imageNum, vector<TagTile*>& tile)
-//{
-//	return S_OK;
-//}
 
 void gameObject::release()
 {
@@ -192,17 +177,10 @@ void gameObject::setFrame()
 			_curFrameX = 0;
 			if (_characterState == ATTACK)
 			{
-<<<<<<< HEAD
 				_characterState = IDLE;
 				_isOrdering = false;
 				return;
 			}
-=======
-			_characterState = IDLE;
-			_isOrdering = false;
-			return;
-			}*/
->>>>>>> origin/development
 		}
 		_character->setFrameX(_curFrameX);
 	}
