@@ -34,8 +34,8 @@ void battleManager::update()
 		_ui->setCharList(_objectMgr->getVCharacter()[0]->getMercenary());
 		_setUI = true;
 	}
-
 	_ui->update();
+
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
@@ -70,6 +70,21 @@ void battleManager::keyControl()
 			_ui->onCharacterList(false);
 			_onUI = false;
 		}
+	}
+
+	// UI에서 클릭한것이 무브라면
+	if (_ui->getOrderNumber() == 1)
+	{
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
+		_ui->onOrder(false);
+		return;
+	}
+	// UI에서 클릭한것이 어택이라면
+	else if (_ui->getOrderNumber() == 2)
+	{
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
+		_ui->onOrder(false);
+		return;
 	}
 
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
