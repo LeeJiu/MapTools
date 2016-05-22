@@ -78,9 +78,9 @@ void battleManager::keyControl()
 		{
 			//아이소 타일 클릭 조건
 			if ((_click.y - _objectMgr->getVTile()[i]->pivotY) >= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
-				(_click.y - _objectMgr->getVTile()[i]->pivotY) >= 0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) >=  0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
 				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4 &&
-				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= 0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4)
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) <=  0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4)
 			{
 				switch (_objectMgr->getVTile()[i]->state)
 				{
@@ -138,6 +138,8 @@ void battleManager::clickCharacter(int x, int y, int i)
 {
 	//명령창을 띄운다. (현재 캐릭터의 인덱스 저장)
 	int charSize = _objectMgr->getVCharacter().size();
+
+	_ui->onOrder(true);
 
 	for (int i = 0; i < charSize; i++)
 	{

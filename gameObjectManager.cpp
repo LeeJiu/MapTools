@@ -225,12 +225,12 @@ void gameObjectManager::setObject()
 
 void gameObjectManager::loadMapData()
 {
-	if (STAGEDATA->getSelectStageNumber() == 0)
+	if (NUMBERDATA->getSelectStageNumber() == 0)
 	{
 		//타일로드
 		DATABASE->loadDatabase("battleMap1.txt");		
 	}
-	if (STAGEDATA->getSelectStageNumber() == 1)
+	if (NUMBERDATA->getSelectStageNumber() == 1)
 	{
 		DATABASE->loadDatabase("battleMap2.txt");
 	}

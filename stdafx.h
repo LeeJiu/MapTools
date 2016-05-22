@@ -30,7 +30,7 @@
 #include "sceneManager.h"
 #include "database.h"
 #include "actionManager.h"
-#include "selectStageData.h"
+#include "numberData.h"
 #include "soundManager.h"
 
 using namespace MY_UTIL;
@@ -60,7 +60,7 @@ using namespace MY_UTIL;
 #define SCENEMANAGER sceneManager::getSingleton()
 #define DATABASE database::getSingleton()
 #define ACTIONMANAGER actionManager::getSingleton()
-#define STAGEDATA selectStageData::getSingleton()
+#define NUMBERDATA numberData::getSingleton()
 #define SOUNDMANAGER soundManager::getSingleton()
 
 /* ===== 전역 변수 ===== */
