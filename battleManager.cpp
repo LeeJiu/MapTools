@@ -34,10 +34,6 @@ void battleManager::update()
 		_ui->setCharList(_objectMgr->getVCharacter()[0]->getMercenary());
 		_setUI = true;
 	}
-<<<<<<< HEAD
-=======
-	_ui->update();
->>>>>>> origin/development
 
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)

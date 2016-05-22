@@ -60,14 +60,11 @@ void battleUI::update()
 	{
 		_rcOrderList[i] = RectMake(_rcOrder.left + 20, _rcOrder.top + 25 + (i * 34), 200, 30);
 	}
-<<<<<<< HEAD
-=======
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		keyControl();
 	}
->>>>>>> origin/development
 }
 
 void battleUI::render()
