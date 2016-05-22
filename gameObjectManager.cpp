@@ -13,11 +13,7 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
-<<<<<<< HEAD
 	setTile();
-=======
-	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
->>>>>>> refs/remotes/origin/development
 
 	_aStar = new aStar;
 	_aStar->init();
@@ -48,10 +44,6 @@ void gameObjectManager::render()
 		if (_vTile[i]->pivotX > _cameraX && _vTile[i]->pivotX < _cameraX + WINSIZEX && _vTile[i]->pivotY > _cameraY && _vTile[i]->pivotY < _cameraY + WINSIZEY)
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
-
-	char str[512];
-	sprintf_s(str, "x = %d, y = %d", _vToTalRender[0]->getIndexX(), _vToTalRender[0]->getIndexY());
-	TextOut(getMemDC(), 10, 10, str, strlen(str));
 
 	//Y축 정렬
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
