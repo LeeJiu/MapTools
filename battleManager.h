@@ -1,36 +1,17 @@
 #pragma once
-#include "singletonBase.h"
-
-enum ORDER_TYPE
-{
-	ORDER_NONE, ORDER_ATTACK, ORDER_SKILL, ORDER_DEFENCE
-};
-struct tagOrder
-{
-	int character;
-	int targetX;
-	int targetY;
-	ORDER_TYPE order;
-	bool isDone;
-};
+#include "gameNode.h"
+#include "battleUI.h"
 
 class gameObjectManager;
-class battleUI;
-class battleManager : public singletonBase<battleManager>
+
+class battleManager : public gameNode
 {
 private:
-	int _turnCount;
-	bool _isTurnType;
-	bool _isDoOrdering;
+	gameObjectManager* _objectMgr;
+	battleUI* _ui;
 
-	vector<tagOrder> _vOrder;
-	int _orderNumber;
+	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onAction;
 
-	bool _orderComplete;
-	
-
-	battleUI* _battleUI;
-	gameObjectManager* _gameObjMgr;
 
 public:
 	battleManager();
@@ -41,22 +22,8 @@ public:
 	void update();
 	void render();
 
-	void doActionAttack();
-	void doOrdering();
+	void keyControl();
 
-	void setCharacterNone(int character, int targetX, int targetY);
-	void setCharacterAttack(int character, int targetX, int targetY);
-	void setCharacterDefence(int character);
-	void setCharacterSkill(int character, int targetX, int targetY);
-	
-	void setTurnChange();
-	void setOrderNumber() { _orderNumber++; if (_orderNumber > _vOrder.size()) _orderNumber = 0; }
-
-	bool getTurnType() { return _isTurnType; }
-	int getTurnCount() { return _turnCount; }
-	
-
-	void setGameObjectManagerMemoryLink(gameObjectManager* gameObjMgr) { _gameObjMgr = gameObjMgr; }
-	void setBattleUIMemoryLink(battleUI* battleUI) { _battleUI = battleUI; }
+	void setObjectMgrMemoryLink(gameObjectManager* objectMgr) { _objectMgr = objectMgr; }
 };
 
