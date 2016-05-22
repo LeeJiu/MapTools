@@ -251,8 +251,11 @@ void gameObject::showPossibleMoveTile()
 
 void gameObject::showPossibleAttackTile()
 {
-	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _gameObjMgr->getTile()[_indexY * TILENUM + _indexX + 1]->rc.left, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX + 1]->rc.top);
-	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _gameObjMgr->getTile()[_indexY * TILENUM + _indexX - 1]->rc.left, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX - 1]->rc.top);
-	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _gameObjMgr->getTile()[_indexY * TILENUM + _indexX + TILENUM]->rc.left, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX + TILENUM]->rc.top);
-	IMAGEMANAGER->findImage("attackable")->render(getMemDC(), _gameObjMgr->getTile()[_indexY * TILENUM + _indexX - TILENUM]->rc.left, _gameObjMgr->getTile()[_indexY * TILENUM + _indexX - TILENUM]->rc.top);
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	{
+		if (abs(_indexX + _indexY - _gameObjMgr->getTile()[i]->x - _gameObjMgr->getTile()[i]->y) == 1)
+		{
+			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _gameObjMgr->getTile()[i]->rc.left, _gameObjMgr->getTile()[i]->rc.top);
+		}
+	}
 }
