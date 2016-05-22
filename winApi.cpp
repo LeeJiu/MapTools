@@ -14,6 +14,8 @@ int _scrollPosY = 0;
 float _cameraX;
 float _cameraY;
 POINT _click = { _ptMouse.x + _cameraX, _ptMouse.y + _cameraY };
+int _sourWidth = WINSIZEX;
+int _sourHeight = WINSIZEY;
 
 gameStudy _gs;
 

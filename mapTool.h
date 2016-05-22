@@ -23,6 +23,9 @@ static int _stage = 1;
 class mapTool : public gameNode
 {
 private:
+	TagTile _sampleTile[4][17];
+	TagTile _tile[TILENUM][TILENUM];
+
 	//맵
 	vector<TagTile*> _vTile;
 	vector<TagTile*>::iterator _viTile;

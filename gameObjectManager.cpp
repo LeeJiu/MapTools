@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
 
+
 gameObjectManager::gameObjectManager()
 {
 }
@@ -12,10 +13,18 @@ gameObjectManager::~gameObjectManager()
 
 HRESULT gameObjectManager::init()
 {
+<<<<<<< HEAD
 	//init에서  배틀맵띄울때불러온 타일 데이터를 카운트해서 vEnmSize구함
 	_aStar = new aStar;
 	_aStar->init();
 	_isAction = false;
+=======
+	setTile();
+
+	_aStar = new aStar;
+	_aStar->init();
+	_aStar->setTile(_vTile);
+>>>>>>> refs/remotes/origin/development
 
 	return S_OK;
 }
@@ -23,6 +32,12 @@ HRESULT gameObjectManager::init()
 void gameObjectManager::release()
 {
 	SAFE_DELETE(_aStar);
+
+	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
+	{
+		SAFE_DELETE((*_viTile)->image);
+	}
+	_vTile.clear();
 }
 
 void gameObjectManager::update()
@@ -34,7 +49,6 @@ void gameObjectManager::update()
 	}
 }
 
-
 //랜더
 void gameObjectManager::render()
 {
@@ -43,10 +57,6 @@ void gameObjectManager::render()
 		if (_vTile[i]->pivotX > _cameraX && _vTile[i]->pivotX < _cameraX + WINSIZEX && _vTile[i]->pivotY > _cameraY && _vTile[i]->pivotY < _cameraY + WINSIZEY)
 		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
 	}
-
-	char str[512];
-	sprintf_s(str, "x = %d, y = %d", _vToTalRender[0]->getIndexX(), _vToTalRender[0]->getIndexY());
-	TextOut(getMemDC(), 10, 10, str, strlen(str));
 
 	//Y축 정렬
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
@@ -61,29 +71,28 @@ void gameObjectManager::render()
 void gameObjectManager::setTile()
 {	
 	// 미리 타일 셋해놓자
-	POINT firstPivot = { WINSIZEX , WINSIZEY - TILENUM * WIDTH / 4 };
+	POINT firstPivot = { CENTERX + TILENUM * WIDTH / 2, CENTERY };
 
 	int count = 0;
 	for (int j = 0; j < TILENUM; j++)      // 세로 ( 열 )
 	{
 		for (int i = 0; i < TILENUM; i++)   // 가로 ( 행 )
 		{
-			_tile[i][j] = new TagTile;
-			_tile[i][j]->image = new image;
-			_tile[i][j]->image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
-			_tile[i][j]->width = WIDTH;
-			_tile[i][j]->height = WIDTH / 2;
-			_tile[i][j]->rc = RectMakeCenter(firstPivot.x + i * _tile[i][j]->width / 2 - j * _tile[i][j]->width / 2, firstPivot.y + i * _tile[i][j]->width / 4 + j * _tile[i][j]->width / 4, _tile[i][j]->width, _tile[i][j]->height);
-			_tile[i][j]->pivotX = (_tile[i][j]->rc.left + _tile[i][j]->rc.right) / 2;
-			_tile[i][j]->pivotY = (_tile[i][j]->rc.top + _tile[i][j]->rc.bottom) / 2;
-			_tile[i][j]->x = i;
-			_tile[i][j]->y = j;
-			_tile[i][j]->imageNum = 100;   //이미지 넘버.
-			_tile[i][j]->number = count;
-			_tile[i][j]->state = S_NONE;
-			_tile[i][j]->draw = false;
+			_tile[i][j].image = new image;
+			_tile[i][j].image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
+			_tile[i][j].width = WIDTH;
+			_tile[i][j].height = WIDTH / 2;
+			_tile[i][j].rc = RectMakeCenter(firstPivot.x + i * _tile[i][j].width / 2 - j * _tile[i][j].width / 2, firstPivot.y + i * _tile[i][j].width / 4 + j * _tile[i][j].width / 4, _tile[i][j].width, _tile[i][j].height);
+			_tile[i][j].pivotX = (_tile[i][j].rc.left + _tile[i][j].rc.right) / 2;
+			_tile[i][j].pivotY = (_tile[i][j].rc.top + _tile[i][j].rc.bottom) / 2;
+			_tile[i][j].x = i;
+			_tile[i][j].y = j;
+			_tile[i][j].imageNum = 100;   //이미지 넘버.
+			_tile[i][j].number = count;
+			_tile[i][j].state = S_NONE;
+			_tile[i][j].draw = false;
 
-			_vTile.push_back(_tile[i][j]);
+			_vTile.push_back(&_tile[i][j]);
 
 			count++;
 		}
@@ -97,36 +106,34 @@ void gameObjectManager::setCharacter()
 	// 프리니정보 로드해온다 (용병 개수 + 이름)
 	gameObject* _prinny = new prinny;
 	_prinny->init(_zenPosX, _zenPosY, this);
-	_vGameObject.push_back(_prinny);
+	_vCharacter.push_back(_prinny);
 	_vToTalRender.push_back(_prinny);
-	vCharSize++;
 
-	int size = _vGameObject[0]->getMercenary().size();
+	int size = _vCharacter[0]->getMercenary().size();
 	
 	for (int i = 0; i < size; ++i)
 	{
-		if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "etna") == 0)
+		if (strcmp(_vCharacter[0]->getMercenary()[i].c_str(), "etna") == 0)
 		{
 			gameObject* _etna = new etna;
 			_etna->init(_zenPosX, _zenPosY, this);
-			_vGameObject.push_back(_etna);
+			_vCharacter.push_back(_etna);
 			_vToTalRender.push_back(_etna);
 		}
-		else if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "flonne") == 0)
+		else if (strcmp(_vCharacter[0]->getMercenary()[i].c_str(), "flonne") == 0)
 		{
 			gameObject* _flonne = new flonne;
 			_flonne->init(_zenPosX, _zenPosY, this);
-			_vGameObject.push_back(_flonne);
+			_vCharacter.push_back(_flonne);
 			_vToTalRender.push_back(_flonne);
 		}
-		else if (strcmp(_vGameObject[0]->getMercenary()[i].c_str(), "raspberyl") == 0)
+		else if (strcmp(_vCharacter[0]->getMercenary()[i].c_str(), "raspberyl") == 0)
 		{
 			gameObject* _raspberyl = new raspberyl;
 			_raspberyl->init(_zenPosX, _zenPosY, this);
-			_vGameObject.push_back(_raspberyl);
+			_vCharacter.push_back(_raspberyl);
 			_vToTalRender.push_back(_raspberyl);
 		}
-		vCharSize++;
 	}
 }
 
@@ -162,9 +169,8 @@ void gameObjectManager::setEnemy()
 				break;
 			}
 	
-			_vGameObject.push_back(enemy);
+			_vEnemy.push_back(enemy);
 			_vToTalRender.push_back(enemy);
-			vEnmSize++;
 		}
 		else continue;
 	}
@@ -212,15 +218,9 @@ void gameObjectManager::setObject()
 				this);
 
 			_vToTalRender.push_back(rnd);
-			vObjSize++;
 		}
 		else continue;
 	}
-}
-
-void gameObjectManager::setAstar()
-{
-	_aStar->setTile(_vTile);
 }
 
 void gameObjectManager::loadMapData()
