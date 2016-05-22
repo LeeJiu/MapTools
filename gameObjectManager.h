@@ -34,6 +34,7 @@ class gameObjectManager : public gameNode
 
 	aStar* _aStar;
 
+
 public:
 	gameObjectManager();
 	~gameObjectManager();
