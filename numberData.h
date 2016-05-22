@@ -1,14 +1,14 @@
 #pragma once
 #include "singletonBase.h"
-class selectStageData : public singletonBase<selectStageData>
+class numberData : public singletonBase<numberData>
 {
 private:
 	int _selectStageNumber;
 
 
 public:
-	selectStageData();
-	~selectStageData();
+	numberData();
+	~numberData();
 
 	int getSelectStageNumber() { return _selectStageNumber; }
 	void setSElectStageNumber(int number) { _selectStageNumber = number; }

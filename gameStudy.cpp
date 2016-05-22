@@ -47,11 +47,15 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("flonne_walk", "image/character/flonne_walk.bmp", 624, 664, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("flonne_attack", "image/character/flonne_attack.bmp", 824, 612, 4, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("flonne_lift", "image/character/flonne_lift.bmp", 396, 664, 4, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("flonne_pain", "image/character/flonne_pain.bmp.bmp", 118, 612, 1, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("flonne_etc", "image/character/flonne_etc.bmp", 236, 620, 2, 4, true, 0xff00ff);
+
 	//raspberyl
 	IMAGEMANAGER->addFrameImage("raspberyl_idle", "image/character/raspberyl_idle.bmp", 396, 576, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("raspberyl_walk", "image/character/raspberyl_walk.bmp", 552, 580, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("raspberyl_attack", "image/character/raspberyl_attack.bmp", 460, 592, 5, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("raspberyl_pain", "image/character/raspberyl_pain.bmp", 104, 488, 1, 4, true, 0xff00ff);
+
 	//etna
 	IMAGEMANAGER->addFrameImage("etna_idle", "image/character/etna_idle.bmp", 588, 656, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("etna_walk", "image/character/etna_walk.bmp", 588, 700, 6, 4, true, 0xff00ff);
@@ -83,13 +87,15 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("prinny_walk", "image/character/prinny_walk.bmp", 776, 492, 8, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("prinny_attack", "image/character/prinny_attack.bmp", 780, 484, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("prinny_lift", "image/character/prinny_lift.bmp", 720, 524, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("prinny_pain", "image/character/prinny_pain.bmp", 127, 528, 1, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("prinny_etc", "image/character/prinny_etc.bmp", 468, 528, 4, 4, true, 0xff00ff);
 
 	//오크
 	IMAGEMANAGER->addFrameImage("orc_idle", "image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("orc_walk", "image/character/orc_walk.bmp", 534, 668, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("orc_attack", "image/character/orc_attack.bmp", 1764, 668, 7, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("orc_etc", "image/character/orc_pain.bmp", 468, 528, 4, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("orc_pain", "image/character/orc_pain.bmp", 189, 596, 1, 4, true, 0xff00ff);
+
 
 	//그림자
 	IMAGEMANAGER->addImage("shadow", "image/character/shadow.bmp", 128, 64, true, 0xff00ff);
