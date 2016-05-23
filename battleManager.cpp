@@ -368,18 +368,20 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
-	// searchTile() 실행 후 반환된 타일 인덱스로 에너미의 명령을 수행한다.
-	// 반환된 타일이 캐릭터가 아니라면 (S_NONE)
-	// 이동만 명령한다.
-	// 반환된 타일이 캐릭터라면 (S_ONCHAR)
-	// 이동 명령 후 공격 명령한다.
 
 	if (_objectMgr->getOrderList() == OL_ORDERING) return;
 	if (_objectMgr->getOrderList() == OL_END) return;
+<<<<<<< HEAD
 
 	// 서치타일 한 인덱스 받아서 임시저장 (최종목적지 == 빈타일 or 케릭터)
 	int tempTileIdx = searchTile(_enemyIdx);
 
+=======
+
+	// 서치타일 한 인덱스 받아서 임시저장 (최종목적지 == 빈타일 or 케릭터)
+	int tempTileIdx = searchTile(_enemyIdx);
+
+>>>>>>> origin/jiu
 	// 최종목적지가 빈타일이라면 그곳으로 이동해라
 	if (_objectMgr->getVTile()[tempTileIdx]->state == S_NONE)
 	{
@@ -392,7 +394,11 @@ void battleManager::enemyAI()
 		if (tempTileIdx - TILENUM >= 0 && tempTileIdx - TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - TILENUM]->state == S_NONE)
 		{
 			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - TILENUM]->x, _objectMgr->getVTile()[tempTileIdx - TILENUM]->y,
+<<<<<<< HEAD
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+=======
+											_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+>>>>>>> origin/jiu
 		}
 		else if (tempTileIdx - 1 >= 0 && tempTileIdx - 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - 1]->state == S_NONE)
 		{
@@ -437,9 +443,14 @@ int battleManager::searchTile(int enemyIdx)
 
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
 	{
+<<<<<<< HEAD
 		if (abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->x) 
 			+ abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->y) 
 			< _objectMgr->getVEnemy()[enemyIdx]->getMv())
+=======
+		if (abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->x) + 
+			abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->y) < _objectMgr->getVEnemy()[enemyIdx]->getMv())
+>>>>>>> origin/jiu
 		{
 			if (_objectMgr->getVTile()[i]->state == S_NONE || _objectMgr->getVTile()[i]->state == S_ONCHAR)
 			{
