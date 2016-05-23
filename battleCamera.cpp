@@ -16,7 +16,7 @@ HRESULT battleCamera::init()
 
 	_isMapScrool = false;
 
-	_joomSize = 20;
+	_joomSize = 100;
 	_vibrateCount = 0;
 
 	return S_OK;

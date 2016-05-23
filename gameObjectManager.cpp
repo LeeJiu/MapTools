@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
+#include "battleManager.h"
 
 
 gameObjectManager::gameObjectManager()
@@ -19,6 +20,8 @@ HRESULT gameObjectManager::init()
 	_aStar = new aStar;
 	_aStar->init();
 	_aStar->setTile(_vTile);
+
+	_orderList = OL_NONE;
 
 	return S_OK;
 }
@@ -46,6 +49,12 @@ void gameObjectManager::update()
 	for (int i = 0; i < _size; i++)
 	{
 		_vToTalRender[i]->update();
+	}
+
+	if (_orderList == OL_END)
+	{
+		_orderList = OL_NONE;
+		_battleMgr->increaseOrderNum();
 	}
 }
 
@@ -262,7 +271,7 @@ void gameObjectManager::characterMove(int index, int destX, int destY)
 void gameObjectManager::characterAttack(int index, int destX, int destY)
 {
 	_vCharacter[index]->attack(destX, destY);
-	_isOrdering = true;
+	_orderList = OL_ORDERING;
 }
 
 void gameObjectManager::characterPain(int index, int destX, int destY, int damage)
@@ -278,7 +287,7 @@ void gameObjectManager::enemyMove(int index, int destX, int destY)
 void gameObjectManager::enemyAttack(int index, int destX, int destY)
 {
 	_vEnemy[index]->attack(destX, destY);
-	_isOrdering = true;
+	_orderList = OL_ORDERING;
 }
 
 void gameObjectManager::enemyPain(int index, int destX, int destY, int damage)

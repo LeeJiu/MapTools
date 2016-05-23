@@ -88,7 +88,7 @@ void battleManager::update()
 		//플레이어가 ui를 조작할 수 없다. / 턴 실행 중
 		else
 		{
-
+			orderAction();
 		}
 	}
 	//에너미의 턴일 때
@@ -240,13 +240,15 @@ void battleManager::orderAction()
 	_camera->setIsJoomIn(true);
 
 	// 해당 케릭터가 명령을 수행중이라면 리턴시켜라
-	if (_objectMgr->getIsOrdering()) return;
+	if (_objectMgr->getOrderList() == OL_ORDERING) return;
+	if (_objectMgr->getOrderList() == OL_END) return;
 
 	// 명령의 종류가 공격이라면 케릭터공격, 에너미 피격 함수를 호출한다
 	if (_vOrder[_orderNum].order == O_ATTACK)
 	{
 		_objectMgr->characterAttack(_vOrder[_orderNum].playerVIdx, _vOrder[_orderNum].enemyIdx.x, _vOrder[_orderNum].enemyIdx.y);
 		_objectMgr->enemyPain(_vOrder[_orderNum].enemyVIdx, _vOrder[_orderNum].playerIdx.x, _vOrder[_orderNum].playerIdx.y, _vOrder[_orderNum].damage);
+		_camera->setIsVibrate(true);
 	}
 	
 }
@@ -359,14 +361,14 @@ void battleManager::increaseOrderNum()
 {
 	_orderNum++;
 
-	if (_vOrder.size() < _orderNum)
+	if (_vOrder.size() <= _orderNum)
 	{
 		_orderNum = 0;
 		_isPlayerTurn = false;
 		_vOrder.clear();
 
 		// 카메라 줌 아웃 호출
-
+		//_camera->setIsJoomIn(false);
 		_camera->setIsJoomOut(true);
 	}
 }

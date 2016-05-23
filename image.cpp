@@ -543,7 +543,7 @@ void image::render(HDC hdc, int destX, int destY, int sourX, int sourY, int sour
 
 void image::render(HDC hdc, int destX, int destY, int destWidth, int destHeight, int sourX, int sourY, int sourWidth, int sourHeight)
 {
-	if (_trans)
+	//if (_trans)
 	{
 		GdiTransparentBlt(
 			hdc,            //복사할 장소의 DC
@@ -557,11 +557,11 @@ void image::render(HDC hdc, int destX, int destY, int destWidth, int destHeight,
 			sourHeight,         //복사할 크기 height
 			_transColor);      //복사에서 제외할 색상
 	}
-	else
-	{
-		BitBlt(hdc, destX, destY, sourWidth, sourHeight,
-			_imageInfo->hMemDC, sourX, sourY, SRCCOPY);
-	}
+	//else
+	//{
+	//	BitBlt(hdc, destX, destY, sourWidth, sourHeight,
+	//		_imageInfo->hMemDC, sourX, sourY, SRCCOPY);
+	//}
 }
 
 void image::alphaRender(HDC hdc, int destX, int destY, BYTE alpha)

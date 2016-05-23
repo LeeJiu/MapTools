@@ -108,7 +108,7 @@ void orc::setImage()
 		_character->init("image/character/orc_attack.bmp", 1764, 668, 7, 4, true, 0xff00ff);
 		break;
 	case PAIN:
-		_character->init("image/character/orc_pain.bmp", 468, 528, 4, 4, true, 0xff00ff);
+		_character->init("image/character/orc_pain.bmp", 189, 596, 1, 4, true, 0xff00ff);
 	}
 }
 
@@ -145,12 +145,17 @@ void orc::setFrame()
 			if (_curFrameX > _character->getMaxFrameX())
 			{
 				_curFrameX = 0;
-				/*if (_characterState == ATTACK)
+				if (_characterState == ATTACK)
 				{
-				_characterState = IDLE;
-				_isOrdering = false;
-				return;
-				}*/
+					_characterState = IDLE;
+					_gameObjMgr->setOrderList(OL_END);
+					return;
+				}
+				else if (_characterState == PAIN)
+				{
+					_characterState = IDLE;
+					return;
+				}
 			}
 			_character->setFrameX(_curFrameX);
 		}
