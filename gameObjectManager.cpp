@@ -259,7 +259,29 @@ void gameObjectManager::characterMove(int index, int destX, int destY)
 	_vCharacter[index]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vCharacter[index]->getIndexX(), _vCharacter[index]->getIndexY(), destX, destY));
 }
 
+void gameObjectManager::characterAttack(int index, int destX, int destY)
+{
+	_vCharacter[index]->attack(destX, destY);
+	_isOrdering = true;
+}
+
+void gameObjectManager::characterPain(int index, int destX, int destY, int damage)
+{
+	_vCharacter[index]->pain(destX, destY, damage);
+}
+
 void gameObjectManager::enemyMove(int index, int destX, int destY)
 {
 	_vEnemy[index]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), destX, destY));
+}
+
+void gameObjectManager::enemyAttack(int index, int destX, int destY)
+{
+	_vEnemy[index]->attack(destX, destY);
+	_isOrdering = true;
+}
+
+void gameObjectManager::enemyPain(int index, int destX, int destY, int damage)
+{
+	_vEnemy[index]->pain(destX, destY, damage);
 }

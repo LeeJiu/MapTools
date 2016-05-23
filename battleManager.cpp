@@ -46,6 +46,7 @@ void battleManager::update()
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
+<<<<<<< HEAD
 		//플레이어가 ui를 조작할 수 있다.
 		if (!_takeTurns)
 		{
@@ -84,6 +85,15 @@ void battleManager::update()
 					_onUI = true;
 				}
 			}
+=======
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && !_onUI)
+		{
+			tileControl();
+		}
+		else if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _onUI)
+		{
+			UIControl();
+>>>>>>> refs/remotes/origin/moobin
 		}
 		//플레이어가 ui를 조작할 수 없다. / 턴 실행 중
 		else
@@ -140,39 +150,39 @@ void battleManager::tileControl()
 					if (!_isOnZenPonit)
 					{
 						clickZenPoint();
-						break;
+						return;
 					}
 					//캐릭터가 젠포인트 위가 아닐 때
 					else
 					{
 						clickCharacter(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
-						break;
+						return;
 					}
 				}
 				//캐릭터
 				else if (_objectMgr->getVTile()[i]->state == S_ONCHAR)
 				{
 					clickCharacter(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
-					break;
+					return;
 				}
 				//적
 				else if (_objectMgr->getVTile()[i]->state == S_ONENM)
 				{
 					clickEnemy(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
-					break;
+					return;
 				}
 				//이동 불가능한 타일/장애물
 				else if (_objectMgr->getVTile()[i]->state == S_ONOBJ
 					|| _objectMgr->getVTile()[i]->state == S_ETC)
 				{
 					clickObject(i);
-					break;
+					return;
 				}
 				//이동 가능한 타일
 				else if (_objectMgr->getVTile()[i]->state == S_NONE)
 				{
 					clickTile(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
-					break;
+					return;
 				}
 			}
 		}
@@ -233,6 +243,22 @@ void battleManager::characterIsOnZenPoint()
 	}
 
 	_isOnZenPonit = false;
+}
+
+void battleManager::orderAction()
+{
+	_camera->setIsJoomIn(true);
+
+	// 해당 케릭터가 명령을 수행중이라면 리턴시켜라
+	if (_objectMgr->getIsOrdering()) return;
+
+	// 명령의 종류가 공격이라면 케릭터공격, 에너미 피격 함수를 호출한다
+	if (_vOrder[_orderNum].order == O_ATTACK)
+	{
+		_objectMgr->characterAttack(_vOrder[_orderNum].playerVIdx, _vOrder[_orderNum].enemyIdx.x, _vOrder[_orderNum].enemyIdx.y);
+		_objectMgr->enemyPain(_vOrder[_orderNum].enemyVIdx, _vOrder[_orderNum].playerIdx.x, _vOrder[_orderNum].playerIdx.y, _vOrder[_orderNum].damage);
+	}
+	
 }
 
 void battleManager::clickZenPoint()
@@ -329,11 +355,28 @@ void battleManager::clickTile(int x, int y, int i)
 	if (_objectMgr->getVCharacter()[_selectCharIdx]->getIsShowPossibleMoveTile())
 	{
 		_objectMgr->characterMove(_selectCharIdx, x, y);
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(false);
 	}
 	//이동 가능 타일이 켜지지 않은 경우,
 	else
 	{
 		//카메라 포커스 맞춘다.
 		_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
+	}
+}
+
+void battleManager::increaseOrderNum()
+{
+	_orderNum++;
+
+	if (_vOrder.size() < _orderNum)
+	{
+		_orderNum = 0;
+		_isPlayerTurn = false;
+		_vOrder.clear();
+
+		// 카메라 줌 아웃 호출
+
+		_camera->setIsJoomOut(true);
 	}
 }
