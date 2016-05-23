@@ -122,18 +122,26 @@ void gameObject::attack(int targetX, int targetY)
 	if (_indexX > targetX && _indexY == targetY)
 	{
 		_characterDir = LT;
+		_isRight = false;
+		_isUp = true;
 	}
 	else if (_indexX < targetX && _indexY == targetY)
 	{
 		_characterDir = RB;
+		_isRight = true;
+		_isUp = false;
 	}
 	else if (_indexX == targetX && _indexY > targetY)
 	{
 		_characterDir = RT;
+		_isRight = true;
+		_isUp = true;
 	}
 	else if (_indexX == targetX && _indexY < targetY)
 	{
 		_characterDir = LB;
+		_isRight = false;
+		_isUp = false;
 	}
 	_characterState = ATTACK;
 	_cameraX = _x - _sourWidth / 2;
@@ -146,18 +154,26 @@ void gameObject::pain(int x, int y, int damage)
 	if (_indexX > x && _indexY == y)
 	{
 		_characterDir = LT;
+		_isRight = false;
+		_isUp = true;
 	}
 	else if (_indexX < x && _indexY == y)
 	{
 		_characterDir = RB;
+		_isRight = true;
+		_isUp = false;
 	}
 	else if (_indexX == x && _indexY > y)
 	{
 		_characterDir = RT;
+		_isRight = true;
+		_isUp = true;
 	}
 	else if (_indexX == x && _indexY < y)
 	{
 		_characterDir = LB;
+		_isRight = false;
+		_isUp = false;
 	}
 	_characterState = PAIN;
 	_character->setFrameX(0);
