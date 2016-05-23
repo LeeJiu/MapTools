@@ -13,6 +13,7 @@ protected:
 	int _level, _counter, _mv, _jm;													//캐릭터 능력치 1
 	int _maxHp, _maxSp, _hp, _sp, _atk, _int, _def, _spd, _hit, _res, _exp;			//캐릭터 능력치 2
 	int _curFrameX, _curFrameY, _count;
+	int _currentMoveCount;
 
 	image* _character;
 	image* _shadow;
