@@ -67,6 +67,8 @@ public:
 	void clickObject(int i);
 	void clickTile(int x, int y, int i);
 
+	void enemyAI();									// 에너미 ai함수
+
 	void increaseOrderNum();						// 게임오브젝트에서 호출할 함수. orderNum를 증가시켜줄 함수
 
 	void setObjectMgrMemoryLink(gameObjectManager* objectMgr) { _objectMgr = objectMgr; }
