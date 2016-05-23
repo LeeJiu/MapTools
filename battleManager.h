@@ -34,6 +34,10 @@ private:
 	RECT _rcAction;
 	bool _onAction;
 
+	int _count;
+	image* _selectTile;
+	image* _selectArrow;
+	
 	image* _turnbackImage;
 	image* _turnUIImage;
 	RECT _rcTurnback;
@@ -66,6 +70,7 @@ public:
 	void update();
 	void render();
 
+	void setFrame();
 	void setRect();
 	void turnbarRender();
 	void tileControl();
@@ -73,6 +78,8 @@ public:
 	void characterIsOnZenPoint();
 	void orderAction();								// vOrder에 담은 명령들을 수행할 함수
 	bool isPlayerTurn() { return _isPlayerTurn; }
+
+	void selectTileRender();
 
 	void clickZenPoint();
 	void clickCharacter(int x, int y, int i);

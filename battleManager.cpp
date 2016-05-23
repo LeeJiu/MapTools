@@ -34,6 +34,10 @@ HRESULT battleManager::init()
 	_action = IMAGEMANAGER->addImage("action", "image/ui/ui_action.bmp", 250, 150, false, false);
 	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
 
+	_selectTile = IMAGEMANAGER->findImage("select_tile");
+	_selectArrow = IMAGEMANAGER->findImage("ui_arrow_blue");
+
+	_count = 0;
 	return S_OK;
 }
 
@@ -115,17 +119,20 @@ void battleManager::update()
 			enemyAI();
 		}
 
-		//실행창(턴종료, 중도포기)
-		if (KEYMANAGER->isOnceKeyDown('1'))
-		{
-			_takeTurns = true;
-			_onAction = false;
-			_onUI = false;
-		}
-		if (KEYMANAGER->isOnceKeyDown('2'))
-		{
-			SCENEMANAGER->changeScene("selectStage");
-		}
+	//실행창(턴종료, 중도포기)
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_takeTurns = true;
+		_onAction = false;
+		_onUI = false;
+	}
+
+	_count++;
+	setFrame();
+
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		SCENEMANAGER->changeScene("selectStage");
 	}
 }
 
@@ -184,6 +191,19 @@ void battleManager::turnbarRender()
 
 	_turnbackImage->render(getMemDC(),_rcTurnback.left, _rcTurnback.top);
 	_turnUIImage->render(getMemDC(), _rcTurnback.left + _turnUIImage->getWidth(), _rcTurnback.top + _turnUIImage->getHeight() / 2);
+}
+
+void battleManager::setFrame()
+{
+	if (_count % 5 == 0)
+	{
+		_selectArrow->setFrameX(_selectArrow->getFrameX() + 1);
+
+		if (_selectArrow->getFrameX() >= _selectArrow->getMaxFrameX())
+		{
+			_selectArrow->setFrameX(0);
+		}
+	}
 }
 
 void battleManager::tileControl()
@@ -332,6 +352,28 @@ void battleManager::orderAction()
 	
 }
 
+void battleManager::selectTileRender()
+{
+	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
+	{
+		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click))
+		{
+			//아이소 타일 클릭 조건
+			if ((_click.y - _objectMgr->getVTile()[i]->pivotY) >= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) >= 0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4 &&
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= 0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4)
+			{
+				_selectTile->render(getMemDC(), _objectMgr->getVTile()[i]->rc.left, _objectMgr->getVTile()[i]->rc.top);
+				
+				_selectArrow->frameRender(getMemDC(), (_objectMgr->getVTile()[i]->rc.left + _objectMgr->getVTile()[i]->rc.right) / 2 - _selectArrow->getFrameWidth() / 2,
+														_objectMgr->getVTile()[i]->rc.top - 200, _selectArrow->getFrameX(), _selectArrow->getFrameY());
+				break;
+			}
+		}
+	}
+}
+
 void battleManager::clickZenPoint()
 {
 	//젠포인트에 아무것도 없을 때 - 캐릭이 미출전
@@ -437,9 +479,36 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
-
 	if (_objectMgr->getOrderList() == OL_ORDERING) return;
 	if (_objectMgr->getOrderList() == OL_END) return;
+
+	// 명령 수행 중인 에너미의 4방향 검사
+	int enemyX = _objectMgr->getVEnemy()[_enemyIdx]->getIndexX();
+	int enemyY = _objectMgr->getVEnemy()[_enemyIdx]->getIndexY();
+	if (_objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR
+		&& enemyX + (enemyY - 1) * TILENUM >= 0)
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY - 1);
+		return;
+	}
+	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR
+		&& enemyX + enemyY * TILENUM - 1 >= 0)
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX - 1, enemyY);
+		return;
+	}
+	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR
+		&& enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM))
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX + 1, enemyY);
+		return;
+	}
+	else if (_objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR
+		&& enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM))
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY + 1);
+		return;
+	}
 
 	// 서치타일 한 인덱스 받아서 임시저장 (최종목적지 == 빈타일 or 케릭터)
 	int tempTileIdx = searchTile(_enemyIdx);
@@ -507,13 +576,14 @@ int battleManager::searchTile(int enemyIdx)
 			+ abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->y) 
 			< _objectMgr->getVEnemy()[enemyIdx]->getMv())
 		{
-			if (_objectMgr->getVTile()[i]->state == S_NONE || _objectMgr->getVTile()[i]->state == S_ONCHAR)
+			if (_objectMgr->getVTile()[i]->state == S_NONE)
 			{
 				tempIdx = i;
-				if (_objectMgr->getVTile()[i]->state == S_ONCHAR)
-				{
-					return tempIdx;
-				}
+			}
+			else if (_objectMgr->getVTile()[i]->state == S_ONCHAR)
+			{
+				tempIdx = i;
+				return tempIdx;
 			}
 		}
 	}
@@ -533,6 +603,5 @@ void battleManager::increaseOrderNum()
 		_camera->setIsJoomOut(true);
 
 		//_isShowLabel = true;
-
 	}
 }

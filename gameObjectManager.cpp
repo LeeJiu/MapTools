@@ -23,6 +23,9 @@ HRESULT gameObjectManager::init()
 
 	_orderList = OL_NONE;
 
+	_charDeathCount = 0;
+	_enemyDeathCount = 0;
+
 	return S_OK;
 }
 
@@ -71,11 +74,7 @@ void gameObjectManager::update()
 //랜더
 void gameObjectManager::render()
 {
-	for (int i = 0; i < TOTALTILE(TILENUM); i++)
-	{
-		if (_vTile[i]->pivotX > _cameraX && _vTile[i]->pivotX < _cameraX + WINSIZEX && _vTile[i]->pivotY > _cameraY && _vTile[i]->pivotY < _cameraY + WINSIZEY)
-		_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
-	}
+	
 
 	//Y축 정렬
 	sort(_vToTalRender.begin(), _vToTalRender.end(), GOBJ_Y_RENDER());
@@ -242,6 +241,14 @@ void gameObjectManager::setObject()
 	}
 }
 
+void gameObjectManager::setCharDeath()
+{
+}
+
+void gameObjectManager::setEnemyDeath()
+{
+}
+
 void gameObjectManager::loadMapData()
 {
 	if (NUMBERDATA->getSelectStageNumber() == 0)
@@ -273,6 +280,15 @@ void gameObjectManager::loadMapData()
 	}
 }
 
+void gameObjectManager::tileRender()
+{
+	for (int i = 0; i < TOTALTILE(TILENUM); i++)
+	{
+		if (_vTile[i]->pivotX > _cameraX && _vTile[i]->pivotX < _cameraX + WINSIZEX && _vTile[i]->pivotY > _cameraY && _vTile[i]->pivotY < _cameraY + WINSIZEY)
+			_vTile[i]->image->frameRender(getMemDC(), _vTile[i]->rc.left, _vTile[i]->rc.top);
+	}
+}
+
 void gameObjectManager::characterMove(int index, int destX, int destY)
 {
 	SOUNDMANAGER->play("step", 1.f);
@@ -288,6 +304,12 @@ void gameObjectManager::characterAttack(int index, int destX, int destY)
 void gameObjectManager::characterPain(int index, int destX, int destY, int damage)
 {
 	_vCharacter[index]->pain(destX, destY, damage);
+}
+
+void gameObjectManager::enemyAttack(int index, int destX, int destY)
+{
+	_vEnemy[index]->attack(destX, destY);
+	_orderList = OL_ORDERING;
 }
 
 void gameObjectManager::enemyMove(int index, int destX, int destY)

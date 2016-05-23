@@ -31,10 +31,16 @@ public:
 	void setCameraJoomIn();
 	void setCameraJoomOut();
 
+	// set함수
 	void setIsVibrate(bool isVibrate) { _isVibrate = isVibrate; }
 	void setIsJoomIn(bool isJoomIn) { _isJoomIn = isJoomIn; }
 	void setIsJoomOut(bool isJoomOut) { _isJoomOut = isJoomOut; }
 	
+	// get함수
+	bool getIsVibrate() { return _isVibrate; }
+	bool getIsJoomIn() { return _isJoomIn; }
+	bool getIsJoomOut() { return _isJoomOut; }
+
 	void cameraVibrate();
 	void cameraTile();
 	void cameraFree();
