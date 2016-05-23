@@ -46,7 +46,6 @@ void battleManager::update()
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
-<<<<<<< HEAD
 		//플레이어가 ui를 조작할 수 있다.
 		if (!_takeTurns)
 		{
@@ -85,15 +84,6 @@ void battleManager::update()
 					_onUI = true;
 				}
 			}
-=======
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && !_onUI)
-		{
-			tileControl();
-		}
-		else if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _onUI)
-		{
-			UIControl();
->>>>>>> refs/remotes/origin/moobin
 		}
 		//플레이어가 ui를 조작할 수 없다. / 턴 실행 중
 		else
@@ -150,39 +140,39 @@ void battleManager::tileControl()
 					if (!_isOnZenPonit)
 					{
 						clickZenPoint();
-						return;
+						break;
 					}
 					//캐릭터가 젠포인트 위가 아닐 때
 					else
 					{
 						clickCharacter(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
-						return;
+						break;
 					}
 				}
 				//캐릭터
 				else if (_objectMgr->getVTile()[i]->state == S_ONCHAR)
 				{
 					clickCharacter(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
-					return;
+					break;
 				}
 				//적
 				else if (_objectMgr->getVTile()[i]->state == S_ONENM)
 				{
 					clickEnemy(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
-					return;
+					break;
 				}
 				//이동 불가능한 타일/장애물
 				else if (_objectMgr->getVTile()[i]->state == S_ONOBJ
 					|| _objectMgr->getVTile()[i]->state == S_ETC)
 				{
 					clickObject(i);
-					return;
+					break;
 				}
 				//이동 가능한 타일
 				else if (_objectMgr->getVTile()[i]->state == S_NONE)
 				{
 					clickTile(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
-					return;
+					break;
 				}
 			}
 		}
