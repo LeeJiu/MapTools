@@ -359,6 +359,9 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
+	//=========== °¡¿ê ===================
+
+
 	int enemySize = _objectMgr->getVEnemy().size();
 
 	for (int i = 0; i < enemySize; ++i)
