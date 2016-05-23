@@ -14,14 +14,14 @@ private:
 	image* _characterList;
 	image* _summary;
 	image* _order;
-	image* _action;
+	
 	image* _status;
 
-	//캐릭터 리스트창, 요약정보창(name, hp, sp), 명령창, 실행창(턴종료, 중도포기), 상세정보창
-	RECT _rcCharacterList, _rcSummary, _rcOrder, _rcAction, _rcStatus;
+	//캐릭터 리스트창, 요약정보창(name, hp, sp), 명령창, 상세정보창
+	RECT _rcCharacterList, _rcSummary, _rcOrder, _rcStatus;
 	RECT _rcOrderList[5];
 
-	bool _onCharacterList, _onSummary, _onAction, _onOrder, _onStatus;
+	bool _onCharacterList, _onSummary, _onOrder, _onStatus;
 	
 	vector<tagCharList> _vCharList;	//캐릭터 리스트
 	int _charIdx;					//objectMgr에서 캐릭터에 접근할 인덱스
@@ -43,11 +43,9 @@ public:
 	void onSummary(bool onOff) { _onSummary = onOff; }
 	void onStatus(bool onOff) { _onStatus = onOff; }
 	void onOrder(bool onOff) { _onOrder = onOff; }
-	void onAction(bool onOff) { _onAction = onOff; }
 
 	void clickCharList();
 	void clickOrder();
-	void clickAction();
 
 	void removeVCharList(int arrNum);
 
