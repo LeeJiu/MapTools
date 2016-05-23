@@ -57,6 +57,8 @@ private:
 	//ui 상태 변수
 	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onUI;
 
+	//게임 결과 상태 변수
+	bool _playerWin, _enemyWin;
 
 	/*			enemy AI			*/
 	int _enemyIdx;				// 현재 명령 수행할 에너미 인덱스 넘버
@@ -91,7 +93,8 @@ public:
 
 	void setObjectMgrMemoryLink(gameObjectManager* objectMgr) { _objectMgr = objectMgr; }
 	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }
-
+	void setPlayerWin(bool playerWin) { _playerWin = playerWin; }
+	void setEnemyWin(bool enemyWin) { _enemyWin = enemyWin; }
 
 	/*			enemy AI func			*/
 	void enemyAI();							// 에너미 ai함수

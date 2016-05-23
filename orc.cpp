@@ -31,7 +31,7 @@ HRESULT orc::init(int x, int y, gameObjectManager * gom)
 	_curFrameX = 0;
 
 	_mv = 5;
-	_isShow = false;
+	_isShow = true;
 	_moveSpeed = 3;
 
 	_moveSpeed = 3;
@@ -64,6 +64,7 @@ void orc::update()
 	_hpBar->setX(_x);
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
+	_hpBar->gauge(_hp, _maxHp);
 	
 	gameObject::setDirectionImage();
 	setImage();
@@ -85,14 +86,23 @@ void orc::update()
 
 void orc::render()
 {
-	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
-	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-	
-	if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
+	if (_isShow)
 	{
+<<<<<<< HEAD
 		_shadow->render(getMemDC(), _x - _shadow->getWidth() / 2, _rc.bottom - _shadow->getFrameHeight() / 2 - 10);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_hpBar->render();
+=======
+		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
+		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+	
+		if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
+		{
+			_shadow->render(getMemDC(), _rc.left + 15, _rc.bottom - _shadow->getFrameHeight() / 2);
+			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+			_hpBar->render();
+		}
+>>>>>>> refs/remotes/origin/development
 	}
 }
 
@@ -156,6 +166,13 @@ void orc::setFrame()
 			}
 			else if (_characterState == PAIN)
 			{
+				if (_hp <= 0)
+				{
+					_hp = 0;
+					_isShow = false;
+					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state == S_NONE;
+					_gameObjMgr->setEnemyDeath();
+				}
 				_characterState = IDLE;
 				return;
 			}

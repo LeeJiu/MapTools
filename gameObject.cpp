@@ -210,6 +210,7 @@ void gameObject::pain(int x, int y, int damage)
 		_isUp = false;
 	}
 	_characterState = PAIN;
+	_hp -= (damage / 10);
 	_character->setFrameX(0);
 }
 
