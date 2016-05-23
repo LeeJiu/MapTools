@@ -201,17 +201,17 @@ void battleManager::UIControl()
 	if (_ui->getOrderNumber() == 1)
 	{
 		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
+		_ui->setOrderNumber(0);
 		_ui->onOrder(false);
 		_onUI = false;
-		return;
 	}
 	// UI에서 클릭한것이 어택이라면
 	else if (_ui->getOrderNumber() == 2)
 	{
 		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
+		_ui->setOrderNumber(0);
 		_ui->onOrder(false);
 		_onUI = false;
-		return;
 	}
 }
 
@@ -271,14 +271,15 @@ void battleManager::clickZenPoint()
 void battleManager::clickCharacter(int x, int y, int i)
 {
 	//명령창을 띄운다. (현재 캐릭터의 인덱스 저장)
-	int charSize = _objectMgr->getVCharacter().size();
 
 	_ui->onOrder(true);
 	_onUI = true;
 
+	int charSize = _objectMgr->getVCharacter().size();
 	for (int i = 0; i < charSize; i++)
 	{
-		if (_objectMgr->getVCharacter()[i]->getIndexX() == x && _objectMgr->getVCharacter()[i]->getIndexY() == y)
+		if (_objectMgr->getVCharacter()[i]->getIndexX() == x 
+			&& _objectMgr->getVCharacter()[i]->getIndexY() == y)
 		{
 			_selectCharIdx = i;
 			break;
@@ -328,8 +329,6 @@ void battleManager::clickEnemy(int x, int y, int i)
 		//카메라 포커스를 맞춘다.
 		_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
 	}
-
-
 }
 
 void battleManager::clickObject(int i)
@@ -357,6 +356,87 @@ void battleManager::clickTile(int x, int y, int i)
 	}
 }
 
+void battleManager::enemyAI()
+{
+
+	if (_objectMgr->getOrderList() == OL_ORDERING) return;
+	if (_objectMgr->getOrderList() == OL_END) return;
+
+	// 서치타일 한 인덱스 받아서 임시저장 (최종목적지 == 빈타일 or 케릭터)
+	int tempTileIdx = searchTile(_enemyIdx);
+
+	// 최종목적지가 빈타일이라면 그곳으로 이동해라
+	if (_objectMgr->getVTile()[tempTileIdx]->state == S_NONE)
+	{
+		_objectMgr->enemyMove(_enemyIdx, _objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+	}
+	// 최종목적지가 케릭터라면
+	else if (_objectMgr->getVTile()[tempTileIdx]->state == S_ONCHAR)
+	{
+		// 타일의 인덱스가 범위 내고, S_NONE이라면 4방향 검사해서 그쪽으로 이동한 후 공격한다.
+		if (tempTileIdx - TILENUM >= 0 && tempTileIdx - TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - TILENUM]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - TILENUM]->x, _objectMgr->getVTile()[tempTileIdx - TILENUM]->y,
+											_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+		else if (tempTileIdx - 1 >= 0 && tempTileIdx - 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - 1]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - 1]->x, _objectMgr->getVTile()[tempTileIdx - 1]->y,
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+		else if (tempTileIdx + 1 >= 0 && tempTileIdx + 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + 1]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + 1]->x, _objectMgr->getVTile()[tempTileIdx + 1]->y,
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+		else if (tempTileIdx + TILENUM >= 0 && tempTileIdx + TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + TILENUM]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + TILENUM]->x, _objectMgr->getVTile()[tempTileIdx + TILENUM]->y,
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+	}
+}
+
+void battleManager::increaseEnemyIdx()
+{
+	_enemyIdx++;
+
+	if (_enemyIdx <= _objectMgr->getVEnemy().size())
+	{
+		_enemyIdx = 0;
+		_isPlayerTurn = true;
+
+		// 카메라 줌 아웃 호출
+		_camera->setIsJoomOut(true);
+	}
+}
+
+int battleManager::searchTile(int enemyIdx)
+{
+	// 현재 명령 수행 중인 에너미의 인덱스로 타일을 검사한다.
+	// 에너미가 이동 가능한 타일 중에서 인덱스을 반환한다.
+	// 이동 가능 타일의 가장 마지막 인덱스를 계속 저장하고,
+	// 타일 중에 캐릭터가 있으면 그 타일의 인덱스를 저장하고 바로 반환한다.
+	int tempIdx;
+
+	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
+	{
+		if (abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->x) + 
+			abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->y) < _objectMgr->getVEnemy()[enemyIdx]->getMv())
+		{
+			if (_objectMgr->getVTile()[i]->state == S_NONE || _objectMgr->getVTile()[i]->state == S_ONCHAR)
+			{
+				tempIdx = i;
+				if (_objectMgr->getVTile()[i]->state == S_ONCHAR)
+				{
+					return tempIdx;
+				}
+			}
+		}
+	}
+	return tempIdx;
+}
+
 void battleManager::increaseOrderNum()
 {
 	_orderNum++;
@@ -368,7 +448,6 @@ void battleManager::increaseOrderNum()
 		_vOrder.clear();
 
 		// 카메라 줌 아웃 호출
-		//_camera->setIsJoomIn(true);
 		_camera->setIsJoomOut(true);
 	}
 }

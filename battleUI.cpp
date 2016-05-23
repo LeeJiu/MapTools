@@ -25,7 +25,7 @@ HRESULT battleUI::init()
 	/*			rect set			*/
 	_rcCharacterList = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
-	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
+	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 213);
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
 
 	_charIdx = 100;		//캐릭터 선택 안 되어있다.
@@ -43,7 +43,7 @@ void battleUI::update()
 	/*			rect update			*/
 	_rcCharacterList = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
-	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
+	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 213);
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
 
 	int size = _vCharList.size();
@@ -90,12 +90,6 @@ void battleUI::render()
 
 	if (_onOrder)
 		_order->render(getMemDC(), _rcOrder.left, _rcOrder.top);
-
-	// 유닛 오더창의 렉트들
-	for (int i = 0; i < 5; i++)
-	{
-		Rectangle(getMemDC(), _rcOrderList[i].left, _rcOrderList[i].top, _rcOrderList[i].right, _rcOrderList[i].bottom);
-	}
 
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
