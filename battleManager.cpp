@@ -358,13 +358,43 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
-	// searchTile() 실행 후 반환된 타일 인덱스로 에너미의 명령을 수행한다.
-	// 반환된 타일이 캐릭터가 아니라면 (S_NONE)
-	// 이동만 명령한다.
-	// 반환된 타일이 캐릭터라면 (S_ONCHAR)
-	// 이동 명령 후 공격 명령한다.
 
+	if (_objectMgr->getOrderList() == OL_ORDERING) return;
+	if (_objectMgr->getOrderList() == OL_END) return;
 
+	// 서치타일 한 인덱스 받아서 임시저장 (최종목적지 == 빈타일 or 케릭터)
+	int tempTileIdx = searchTile(_enemyIdx);
+
+	// 최종목적지가 빈타일이라면 그곳으로 이동해라
+	if (_objectMgr->getVTile()[tempTileIdx]->state == S_NONE)
+	{
+		_objectMgr->enemyMove(_enemyIdx, _objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+	}
+	// 최종목적지가 케릭터라면
+	else if (_objectMgr->getVTile()[tempTileIdx]->state == S_ONCHAR)
+	{
+		// 타일의 인덱스가 범위 내고, S_NONE이라면 4방향 검사해서 그쪽으로 이동한 후 공격한다.
+		if (tempTileIdx - TILENUM >= 0 && tempTileIdx - TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - TILENUM]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - TILENUM]->x, _objectMgr->getVTile()[tempTileIdx - TILENUM]->y,
+											_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+		else if (tempTileIdx - 1 >= 0 && tempTileIdx - 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - 1]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - 1]->x, _objectMgr->getVTile()[tempTileIdx - 1]->y,
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+		else if (tempTileIdx + 1 >= 0 && tempTileIdx + 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + 1]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + 1]->x, _objectMgr->getVTile()[tempTileIdx + 1]->y,
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+		else if (tempTileIdx + TILENUM >= 0 && tempTileIdx + TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + TILENUM]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + TILENUM]->x, _objectMgr->getVTile()[tempTileIdx + TILENUM]->y,
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+	}
 }
 
 void battleManager::increaseEnemyIdx()
@@ -381,14 +411,30 @@ void battleManager::increaseEnemyIdx()
 	}
 }
 
-int battleManager::searchTile()
+int battleManager::searchTile(int enemyIdx)
 {
 	// 현재 명령 수행 중인 에너미의 인덱스로 타일을 검사한다.
 	// 에너미가 이동 가능한 타일 중에서 인덱스을 반환한다.
 	// 이동 가능 타일의 가장 마지막 인덱스를 계속 저장하고,
 	// 타일 중에 캐릭터가 있으면 그 타일의 인덱스를 저장하고 바로 반환한다.
+	int tempIdx;
 
-
+	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
+	{
+		if (abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->x) + 
+			abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->y) < _objectMgr->getVEnemy()[enemyIdx]->getMv())
+		{
+			if (_objectMgr->getVTile()[i]->state == S_NONE || _objectMgr->getVTile()[i]->state == S_ONCHAR)
+			{
+				tempIdx = i;
+				if (_objectMgr->getVTile()[i]->state == S_ONCHAR)
+				{
+					return tempIdx;
+				}
+			}
+		}
+	}
+	return tempIdx;
 }
 
 void battleManager::increaseOrderNum()
