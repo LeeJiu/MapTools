@@ -291,6 +291,7 @@ void gameObjectManager::tileRender()
 
 void gameObjectManager::characterMove(int index, int destX, int destY)
 {
+	SOUNDMANAGER->play("step", 1.f);
 	_vCharacter[index]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vCharacter[index]->getIndexX(), _vCharacter[index]->getIndexY(), destX, destY));
 }
 
