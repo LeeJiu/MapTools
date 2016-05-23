@@ -18,7 +18,7 @@ HRESULT selectStage::init()
 	SOUNDMANAGER->play("selectStage_bg", _volume);
 
 
-	_mapListSize = 5;
+	_mapListSize = 3;
 
 	IMAGEMANAGER->addImage("selectScene", "image/background/selectScene.bmp", 1280, 720, false, false);
 	_imageListTop = IMAGEMANAGER->addImage("dialog_List_top", "image/ui/dialog_List_top.bmp", 300, 18, false, false);
@@ -142,17 +142,8 @@ void selectStage::mapListInit()
 {
 	for (int i = 0; i < _mapListSize; i++)
 	{
-		if (i == 0) _vMapList.push_back("서울게임 아카데미 4층");
-		if (i == 1) _vMapList.push_back("서울게임 아카데미 5층");
-		if (i == 2) _vMapList.push_back("서울게임 아카데미 6층");
-		if (i == 3) _vMapList.push_back("보스 방 : 장명호");
-		if (i == 4) _vMapList.push_back("보스 방 : 양호성");
-		if (i == 5) _vMapList.push_back("BASIC BATTLE 6");
-		if (i == 6) _vMapList.push_back("BASIC BATTLE 7");
-		if (i == 7) _vMapList.push_back("BASIC BATTLE 8");
-		if (i == 8) _vMapList.push_back("BASIC BATTLE 9");
-		if (i == 9) _vMapList.push_back("BASIC BATTLE 10");
-		if (i == 10) _vMapList.push_back("BASIC BATTLE 11");
-		if (i == 11) _vMapList.push_back("BASIC BATTLE 12");
+		if (i == 0) _vMapList.push_back("Stage 1");
+		if (i == 1) _vMapList.push_back("Stage 2");
+		if (i == 2) _vMapList.push_back("Stage 3");
 	}
 }

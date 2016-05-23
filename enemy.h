@@ -3,15 +3,6 @@
 
 class enemy : public gameObject
 {
-protected:
-	const char* _kind;
-	RECT _rc;
-	int _x, _y;
-
-	int _idx;														// 이동시 vRoute에서 사용될 인덱스
-	int _moveSpeed;
-
-
 public:
 	enemy();
 	~enemy();

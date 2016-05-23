@@ -33,6 +33,9 @@ HRESULT flonne::init(int x, int y, gameObjectManager * gom)
 	_isUp = true;
 	_isShow = false;
 
+	_targetX = -1;
+	_targetY = -1;
+
 	_oldX = _indexX = x;
 	_oldY = _indexY = y;
 

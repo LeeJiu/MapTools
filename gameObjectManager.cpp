@@ -54,7 +54,17 @@ void gameObjectManager::update()
 	if (_orderList == OL_END)
 	{
 		_orderList = OL_NONE;
-		_battleMgr->increaseOrderNum();
+
+		//플레이어 턴일 때
+		if (_battleMgr->isPlayerTurn())
+		{
+			_battleMgr->increaseOrderNum();
+		}
+		//에너미 턴일 때
+		else
+		{
+			_battleMgr->increaseEnemyIdx();
+		}
 	}
 }
 

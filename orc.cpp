@@ -14,7 +14,7 @@ orc::~orc()
 
 HRESULT orc::init(int x, int y, gameObjectManager * gom)
 {
-	_kind = "orc";
+	_name = "orc";
 
 	_indexX = x;
 	_indexY = y;
