@@ -13,6 +13,9 @@ battleScene::~battleScene()
 
 HRESULT battleScene::init()
 {
+	_volume = 0;
+	SOUNDMANAGER->play("battleScene_bg", _volume);
+
 	_camera = new battleCamera;
 	_camera->init();
 
@@ -47,7 +50,7 @@ void battleScene::release()
 void battleScene::update()
 {
 
-	if (_volume < 0.8f) _volume += 0.005f;
+	if (_volume < 1.f) _volume += 0.005f;
 	SOUNDMANAGER->setVolum("battleScene_bg", _volume);
 
 	_camera->update();
@@ -57,6 +60,8 @@ void battleScene::update()
 
 void battleScene::render()
 {
+	_objectMgr->tileRender();
+	_battleMgr->selectTileRender();
 	_objectMgr->render();
 	_battleMgr->render();
 }

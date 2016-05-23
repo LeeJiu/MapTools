@@ -60,10 +60,15 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("etna_idle", "image/character/etna_idle.bmp", 588, 656, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("etna_walk", "image/character/etna_walk.bmp", 588, 700, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("etna_attack", "image/character/etna_attack.bmp", 720, 660, 4, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("etna_pain", "image/character/etna_pain.bmp", 103, 596, 1, 4, true, 0xff00ff);
 
 	//배틀씬에서 사용될 이미지 추가
 	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 128, 64, true, 0xff00ff);
 	IMAGEMANAGER->addImage("attackable", "image/battle/attackable_tile.bmp", 128, 64, true, 0xff00ff);
+	IMAGEMANAGER->addImage("turnback", "image/battleUI/ui_turnback_black.bmp", WINSIZEX, 100, false, false);
+	IMAGEMANAGER->addImage("playerTurn", "image/battleUI/ui_turnback_player.bmp", 489, 53, true, 0xff00ff);
+	IMAGEMANAGER->addImage("enemyTurn", "image/battleUI/ui_turnback_enemy.bmp", 476, 53, true, 0xff00ff);
+	IMAGEMANAGER->addImage("stageStart", "image/battleUI/ui_turnback_start.bmp", 461, 53, true, 0xff00ff);
 	
 	//오브젝트 이미지 추가
 	IMAGEMANAGER->addImage("tree1", "image/mapTool/object_tree.bmp", 222, 265, true, 0xff00ff);
@@ -99,6 +104,12 @@ HRESULT gameStudy::init()
 
 	//그림자
 	IMAGEMANAGER->addImage("shadow", "image/character/shadow.bmp", 128, 64, true, 0xff00ff);
+	
+	//셀렉트 타일 이미지
+	IMAGEMANAGER->addImage("select_tile", "image/battle/select_tile.bmp", 128, 64, true, 0xff00ff);
+
+	//셀렉트 에로우 이미지
+	IMAGEMANAGER->addFrameImage("ui_arrow_blue", "image/battleUI/ui_arrow_blue.bmp", 711, 100, 9, 1, true, 0xff00ff);
 
 	//캐릭터 아이콘
 	IMAGEMANAGER->addImage("prinny_icon", "image/icon/icon_prinny.bmp", 110, 110, false, false);
@@ -108,7 +119,8 @@ HRESULT gameStudy::init()
 	
 	//사운드
 	//배경음
-	SOUNDMANAGER->addSound("town_bg", "sound/town.mp3", true, true);
+	SOUNDMANAGER->addSound("town_bg", "sound/town_bg.mp3", true, true);
+	//SOUNDMANAGER->addSound("town_bg", "sound/town.mp3", true, true);
 	SOUNDMANAGER->addSound("title_bg", "sound/title.mp3", true, true);
 	SOUNDMANAGER->addSound("battleScene_bg", "sound/battleScene.mp3", true, true);
 	SOUNDMANAGER->addSound("selectStage_bg", "sound/selectStage_bg.mp3", true, true);
