@@ -39,6 +39,9 @@ HRESULT etna::init(int x, int y, gameObjectManager * gom)
 	_oldX = _indexX = x;
 	_oldY = _indexY = y;
 
+	_targetX = -1;
+	_targetY = -1;
+
 	_moveSpeed = 3;
 
 	_rc = RectMakeIso(_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY, 

@@ -2,7 +2,7 @@
 #include "numberData.h"
 
 
-numberData::numberData()
+numberData::numberData() : _townSourX(2600), _townSourY(60)
 {
 }
 

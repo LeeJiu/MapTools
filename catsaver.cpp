@@ -105,7 +105,7 @@ void catsaver::setImage()
 		_character->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
 		break;
 	case WALK:
-		_character->init("image/character/catsaver_idle.bmp", 744, 528, 6, 4, true, 0xff00ff);
+		_character->init("image/character/catsaver_walk.bmp", 744, 528, 6, 4, true, 0xff00ff);
 		break;
 	case ATTACK:
 		_character->init("image/character/catsaver_attack.bmp", 1295, 856, 5, 4, true, 0xff00ff);

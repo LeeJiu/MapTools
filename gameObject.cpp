@@ -67,9 +67,13 @@ void gameObject::move()
 
 			_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
 
-			if (_targetX != -1 && _targetY != -1)
+			if (_targetX != -1 && _targetY != -1 && !_isCharacter)
 			{
 				attack(_targetX, _targetY);
+			}
+			else if (_targetX == -1 && _targetY == -1 && !_isCharacter)
+			{
+				_gameObjMgr->setOrderList(OL_END);
 			}
 			return;
 		}
@@ -91,9 +95,13 @@ void gameObject::move()
 
 				_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
 				
-				if (_targetX != -1 && _targetY != -1)
+				if (_targetX != -1 && _targetY != -1 && !_isCharacter)
 				{
 					attack(_targetX, _targetY);
+				}
+				else if (_targetX == -1 && _targetY == -1 && !_isCharacter)
+				{
+					_gameObjMgr->setOrderList(OL_END);
 				}
 				return;
 			}
@@ -245,11 +253,15 @@ void gameObject::setEnemyMove(int targetX, int targetY, int endX, int endY, vect
 {
 	if (!_isMove)
 	{
-		if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT) _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
+		if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT)
+		{
+			_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
+		}
+
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
-		_currentMoveCount = 0;
+		//_currentMoveCount = 0;
 		_oldX = _indexX;
 		_oldY = _indexY;
 		_vRoute = vRoute;
@@ -266,11 +278,15 @@ void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute)
 {
 	if (!_isMove)
 	{
-		if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT) _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
+		if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT)
+		{
+			_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
+		}
+
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
-		_currentMoveCount = 0;
+		//_currentMoveCount = 0;
 		_oldX = _indexX;
 		_oldY = _indexY;
 		_vRoute = vRoute;

@@ -95,6 +95,7 @@ void battleManager::update()
 	else
 	{
 		//AI
+		enemyAI();
 	}
 
 	//실행창(턴종료, 중도포기)
@@ -237,7 +238,16 @@ void battleManager::characterIsOnZenPoint()
 
 void battleManager::orderAction()
 {
-	_camera->setIsJoomIn(true);
+	if (_vOrder.size() == 0)
+	{
+		_isPlayerTurn = false;
+		_takeTurns = true;
+		_onAction = false;
+		_onUI = false;
+		return;
+	}
+
+	//_camera->setIsJoomIn(true);
 
 	// 해당 케릭터가 명령을 수행중이라면 리턴시켜라
 	if (_objectMgr->getOrderList() == OL_ORDERING) return;
@@ -377,7 +387,7 @@ void battleManager::enemyAI()
 		if (tempTileIdx - TILENUM >= 0 && tempTileIdx - TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - TILENUM]->state == S_NONE)
 		{
 			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - TILENUM]->x, _objectMgr->getVTile()[tempTileIdx - TILENUM]->y,
-											_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 		else if (tempTileIdx - 1 >= 0 && tempTileIdx - 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - 1]->state == S_NONE)
 		{
@@ -401,13 +411,14 @@ void battleManager::increaseEnemyIdx()
 {
 	_enemyIdx++;
 
-	if (_enemyIdx <= _objectMgr->getVEnemy().size())
+	if (_enemyIdx >= _objectMgr->getVEnemy().size())
 	{
 		_enemyIdx = 0;
 		_isPlayerTurn = true;
+		_takeTurns = false;
 
 		// 카메라 줌 아웃 호출
-		_camera->setIsJoomOut(true);
+		//_camera->setIsJoomOut(true);
 	}
 }
 
@@ -421,8 +432,9 @@ int battleManager::searchTile(int enemyIdx)
 
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
 	{
-		if (abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->x) + 
-			abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->y) < _objectMgr->getVEnemy()[enemyIdx]->getMv())
+		if (abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->x) 
+			+ abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->y) 
+			< _objectMgr->getVEnemy()[enemyIdx]->getMv())
 		{
 			if (_objectMgr->getVTile()[i]->state == S_NONE || _objectMgr->getVTile()[i]->state == S_ONCHAR)
 			{
@@ -448,6 +460,6 @@ void battleManager::increaseOrderNum()
 		_vOrder.clear();
 
 		// 카메라 줌 아웃 호출
-		_camera->setIsJoomOut(true);
+		//_camera->setIsJoomOut(true);
 	}
 }
