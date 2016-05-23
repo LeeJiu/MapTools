@@ -29,6 +29,7 @@ protected:
 
 	int _idx;							// 이동시 vRoute에서 사용될 인덱스
 	int _moveSpeed;
+	int _attackCnt;						// 어텍 프레임이 2번 돌게 하기 위한 변수
 
 	bool _isUp, _isRight;
 	bool _isShow;

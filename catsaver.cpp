@@ -109,6 +109,7 @@ void catsaver::setImage()
 		break;
 	case PAIN:
 		_character->init("image/character/catsaver_pain.bmp", 101, 416, 1, 4, true, 0xff00ff);
+		break;
 	}
 }
 
@@ -139,7 +140,7 @@ void catsaver::setFrame()
 		break;
 	}
 
-	if (_count % 7 == 0)
+	if (_count % 10 == 0)
 	{
 		_curFrameX++;
 		if (_curFrameX > _character->getMaxFrameX())

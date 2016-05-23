@@ -125,11 +125,6 @@ void prinny::update()
 		_inventory->update();
 		keyControl();
 	}
-
-	
-
-	setImage();
-	gameObject::setDirectionImage();
 }
 
 void prinny::render()
@@ -292,13 +287,62 @@ void prinny::setImage()
 		_volume = 0.f;
 		break;
 
-	case ETC:
+	case PAIN:
 		_character = IMAGEMANAGER->findImage("prinny_etc");
 		_volume = 0.f;
 		break;
 	}
 
-	gameObject::setFrame();
+	setFrame();
+}
+
+void prinny::setFrame()
+{
+	_count++;
+
+	switch (_characterDir)
+	{
+	case LB:
+		_curFrameY = 0;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RB:
+		_curFrameY = 1;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RT:
+		_curFrameY = 2;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case LT:
+		_curFrameY = 3;
+		_character->setFrameY(_curFrameY);
+		break;
+	}
+
+	if (_count % 10 == 0)
+	{
+		_curFrameX++;
+		if (_curFrameX > _character->getMaxFrameX())
+		{
+			_curFrameX = 0;
+			if (_characterState == ATTACK)
+			{
+				_characterState = IDLE;
+				_gameObjMgr->setOrderList(OL_END);
+				return;
+			}
+			else if (_characterState == PAIN)
+			{
+				_characterState = IDLE;
+				return;
+			}
+		}
+		_character->setFrameX(_curFrameX);
+	}
 }
 
 void prinny::saveData()

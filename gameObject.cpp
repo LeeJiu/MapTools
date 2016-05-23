@@ -185,6 +185,46 @@ void gameObject::setImage()
 
 void gameObject::setFrame()
 {
+	_count++;
+
+	switch (_characterDir)
+	{
+	case LB:
+		_curFrameY = 0;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RB:
+		_curFrameY = 1;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RT:
+		_curFrameY = 2;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case LT:
+		_curFrameY = 3;
+		_character->setFrameY(_curFrameY);
+		break;
+	}
+
+	if (_count % 10 == 0)
+	{
+		_curFrameX++;
+		if (_curFrameX > _character->getMaxFrameX())
+		{
+			_curFrameX = 0;
+			if (_characterState == ATTACK)
+			{
+				_characterState = IDLE;
+				_isOrdering = false;
+				return;
+			}
+		}
+		_character->setFrameX(_curFrameX);
+	}
 }
 
 void gameObject::saveData()
