@@ -130,12 +130,64 @@ void raspberyl::setImage()
 		_character = IMAGEMANAGER->findImage("raspberyl_lift");
 		break;
 
-	case ETC:
+	case PAIN:
 		_character = IMAGEMANAGER->findImage("raspberyl_etc");
 		break;
 	}
 
-	gameObject::setFrame();
+	setFrame();
+}
+
+void raspberyl::setFrame()
+{
+	_count++;
+
+	switch (_characterDir)
+	{
+	case LB:
+		_curFrameY = 0;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RB:
+		_curFrameY = 1;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RT:
+		_curFrameY = 2;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case LT:
+		_curFrameY = 3;
+		_character->setFrameY(_curFrameY);
+		break;
+	}
+
+	if (_count % 10 == 0)
+	{
+		_curFrameX++;
+		if (_curFrameX > _character->getMaxFrameX())
+		{
+			_curFrameX = 0;
+			if (_characterState == ATTACK || _characterState == PAIN)
+			{
+				if (_attackCnt == 0)
+				{
+					_attackCnt++;
+				}
+				else
+				{
+					_attackCnt = 0;
+					_characterState = IDLE;
+					_gameObjMgr->setOrderList(OL_END);
+					return;
+				}
+			}
+		}
+		_character->setFrameX(_curFrameX);
+	}
 }
 
 void raspberyl::saveData()

@@ -125,11 +125,6 @@ void prinny::update()
 		_inventory->update();
 		keyControl();
 	}
-
-	
-
-	setImage();
-	gameObject::setDirectionImage();
 }
 
 void prinny::render()
@@ -274,31 +269,88 @@ void prinny::setImage()
 	{
 	case IDLE:
 		_character = IMAGEMANAGER->findImage("prinny_idle");
+		_character->setFrameX(_curFrameX);
 		_volume = 0.f;
 		break;
 
 	case WALK:
 		_character = IMAGEMANAGER->findImage("prinny_walk");
+		_character->setFrameX(_curFrameX);
 		_volume = 1.f;
 		break;
 
 	case ATTACK:
 		_character = IMAGEMANAGER->findImage("prinny_attack");
+		_character->setFrameX(_curFrameX);
 		_volume = 0.f;
 		break;
 
 	case LIFT:
 		_character = IMAGEMANAGER->findImage("prinny_lift");
+		_character->setFrameX(_curFrameX);
 		_volume = 0.f;
 		break;
 
-	case ETC:
+	case PAIN:
 		_character = IMAGEMANAGER->findImage("prinny_etc");
+		_character->setFrameX(_curFrameX);
 		_volume = 0.f;
 		break;
 	}
 
-	gameObject::setFrame();
+	setFrame();
+}
+
+void prinny::setFrame()
+{
+	_count++;
+
+	switch (_characterDir)
+	{
+	case LB:
+		_curFrameY = 0;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RB:
+		_curFrameY = 1;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case RT:
+		_curFrameY = 2;
+		_character->setFrameY(_curFrameY);
+		break;
+
+	case LT:
+		_curFrameY = 3;
+		_character->setFrameY(_curFrameY);
+		break;
+	}
+
+	if (_count % 10 == 0)
+	{
+		_curFrameX++;
+		if (_curFrameX > _character->getMaxFrameX())
+		{
+			_curFrameX = 0;
+			if (_characterState == ATTACK || _characterState == PAIN)
+			{
+				if (_attackCnt == 0)
+				{
+					_attackCnt++;
+				}
+				else
+				{
+					_attackCnt = 0;
+					_characterState = IDLE;
+					_gameObjMgr->setOrderList(OL_END);
+					return;
+				}
+			}
+		}
+		_character->setFrameX(_curFrameX);
+	}
 }
 
 void prinny::saveData()

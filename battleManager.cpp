@@ -368,7 +368,7 @@ void battleManager::increaseOrderNum()
 		_vOrder.clear();
 
 		// Ä«¸Þ¶ó ÁÜ ¾Æ¿ô È£Ãâ
-		//_camera->setIsJoomIn(false);
+		//_camera->setIsJoomIn(true);
 		_camera->setIsJoomOut(true);
 	}
 }
