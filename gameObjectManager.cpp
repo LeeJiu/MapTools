@@ -243,10 +243,24 @@ void gameObjectManager::setObject()
 
 void gameObjectManager::setCharDeath()
 {
+	_charDeathCount++;
+
+	if (_vCharacter.size() == _charDeathCount)
+	{
+		// 결투 패배 
+		_battleMgr->setEnemyWin(true);
+	}
 }
 
 void gameObjectManager::setEnemyDeath()
 {
+	_enemyDeathCount++;
+
+	if (_vEnemy.size() == _enemyDeathCount)
+	{
+		// 결투 승리
+		_battleMgr->setPlayerWin(true);
+	}
 }
 
 void gameObjectManager::loadMapData()
