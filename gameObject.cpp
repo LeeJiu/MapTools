@@ -248,6 +248,8 @@ void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute)
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
+		_oldX = _indexX;
+		_oldY = _indexY;
 		_vRoute = vRoute;
 		_characterState = WALK;
 	}

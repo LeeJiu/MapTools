@@ -28,7 +28,12 @@ HRESULT battleUI::init()
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
 	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
-	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
+	_rcAction = RectMakeCenter(_cameraX + 100, _cameraY + 50, 250, 150);
+
+	for (int i = 0; i < 2; i++)
+	{
+		_rcActionList[i] = RectMakeCenter(_rcAction.left + 125, _rcAction.top + 75 * i + 38, 250, 75);
+	}
 
 	_charIdx = 100;		//캐릭터 선택 안 되어있다.
 	
@@ -47,7 +52,12 @@ void battleUI::update()
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
 	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
-	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
+	_rcAction = RectMakeCenter(_cameraX + 200, _cameraY + 150, 250, 150);
+
+	for (int i = 0; i < 2; i++)
+	{
+		_rcActionList[i] = RectMakeCenter(_rcAction.left + 125, _rcAction.top + 75 * i + 38, 250, 75);
+	}
 
 	int size = _vCharList.size();
 	for (int i = 0; i < size; ++i)
@@ -55,14 +65,15 @@ void battleUI::update()
 		_vCharList[i].rc = RectMake(_rcCharacterList.left + 20, _rcCharacterList.top + 50 + (i * 50), 200, 50);
 	}
 
+	// 유닛 오더창의 렉트들
+	for (int i = 0; i < 5; i++)
+	{
+		_rcOrderList[i] = RectMake(_rcOrder.left + 20, _rcOrder.top + 25 + (i * 34), 200, 30);
+	}
+
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		keyControl();
-	}
-
-	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
-	{
-		_onCharacterList = _onSummary = _onStatus = _onOrder = _onAction = false;
 	}
 }
 
@@ -95,6 +106,7 @@ void battleUI::render()
 
 	if (_onAction)
 		_action->render(getMemDC(), _rcAction.left, _rcAction.top);
+
 
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
@@ -134,6 +146,14 @@ void battleUI::clickCharList()
 
 void battleUI::clickOrder()
 {
+	for (int i = 0; i < 5; ++i)
+	{
+		if (PtInRect(&_rcOrderList[i], _click))
+		{
+			_orderNumber = i + 1;
+			break;
+		}
+	}
 }
 
 void battleUI::clickAction()

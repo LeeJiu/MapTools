@@ -36,17 +36,42 @@ void battleManager::update()
 	}
 
 	_ui->update();
+	
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	{
+		_ui->onAction(true);
+	}
+
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
-		if(_leftButtonDown)
-			keyControl();
+		if (_leftButtonDown && !_onUI)
+		{
+			tileControl();
+		}
+		else if (_leftButtonDown && _onUI)
+		{
+			UIControl();
+		}
+		
+		//모든 ui창을 끈다.
+		if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+		{
+			_ui->onCharacterList(false);
+			_ui->onOrder(false);
+			_ui->onAction(false);
+			_ui->onSummary(false);
+			_ui->onStatus(false);
+			_onUI = false;
+		}
 	}
 	//에너미의 턴일 때
 	else
 	{
 		//AI
 	}
+
+	_ui->update();
 }
 
 void battleManager::render()
@@ -54,22 +79,23 @@ void battleManager::render()
 	_ui->render();
 }
 
-void battleManager::keyControl()
+void battleManager::tileControl()
 {
-	if (_ui->isOnCharList())
+	characterIsOnZenPoint();
+
+	// UI에서 클릭한것이 무브라면
+	if (_ui->getOrderNumber() == 1)
 	{
-		if (_ui->getCharIdx() != 100)
-		{
-			_selectCharIdx = _ui->getCharIdx();
-
-			_objectMgr->getVCharacter()[_selectCharIdx]->setIsShow(true);
-
-			_ui->setCharIdx(100);
-			
-			//캐릭터 리스트를 끈다.
-			_ui->onCharacterList(false);
-			_onUI = false;
-		}
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
+		_ui->onOrder(false);
+		return;
+	}
+	// UI에서 클릭한것이 어택이라면
+	else if (_ui->getOrderNumber() == 2)
+	{
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
+		_ui->onOrder(false);
+		return;
 	}
 
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
@@ -82,32 +108,89 @@ void battleManager::keyControl()
 				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4 &&
 				(_click.y - _objectMgr->getVTile()[i]->pivotY) <=  0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4)
 			{
-				switch (_objectMgr->getVTile()[i]->state)
+				//젠 포인트
+				if (_objectMgr->getVTile()[i]->state == ZEN_POINT)
 				{
-				case ZEN_POINT:			//젠 포인트
-					clickZenPoint();
-					break;
-
-				case S_ONCHAR:			//캐릭터
+					//캐릭터가 젠포인트 위일 때
+					if (!_isOnZenPonit)
+					{
+						clickZenPoint();
+						break;
+					}
+					//캐릭터가 젠포인트 위가 아닐 때
+					else
+					{
+						clickCharacter(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
+						break;
+					}
+				}
+				//캐릭터
+				else if (_objectMgr->getVTile()[i]->state == S_ONCHAR)
+				{
 					clickCharacter(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
 					break;
-
-				case S_ONENM:			//적
+				}
+				//적
+				else if (_objectMgr->getVTile()[i]->state == S_ONENM)
+				{
 					clickEnemy(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
 					break;
-
-				case S_ONOBJ: case S_ETC://이동 불가능한 타일/장애물
+				}
+				//이동 불가능한 타일/장애물
+				else if (_objectMgr->getVTile()[i]->state == S_ONOBJ
+					|| _objectMgr->getVTile()[i]->state == S_ETC)
+				{
 					clickObject(i);
 					break;
-
-				case S_NONE:			//이동 가능한 타일
+				}
+				//이동 가능한 타일
+				else if (_objectMgr->getVTile()[i]->state == S_NONE)
+				{
 					clickTile(_objectMgr->getVTile()[i]->x, _objectMgr->getVTile()[i]->y, i);
 					break;
 				}
-				break;
 			}
 		}
 	}
+}
+
+void battleManager::UIControl()
+{
+	if (_ui->isOnCharList())
+	{
+		if (_ui->getCharIdx() != 100)
+		{
+			_selectCharIdx = _ui->getCharIdx();
+
+			_objectMgr->getVCharacter()[_selectCharIdx]->setIsShow(true);
+
+			_ui->setCharIdx(100);
+
+			//캐릭터 리스트를 끈다.
+			_ui->onCharacterList(false);
+			_onUI = false;
+		}
+	}
+}
+
+void battleManager::characterIsOnZenPoint()
+{
+	int size = _objectMgr->getVCharacter().size();
+
+	for (int i = 0; i < size; ++i)
+	{
+		if (!_objectMgr->getVCharacter()[i]->getIsShow()) continue;
+
+		if (_objectMgr->getVCharacter()[i]->getIndexX() == 5
+			&& _objectMgr->getVCharacter()[i]->getIndexY() == 11)
+		{
+			_isOnZenPonit = true;
+			_selectCharIdx = i;
+			return;
+		}
+	}
+
+	_isOnZenPonit = false;
 }
 
 void battleManager::clickZenPoint()
@@ -115,22 +198,13 @@ void battleManager::clickZenPoint()
 	//젠포인트에 아무것도 없을 때 - 캐릭이 미출전
 	//캐릭터 리스트를 보여줘야함
 	//캐릭터 리스트에서 선택하면 (현재 클릭된 캐릭터 인덱스)
-	//캐릭터 리스트를 닫고, 명령창을 띄운다.
+	//선택된 캐릭터 이름을 지우고, 캐릭터 리스트를 닫는다.
 
 	if (!_ui->isOnCharList())
 	{
-		if (_objectMgr->getVCharacter()[_selectCharIdx]->getIsShow())
-		{
-			//명령창을 보여준다.
-			_ui->onOrder(true);
-			_onUI = true;
-		}
-		else
-		{
-			//캐릭터 리스트를 보여준다.
-			_ui->onCharacterList(true);
-			_onUI = true;
-		}
+		//캐릭터 리스트를 보여준다.
+		_ui->onCharacterList(true);
+		_onUI = true;
 	}
 }
 
@@ -140,6 +214,7 @@ void battleManager::clickCharacter(int x, int y, int i)
 	int charSize = _objectMgr->getVCharacter().size();
 
 	_ui->onOrder(true);
+	_onUI = true;
 
 	for (int i = 0; i < charSize; i++)
 	{
