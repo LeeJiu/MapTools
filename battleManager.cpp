@@ -201,17 +201,17 @@ void battleManager::UIControl()
 	if (_ui->getOrderNumber() == 1)
 	{
 		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
+		_ui->setOrderNumber(0);
 		_ui->onOrder(false);
 		_onUI = false;
-		return;
 	}
 	// UI에서 클릭한것이 어택이라면
 	else if (_ui->getOrderNumber() == 2)
 	{
 		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
+		_ui->setOrderNumber(0);
 		_ui->onOrder(false);
 		_onUI = false;
-		return;
 	}
 }
 
@@ -271,14 +271,15 @@ void battleManager::clickZenPoint()
 void battleManager::clickCharacter(int x, int y, int i)
 {
 	//명령창을 띄운다. (현재 캐릭터의 인덱스 저장)
-	int charSize = _objectMgr->getVCharacter().size();
 
 	_ui->onOrder(true);
 	_onUI = true;
 
+	int charSize = _objectMgr->getVCharacter().size();
 	for (int i = 0; i < charSize; i++)
 	{
-		if (_objectMgr->getVCharacter()[i]->getIndexX() == x && _objectMgr->getVCharacter()[i]->getIndexY() == y)
+		if (_objectMgr->getVCharacter()[i]->getIndexX() == x 
+			&& _objectMgr->getVCharacter()[i]->getIndexY() == y)
 		{
 			_selectCharIdx = i;
 			break;
@@ -328,8 +329,6 @@ void battleManager::clickEnemy(int x, int y, int i)
 		//카메라 포커스를 맞춘다.
 		_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
 	}
-
-
 }
 
 void battleManager::clickObject(int i)
@@ -359,25 +358,57 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
-	int enemySize = _objectMgr->getVEnemy().size();
+	//int enemySize = _objectMgr->getVEnemy().size();
+	//
+	//for (int i = 0; i < enemySize; ++i)
+	//{
+	//	//타일의 인덱스 반환값 받아온다.
+	//	int temp; // <- 함수 반환값 임시로 써논거 이자리에 함수 반환값 넣으면 됨
+	//
+	//	// 반환된 값의 인덱스의 스테이트가 S_NONE이라면 그 타일로 이동해라
+	//	if (_objectMgr->getVTile()[temp]->state == S_NONE)
+	//	{
+	//		// 이동해라
+	//		_objectMgr->enemyMove(i, _objectMgr->getVTile()[temp]->x, _objectMgr->getVTile()[temp]->y);
+	//	}
+	//	// 반환된 값의 인덱스의 스테이트가 S_ONCHAR이라면 그 타일의 주변 타일로 이동하고 공격을 예약한다.
+	//	else if (_objectMgr->getVTile()[temp]->state == S_ONCHAR)
+	//	{
+	//
+	//	}
+	//}
 
-	for (int i = 0; i < enemySize; ++i)
+	// searchTile() 실행 후 반환된 타일 인덱스로 에너미의 명령을 수행한다.
+	// 반환된 타일이 캐릭터가 아니라면 (S_NONE)
+	// 이동만 명령한다.
+	// 반환된 타일이 캐릭터라면 (S_ONCHAR)
+	// 이동 명령 후 공격 명령한다.
+
+
+}
+
+void battleManager::increaseEnemyIdx()
+{
+	_enemyIdx++;
+
+	if (_enemyIdx <= _objectMgr->getVEnemy().size())
 	{
-		//타일의 인덱스 반환값 받아온다.
-		int temp; // <- 함수 반환값 임시로 써논거 이자리에 함수 반환값 넣으면 됨
+		_enemyIdx = 0;
+		_isPlayerTurn = true;
 
-		// 반환된 값의 인덱스의 스테이트가 S_NONE이라면 그 타일로 이동해라
-		if (_objectMgr->getVTile()[temp]->state == S_NONE)
-		{
-			// 이동해라
-			_objectMgr->enemyMove(i, _objectMgr->getVTile()[temp]->x, _objectMgr->getVTile()[temp]->y);
-		}
-		// 반환된 값의 인덱스의 스테이트가 S_ONCHAR이라면 그 타일의 주변 타일로 이동하고 공격을 예약한다.
-		else if (_objectMgr->getVTile()[temp]->state == S_ONCHAR)
-		{
-
-		}
+		// 카메라 줌 아웃 호출
+		_camera->setIsJoomOut(true);
 	}
+}
+
+int battleManager::searchTile()
+{
+	// 현재 명령 수행 중인 에너미의 인덱스로 타일을 검사한다.
+	// 에너미가 이동 가능한 타일 중에서 인덱스을 반환한다.
+	// 이동 가능 타일의 가장 마지막 인덱스를 계속 저장하고,
+	// 타일 중에 캐릭터가 있으면 그 타일의 인덱스를 저장하고 바로 반환한다.
+
+
 }
 
 void battleManager::increaseOrderNum()
@@ -391,7 +422,6 @@ void battleManager::increaseOrderNum()
 		_vOrder.clear();
 
 		// 카메라 줌 아웃 호출
-		//_camera->setIsJoomIn(true);
 		_camera->setIsJoomOut(true);
 	}
 }

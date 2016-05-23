@@ -47,6 +47,10 @@ private:
 	//ui 상태 변수
 	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onUI;
 
+
+	/*			enemy AI			*/
+	int _enemyIdx;				// 현재 명령 수행할 에너미 인덱스 넘버
+
 public:
 	battleManager();
 	~battleManager();
@@ -67,11 +71,15 @@ public:
 	void clickObject(int i);
 	void clickTile(int x, int y, int i);
 
-	void enemyAI();									// 에너미 ai함수
-
 	void increaseOrderNum();						// 게임오브젝트에서 호출할 함수. orderNum를 증가시켜줄 함수
 
 	void setObjectMgrMemoryLink(gameObjectManager* objectMgr) { _objectMgr = objectMgr; }
 	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }
+
+
+	/*			enemy AI func			*/
+	void enemyAI();							// 에너미 ai함수
+	void increaseEnemyIdx();				// 게임오브젝트에서 호출할 함수. enemyIdx를 증가시켜줄 함수
+	int searchTile();						// 타일 검사 -> index set, enemy order set
 };
 
