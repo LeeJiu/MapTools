@@ -168,19 +168,16 @@ void etna::setFrame()
 		if (_curFrameX > _character->getMaxFrameX())
 		{
 			_curFrameX = 0;
-			if (_characterState == ATTACK || _characterState == PAIN)
+			if (_characterState == ATTACK)
 			{
-				if (_attackCnt == 0)
-				{
-					_attackCnt++;
-				}
-				else
-				{
-					_attackCnt = 0;
-					_characterState = IDLE;
-					_gameObjMgr->setOrderList(OL_END);
-					return;
-				}
+				_characterState = IDLE;
+				_gameObjMgr->setOrderList(OL_END);
+				return;
+			}
+			else if (_characterState == PAIN)
+			{
+				_characterState = IDLE;
+				return;
 			}
 		}
 		_character->setFrameX(_curFrameX);

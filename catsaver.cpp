@@ -148,17 +148,9 @@ void catsaver::setFrame()
 			_curFrameX = 0;
 			if (_characterState == ATTACK)
 			{
-				if (_attackCnt == 0)
-				{
-					_attackCnt++;
-				}
-				else
-				{
-					_attackCnt = 0;
-					_characterState = IDLE;
-					_gameObjMgr->setOrderList(OL_END);
-					return;
-				}
+				_characterState = IDLE;
+				_gameObjMgr->setOrderList(OL_END);
+				return;
 			}
 			else if (_characterState == PAIN)
 			{

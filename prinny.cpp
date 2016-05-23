@@ -269,31 +269,26 @@ void prinny::setImage()
 	{
 	case IDLE:
 		_character = IMAGEMANAGER->findImage("prinny_idle");
-		_character->setFrameX(_curFrameX);
 		_volume = 0.f;
 		break;
 
 	case WALK:
 		_character = IMAGEMANAGER->findImage("prinny_walk");
-		_character->setFrameX(_curFrameX);
 		_volume = 1.f;
 		break;
 
 	case ATTACK:
 		_character = IMAGEMANAGER->findImage("prinny_attack");
-		_character->setFrameX(_curFrameX);
 		_volume = 0.f;
 		break;
 
 	case LIFT:
 		_character = IMAGEMANAGER->findImage("prinny_lift");
-		_character->setFrameX(_curFrameX);
 		_volume = 0.f;
 		break;
 
 	case PAIN:
 		_character = IMAGEMANAGER->findImage("prinny_etc");
-		_character->setFrameX(_curFrameX);
 		_volume = 0.f;
 		break;
 	}
@@ -334,19 +329,16 @@ void prinny::setFrame()
 		if (_curFrameX > _character->getMaxFrameX())
 		{
 			_curFrameX = 0;
-			if (_characterState == ATTACK || _characterState == PAIN)
+			if (_characterState == ATTACK)
 			{
-				if (_attackCnt == 0)
-				{
-					_attackCnt++;
-				}
-				else
-				{
-					_attackCnt = 0;
-					_characterState = IDLE;
-					_gameObjMgr->setOrderList(OL_END);
-					return;
-				}
+				_characterState = IDLE;
+				_gameObjMgr->setOrderList(OL_END);
+				return;
+			}
+			else if (_characterState == PAIN)
+			{
+				_characterState = IDLE;
+				return;
 			}
 		}
 		_character->setFrameX(_curFrameX);
