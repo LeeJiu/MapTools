@@ -81,10 +81,7 @@ public:
 	/*			enemy AI func			*/
 	void enemyAI();							// 에너미 ai함수
 	void increaseEnemyIdx();				// 게임오브젝트에서 호출할 함수. enemyIdx를 증가시켜줄 함수
-<<<<<<< HEAD
+
 	int searchTile(int enemyIdx);			// 타일 검사 -> index set, enemy order set
-=======
-	int searchTile(int enemyIdx);						// 타일 검사 -> index set, enemy order set
->>>>>>> origin/jiu
 };
 
