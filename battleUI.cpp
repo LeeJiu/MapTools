@@ -16,7 +16,7 @@ HRESULT battleUI::init()
 	//ui 이미지 추가
 	_characterList = IMAGEMANAGER->addImage("character_list", "image/ui/ui_characterList.bmp", 250, 300, false, false);
 	_summary = IMAGEMANAGER->addImage("summary", "image/ui/ui_summary.bmp", 420, 150, true, 0xff00ff);
-	_order = IMAGEMANAGER->addImage("order_list", "image/ui/ui_orderList.bmp", 250, 250, false, false);
+	_order = IMAGEMANAGER->addImage("order_list", "image/ui/ui_orderList.bmp", 250, 213, false, false);
 	_status = IMAGEMANAGER->addImage("character_status", "image/ui/ui_status.bmp", 300, 500, true, 0xff00ff);
 
 	//ui창 상태 = off
@@ -90,6 +90,12 @@ void battleUI::render()
 
 	if (_onOrder)
 		_order->render(getMemDC(), _rcOrder.left, _rcOrder.top);
+
+	// 유닛 오더창의 렉트들
+	for (int i = 0; i < 5; i++)
+	{
+		Rectangle(getMemDC(), _rcOrderList[i].left, _rcOrderList[i].top, _rcOrderList[i].right, _rcOrderList[i].bottom);
+	}
 
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);

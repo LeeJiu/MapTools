@@ -269,9 +269,6 @@
     <ClCompile Include="gameNode.cpp">
       <Filter>2D Framework</Filter>
     </ClCompile>
-    <ClCompile Include="gameStudy.cpp">
-      <Filter>gameStudy</Filter>
-    </ClCompile>
     <ClCompile Include="keyManager.cpp">
       <Filter>2D Framework\manager</Filter>
     </ClCompile>
@@ -406,6 +403,9 @@
     </ClCompile>
     <ClCompile Include="soundManager.cpp">
       <Filter>2D Framework\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="gameStudy.cpp">
+      <Filter>gameStudy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
