@@ -43,11 +43,7 @@ void battleUI::update()
 	/*			rect update			*/
 	_rcCharacterList = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
-<<<<<<< HEAD
-	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 213, 250);
-=======
 	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 213);
->>>>>>> refs/remotes/origin/development
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
 
 	int size = _vCharList.size();

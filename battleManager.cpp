@@ -201,17 +201,17 @@ void battleManager::UIControl()
 	if (_ui->getOrderNumber() == 1)
 	{
 		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
+		_ui->setOrderNumber(0);
 		_ui->onOrder(false);
 		_onUI = false;
-		return;
 	}
 	// UI에서 클릭한것이 어택이라면
 	else if (_ui->getOrderNumber() == 2)
 	{
 		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
+		_ui->setOrderNumber(0);
 		_ui->onOrder(false);
 		_onUI = false;
-		return;
 	}
 }
 

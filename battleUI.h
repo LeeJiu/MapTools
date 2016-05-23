@@ -51,6 +51,7 @@ public:
 
 	void setCharList(vector<string>& charName);
 	void setCharIdx(int charIdx) { _charIdx = charIdx; }
+	void setOrderNumber(int orderNum) { _orderNumber = orderNum; }
 
 	vector<tagCharList>& getVCharList() { return _vCharList; }
 	int getCharIdx() { return _charIdx; }
