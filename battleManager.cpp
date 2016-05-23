@@ -22,6 +22,10 @@ HRESULT battleManager::init()
 	_action = IMAGEMANAGER->addImage("action", "image/ui/ui_action.bmp", 250, 150, false, false);
 	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
 
+	_selectTile = IMAGEMANAGER->findImage("select_tile");
+	_selectArrow = IMAGEMANAGER->findImage("ui_arrow_blue");
+
+	_count = 0;
 	return S_OK;
 }
 
@@ -105,6 +109,10 @@ void battleManager::update()
 		_onAction = false;
 		_onUI = false;
 	}
+
+	_count++;
+	setFrame();
+
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
 		SCENEMANAGER->changeScene("selectStage");
@@ -117,6 +125,19 @@ void battleManager::render()
 
 	if (_onAction)
 		_action->render(getMemDC(), _rcAction.left, _rcAction.top);
+}
+
+void battleManager::setFrame()
+{
+	if (_count % 5 == 0)
+	{
+		_selectArrow->setFrameX(_selectArrow->getFrameX() + 1);
+
+		if (_selectArrow->getFrameX() >= _selectArrow->getMaxFrameX())
+		{
+			_selectArrow->setFrameX(0);
+		}
+	}
 }
 
 void battleManager::tileControl()
@@ -261,6 +282,28 @@ void battleManager::orderAction()
 		_camera->setIsVibrate(true);
 	}
 	
+}
+
+void battleManager::selectTileRender()
+{
+	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
+	{
+		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click))
+		{
+			//아이소 타일 클릭 조건
+			if ((_click.y - _objectMgr->getVTile()[i]->pivotY) >= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) >= 0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4 &&
+				(_click.y - _objectMgr->getVTile()[i]->pivotY) <= 0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) + WIDTH / 4)
+			{
+				_selectTile->render(getMemDC(), _objectMgr->getVTile()[i]->rc.left, _objectMgr->getVTile()[i]->rc.top);
+				
+				_selectArrow->frameRender(getMemDC(), (_objectMgr->getVTile()[i]->rc.left + _objectMgr->getVTile()[i]->rc.right) / 2 - _selectArrow->getFrameWidth() / 2,
+														_objectMgr->getVTile()[i]->rc.top - 200, _selectArrow->getFrameX(), _selectArrow->getFrameY());
+				break;
+			}
+		}
+	}
 }
 
 void battleManager::clickZenPoint()
@@ -445,7 +488,7 @@ void battleManager::increaseEnemyIdx()
 		_takeTurns = false;
 
 		// 카메라 줌 아웃 호출
-		//_camera->setIsJoomOut(true);
+		_camera->setIsJoomOut(true);
 	}
 }
 
@@ -488,6 +531,6 @@ void battleManager::increaseOrderNum()
 		_vOrder.clear();
 
 		// 카메라 줌 아웃 호출
-		//_camera->setIsJoomOut(true);
+		_camera->setIsJoomOut(true);
 	}
 }

@@ -99,6 +99,12 @@ HRESULT gameStudy::init()
 
 	//그림자
 	IMAGEMANAGER->addImage("shadow", "image/character/shadow.bmp", 128, 64, true, 0xff00ff);
+	
+	//셀렉트 타일 이미지
+	IMAGEMANAGER->addImage("select_tile", "image/battle/select_tile.bmp", 128, 64, true, 0xff00ff);
+
+	//셀렉트 에로우 이미지
+	IMAGEMANAGER->addFrameImage("ui_arrow_blue", "image/battleUI/ui_arrow_blue.bmp", 711, 100, 9, 1, true, 0xff00ff);
 
 	//캐릭터 아이콘
 	IMAGEMANAGER->addImage("prinny_icon", "image/icon/icon_prinny.bmp", 110, 110, false, false);

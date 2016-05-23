@@ -34,6 +34,10 @@ private:
 	RECT _rcAction;
 	bool _onAction;
 
+	int _count;
+	image* _selectTile;
+	image* _selectArrow;
+	
 	bool _setUI;
 	bool _isOnZenPonit;			// 캐릭터가 젠포인트 위에 있는지 여부
 	bool _takeTurns;			// 턴을 넘기면 true
@@ -60,11 +64,14 @@ public:
 	void update();
 	void render();
 
+	void setFrame();
 	void tileControl();
 	void UIControl();
 	void characterIsOnZenPoint();
 	void orderAction();								// vOrder에 담은 명령들을 수행할 함수
 	bool isPlayerTurn() { return _isPlayerTurn; }
+
+	void selectTileRender();
 
 	void clickZenPoint();
 	void clickCharacter(int x, int y, int i);

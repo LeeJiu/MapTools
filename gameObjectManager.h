@@ -46,6 +46,9 @@ class gameObjectManager : public gameNode
 
 	ORDERLIST _orderList;
 
+	int _charDeathCount;
+	int _enemyDeathCount;
+
 public:
 	gameObjectManager();
 	~gameObjectManager();
@@ -53,9 +56,10 @@ public:
 	HRESULT init();
 	void release();
 	void update();
-	void render();
+	void render();			// total랜더 (케릭터, 에너미, 오브젝트)
 
 	void loadMapData();
+	void tileRender();		// 타일랜더
 
 	void characterMove(int index, int destX, int destY);				// 플레이어 무브 함수 
 	void characterAttack(int index, int destX, int destY);				// 플레이어 어택 함수
@@ -71,6 +75,8 @@ public:
 	void setEnemy();
 	void setObject();
 	void setOrderList(ORDERLIST orderList) { _orderList = orderList; }
+	void setCharDeath();
+	void setEnemyDeath();
 
 	//get함수
 	vector<TagTile*>& getVTile() { return _vTile; }
