@@ -19,6 +19,11 @@ struct GOBJ_Y_RENDER
 	}
 };
 
+enum ORDERLIST
+{
+	OL_NONE, OL_ORDERING, OL_END
+};
+
 class battleCamera;
 class battleManager;
 
@@ -39,7 +44,7 @@ class gameObjectManager : public gameNode
 	battleCamera* _camera;
 	battleManager* _battleMgr;
 
-	bool _isOrdering;							// 게임오브젝트 케릭터들이 명령이 수행중인지 판단 변수
+	ORDERLIST _orderList;
 
 public:
 	gameObjectManager();
@@ -64,13 +69,13 @@ public:
 	void setCharacter();
 	void setEnemy();
 	void setObject();
-	void setIsOrderting(bool isOrdering) { _isOrdering = isOrdering; }
+	void setOrderList(ORDERLIST orderList) { _orderList = orderList; }
 
 	//get함수
 	vector<TagTile*>& getVTile() { return _vTile; }
 	vector<gameObject*>& getVCharacter() { return _vCharacter; }
 	vector<gameObject*>& getVEnemy() { return _vEnemy; }
-	bool getIsOrdering() { return _isOrdering; }
+	ORDERLIST getOrderList() { return _orderList; }
 
 	//메모리 링크
 	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }
