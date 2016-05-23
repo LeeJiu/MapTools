@@ -40,10 +40,12 @@ void battleManager::update()
 	{
 		if (_leftButtonDown && !_onUI)
 		{
+			_leftButtonDown = false;
 			tileControl();
 		}
 		else if (_leftButtonDown && _onUI)
 		{
+			_leftButtonDown = false;
 			UIControl();
 		}
 		
@@ -74,26 +76,12 @@ void battleManager::render()
 
 void battleManager::tileControl()
 {
+	//캐릭터가 젠포인트 위에 있는지 없는지 확인
 	characterIsOnZenPoint();
-
-	// UI에서 클릭한것이 무브라면
-	if (_ui->getOrderNumber() == 1)
-	{
-		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
-		_ui->onOrder(false);
-		return;
-	}
-	// UI에서 클릭한것이 어택이라면
-	else if (_ui->getOrderNumber() == 2)
-	{
-		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
-		_ui->onOrder(false);
-		return;
-	}
 
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
 	{
-		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click) && !_onUI)
+		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click))
 		{
 			//아이소 타일 클릭 조건
 			if ((_click.y - _objectMgr->getVTile()[i]->pivotY) >= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
@@ -163,6 +151,23 @@ void battleManager::UIControl()
 			_ui->onCharacterList(false);
 			_onUI = false;
 		}
+	}
+
+	// UI에서 클릭한것이 무브라면
+	if (_ui->getOrderNumber() == 1)
+	{
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
+		_ui->onOrder(false);
+		_onUI = false;
+		return;
+	}
+	// UI에서 클릭한것이 어택이라면
+	else if (_ui->getOrderNumber() == 2)
+	{
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
+		_ui->onOrder(false);
+		_onUI = false;
+		return;
 	}
 }
 

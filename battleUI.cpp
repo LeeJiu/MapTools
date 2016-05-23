@@ -97,7 +97,6 @@ void battleUI::render()
 	if (_onAction)
 		_action->render(getMemDC(), _rcAction.left, _rcAction.top);
 
-
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
 }
