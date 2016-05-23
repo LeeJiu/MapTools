@@ -54,7 +54,17 @@ void gameObjectManager::update()
 	if (_orderList == OL_END)
 	{
 		_orderList = OL_NONE;
-		_battleMgr->increaseOrderNum();
+
+		//플레이어 턴일 때
+		if (_battleMgr->isPlayerTurn())
+		{
+			_battleMgr->increaseOrderNum();
+		}
+		//에너미 턴일 때
+		else
+		{
+			_battleMgr->increaseEnemyIdx();
+		}
 	}
 }
 
@@ -279,14 +289,20 @@ void gameObjectManager::characterPain(int index, int destX, int destY, int damag
 	_vCharacter[index]->pain(destX, destY, damage);
 }
 
+void gameObjectManager::enemyAttack(int index, int destX, int destY)
+{
+	_vEnemy[index]->attack(destX, destY);
+	_orderList = OL_ORDERING;
+}
+
 void gameObjectManager::enemyMove(int index, int destX, int destY)
 {
 	_vEnemy[index]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), destX, destY));
 }
 
-void gameObjectManager::enemyAttack(int index, int destX, int destY)
+void gameObjectManager::enemyMoveToAttack(int index, int destX, int destY, int targetX, int targetY)
 {
-	_vEnemy[index]->attack(destX, destY);
+	_vEnemy[index]->setEnemyMove(targetX, targetY, destX, destY, _aStar->moveCharacter(_vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), destX, destY));
 	_orderList = OL_ORDERING;
 }
 

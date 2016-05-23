@@ -95,6 +95,7 @@ void battleManager::update()
 	else
 	{
 		//AI
+		enemyAI();
 	}
 
 	//실행창(턴종료, 중도포기)
@@ -237,7 +238,16 @@ void battleManager::characterIsOnZenPoint()
 
 void battleManager::orderAction()
 {
-	_camera->setIsJoomIn(true);
+	if (_vOrder.size() == 0)
+	{
+		_isPlayerTurn = false;
+		_takeTurns = true;
+		_onAction = false;
+		_onUI = false;
+		return;
+	}
+
+	//_camera->setIsJoomIn(true);
 
 	// 해당 케릭터가 명령을 수행중이라면 리턴시켜라
 	if (_objectMgr->getOrderList() == OL_ORDERING) return;
@@ -358,60 +368,117 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
-	//int enemySize = _objectMgr->getVEnemy().size();
-	//
-	//for (int i = 0; i < enemySize; ++i)
-	//{
-	//	//타일의 인덱스 반환값 받아온다.
-	//	int temp; // <- 함수 반환값 임시로 써논거 이자리에 함수 반환값 넣으면 됨
-	//
-	//	// 반환된 값의 인덱스의 스테이트가 S_NONE이라면 그 타일로 이동해라
-	//	if (_objectMgr->getVTile()[temp]->state == S_NONE)
-	//	{
-	//		// 이동해라
-	//		_objectMgr->enemyMove(i, _objectMgr->getVTile()[temp]->x, _objectMgr->getVTile()[temp]->y);
-	//	}
-	//	// 반환된 값의 인덱스의 스테이트가 S_ONCHAR이라면 그 타일의 주변 타일로 이동하고 공격을 예약한다.
-	//	else if (_objectMgr->getVTile()[temp]->state == S_ONCHAR)
-	//	{
-	//
-	//	}
-	//}
+	if (_objectMgr->getOrderList() == OL_ORDERING) return;
+	if (_objectMgr->getOrderList() == OL_END) return;
 
-	// searchTile() 실행 후 반환된 타일 인덱스로 에너미의 명령을 수행한다.
-	// 반환된 타일이 캐릭터가 아니라면 (S_NONE)
-	// 이동만 명령한다.
-	// 반환된 타일이 캐릭터라면 (S_ONCHAR)
-	// 이동 명령 후 공격 명령한다.
+	// 명령 수행 중인 에너미의 4방향 검사
+	int enemyX = _objectMgr->getVEnemy()[_enemyIdx]->getIndexX();
+	int enemyY = _objectMgr->getVEnemy()[_enemyIdx]->getIndexY();
+	if (_objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR
+		&& enemyX + (enemyY - 1) * TILENUM >= 0)
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY - 1);
+		return;
+	}
+	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR
+		&& enemyX + enemyY * TILENUM - 1 >= 0)
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX - 1, enemyY);
+		return;
+	}
+	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR
+		&& enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM))
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX + 1, enemyY);
+		return;
+	}
+	else if (_objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR
+		&& enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM))
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY + 1);
+		return;
+	}
 
+	// 서치타일 한 인덱스 받아서 임시저장 (최종목적지 == 빈타일 or 케릭터)
+	int tempTileIdx = searchTile(_enemyIdx);
 
-
-
-
+	// 최종목적지가 빈타일이라면 그곳으로 이동해라
+	if (_objectMgr->getVTile()[tempTileIdx]->state == S_NONE)
+	{
+		_objectMgr->enemyMove(_enemyIdx, _objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+	}
+	// 최종목적지가 케릭터라면
+	else if (_objectMgr->getVTile()[tempTileIdx]->state == S_ONCHAR)
+	{
+		// 타일의 인덱스가 범위 내고, S_NONE이라면 4방향 검사해서 그쪽으로 이동한 후 공격한다.
+		if (tempTileIdx - TILENUM >= 0 && tempTileIdx - TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - TILENUM]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - TILENUM]->x, _objectMgr->getVTile()[tempTileIdx - TILENUM]->y,
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+		else if (tempTileIdx - 1 >= 0 && tempTileIdx - 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - 1]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - 1]->x, _objectMgr->getVTile()[tempTileIdx - 1]->y,
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+		else if (tempTileIdx + 1 >= 0 && tempTileIdx + 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + 1]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + 1]->x, _objectMgr->getVTile()[tempTileIdx + 1]->y,
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+		else if (tempTileIdx + TILENUM >= 0 && tempTileIdx + TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + TILENUM]->state == S_NONE)
+		{
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + TILENUM]->x, _objectMgr->getVTile()[tempTileIdx + TILENUM]->y,
+				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
+		}
+	}
 }
 
 void battleManager::increaseEnemyIdx()
 {
 	_enemyIdx++;
 
-	if (_enemyIdx <= _objectMgr->getVEnemy().size())
+	if (_enemyIdx >= _objectMgr->getVEnemy().size())
 	{
 		_enemyIdx = 0;
 		_isPlayerTurn = true;
+		_takeTurns = false;
 
 		// 카메라 줌 아웃 호출
-		_camera->setIsJoomOut(true);
+		//_camera->setIsJoomOut(true);
 	}
 }
 
-int battleManager::searchTile()
+int battleManager::searchTile(int enemyIdx)
 {
 	// 현재 명령 수행 중인 에너미의 인덱스로 타일을 검사한다.
 	// 에너미가 이동 가능한 타일 중에서 인덱스을 반환한다.
 	// 이동 가능 타일의 가장 마지막 인덱스를 계속 저장하고,
 	// 타일 중에 캐릭터가 있으면 그 타일의 인덱스를 저장하고 바로 반환한다.
+	int tempIdx;
 
+<<<<<<< HEAD
 	return 0;
+=======
+	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
+	{
+		if (abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->x) 
+			+ abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->y) 
+			< _objectMgr->getVEnemy()[enemyIdx]->getMv())
+		{
+			if (_objectMgr->getVTile()[i]->state == S_NONE)
+			{
+				tempIdx = i;
+			}
+			else if (_objectMgr->getVTile()[i]->state == S_ONCHAR)
+			{
+				tempIdx = i;
+				return tempIdx;
+			}
+		}
+	}
+	return tempIdx;
+>>>>>>> origin/moobin
 }
 
 void battleManager::increaseOrderNum()
@@ -425,6 +492,6 @@ void battleManager::increaseOrderNum()
 		_vOrder.clear();
 
 		// 카메라 줌 아웃 호출
-		_camera->setIsJoomOut(true);
+		//_camera->setIsJoomOut(true);
 	}
 }

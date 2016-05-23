@@ -60,6 +60,9 @@ HRESULT prinny::init(int x, int y, gameObjectManager * gom)
 	_isRight = true;
 	_isUp = true;
 
+	_targetX = -1;
+	_targetY = -1;
+
 	_oldX = _indexX = x;
 	_oldY = _indexY = y;
 	_mv = 4;

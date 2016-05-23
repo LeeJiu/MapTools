@@ -19,6 +19,9 @@ HRESULT catsaver::init(int x, int y, gameObjectManager * gom)
 	_indexX = x;
 	_indexY = y;
 
+	_targetX = -1;
+	_targetY = -1;
+
 	_gameObjMgr = gom;
 	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = new image;
@@ -26,9 +29,8 @@ HRESULT catsaver::init(int x, int y, gameObjectManager * gom)
 	_characterState = IDLE;
 	_characterDir = LB;
 	_curFrameX = 0;
-	_count = 0;
 
-	_mv = 3;
+	_mv = 5;
 	_isShow = false;
 
 	_moveSpeed = 3;
@@ -43,6 +45,8 @@ HRESULT catsaver::init(int x, int y, gameObjectManager * gom)
 	_hpBar = new progressBar;
 	_hpBar->init(_x, _rc.top - 10, 120, 10);
 	_hpBar->gauge(_hp, _maxHp);
+
+	_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
 
 	return S_OK;
 }
@@ -71,12 +75,12 @@ void catsaver::update()
 		_x = (_rc.right + _rc.left) / 2;
 		_y = (_rc.top + _rc.bottom) / 2;
 	}
+	else
+	{
+		gameObject::move();
+	}
 
 	_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
-
-	battleKeyControl();
-
-	gameObject::move();
 }
 
 void catsaver::render()
@@ -90,7 +94,6 @@ void catsaver::render()
 		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_hpBar->render();
-
 	}
 }
 
@@ -102,7 +105,7 @@ void catsaver::setImage()
 		_character->init("image/character/catsaver_idle.bmp", 612, 500, 6, 4, true, 0xff00ff);
 		break;
 	case WALK:
-		_character->init("image/character/catsaver_idle.bmp", 744, 528, 6, 4, true, 0xff00ff);
+		_character->init("image/character/catsaver_walk.bmp", 744, 528, 6, 4, true, 0xff00ff);
 		break;
 	case ATTACK:
 		_character->init("image/character/catsaver_attack.bmp", 1295, 856, 5, 4, true, 0xff00ff);

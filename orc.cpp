@@ -14,25 +14,25 @@ orc::~orc()
 
 HRESULT orc::init(int x, int y, gameObjectManager * gom)
 {
-	_kind = "orc";
+	_name = "orc";
 
 	_indexX = x;
 	_indexY = y;
 	
+	_targetX = -1;
+	_targetY = -1;
 
+	_gameObjMgr = gom;
 	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = new image;
 	_character->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
 	_characterState = IDLE;
 	_characterDir = LB;
 	_curFrameX = 0;
-	_hp = 100;
-	_sp = 50;
-	_mv = 5;
-	_moveSpeed = 3;
-	_isShow = false;
 
-	_gameObjMgr = gom;
+	_mv = 5;
+	_isShow = false;
+	_moveSpeed = 3;
 
 	_moveSpeed = 3;
 
@@ -76,21 +76,23 @@ void orc::update()
 		_x = (_rc.right + _rc.left) / 2;
 		_y = (_rc.top + _rc.bottom) / 2;
 	}
+	else
+	{
+		gameObject::move();
+	}
 	_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
-	
-	gameObject::move();
 }
 
 void orc::render()
 {
 	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
 	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+	
 	if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
 	{
 		_shadow->render(getMemDC(), _rc.left + 15, _rc.bottom - _shadow->getFrameHeight() / 2);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_hpBar->render();
-
 	}
 }
 

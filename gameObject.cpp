@@ -50,7 +50,8 @@ void gameObject::move()
 {
 	if (!_isMove) return;
 
-	if (fabs(_vRoute[_idx]->pivotX - _x) < _moveSpeed * 2 && fabs(_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 - _y) < _moveSpeed)
+	if (fabs(_vRoute[_idx]->pivotX - _x) < _moveSpeed * 2 
+		&& fabs(_vRoute[_idx]->pivotY - _character->getFrameHeight() / 2 - _y) < _moveSpeed)
 	{
 		if (_vRoute[_idx]->x == _destX && _vRoute[_idx]->y == _destY)
 		{
@@ -65,6 +66,15 @@ void gameObject::move()
 			_idx = 0;
 
 			_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
+
+			if (_targetX != -1 && _targetY != -1 && !_isCharacter)
+			{
+				attack(_targetX, _targetY);
+			}
+			else if (_targetX == -1 && _targetY == -1 && !_isCharacter)
+			{
+				_gameObjMgr->setOrderList(OL_END);
+			}
 			return;
 		}
 		else
@@ -79,14 +89,22 @@ void gameObject::move()
 
 				if (_isCharacter) _vRoute[_idx]->state = S_ONCHAR;
 				else _vRoute[_idx]->state = S_ONENM;
+				
 				_characterState = IDLE;
 				_idx = 0;
 
 				_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
-
+				
+				if (_targetX != -1 && _targetY != -1 && !_isCharacter)
+				{
+					attack(_targetX, _targetY);
+				}
+				else if (_targetX == -1 && _targetY == -1 && !_isCharacter)
+				{
+					_gameObjMgr->setOrderList(OL_END);
+				}
 				return;
 			}
-
 			_idx++;
 		}
 	}
@@ -201,46 +219,6 @@ void gameObject::setImage()
 
 void gameObject::setFrame()
 {
-	_count++;
-
-	switch (_characterDir)
-	{
-	case LB:
-		_curFrameY = 0;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case RB:
-		_curFrameY = 1;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case RT:
-		_curFrameY = 2;
-		_character->setFrameY(_curFrameY);
-		break;
-
-	case LT:
-		_curFrameY = 3;
-		_character->setFrameY(_curFrameY);
-		break;
-	}
-
-	if (_count % 10 == 0)
-	{
-		_curFrameX++;
-		if (_curFrameX > _character->getMaxFrameX())
-		{
-			_curFrameX = 0;
-			if (_characterState == ATTACK)
-			{
-				_characterState = IDLE;
-				_isOrdering = false;
-				return;
-			}
-		}
-		_character->setFrameX(_curFrameX);
-	}
 }
 
 void gameObject::saveData()
@@ -271,15 +249,44 @@ void gameObject::setDirectionImage()
 	}
 }
 
+void gameObject::setEnemyMove(int targetX, int targetY, int endX, int endY, vector<TagTile*>& vRoute)
+{
+	if (!_isMove)
+	{
+		//if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT)
+		//{
+		//	_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
+		//}
+
+		_isMove = true;
+		_currentMoveCount = 0;
+		_destX = endX;
+		_destY = endY;
+		_oldX = _indexX;
+		_oldY = _indexY;
+		_vRoute = vRoute;
+
+		//공격할 캐릭터 위치 저장 (에너미 -> 플레이어)
+		_targetX = targetX;
+		_targetY = targetY;
+
+		_characterState = WALK;
+	}
+}
+
 void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute)
 {
 	if (!_isMove)
 	{
-		if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT) _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
+		if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT)
+		{
+			_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
+		}
+
 		_isMove = true;
+		_currentMoveCount = 0;
 		_destX = endX;
 		_destY = endY;
-		_currentMoveCount = 0;
 		_oldX = _indexX;
 		_oldY = _indexY;
 		_vRoute = vRoute;

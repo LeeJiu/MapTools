@@ -60,8 +60,9 @@ public:
 	void characterMove(int index, int destX, int destY);				// 플레이어 무브 함수 
 	void characterAttack(int index, int destX, int destY);				// 플레이어 어택 함수
 	void characterPain(int index, int destX, int destY, int damage);	// 플레이어 피격 함수
+	void enemyAttack(int index, int destX, int destY);
 	void enemyMove(int index, int destX, int destY);					// 에너미 무브 함수
-	void enemyAttack(int index, int destX, int destY);					// 에너미 어택 함수
+	void enemyMoveToAttack(int index, int destX, int destY, int targetX, int targetY);
 	void enemyPain(int index, int destX, int destY, int damage);		// 에너미 피격 함수
 
 	//set함수
