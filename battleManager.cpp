@@ -358,7 +358,6 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
-<<<<<<< HEAD
 	//int enemySize = _objectMgr->getVEnemy().size();
 	//
 	//for (int i = 0; i < enemySize; ++i)
@@ -384,12 +383,9 @@ void battleManager::enemyAI()
 	// 이동만 명령한다.
 	// 반환된 타일이 캐릭터라면 (S_ONCHAR)
 	// 이동 명령 후 공격 명령한다.
-=======
-	//=========== 가욧 ===================
 
 
-	int enemySize = _objectMgr->getVEnemy().size();
->>>>>>> refs/remotes/origin/moobin
+
 
 
 }
