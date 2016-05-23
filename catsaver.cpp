@@ -19,6 +19,9 @@ HRESULT catsaver::init(int x, int y, gameObjectManager * gom)
 	_indexX = x;
 	_indexY = y;
 
+	_targetX = -1;
+	_targetY = -1;
+
 	_gameObjMgr = gom;
 	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = new image;
@@ -71,12 +74,12 @@ void catsaver::update()
 		_x = (_rc.right + _rc.left) / 2;
 		_y = (_rc.top + _rc.bottom) / 2;
 	}
+	else
+	{
+		gameObject::move();
+	}
 
 	_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
-
-	battleKeyControl();
-
-	gameObject::move();
 }
 
 void catsaver::render()

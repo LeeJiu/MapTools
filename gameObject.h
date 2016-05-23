@@ -18,10 +18,11 @@ protected:
 	image* _character;
 	image* _shadow;
 	RECT _rc;
-	int _x, _y;																		// 이미지(렉트) 센터x 센터y
-	int _oldX, _oldY;																// 전투맵의 이전의 x, y 인덱스
-	int _indexX, _indexY;															// 전투맵의 현재의 x, y 인덱스
-	int _destX, _destY;																// 전투맵의 목적지 x, y 인덱스
+	int _x, _y;							// 이미지(렉트) 센터x 센터y
+	int _oldX, _oldY;					// 전투맵의 이전의 x, y 인덱스
+	int _indexX, _indexY;				// 전투맵의 현재의 x, y 인덱스
+	int _destX, _destY;					// 전투맵의 목적지 x, y 인덱스
+	int _targetX, _targetY;				// 공격할 캐릭터 위치 x, y (에너미 -> 플레이어)
 
 	float _pivotY;
 
@@ -37,7 +38,6 @@ protected:
 	bool _isMove;						// 움직이고 있는지 유무
 	bool _isShowPossibleMoveTile;		// 이동가능한 타일 보여주는지 유무
 	bool _isShowPossibleAttackTile;		// 공격가능한 타일 보여주는지 유무
-	bool _isOrdering;					// 명령수행중인지 유무
 	bool _isAction;						// 명령받은 액션이 있는지 판단 변수
 
 	CHARACTER_STATE _characterState;
@@ -78,6 +78,7 @@ public:
 	virtual void pain(int x, int y, int damage);
 	virtual void move();
 	virtual void setDirectionImage();
+	virtual void setEnemyMove(int targetX, int targetY, int endX, int endY, vector<TagTile*>& vRoute);
 	virtual void setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute);
 	virtual void setFrame();
 
@@ -116,7 +117,6 @@ public:
 	virtual int getIndexX() { return _indexX; }
 	virtual int getIndexY() { return _indexY; }
 	virtual float getPivotY() { return _pivotY; }
-	virtual bool getIsOrdering() { return _isOrdering; } 
 	virtual RECT getCharacterRect() { return _rc; }
 	virtual bool getIsShow() { return _isShow; }
 	virtual bool getIsAction() { return _isAction; }
