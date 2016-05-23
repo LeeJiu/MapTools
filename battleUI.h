@@ -19,6 +19,7 @@ private:
 
 	//캐릭터 리스트창, 요약정보창(name, hp, sp), 명령창, 실행창(턴종료, 중도포기), 상세정보창
 	RECT _rcCharacterList, _rcSummary, _rcOrder, _rcAction, _rcStatus;
+	RECT _rcActionList[2];
 
 	bool _onCharacterList, _onSummary, _onAction, _onOrder, _onStatus;
 	

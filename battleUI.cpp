@@ -28,7 +28,12 @@ HRESULT battleUI::init()
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
 	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
-	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
+	_rcAction = RectMakeCenter(_cameraX + 100, _cameraY + 50, 250, 150);
+
+	for (int i = 0; i < 2; i++)
+	{
+		_rcActionList[i] = RectMakeCenter(_rcAction.left + 125, _rcAction.top + 75 * i + 38, 250, 75);
+	}
 
 	_charIdx = 100;		//캐릭터 선택 안 되어있다.
 	
@@ -47,7 +52,12 @@ void battleUI::update()
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
 	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
-	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
+	_rcAction = RectMakeCenter(_cameraX + 200, _cameraY + 150, 250, 150);
+
+	for (int i = 0; i < 2; i++)
+	{
+		_rcActionList[i] = RectMakeCenter(_rcAction.left + 125, _rcAction.top + 75 * i + 38, 250, 75);
+	}
 
 	int size = _vCharList.size();
 	for (int i = 0; i < size; ++i)

@@ -36,6 +36,11 @@ void battleManager::update()
 	}
 
 	_ui->update();
+	
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	{
+		_ui->onAction(true);
+	}
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
