@@ -41,16 +41,7 @@ void battleManager::update()
 		_setUI = true;
 	}
 
-<<<<<<< HEAD
-	_ui->update();
-	
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
-	{
-		_ui->onAction(true);
-	}
-=======
 	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
->>>>>>> refs/remotes/origin/jiu
 
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
