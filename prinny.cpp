@@ -111,6 +111,7 @@ void prinny::update()
 		_hpBar->setX(_x);
 		_hpBar->setY(_rc.top - 10);
 		_hpBar->update();
+		_hpBar->gauge(_hp, _maxHp);
 
 		if (!_isMove)
 		{
@@ -340,6 +341,13 @@ void prinny::setFrame()
 			}
 			else if (_characterState == PAIN)
 			{
+				if (_hp <= 0)
+				{
+					_hp = 0;
+					_isShow = false;
+					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state == S_NONE;
+					_gameObjMgr->setCharDeath();
+				}
 				_characterState = IDLE;
 				return;
 			}
