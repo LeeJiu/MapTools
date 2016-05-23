@@ -18,17 +18,15 @@ HRESULT battleUI::init()
 	_summary = IMAGEMANAGER->addImage("summary", "image/ui/ui_summary.bmp", 420, 150, true, 0xff00ff);
 	_order = IMAGEMANAGER->addImage("order_list", "image/ui/ui_orderList.bmp", 250, 250, false, false);
 	_status = IMAGEMANAGER->addImage("character_status", "image/ui/ui_status.bmp", 300, 500, true, 0xff00ff);
-	_action = IMAGEMANAGER->addImage("action", "image/ui/ui_action.bmp", 250, 150, false, false);
 
 	//ui창 상태 = off
-	_onCharacterList = _onSummary = _onStatus = _onOrder = _onAction = false;
+	_onCharacterList = _onSummary = _onStatus = _onOrder = false;
 
 	/*			rect set			*/
 	_rcCharacterList = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
 	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
-	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
 
 	_charIdx = 100;		//캐릭터 선택 안 되어있다.
 	
@@ -47,7 +45,6 @@ void battleUI::update()
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
 	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
-	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
 
 	int size = _vCharList.size();
 	for (int i = 0; i < size; ++i)
@@ -94,9 +91,6 @@ void battleUI::render()
 	if (_onOrder)
 		_order->render(getMemDC(), _rcOrder.left, _rcOrder.top);
 
-	if (_onAction)
-		_action->render(getMemDC(), _rcAction.left, _rcAction.top);
-
 	SelectObject(getMemDC(), oldFont);
 	DeleteObject(font);
 }
@@ -111,11 +105,6 @@ void battleUI::keyControl()
 	if (_onOrder)
 	{
 		clickOrder();
-	}
-
-	if (_onAction)
-	{
-		clickAction();
 	}
 }
 
@@ -143,10 +132,6 @@ void battleUI::clickOrder()
 			break;
 		}
 	}
-}
-
-void battleUI::clickAction()
-{
 }
 
 void battleUI::removeVCharList(int arrNum)
