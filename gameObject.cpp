@@ -253,15 +253,15 @@ void gameObject::setEnemyMove(int targetX, int targetY, int endX, int endY, vect
 {
 	if (!_isMove)
 	{
-		if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT)
-		{
-			_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
-		}
+		//if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT)
+		//{
+		//	_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
+		//}
 
 		_isMove = true;
+		_currentMoveCount = 0;
 		_destX = endX;
 		_destY = endY;
-		//_currentMoveCount = 0;
 		_oldX = _indexX;
 		_oldY = _indexY;
 		_vRoute = vRoute;
@@ -284,9 +284,9 @@ void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute)
 		}
 
 		_isMove = true;
+		_currentMoveCount = 0;
 		_destX = endX;
 		_destY = endY;
-		//_currentMoveCount = 0;
 		_oldX = _indexX;
 		_oldY = _indexY;
 		_vRoute = vRoute;
