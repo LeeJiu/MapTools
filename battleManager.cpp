@@ -368,9 +368,36 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
-
 	if (_objectMgr->getOrderList() == OL_ORDERING) return;
 	if (_objectMgr->getOrderList() == OL_END) return;
+
+	// 명령 수행 중인 에너미의 4방향 검사
+	int enemyX = _objectMgr->getVEnemy()[_enemyIdx]->getIndexX();
+	int enemyY = _objectMgr->getVEnemy()[_enemyIdx]->getIndexY();
+	if (_objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR
+		&& enemyX + (enemyY - 1) * TILENUM >= 0)
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY - 1);
+		return;
+	}
+	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR
+		&& enemyX + enemyY * TILENUM - 1 >= 0)
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX - 1, enemyY);
+		return;
+	}
+	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR
+		&& enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM))
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX + 1, enemyY);
+		return;
+	}
+	else if (_objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR
+		&& enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM))
+	{
+		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY + 1);
+		return;
+	}
 
 	// 서치타일 한 인덱스 받아서 임시저장 (최종목적지 == 빈타일 or 케릭터)
 	int tempTileIdx = searchTile(_enemyIdx);
@@ -436,13 +463,14 @@ int battleManager::searchTile(int enemyIdx)
 			+ abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->y) 
 			< _objectMgr->getVEnemy()[enemyIdx]->getMv())
 		{
-			if (_objectMgr->getVTile()[i]->state == S_NONE || _objectMgr->getVTile()[i]->state == S_ONCHAR)
+			if (_objectMgr->getVTile()[i]->state == S_NONE)
 			{
 				tempIdx = i;
-				if (_objectMgr->getVTile()[i]->state == S_ONCHAR)
-				{
-					return tempIdx;
-				}
+			}
+			else if (_objectMgr->getVTile()[i]->state == S_ONCHAR)
+			{
+				tempIdx = i;
+				return tempIdx;
 			}
 		}
 	}
