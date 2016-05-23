@@ -37,6 +37,7 @@ class gameObjectManager : public gameNode
 	aStar* _aStar;
 	battleCamera* _camera;
 
+	bool _isOrdering;							// 게임오브젝트 케릭터들이 명령이 수행중인지 판단 변수
 
 public:
 	gameObjectManager();
@@ -49,20 +50,25 @@ public:
 
 	void loadMapData();
 
-	void characterMove(int index, int destX, int destY);			// 플레이어 무브 함수 
-	void enemyMove(int index, int destX, int destY);			// 에너미 무브 함수
+	void characterMove(int index, int destX, int destY);				// 플레이어 무브 함수 
+	void characterAttack(int index, int destX, int destY);				// 플레이어 어택 함수
+	void characterPain(int index, int destX, int destY, int damage);	// 플레이어 피격 함수
+	void enemyMove(int index, int destX, int destY);					// 에너미 무브 함수
+	void enemyAttack(int index, int destX, int destY);					// 에너미 어택 함수
+	void enemyPain(int index, int destX, int destY, int damage);		// 에너미 피격 함수
 
 	//set함수
 	void setTile();
 	void setCharacter();
 	void setEnemy();
 	void setObject();
-
+	void setIsOrderting(bool isOrdering) { _isOrdering = isOrdering; }
 
 	//get함수
 	vector<TagTile*>& getVTile() { return _vTile; }
 	vector<gameObject*>& getVCharacter() { return _vCharacter; }
 	vector<gameObject*>& getVEnemy() { return _vEnemy; }
+	bool getIsOrdering() { return _isOrdering; }
 
 	//메모리 링크
 	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }

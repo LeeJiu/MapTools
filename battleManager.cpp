@@ -235,6 +235,22 @@ void battleManager::characterIsOnZenPoint()
 	_isOnZenPonit = false;
 }
 
+void battleManager::orderAction()
+{
+	_camera->setIsJoomIn(true);
+
+	// 해당 케릭터가 명령을 수행중이라면 리턴시켜라
+	if (_objectMgr->getIsOrdering()) return;
+
+	// 명령의 종류가 공격이라면 케릭터공격, 에너미 피격 함수를 호출한다
+	if (_vOrder[_orderNum].order == O_ATTACK)
+	{
+		_objectMgr->characterAttack(_vOrder[_orderNum].playerVIdx, _vOrder[_orderNum].enemyIdx.x, _vOrder[_orderNum].enemyIdx.y);
+		_objectMgr->enemyPain(_vOrder[_orderNum].enemyVIdx, _vOrder[_orderNum].playerIdx.x, _vOrder[_orderNum].playerIdx.y, _vOrder[_orderNum].damage);
+	}
+	
+}
+
 void battleManager::clickZenPoint()
 {
 	//젠포인트에 아무것도 없을 때 - 캐릭이 미출전
@@ -329,11 +345,28 @@ void battleManager::clickTile(int x, int y, int i)
 	if (_objectMgr->getVCharacter()[_selectCharIdx]->getIsShowPossibleMoveTile())
 	{
 		_objectMgr->characterMove(_selectCharIdx, x, y);
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(false);
 	}
 	//이동 가능 타일이 켜지지 않은 경우,
 	else
 	{
 		//카메라 포커스 맞춘다.
 		_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
+	}
+}
+
+void battleManager::increaseOrderNum()
+{
+	_orderNum++;
+
+	if (_vOrder.size() < _orderNum)
+	{
+		_orderNum = 0;
+		_isPlayerTurn = false;
+		_vOrder.clear();
+
+		// 카메라 줌 아웃 호출
+
+		_camera->setIsJoomOut(true);
 	}
 }
