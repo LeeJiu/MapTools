@@ -16,7 +16,7 @@ HRESULT battleUI::init()
 	//ui 이미지 추가
 	_characterList = IMAGEMANAGER->addImage("character_list", "image/ui/ui_characterList.bmp", 250, 300, false, false);
 	_summary = IMAGEMANAGER->addImage("summary", "image/ui/ui_summary.bmp", 420, 150, true, 0xff00ff);
-	_order = IMAGEMANAGER->addImage("order_list", "image/ui/ui_orderList.bmp", 250, 250, false, false);
+	_order = IMAGEMANAGER->addImage("order_list", "image/ui/ui_orderList.bmp", 250, 213, false, false);
 	_status = IMAGEMANAGER->addImage("character_status", "image/ui/ui_status.bmp", 300, 500, true, 0xff00ff);
 
 	//ui창 상태 = off
@@ -25,7 +25,7 @@ HRESULT battleUI::init()
 	/*			rect set			*/
 	_rcCharacterList = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
-	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
+	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 213);
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
 
 	_charIdx = 100;		//캐릭터 선택 안 되어있다.
@@ -43,7 +43,11 @@ void battleUI::update()
 	/*			rect update			*/
 	_rcCharacterList = RectMake(_cameraX + 980, _cameraY + 50, 250, 250);
 	_rcSummary = RectMake(_cameraX + 50, _cameraY + 520, 450, 150);
+<<<<<<< HEAD
 	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 213, 250);
+=======
+	_rcOrder = RectMake(_cameraX + 980, _cameraY + 50, 250, 213);
+>>>>>>> refs/remotes/origin/development
 	_rcStatus = RectMake(_cameraX + 50, _cameraY + 50, 300, 500);
 
 	int size = _vCharList.size();

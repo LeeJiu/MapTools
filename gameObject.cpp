@@ -69,8 +69,24 @@ void gameObject::move()
 		}
 		else
 		{
+			_currentMoveCount++;
 			_indexX = _vRoute[_idx]->x;
 			_indexY = _vRoute[_idx]->y;
+			
+			if (_currentMoveCount == _mv)
+			{
+				_isMove = false;
+
+				if (_isCharacter) _vRoute[_idx]->state = S_ONCHAR;
+				else _vRoute[_idx]->state = S_ONENM;
+				_characterState = IDLE;
+				_idx = 0;
+
+				_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
+
+				return;
+			}
+
 			_idx++;
 		}
 	}
@@ -263,6 +279,7 @@ void gameObject::setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute)
 		_isMove = true;
 		_destX = endX;
 		_destY = endY;
+		_currentMoveCount = 0;
 		_oldX = _indexX;
 		_oldY = _indexY;
 		_vRoute = vRoute;
@@ -279,7 +296,7 @@ void gameObject::showPossibleMoveTile()
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		if (abs(_oldX - _gameObjMgr->getVTile()[i]->x) + abs(_oldY - _gameObjMgr->getVTile()[i]->y) <= _mv)
+		if (abs(_oldX - _gameObjMgr->getVTile()[i]->x) + abs(_oldY - _gameObjMgr->getVTile()[i]->y) < _mv)
 		{
 			if (_gameObjMgr->getVTile()[i]->state == S_NONE)
 				IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _gameObjMgr->getVTile()[i]->rc.left, _gameObjMgr->getVTile()[i]->rc.top);
@@ -291,7 +308,8 @@ void gameObject::showPossibleAttackTile()
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		if (abs(_indexX + _indexY - _gameObjMgr->getVTile()[i]->x - _gameObjMgr->getVTile()[i]->y) == 1)
+		if ((abs(_indexX - _gameObjMgr->getVTile()[i]->x) == 0 && abs(_indexY - _gameObjMgr->getVTile()[i]->y) == 1)
+			|| (abs(_indexX - _gameObjMgr->getVTile()[i]->x) == 1 && abs(_indexY - _gameObjMgr->getVTile()[i]->y) == 0))
 		{
 			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _gameObjMgr->getVTile()[i]->rc.left, _gameObjMgr->getVTile()[i]->rc.top);
 		}
