@@ -60,7 +60,7 @@ void battleManager::update()
 	}
 
 	setRect();
-	
+
 	if (!_isShowLabel)
 	{
 		//플레이어의 턴일 때
@@ -119,20 +119,21 @@ void battleManager::update()
 			enemyAI();
 		}
 
-	//실행창(턴종료, 중도포기)
-	if (KEYMANAGER->isOnceKeyDown('1'))
-	{
-		_takeTurns = true;
-		_onAction = false;
-		_onUI = false;
-	}
+		//실행창(턴종료, 중도포기)
+		if (KEYMANAGER->isOnceKeyDown('1'))
+		{
+			_takeTurns = true;
+			_onAction = false;
+			_onUI = false;
+		}
 
-	_count++;
-	setFrame();
+		_count++;
+		setFrame();
 
-	if (KEYMANAGER->isOnceKeyDown('2'))
-	{
-		SCENEMANAGER->changeScene("selectStage");
+		if (KEYMANAGER->isOnceKeyDown('2'))
+		{
+			SCENEMANAGER->changeScene("selectStage");
+		}
 	}
 }
 
