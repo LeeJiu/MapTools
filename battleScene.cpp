@@ -27,6 +27,7 @@ HRESULT battleScene::init()
 	
 	//메모리 링크
 	_objectMgr->setCameraMemoryLink(_camera);
+	_objectMgr->setbattleMgrMemoryLink(_battleMgr);
 	_battleMgr->setCameraMemoryLink(_camera);
 	_battleMgr->setObjectMgrMemoryLink(_objectMgr);
 

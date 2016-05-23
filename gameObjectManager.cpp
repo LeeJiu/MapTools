@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
+#include "battleManager.h"
 
 
 gameObjectManager::gameObjectManager()

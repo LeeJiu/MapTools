@@ -88,7 +88,7 @@ void battleManager::update()
 		//플레이어가 ui를 조작할 수 없다. / 턴 실행 중
 		else
 		{
-
+			orderAction();
 		}
 	}
 	//에너미의 턴일 때

@@ -20,6 +20,7 @@ struct GOBJ_Y_RENDER
 };
 
 class battleCamera;
+class battleManager;
 
 class gameObjectManager : public gameNode
 {
@@ -36,6 +37,7 @@ class gameObjectManager : public gameNode
 
 	aStar* _aStar;
 	battleCamera* _camera;
+	battleManager* _battleMgr;
 
 	bool _isOrdering;							// 게임오브젝트 케릭터들이 명령이 수행중인지 판단 변수
 
@@ -72,5 +74,6 @@ public:
 
 	//메모리 링크
 	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }
+	void setbattleMgrMemoryLink(battleManager* battleMgr) { _battleMgr = battleMgr; }
 };
 
