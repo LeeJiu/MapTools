@@ -40,8 +40,12 @@ HRESULT town::init()
 	_prinny = new prinny;
 	_prinny->init();
 
-	_sourX = 1790;
-	_sourY = 490;
+	_sourX = NUMBERDATA->getTownSourX();
+	_sourY = NUMBERDATA->getTownSourY();
+
+	//마을 중앙 좌표
+	//_sourX = 1790;
+	//_sourY = 490;
 	
 	//마을 입구 좌표
 	//_sourX = 2600;
@@ -178,6 +182,9 @@ void town::enterEntrance()
 		if (_prinny->getRect().bottom > (_rcBattle.top + _rcBattle.bottom) / 2)
 		{
 			_prinny->saveData();
+			//마을 중앙 좌표로 돌아오는 위치 저장
+			NUMBERDATA->setTownSourX(1790);
+			NUMBERDATA->setTownSourY(490);
 			SCENEMANAGER->changeScene("selectStage");
 			return;
 		}
@@ -188,6 +195,8 @@ void town::enterEntrance()
 		if (_prinny->getRect().top < (_rcStore.top + _rcStore.bottom) / 2 + 30)
 		{
 			_prinny->saveData();
+			NUMBERDATA->setTownSourX(_sourX);
+			NUMBERDATA->setTownSourY(_sourY + 50);
 			SCENEMANAGER->changeScene("store");
 			return;
 		}
@@ -196,6 +205,8 @@ void town::enterEntrance()
 	if (IntersectRect(&RectMake(0, 0, 0, 0), &_prinny->getRect(), &_rcMercenary))
 	{
 		_prinny->saveData();
+		NUMBERDATA->setTownSourX(_sourX);
+		NUMBERDATA->setTownSourY(_sourY + 50);
 		SCENEMANAGER->changeScene("mercenaryStore");
 		return;
 	}
