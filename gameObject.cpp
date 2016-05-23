@@ -296,7 +296,7 @@ void gameObject::showPossibleMoveTile()
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		if (abs(_oldX - _gameObjMgr->getVTile()[i]->x) + abs(_oldY - _gameObjMgr->getVTile()[i]->y) <= _mv)
+		if (abs(_oldX - _gameObjMgr->getVTile()[i]->x) + abs(_oldY - _gameObjMgr->getVTile()[i]->y) < _mv)
 		{
 			if (_gameObjMgr->getVTile()[i]->state == S_NONE)
 				IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _gameObjMgr->getVTile()[i]->rc.left, _gameObjMgr->getVTile()[i]->rc.top);
@@ -308,8 +308,8 @@ void gameObject::showPossibleAttackTile()
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		if (abs(_indexX - _gameObjMgr->getVTile()[i]->x) <= 1 && abs(_indexY - _gameObjMgr->getVTile()[i]->y <= 1 
-			&& _indexX != _gameObjMgr->getVTile()[i]->x && _indexY != _gameObjMgr->getVTile()[i]->y))
+		if ((abs(_indexX - _gameObjMgr->getVTile()[i]->x) == 0 && abs(_indexY - _gameObjMgr->getVTile()[i]->y) == 1)
+			|| (abs(_indexX - _gameObjMgr->getVTile()[i]->x) == 1 && abs(_indexY - _gameObjMgr->getVTile()[i]->y) == 0))
 		{
 			IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _gameObjMgr->getVTile()[i]->rc.left, _gameObjMgr->getVTile()[i]->rc.top);
 		}
