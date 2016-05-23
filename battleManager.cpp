@@ -271,14 +271,15 @@ void battleManager::clickZenPoint()
 void battleManager::clickCharacter(int x, int y, int i)
 {
 	//명령창을 띄운다. (현재 캐릭터의 인덱스 저장)
-	int charSize = _objectMgr->getVCharacter().size();
 
 	_ui->onOrder(true);
 	_onUI = true;
 
+	int charSize = _objectMgr->getVCharacter().size();
 	for (int i = 0; i < charSize; i++)
 	{
-		if (_objectMgr->getVCharacter()[i]->getIndexX() == x && _objectMgr->getVCharacter()[i]->getIndexY() == y)
+		if (_objectMgr->getVCharacter()[i]->getIndexX() == x 
+			&& _objectMgr->getVCharacter()[i]->getIndexY() == y)
 		{
 			_selectCharIdx = i;
 			break;
@@ -328,8 +329,6 @@ void battleManager::clickEnemy(int x, int y, int i)
 		//카메라 포커스를 맞춘다.
 		_camera->setCameraTile(_objectMgr->getVTile()[i]->pivotX, _objectMgr->getVTile()[i]->pivotY);
 	}
-
-
 }
 
 void battleManager::clickObject(int i)
