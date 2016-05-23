@@ -65,6 +65,10 @@ HRESULT gameStudy::init()
 	//배틀씬에서 사용될 이미지 추가
 	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 128, 64, true, 0xff00ff);
 	IMAGEMANAGER->addImage("attackable", "image/battle/attackable_tile.bmp", 128, 64, true, 0xff00ff);
+	IMAGEMANAGER->addImage("turnback", "image/battleUI/ui_turnback_black.bmp", WINSIZEX, 100, false, false);
+	IMAGEMANAGER->addImage("playerTurn", "image/battleUI/ui_turnback_player.bmp", 489, 53, true, 0xff00ff);
+	IMAGEMANAGER->addImage("enemyTurn", "image/battleUI/ui_turnback_enemy.bmp", 476, 53, true, 0xff00ff);
+	IMAGEMANAGER->addImage("stageStart", "image/battleUI/ui_turnback_start.bmp", 461, 53, true, 0xff00ff);
 	
 	//오브젝트 이미지 추가
 	IMAGEMANAGER->addImage("tree1", "image/mapTool/object_tree.bmp", 222, 265, true, 0xff00ff);
