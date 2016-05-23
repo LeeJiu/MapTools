@@ -411,7 +411,7 @@ int battleManager::searchTile()
 	// 이동 가능 타일의 가장 마지막 인덱스를 계속 저장하고,
 	// 타일 중에 캐릭터가 있으면 그 타일의 인덱스를 저장하고 바로 반환한다.
 
-
+	return 0;
 }
 
 void battleManager::increaseOrderNum()
