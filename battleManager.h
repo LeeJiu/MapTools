@@ -41,8 +41,8 @@ private:
 	image* _turnbackImage;
 	image* _turnUIImage;
 	RECT _rcTurnback;
-	float _time;
-	bool _isShowLabel; //스테이지 시작했을때. 변경은 스타트가 아닐경우에만.
+	float _time, _time2;
+	bool _isShowLabel;			//스테이지 시작했을때. 변경은 스타트가 아닐경우에만.
 
 	bool _setUI;
 	bool _isOnZenPonit;			// 캐릭터가 젠포인트 위에 있는지 여부
@@ -73,8 +73,6 @@ public:
 	void render();
 
 	void setFrame();
-	void setRect();
-	void turnbarRender();
 	void tileControl();
 	void UIControl();
 	void characterIsOnZenPoint();
