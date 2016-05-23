@@ -358,20 +358,9 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
-<<<<<<< HEAD
-	// searchTile() 실행 후 반환된 타일 인덱스로 에너미의 명령을 수행한다.
-	// 반환된 타일이 캐릭터가 아니라면 (S_NONE)
-	// 이동만 명령한다.
-	// 반환된 타일이 캐릭터라면 (S_ONCHAR)
-	// 이동 명령 후 공격 명령한다.
 
-
-
-=======
-	// 해당 케릭터가 명령을 수행중이라면 리턴시켜라
 	if (_objectMgr->getOrderList() == OL_ORDERING) return;
 	if (_objectMgr->getOrderList() == OL_END) return;
->>>>>>> refs/remotes/origin/moobin
 
 	// 서치타일 한 인덱스 받아서 임시저장 (최종목적지 == 빈타일 or 케릭터)
 	int tempTileIdx = searchTile(_enemyIdx);
