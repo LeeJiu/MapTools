@@ -457,9 +457,6 @@ int battleManager::searchTile(int enemyIdx)
 	// 타일 중에 캐릭터가 있으면 그 타일의 인덱스를 저장하고 바로 반환한다.
 	int tempIdx;
 
-<<<<<<< HEAD
-	return 0;
-=======
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
 	{
 		if (abs(_objectMgr->getVEnemy()[enemyIdx]->getIndexX() - _objectMgr->getVTile()[i]->x) 
@@ -478,7 +475,6 @@ int battleManager::searchTile(int enemyIdx)
 		}
 	}
 	return tempIdx;
->>>>>>> origin/moobin
 }
 
 void battleManager::increaseOrderNum()
