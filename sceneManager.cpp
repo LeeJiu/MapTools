@@ -38,6 +38,9 @@ HRESULT sceneManager::init()
 	_loadingScene = NULL;
 	_readyScene = NULL;
 
+	_cameraX = 0.f;
+	_cameraY = 0.f;
+
 	return S_OK;
 }
 
@@ -94,6 +97,9 @@ gameNode * sceneManager::addLoadingScene(string loadingSceneName, gameNode * sce
 
 HRESULT sceneManager::changeScene(string sceneName)
 {
+	_cameraX = 0.f;
+	_cameraY = 0.f;
+
 	//씬을 바꾸자
 	//바꾸려 하는 씬을 찾자
 	mapSceneIter find = _mSceneList.find(sceneName);

@@ -17,6 +17,10 @@ HRESULT battleManager::init()
 	_ui->init();
 
 	_isPlayerTurn = true;	//플레이어 먼저 시작
+	
+	_takeTurns = _onAction = false;
+	_action = IMAGEMANAGER->addImage("action", "image/ui/ui_action.bmp", 250, 150, false, false);
+	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
 
 	return S_OK;
 }
@@ -29,40 +33,71 @@ void battleManager::release()
 
 void battleManager::update()
 {
+	_ui->update();
+
 	if (!_setUI)
 	{
 		_ui->setCharList(_objectMgr->getVCharacter()[0]->getMercenary());
 		_setUI = true;
 	}
 
+<<<<<<< HEAD
 	_ui->update();
 	
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
 		_ui->onAction(true);
 	}
+=======
+	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
+>>>>>>> refs/remotes/origin/jiu
 
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
 	{
-		if (_leftButtonDown && !_onUI)
+		//플레이어가 ui를 조작할 수 있다.
+		if (!_takeTurns)
 		{
-			tileControl();
+			if (_leftButtonDown && !_onUI)
+			{
+				_leftButtonDown = false;
+				tileControl();
+			}
+			else if (_leftButtonDown && _onUI)
+			{
+				_leftButtonDown = false;
+				UIControl();
+			}
+
+			//모든 ui창을 끈다.
+			if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+			{
+				_ui->onCharacterList(false);
+				_ui->onOrder(false);
+				_ui->onSummary(false);
+				_ui->onStatus(false);
+				_onAction = false;
+				_onUI = false;
+			}
+
+			if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+			{
+				if (_onAction)
+				{
+					_onAction = false;
+					_onUI = false;
+				}
+				else
+				{
+					_onAction = true;
+					_onUI = true;
+				}
+			}
 		}
-		else if (_leftButtonDown && _onUI)
+		//플레이어가 ui를 조작할 수 없다. / 턴 실행 중
+		else
 		{
-			UIControl();
-		}
-		
-		//모든 ui창을 끈다.
-		if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
-		{
-			_ui->onCharacterList(false);
-			_ui->onOrder(false);
-			_ui->onAction(false);
-			_ui->onSummary(false);
-			_ui->onStatus(false);
-			_onUI = false;
+
 		}
 	}
 	//에너미의 턴일 때
@@ -71,36 +106,35 @@ void battleManager::update()
 		//AI
 	}
 
-	_ui->update();
+	//실행창(턴종료, 중도포기)
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_takeTurns = true;
+		_onAction = false;
+		_onUI = false;
+	}
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		SCENEMANAGER->changeScene("selectStage");
+	}
 }
 
 void battleManager::render()
 {
 	_ui->render();
+
+	if (_onAction)
+		_action->render(getMemDC(), _rcAction.left, _rcAction.top);
 }
 
 void battleManager::tileControl()
 {
+	//캐릭터가 젠포인트 위에 있는지 없는지 확인
 	characterIsOnZenPoint();
-
-	// UI에서 클릭한것이 무브라면
-	if (_ui->getOrderNumber() == 1)
-	{
-		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
-		_ui->onOrder(false);
-		return;
-	}
-	// UI에서 클릭한것이 어택이라면
-	else if (_ui->getOrderNumber() == 2)
-	{
-		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
-		_ui->onOrder(false);
-		return;
-	}
 
 	for (int i = 0; i < TOTALTILE(TILENUM); ++i)
 	{
-		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click) && !_onUI)
+		if (PtInRect(&_objectMgr->getVTile()[i]->rc, _click))
 		{
 			//아이소 타일 클릭 조건
 			if ((_click.y - _objectMgr->getVTile()[i]->pivotY) >= -0.5 * (_click.x - _objectMgr->getVTile()[i]->pivotX) - WIDTH / 4 &&
@@ -170,6 +204,23 @@ void battleManager::UIControl()
 			_ui->onCharacterList(false);
 			_onUI = false;
 		}
+	}
+
+	// UI에서 클릭한것이 무브라면
+	if (_ui->getOrderNumber() == 1)
+	{
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleMoveTile(true);
+		_ui->onOrder(false);
+		_onUI = false;
+		return;
+	}
+	// UI에서 클릭한것이 어택이라면
+	else if (_ui->getOrderNumber() == 2)
+	{
+		_objectMgr->getVCharacter()[_selectCharIdx]->setIsShowPossibleAttackTile(true);
+		_ui->onOrder(false);
+		_onUI = false;
+		return;
 	}
 }
 
