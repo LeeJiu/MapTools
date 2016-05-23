@@ -64,6 +64,7 @@ public:
 	void UIControl();
 	void characterIsOnZenPoint();
 	void orderAction();								// vOrder에 담은 명령들을 수행할 함수
+	bool isPlayerTurn() { return _isPlayerTurn; }
 
 	void clickZenPoint();
 	void clickCharacter(int x, int y, int i);
@@ -80,6 +81,6 @@ public:
 	/*			enemy AI func			*/
 	void enemyAI();							// 에너미 ai함수
 	void increaseEnemyIdx();				// 게임오브젝트에서 호출할 함수. enemyIdx를 증가시켜줄 함수
-	int searchTile();						// 타일 검사 -> index set, enemy order set
+	int searchTile(int enemyIdx);			// 타일 검사 -> index set, enemy order set
 };
 
