@@ -29,9 +29,8 @@ HRESULT catsaver::init(int x, int y, gameObjectManager * gom)
 	_characterState = IDLE;
 	_characterDir = LB;
 	_curFrameX = 0;
-	_count = 0;
 
-	_mv = 3;
+	_mv = 5;
 	_isShow = false;
 
 	_moveSpeed = 3;
@@ -46,6 +45,8 @@ HRESULT catsaver::init(int x, int y, gameObjectManager * gom)
 	_hpBar = new progressBar;
 	_hpBar->init(_x, _rc.top - 10, 120, 10);
 	_hpBar->gauge(_hp, _maxHp);
+
+	_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
 
 	return S_OK;
 }
@@ -93,7 +94,6 @@ void catsaver::render()
 		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_hpBar->render();
-
 	}
 }
 
