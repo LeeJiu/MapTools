@@ -358,26 +358,6 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
-	//int enemySize = _objectMgr->getVEnemy().size();
-	//
-	//for (int i = 0; i < enemySize; ++i)
-	//{
-	//	//타일의 인덱스 반환값 받아온다.
-	//	int temp; // <- 함수 반환값 임시로 써논거 이자리에 함수 반환값 넣으면 됨
-	//
-	//	// 반환된 값의 인덱스의 스테이트가 S_NONE이라면 그 타일로 이동해라
-	//	if (_objectMgr->getVTile()[temp]->state == S_NONE)
-	//	{
-	//		// 이동해라
-	//		_objectMgr->enemyMove(i, _objectMgr->getVTile()[temp]->x, _objectMgr->getVTile()[temp]->y);
-	//	}
-	//	// 반환된 값의 인덱스의 스테이트가 S_ONCHAR이라면 그 타일의 주변 타일로 이동하고 공격을 예약한다.
-	//	else if (_objectMgr->getVTile()[temp]->state == S_ONCHAR)
-	//	{
-	//
-	//	}
-	//}
-
 	// searchTile() 실행 후 반환된 타일 인덱스로 에너미의 명령을 수행한다.
 	// 반환된 타일이 캐릭터가 아니라면 (S_NONE)
 	// 이동만 명령한다.
