@@ -54,12 +54,15 @@ public:
 	void tileControl();
 	void UIControl();
 	void characterIsOnZenPoint();
+	void orderAction();								// vOrder에 담은 명령들을 수행할 함수
 
 	void clickZenPoint();
 	void clickCharacter(int x, int y, int i);
 	void clickEnemy(int x, int y, int i);			// 매개변수 타일의 인덱스
 	void clickObject(int i);
 	void clickTile(int x, int y, int i);
+
+	void increaseOrderNum();						// 게임오브젝트에서 호출할 함수. orderNum를 증가시켜줄 함수
 
 	void setObjectMgrMemoryLink(gameObjectManager* objectMgr) { _objectMgr = objectMgr; }
 	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }
