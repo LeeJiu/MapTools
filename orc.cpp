@@ -25,7 +25,7 @@ HRESULT orc::init(int x, int y, gameObjectManager * gom)
 	_gameObjMgr = gom;
 	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = new image;
-	_character->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+	_character->init("image/character/orc_idle.bmp", 1080, 668, 6, 4, true, 0xff00ff);
 	_characterState = IDLE;
 	_characterDir = LB;
 	_curFrameX = 0;
@@ -90,7 +90,7 @@ void orc::render()
 	
 	if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
 	{
-		_shadow->render(getMemDC(), _rc.left + 15, _rc.bottom - _shadow->getFrameHeight() / 2);
+		_shadow->render(getMemDC(), _x - _shadow->getWidth() / 2, _rc.bottom - _shadow->getFrameHeight() / 2 - 10);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_hpBar->render();
 	}
@@ -101,16 +101,16 @@ void orc::setImage()
 	switch (_characterState)
 	{
 	case IDLE:
-		_character->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+		_character->init("image/character/orc_idle.bmp", 1080, 668, 6, 4, true, 0xff00ff);
 		break;
 	case WALK:
 		_character->init("image/character/orc_walk.bmp", 534, 668, 6, 4, true, 0xff00ff);
 		break;
 	case ATTACK:
-		_character->init("image/character/orc_attack.bmp", 1764, 668, 7, 4, true, 0xff00ff);
+		_character->init("image/character/orc_attack.bmp", 1694, 716, 7, 4, true, 0xff00ff);
 		break;
 	case PAIN:
-		_character->init("image/character/orc_pain.bmp", 189, 596, 1, 4, true, 0xff00ff);
+		_character->init("image/character/orc_pain.bmp", 1323, 596, 7, 4, true, 0xff00ff);
 		break;
 	}
 }

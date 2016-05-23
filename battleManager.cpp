@@ -374,26 +374,26 @@ void battleManager::enemyAI()
 	// 명령 수행 중인 에너미의 4방향 검사
 	int enemyX = _objectMgr->getVEnemy()[_enemyIdx]->getIndexX();
 	int enemyY = _objectMgr->getVEnemy()[_enemyIdx]->getIndexY();
-	if (_objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR
-		&& enemyX + (enemyY - 1) * TILENUM >= 0)
+	if (enemyX + (enemyY - 1) * TILENUM >= 0
+		&& _objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY - 1);
 		return;
 	}
-	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR
-		&& enemyX + enemyY * TILENUM - 1 >= 0)
+	else if (enemyX + enemyY * TILENUM - 1 >= 0
+		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX - 1, enemyY);
 		return;
 	}
-	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR
-		&& enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM))
+	else if (enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM)
+		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX + 1, enemyY);
 		return;
 	}
-	else if (_objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR
-		&& enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM))
+	else if (enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM)
+		&& _objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY + 1);
 		return;
