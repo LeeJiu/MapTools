@@ -57,6 +57,8 @@ void battleScene::update()
 
 void battleScene::render()
 {
+	_objectMgr->tileRender();
+	_battleMgr->selectTileRender();
 	_objectMgr->render();
 	_battleMgr->render();
 }
