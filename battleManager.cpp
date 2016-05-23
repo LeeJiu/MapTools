@@ -365,6 +365,9 @@ void battleManager::enemyAI()
 	// 이동 명령 후 공격 명령한다.
 
 
+
+
+
 }
 
 void battleManager::increaseEnemyIdx()
