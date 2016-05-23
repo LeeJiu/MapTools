@@ -286,12 +286,7 @@ void gameObjectManager::enemyMove(int index, int destX, int destY)
 
 void gameObjectManager::enemyMoveToAttack(int index, int destX, int destY, int targetX, int targetY)
 {
-	_orderList = OL_ORDERING;
-}
-
-void gameObjectManager::enemyAttack(int index, int destX, int destY)
-{
-	_vEnemy[index]->attack(destX, destY);
+	_vEnemy[index]->setEnemyMove(targetX, targetY, destX, destY, _aStar->moveCharacter(_vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), destX, destY));
 	_orderList = OL_ORDERING;
 }
 

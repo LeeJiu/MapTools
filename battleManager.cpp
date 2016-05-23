@@ -358,7 +358,7 @@ void battleManager::clickTile(int x, int y, int i)
 
 void battleManager::enemyAI()
 {
-	// 해당 케릭터가 명령을 수행중이라면 리턴시켜라
+
 	if (_objectMgr->getOrderList() == OL_ORDERING) return;
 	if (_objectMgr->getOrderList() == OL_END) return;
 
