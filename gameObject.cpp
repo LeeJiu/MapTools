@@ -70,6 +70,7 @@ void gameObject::move()
 			if (_targetX != -1 && _targetY != -1 && !_isCharacter)
 			{
 				attack(_targetX, _targetY);
+				_gameObjMgr->characterPain(_targetIdx, _indexX, _indexY, _atk);
 			}
 			else if (_targetX == -1 && _targetY == -1 && !_isCharacter)
 			{
@@ -250,7 +251,7 @@ void gameObject::setDirectionImage()
 	}
 }
 
-void gameObject::setEnemyMove(int targetX, int targetY, int endX, int endY, vector<TagTile*>& vRoute)
+void gameObject::setEnemyMove(int targetIdx, int targetX, int targetY, int endX, int endY, vector<TagTile*>& vRoute)
 {
 	if (!_isMove)
 	{
@@ -268,6 +269,7 @@ void gameObject::setEnemyMove(int targetX, int targetY, int endX, int endY, vect
 		_vRoute = vRoute;
 
 		//공격할 캐릭터 위치 저장 (에너미 -> 플레이어)
+		_targetIdx = targetIdx;
 		_targetX = targetX;
 		_targetY = targetY;
 

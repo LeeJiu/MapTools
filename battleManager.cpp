@@ -118,7 +118,7 @@ void battleManager::update()
 			setRect();
 			enemyAI();
 		}
-
+	}
 	//실행창(턴종료, 중도포기)
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
@@ -485,26 +485,26 @@ void battleManager::enemyAI()
 	// 명령 수행 중인 에너미의 4방향 검사
 	int enemyX = _objectMgr->getVEnemy()[_enemyIdx]->getIndexX();
 	int enemyY = _objectMgr->getVEnemy()[_enemyIdx]->getIndexY();
-	if (_objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR
-		&& enemyX + (enemyY - 1) * TILENUM >= 0)
+	if (enemyX + (enemyY - 1) * TILENUM >= 0
+		&& _objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY - 1);
 		return;
 	}
-	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR
-		&& enemyX + enemyY * TILENUM - 1 >= 0)
+	else if (enemyX + enemyY * TILENUM - 1 >= 0
+		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX - 1, enemyY);
 		return;
 	}
-	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR
-		&& enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM))
+	else if (enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM)
+		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX + 1, enemyY);
 		return;
 	}
-	else if (_objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR
-		&& enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM))
+	else if (enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM)
+		&& _objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY + 1);
 		return;
@@ -524,22 +524,22 @@ void battleManager::enemyAI()
 		// 타일의 인덱스가 범위 내고, S_NONE이라면 4방향 검사해서 그쪽으로 이동한 후 공격한다.
 		if (tempTileIdx - TILENUM >= 0 && tempTileIdx - TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - TILENUM]->state == S_NONE)
 		{
-			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - TILENUM]->x, _objectMgr->getVTile()[tempTileIdx - TILENUM]->y,
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - TILENUM]->x, _objectMgr->getVTile()[tempTileIdx - TILENUM]->y, tempTileIdx,
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 		else if (tempTileIdx - 1 >= 0 && tempTileIdx - 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - 1]->state == S_NONE)
 		{
-			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - 1]->x, _objectMgr->getVTile()[tempTileIdx - 1]->y,
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - 1]->x, _objectMgr->getVTile()[tempTileIdx - 1]->y, tempTileIdx, 
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 		else if (tempTileIdx + 1 >= 0 && tempTileIdx + 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + 1]->state == S_NONE)
 		{
-			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + 1]->x, _objectMgr->getVTile()[tempTileIdx + 1]->y,
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + 1]->x, _objectMgr->getVTile()[tempTileIdx + 1]->y, tempTileIdx, 
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 		else if (tempTileIdx + TILENUM >= 0 && tempTileIdx + TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + TILENUM]->state == S_NONE)
 		{
-			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + TILENUM]->x, _objectMgr->getVTile()[tempTileIdx + TILENUM]->y,
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + TILENUM]->x, _objectMgr->getVTile()[tempTileIdx + TILENUM]->y, tempTileIdx,
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 	}
