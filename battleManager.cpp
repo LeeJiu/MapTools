@@ -60,7 +60,7 @@ void battleManager::update()
 	}
 
 	setRect();
-	
+
 	if (!_isShowLabel)
 	{
 		//플레이어의 턴일 때
@@ -108,6 +108,7 @@ void battleManager::update()
 			//플레이어가 ui를 조작할 수 없다. / 턴 실행 중
 			else
 			{
+				//setRect();
 				orderAction();
 			}
 		}
@@ -115,24 +116,25 @@ void battleManager::update()
 		else
 		{
 			//AI
-			setRect();
+			//setRect();
 			enemyAI();
 		}
 
-	//실행창(턴종료, 중도포기)
-	if (KEYMANAGER->isOnceKeyDown('1'))
-	{
-		_takeTurns = true;
-		_onAction = false;
-		_onUI = false;
-	}
+		//실행창(턴종료, 중도포기)
+		if (KEYMANAGER->isOnceKeyDown('1'))
+		{
+			_takeTurns = true;
+			_onAction = false;
+			_onUI = false;
+		}
 
-	_count++;
-	setFrame();
+		_count++;
+		setFrame();
 
-	if (KEYMANAGER->isOnceKeyDown('2'))
-	{
-		SCENEMANAGER->changeScene("selectStage");
+		if (KEYMANAGER->isOnceKeyDown('2'))
+		{
+			SCENEMANAGER->changeScene("selectStage");
+		}
 	}
 }
 
@@ -145,9 +147,9 @@ void battleManager::render()
 
 	turnbarRender();	//턴바 드로우
 
-	char str[100];
-	sprintf_s(str, "_isShowLabel = %d , time = %f", _isShowLabel, _time);
-	TextOut(getMemDC(), _cameraX + 10, _cameraY + 10, str, strlen(str));
+	//char str[100];
+	//sprintf_s(str, "_isShowLabel = %d , time = %f", _isShowLabel, _time);
+	//TextOut(getMemDC(), _cameraX + 10, _cameraY + 10, str, strlen(str));
 }
 
 void battleManager::setRect()
@@ -594,14 +596,17 @@ void battleManager::increaseOrderNum()
 {
 	_orderNum++;
 
-	if (_vOrder.size() <= _orderNum)
+	if (_orderNum >= _vOrder.size())
 	{
 		_orderNum = 0;
 		_isPlayerTurn = false;
 		_vOrder.clear();
 		// 카메라 줌 아웃 호출
 		_camera->setIsJoomOut(true);
-
-		//_isShowLabel = true;
+		
+		if (_camera->getIsJoomOut())
+		{
+			_isShowLabel = true;
+		}
 	}
 }
