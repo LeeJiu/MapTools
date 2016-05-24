@@ -4,15 +4,15 @@ class battleCamera : public gameNode
 {
 
 	////////   cameraTile   /////////
-	float _cameraTileX, _cameraTileY;// cameraTile 인덱스 x, y;
-	float _scroolSpeed;				// cameraTile 속도
-	float _scroolAngle;				// cameraTile 이동각도
+	float _cameraTileX, _cameraTileY;	// cameraTile 인덱스 x, y;
+	float _scroolSpeed;					// cameraTile 속도
+	float _scroolAngle;					// cameraTile 이동각도
 
 	//////   cameraCharacter   //////
 	int _joomSize;
 
-	bool _isMapScrool;				// 맵 스크롤 유무
-	bool _isVibrate;				// 진동 유무
+	bool _isMapScrool;					// 맵 스크롤 유무
+	bool _isVibrate;					// 진동 유무
 	bool _isJoomIn;
 	bool _isJoomOut;
 

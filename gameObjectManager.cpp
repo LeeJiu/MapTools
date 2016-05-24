@@ -243,10 +243,24 @@ void gameObjectManager::setObject()
 
 void gameObjectManager::setCharDeath()
 {
+	_charDeathCount++;
+
+	if (_vCharacter.size() == _charDeathCount)
+	{
+		// 결투 패배 
+		_battleMgr->setEnemyWin(true);
+	}
 }
 
 void gameObjectManager::setEnemyDeath()
 {
+	_enemyDeathCount++;
+
+	if (_vEnemy.size() == _enemyDeathCount)
+	{
+		// 결투 승리
+		_battleMgr->setPlayerWin(true);
+	}
 }
 
 void gameObjectManager::loadMapData()
@@ -309,6 +323,17 @@ void gameObjectManager::characterPain(int index, int destX, int destY, int damag
 void gameObjectManager::enemyAttack(int index, int destX, int destY)
 {
 	_vEnemy[index]->attack(destX, destY);
+
+	int charSize = _vCharacter.size();
+
+	for (int i = 0; i < charSize; ++i)
+	{
+		if (_vCharacter[i]->getIndexX() == destX && _vCharacter[i]->getIndexY() == destY)
+		{
+			characterPain(i, _vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), _vEnemy[index]->getAtk());
+			break;
+		}
+	}
 	_orderList = OL_ORDERING;
 }
 
@@ -317,9 +342,18 @@ void gameObjectManager::enemyMove(int index, int destX, int destY)
 	_vEnemy[index]->setCharacterMove(destX, destY, _aStar->moveCharacter(_vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), destX, destY));
 }
 
-void gameObjectManager::enemyMoveToAttack(int index, int destX, int destY, int targetX, int targetY)
+void gameObjectManager::enemyMoveToAttack(int index, int destX, int destY, int targetIdx, int targetX, int targetY)
 {
-	_vEnemy[index]->setEnemyMove(targetX, targetY, destX, destY, _aStar->moveCharacter(_vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), destX, destY));
+	int charSize = _vCharacter.size();
+
+	for (int i = 0; i < charSize; ++i)
+	{
+		if (_vCharacter[i]->getIndexX() == targetX && _vCharacter[i]->getIndexY() == targetY)
+		{
+			_vEnemy[index]->setEnemyMove(i, targetX, targetY, destX, destY, _aStar->moveCharacter(_vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), destX, destY));
+			break;
+		}
+	}
 	_orderList = OL_ORDERING;
 }
 

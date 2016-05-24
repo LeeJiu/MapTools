@@ -70,6 +70,7 @@ void gameObject::move()
 			if (_targetX != -1 && _targetY != -1 && !_isCharacter)
 			{
 				attack(_targetX, _targetY);
+				_gameObjMgr->characterPain(_targetIdx, _indexX, _indexY, _atk);
 			}
 			else if (_targetX == -1 && _targetY == -1 && !_isCharacter)
 			{
@@ -98,6 +99,7 @@ void gameObject::move()
 				if (_targetX != -1 && _targetY != -1 && !_isCharacter)
 				{
 					attack(_targetX, _targetY);
+					_gameObjMgr->characterPain(_targetIdx, _indexX, _indexY, _atk);
 				}
 				else if (_targetX == -1 && _targetY == -1 && !_isCharacter)
 				{
@@ -210,6 +212,7 @@ void gameObject::pain(int x, int y, int damage)
 		_isUp = false;
 	}
 	_characterState = PAIN;
+	_hp -= (damage / 10);
 	_character->setFrameX(0);
 }
 
@@ -249,15 +252,10 @@ void gameObject::setDirectionImage()
 	}
 }
 
-void gameObject::setEnemyMove(int targetX, int targetY, int endX, int endY, vector<TagTile*>& vRoute)
+void gameObject::setEnemyMove(int targetIdx, int targetX, int targetY, int endX, int endY, vector<TagTile*>& vRoute)
 {
 	if (!_isMove)
 	{
-		//if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT)
-		//{
-		//	_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
-		//}
-
 		_isMove = true;
 		_currentMoveCount = 0;
 		_destX = endX;
@@ -267,6 +265,7 @@ void gameObject::setEnemyMove(int targetX, int targetY, int endX, int endY, vect
 		_vRoute = vRoute;
 
 		//공격할 캐릭터 위치 저장 (에너미 -> 플레이어)
+		_targetIdx = targetIdx;
 		_targetX = targetX;
 		_targetY = targetY;
 

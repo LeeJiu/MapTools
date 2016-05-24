@@ -23,6 +23,7 @@ protected:
 	int _indexX, _indexY;				// 전투맵의 현재의 x, y 인덱스
 	int _destX, _destY;					// 전투맵의 목적지 x, y 인덱스
 	int _targetX, _targetY;				// 공격할 캐릭터 위치 x, y (에너미 -> 플레이어)
+	int _targetIdx;
 
 	float _pivotY;
 
@@ -78,7 +79,7 @@ public:
 	virtual void pain(int x, int y, int damage);
 	virtual void move();
 	virtual void setDirectionImage();
-	virtual void setEnemyMove(int targetX, int targetY, int endX, int endY, vector<TagTile*>& vRoute);
+	virtual void setEnemyMove(int targetIdx, int targetX, int targetY, int endX, int endY, vector<TagTile*>& vRoute);
 	virtual void setCharacterMove(int endX, int endY, vector<TagTile*>& vRoute);
 	virtual void setFrame();
 

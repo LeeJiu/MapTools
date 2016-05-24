@@ -111,6 +111,7 @@ void prinny::update()
 		_hpBar->setX(_x);
 		_hpBar->setY(_rc.top - 10);
 		_hpBar->update();
+		_hpBar->gauge(_hp, _maxHp);
 
 		if (!_isMove)
 		{
@@ -135,7 +136,7 @@ void prinny::render()
 	if (!_isbattle)
 	{
 		//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-		_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
+		_shadow->render(getMemDC(), _x - _shadow->getWidth() / 2, _rc.bottom - _shadow->getFrameHeight() / 2);
 		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 		_inventory->render();
 	}
@@ -148,7 +149,7 @@ void prinny::render()
 
 			if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
 			{
-				_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
+				_shadow->render(getMemDC(), _x - _shadow->getWidth() / 2, _rc.bottom - _shadow->getFrameHeight() / 2);
 				_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 				//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 				_hpBar->render();
@@ -340,6 +341,13 @@ void prinny::setFrame()
 			}
 			else if (_characterState == PAIN)
 			{
+				if (_hp <= 0)
+				{
+					_hp = 0;
+					_isShow = false;
+					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state == S_NONE;
+					_gameObjMgr->setCharDeath();
+				}
 				_characterState = IDLE;
 				return;
 			}

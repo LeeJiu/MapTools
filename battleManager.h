@@ -41,8 +41,8 @@ private:
 	image* _turnbackImage;
 	image* _turnUIImage;
 	RECT _rcTurnback;
-	float _time;
-	bool _isShowLabel; //스테이지 시작했을때. 변경은 스타트가 아닐경우에만.
+	float _time, _time2;
+	bool _isShowLabel;			//스테이지 시작했을때. 변경은 스타트가 아닐경우에만.
 
 	bool _setUI;
 	bool _isOnZenPonit;			// 캐릭터가 젠포인트 위에 있는지 여부
@@ -57,6 +57,8 @@ private:
 	//ui 상태 변수
 	bool _onCharacterList, _onSummary, _onStatus, _onOrder, _onUI;
 
+	//게임 결과 상태 변수
+	bool _playerWin, _enemyWin;
 
 	/*			enemy AI			*/
 	int _enemyIdx;				// 현재 명령 수행할 에너미 인덱스 넘버
@@ -71,8 +73,6 @@ public:
 	void render();
 
 	void setFrame();
-	void setRect();
-	void turnbarRender();
 	void tileControl();
 	void UIControl();
 	void characterIsOnZenPoint();
@@ -91,7 +91,8 @@ public:
 
 	void setObjectMgrMemoryLink(gameObjectManager* objectMgr) { _objectMgr = objectMgr; }
 	void setCameraMemoryLink(battleCamera* camera) { _camera = camera; }
-
+	void setPlayerWin(bool playerWin) { _playerWin = playerWin; }
+	void setEnemyWin(bool enemyWin) { _enemyWin = enemyWin; }
 
 	/*			enemy AI func			*/
 	void enemyAI();							// 에너미 ai함수

@@ -25,21 +25,21 @@ HRESULT orc::init(int x, int y, gameObjectManager * gom)
 	_gameObjMgr = gom;
 	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = new image;
-	_character->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+	_character->init("image/character/orc_idle.bmp", 1080, 668, 6, 4, true, 0xff00ff);
 	_characterState = IDLE;
 	_characterDir = LB;
 	_curFrameX = 0;
 
 	_mv = 5;
-	_isShow = false;
-	_moveSpeed = 3;
-
+	_isShow = true;
 	_moveSpeed = 3;
 
 	_rc = RectMakeIso(_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY, 
 		_character->getFrameWidth(), _character->getFrameHeight());
 	_x = (_rc.right + _rc.left) / 2;
 	_y = (_rc.top + _rc.bottom) / 2;
+
+	_atk = 100;
 
 	_maxHp = _hp = 100;
 
@@ -64,6 +64,7 @@ void orc::update()
 	_hpBar->setX(_x);
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
+	_hpBar->gauge(_hp, _maxHp);
 	
 	gameObject::setDirectionImage();
 	setImage();
@@ -85,14 +86,17 @@ void orc::update()
 
 void orc::render()
 {
-	if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
-	if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
-	
-	if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
+	if (_isShow)
 	{
-		_shadow->render(getMemDC(), _rc.left + 15, _rc.bottom - _shadow->getFrameHeight() / 2);
-		_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
-		_hpBar->render();
+		if (_isShowPossibleMoveTile) gameObject::showPossibleMoveTile();
+		if (_isShowPossibleAttackTile) gameObject::showPossibleAttackTile();
+	
+		if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
+		{
+			_shadow->render(getMemDC(), _x - _shadow->getWidth() / 2, _rc.bottom - _shadow->getFrameHeight() / 2 - 10);
+			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
+			_hpBar->render();
+		}
 	}
 }
 
@@ -101,16 +105,16 @@ void orc::setImage()
 	switch (_characterState)
 	{
 	case IDLE:
-		_character->init("image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+		_character->init("image/character/orc_idle.bmp", 1080, 668, 6, 4, true, 0xff00ff);
 		break;
 	case WALK:
 		_character->init("image/character/orc_walk.bmp", 534, 668, 6, 4, true, 0xff00ff);
 		break;
 	case ATTACK:
-		_character->init("image/character/orc_attack.bmp", 1764, 668, 7, 4, true, 0xff00ff);
+		_character->init("image/character/orc_attack.bmp", 1694, 716, 7, 4, true, 0xff00ff);
 		break;
 	case PAIN:
-		_character->init("image/character/orc_pain.bmp", 189, 596, 1, 4, true, 0xff00ff);
+		_character->init("image/character/orc_pain.bmp", 1323, 596, 7, 4, true, 0xff00ff);
 		break;
 	}
 }
@@ -156,6 +160,13 @@ void orc::setFrame()
 			}
 			else if (_characterState == PAIN)
 			{
+				if (_hp <= 0)
+				{
+					_hp = 0;
+					_isShow = false;
+					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state == S_NONE;
+					_gameObjMgr->setEnemyDeath();
+				}
 				_characterState = IDLE;
 				return;
 			}
