@@ -34,12 +34,12 @@ HRESULT orc::init(int x, int y, gameObjectManager * gom)
 	_isShow = true;
 	_moveSpeed = 3;
 
-	_moveSpeed = 3;
-
 	_rc = RectMakeIso(_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY, 
 		_character->getFrameWidth(), _character->getFrameHeight());
 	_x = (_rc.right + _rc.left) / 2;
 	_y = (_rc.top + _rc.bottom) / 2;
+
+	_atk = 100;
 
 	_maxHp = _hp = 100;
 
