@@ -147,15 +147,11 @@ void battleManager::update()
 			//AI
 			enemyAI();
 		}
+		//실행창(턴종료, 중도포기)
 	}
-<<<<<<< HEAD
-	//실행창(턴종료, 중도포기)
-=======
-
 	_count++;
 	setFrame();
 
->>>>>>> refs/remotes/origin/development
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_takeTurns = true;
@@ -510,24 +506,28 @@ void battleManager::enemyAI()
 		&& _objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY - 1);
+		_camera->setIsVibrate(true);
 		return;
 	}
 	else if (enemyX + enemyY * TILENUM - 1 >= 0
 		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX - 1, enemyY);
+		_camera->setIsVibrate(true);
 		return;
 	}
 	else if (enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM)
 		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX + 1, enemyY);
+		_camera->setIsVibrate(true);
 		return;
 	}
 	else if (enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM)
 		&& _objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY + 1);
+		_camera->setIsVibrate(true);
 		return;
 	}
 
@@ -550,20 +550,12 @@ void battleManager::enemyAI()
 		}
 		else if (tempTileIdx - 1 >= 0 && tempTileIdx - 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - 1]->state == S_NONE)
 		{
-<<<<<<< HEAD
-			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - 1]->x, _objectMgr->getVTile()[tempTileIdx - 1]->y, tempTileIdx, 
-=======
 			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - 1]->x, _objectMgr->getVTile()[tempTileIdx - 1]->y, tempTileIdx,
->>>>>>> refs/remotes/origin/development
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 		else if (tempTileIdx + 1 >= 0 && tempTileIdx + 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + 1]->state == S_NONE)
 		{
-<<<<<<< HEAD
-			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + 1]->x, _objectMgr->getVTile()[tempTileIdx + 1]->y, tempTileIdx, 
-=======
 			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + 1]->x, _objectMgr->getVTile()[tempTileIdx + 1]->y, tempTileIdx,
->>>>>>> refs/remotes/origin/development
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 		else if (tempTileIdx + TILENUM >= 0 && tempTileIdx + TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + TILENUM]->state == S_NONE)
