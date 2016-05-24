@@ -40,6 +40,8 @@ HRESULT catsaver::init(int x, int y, gameObjectManager * gom)
 	_x = (_rc.right + _rc.left) / 2;
 	_y = (_rc.top + _rc.bottom) / 2;
 
+	_atk = 200;
+
 	_maxHp = _hp = 100;
 
 	_hpBar = new progressBar;
@@ -93,7 +95,7 @@ void catsaver::render()
 
 		if (_x > _cameraX && _x < _cameraX + WINSIZEX && _y > _cameraY && _y < _cameraY + WINSIZEY)
 		{
-			_shadow->render(getMemDC(), _rc.left - 15, _rc.bottom - _shadow->getFrameHeight() / 2);
+			_shadow->render(getMemDC(), _x - _shadow->getWidth() / 2, _rc.bottom - _shadow->getFrameHeight() / 2);
 			//Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			_hpBar->render();
@@ -115,7 +117,7 @@ void catsaver::setImage()
 		_character->init("image/character/catsaver_attack.bmp", 1295, 856, 5, 4, true, 0xff00ff);
 		break;
 	case PAIN:
-		_character->init("image/character/catsaver_pain.bmp", 101, 416, 1, 4, true, 0xff00ff);
+		_character->init("image/character/catsaver_pain.bmp", 707, 416, 7, 4, true, 0xff00ff);
 		break;
 	}
 }

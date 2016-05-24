@@ -99,6 +99,7 @@ void gameObject::move()
 				if (_targetX != -1 && _targetY != -1 && !_isCharacter)
 				{
 					attack(_targetX, _targetY);
+					_gameObjMgr->characterPain(_targetIdx, _indexX, _indexY, _atk);
 				}
 				else if (_targetX == -1 && _targetY == -1 && !_isCharacter)
 				{
@@ -255,11 +256,6 @@ void gameObject::setEnemyMove(int targetIdx, int targetX, int targetY, int endX,
 {
 	if (!_isMove)
 	{
-		//if (_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state != ZEN_POINT)
-		//{
-		//	_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->state = S_NONE;
-		//}
-
 		_isMove = true;
 		_currentMoveCount = 0;
 		_destX = endX;
