@@ -40,6 +40,8 @@ HRESULT catsaver::init(int x, int y, gameObjectManager * gom)
 	_x = (_rc.right + _rc.left) / 2;
 	_y = (_rc.top + _rc.bottom) / 2;
 
+	_atk = 200;
+
 	_maxHp = _hp = 100;
 
 	_hpBar = new progressBar;

@@ -135,7 +135,7 @@ void raspberyl::setImage()
 		break;
 
 	case PAIN:
-		_character = IMAGEMANAGER->findImage("raspberyl_etc");
+		_character = IMAGEMANAGER->findImage("raspberyl_pain");
 		break;
 	}
 

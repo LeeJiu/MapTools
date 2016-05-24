@@ -97,7 +97,6 @@ void etna::render()
 			_shadow->render(getMemDC(), _x - _shadow->getWidth() / 2, _rc.bottom - _shadow->getFrameHeight() / 2);
 			_character->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 			_hpBar->render();
-
 		}
 	}
 }
