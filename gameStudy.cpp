@@ -47,14 +47,14 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("flonne_walk", "image/character/flonne_walk.bmp", 624, 664, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("flonne_attack", "image/character/flonne_attack.bmp", 824, 612, 4, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("flonne_lift", "image/character/flonne_lift.bmp", 396, 664, 4, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("flonne_pain", "image/character/flonne_pain.bmp.bmp", 118, 612, 1, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("flonne_pain", "image/character/flonne_pain.bmp.bmp", 826, 612, 7, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("flonne_etc", "image/character/flonne_etc.bmp", 236, 620, 2, 4, true, 0xff00ff);
 
 	//raspberyl
 	IMAGEMANAGER->addFrameImage("raspberyl_idle", "image/character/raspberyl_idle.bmp", 396, 576, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("raspberyl_walk", "image/character/raspberyl_walk.bmp", 552, 580, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("raspberyl_attack", "image/character/raspberyl_attack.bmp", 460, 592, 5, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("raspberyl_pain", "image/character/raspberyl_pain.bmp", 104, 488, 1, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("raspberyl_pain", "image/character/raspberyl_pain.bmp", 728, 488, 7, 4, true, 0xff00ff);
 
 	//etna
 	IMAGEMANAGER->addFrameImage("etna_idle", "image/character/etna_idle.bmp", 588, 656, 6, 4, true, 0xff00ff);
@@ -92,14 +92,14 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("prinny_walk", "image/character/prinny_walk.bmp", 776, 492, 8, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("prinny_attack", "image/character/prinny_attack.bmp", 780, 484, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("prinny_lift", "image/character/prinny_lift.bmp", 720, 524, 6, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("prinny_pain", "image/character/prinny_pain.bmp", 127, 528, 1, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("prinny_pain", "image/character/prinny_pain.bmp", 819, 528, 7, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("prinny_etc", "image/character/prinny_etc.bmp", 468, 528, 4, 4, true, 0xff00ff);
 
 	//오크
-	IMAGEMANAGER->addFrameImage("orc_idle", "image/character/orc_idle.bmp", 1008, 668, 6, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("orc_idle", "image/character/orc_idle.bmp", 1080, 668, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("orc_walk", "image/character/orc_walk.bmp", 534, 668, 6, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("orc_attack", "image/character/orc_attack.bmp", 1764, 668, 7, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("orc_pain", "image/character/orc_pain.bmp", 189, 596, 1, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("orc_attack", "image/character/orc_attack.bmp", 1694, 716, 7, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("orc_pain", "image/character/orc_pain.bmp", 1323, 596, 7, 4, true, 0xff00ff);
 
 
 	//그림자
@@ -144,7 +144,7 @@ HRESULT gameStudy::init()
 	SOUNDMANAGER->addSound("skill_cut", "sound/skill_cut.wav", false, false);
 
 
-	SCENEMANAGER->changeScene("title");
+	SCENEMANAGER->changeScene("selectStage");
 
 	return S_OK;
 }

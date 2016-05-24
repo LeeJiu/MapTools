@@ -13,8 +13,6 @@ battleManager::~battleManager()
 
 HRESULT battleManager::init()
 {
-	_isShowLabel = true;
-
 	_cameraX = CENTERX;
 	_cameraY = CENTERY;
 
@@ -22,13 +20,13 @@ HRESULT battleManager::init()
 	_ui->init();
 
 	_isPlayerTurn = true;	//플레이어 먼저 시작
+
+	_isShowLabel = true;
 	
-	_turnbackImage = new image;
 	_turnbackImage = IMAGEMANAGER->findImage("turnback");
-	_turnUIImage = new image;
 	_turnUIImage = IMAGEMANAGER->findImage("stageStart");
 	_rcTurnback = RectMakeCenter(_cameraX, _cameraY + CENTERY, WINSIZEX, 100);
-	_time = 0;
+	_time = _time2 = 0;
 
 	_takeTurns = _onAction = false;
 	_action = IMAGEMANAGER->addImage("action", "image/ui/ui_action.bmp", 250, 150, false, false);
@@ -37,6 +35,9 @@ HRESULT battleManager::init()
 	_selectTile = IMAGEMANAGER->findImage("select_tile");
 	_selectArrow = IMAGEMANAGER->findImage("ui_arrow_blue");
 
+	IMAGEMANAGER->addImage("clear", "image/background/stage_clear.bmp", WINSIZEX, WINSIZEY, false, false);
+	IMAGEMANAGER->addImage("fail", "image/background/stage_fail.bmp", WINSIZEX, WINSIZEY, false, false);
+
 	_count = 0;
 	return S_OK;
 }
@@ -44,8 +45,6 @@ HRESULT battleManager::init()
 void battleManager::release()
 {
 	_ui->release();
-	_turnbackImage->release();
-	_turnUIImage->release();
 	SAFE_DELETE(_ui);
 }
 
@@ -59,67 +58,100 @@ void battleManager::update()
 		_setUI = true;
 	}
 
-	setRect();
-	
-	if (!_isShowLabel)
-	{
-		//플레이어의 턴일 때
-		if (_isPlayerTurn)
-		{
-			//플레이어가 ui를 조작할 수 있다.
-			if (!_takeTurns)
-			{
-				if (_leftButtonDown && !_onUI)
-				{
-					_leftButtonDown = false;
-					tileControl();
-				}
-				else if (_leftButtonDown && _onUI)
-				{
-					_leftButtonDown = false;
-					UIControl();
-				}
+	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
 
-				//모든 ui창을 끈다.
-				if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+	//플레이어의 턴일 때
+	if (_isPlayerTurn)
+	{
+		//플레이어가 ui를 조작할 수 있다.
+		if (!_takeTurns)
+		{
+			if (!_camera->getIsJoomOut() && _isShowLabel)
+			{
+				_turnUIImage = IMAGEMANAGER->findImage("playerTurn");
+				_time += TIMEMANAGER->getElapsedTime();
+				if (_time > 1.5f)
 				{
-					_ui->onCharacterList(false);
-					_ui->onOrder(false);
-					_ui->onSummary(false);
-					_ui->onStatus(false);
+					_time = 0;
+					_isShowLabel = false;
+				}
+			}
+
+			if (_leftButtonDown && !_onUI && !_isShowLabel)
+			{
+				_leftButtonDown = false;
+				tileControl();
+			}
+			else if (_leftButtonDown && _onUI && !_isShowLabel)
+			{
+				_leftButtonDown = false;
+				UIControl();
+			}
+
+			//모든 ui창을 끈다.
+			if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+			{
+				_ui->onCharacterList(false);
+				_ui->onOrder(false);
+				_ui->onSummary(false);
+				_ui->onStatus(false);
+				_onAction = false;
+				_onUI = false;
+			}
+
+			//실행창(턴종료, 중도포기)
+			if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+			{
+				if (_onAction)
+				{
 					_onAction = false;
 					_onUI = false;
 				}
-
-				if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+				else
 				{
-					if (_onAction)
-					{
-						_onAction = false;
-						_onUI = false;
-					}
-					else
-					{
-						_onAction = true;
-						_onUI = true;
-					}
+					_onAction = true;
+					_onUI = true;
 				}
 			}
-			//플레이어가 ui를 조작할 수 없다. / 턴 실행 중
+		}
+		//플레이어가 ui를 조작할 수 없다. / 턴 실행 중
+		else
+		{
+			orderAction();
+		}
+	}
+	//에너미의 턴일 때
+	else
+	{
+		if (!_takeTurns)
+		{
+			if (!_camera->getIsJoomOut())
+			{
+				_isShowLabel = true;
+				_turnUIImage = IMAGEMANAGER->findImage("enemyTurn");
+				_time += TIMEMANAGER->getElapsedTime();
+				if (_time > 1.5f)
+				{
+					_time = 0;
+					_isShowLabel = false;
+					_takeTurns = true;
+				}
+			}
 			else
 			{
-				orderAction();
+				return;
 			}
 		}
-		//에너미의 턴일 때
 		else
 		{
 			//AI
-			setRect();
 			enemyAI();
 		}
+	}
 
-	//실행창(턴종료, 중도포기)
+	_count++;
+	setFrame();
+
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_takeTurns = true;
@@ -127,8 +159,28 @@ void battleManager::update()
 		_onUI = false;
 	}
 
-	_count++;
-	setFrame();
+	if (KEYMANAGER->isOnceKeyDown('C'))
+	{
+		_playerWin = true;
+		_enemyWin = false;
+	}
+	if (KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_playerWin = false;
+		_enemyWin = true;
+	}
+
+	//플레이어 승리 / 패배
+	if ((_playerWin && !_enemyWin)
+		|| (!_playerWin && _enemyWin))
+	{
+		_time2 += TIMEMANAGER->getElapsedTime();
+		if (_time2 > 2.f)
+		{
+			_time2 = 0;
+			SCENEMANAGER->changeScene("town");
+		}
+	}
 
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
@@ -143,54 +195,23 @@ void battleManager::render()
 	if (_onAction)
 		_action->render(getMemDC(), _rcAction.left, _rcAction.top);
 
-	turnbarRender();	//턴바 드로우
-
-	char str[100];
-	sprintf_s(str, "_isShowLabel = %d , time = %f", _isShowLabel, _time);
-	TextOut(getMemDC(), _cameraX + 10, _cameraY + 10, str, strlen(str));
-}
-
-void battleManager::setRect()
-{
-	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
-
 	if (_isShowLabel)
 	{
-		if (_rcTurnback.left == _cameraX)
-		{
-			_time += TIMEMANAGER->getElapsedTime();
-			if (_time > 1.5)
-			{
-				_time = 0;
-				_rcTurnback.left += 1;
-			}
-		}
-		else 
-		{
-			_rcTurnback.left += 20;
-			_rcTurnback.right += 20;
-		}
+		_turnUIImage->render(getMemDC()
+			, _cameraX + CENTERX - _turnUIImage->getWidth() / 2
+			, _cameraY + CENTERY - _turnUIImage->getHeight() / 2);
 	}
 
-	if (_rcTurnback.left > _cameraX + WINSIZEX || !_isShowLabel)
+	//플레이어 승리
+	if (_playerWin && !_enemyWin)
 	{
-		_rcTurnback = RectMakeCenter(_cameraX - WINSIZEX / 2, _cameraY + CENTERY, WINSIZEX, 100);
-		_isShowLabel = false;
+		IMAGEMANAGER->findImage("clear")->render(getMemDC(), _cameraX, _cameraY);
 	}
-}
-
-void battleManager::turnbarRender()
-{
-	if (!_isShowLabel)
+	//플레이어 패배
+	else if (!_playerWin && _enemyWin)
 	{
-		if (!_isPlayerTurn)
-			_turnUIImage = IMAGEMANAGER->findImage("playerTurn");
-		else if (_isPlayerTurn)
-			_turnUIImage = IMAGEMANAGER->findImage("enemyTurn");
+		IMAGEMANAGER->findImage("fail")->render(getMemDC(), _cameraX, _cameraY);
 	}
-
-	_turnbackImage->render(getMemDC(),_rcTurnback.left, _rcTurnback.top);
-	_turnUIImage->render(getMemDC(), _rcTurnback.left + _turnUIImage->getWidth(), _rcTurnback.top + _turnUIImage->getHeight() / 2);
 }
 
 void battleManager::setFrame()
@@ -328,19 +349,16 @@ void battleManager::orderAction()
 	if (_vOrder.size() == 0)
 	{
 		_isPlayerTurn = false;
-		_takeTurns = true;
+		_takeTurns = false;
 		_onAction = false;
 		_onUI = false;
-		_isShowLabel = true;
-
 		return;
 	}
 
 	_camera->setIsJoomIn(true);
 
-	// 해당 케릭터가 명령을 수행중이라면 리턴시켜라
-	if (_objectMgr->getOrderList() == OL_ORDERING) return;
-	if (_objectMgr->getOrderList() == OL_END) return;
+	//명령의 끝이거나, 명령 중이라면 명령을 실행하지 않는다
+	if (_objectMgr->getOrderList() != OL_NONE) return;
 
 	// 명령의 종류가 공격이라면 케릭터공격, 에너미 피격 함수를 호출한다
 	if (_vOrder[_orderNum].order == O_ATTACK)
@@ -349,7 +367,6 @@ void battleManager::orderAction()
 		_objectMgr->enemyPain(_vOrder[_orderNum].enemyVIdx, _vOrder[_orderNum].playerIdx.x, _vOrder[_orderNum].playerIdx.y, _vOrder[_orderNum].damage);
 		_camera->setIsVibrate(true);
 	}
-	
 }
 
 void battleManager::selectTileRender()
@@ -485,26 +502,26 @@ void battleManager::enemyAI()
 	// 명령 수행 중인 에너미의 4방향 검사
 	int enemyX = _objectMgr->getVEnemy()[_enemyIdx]->getIndexX();
 	int enemyY = _objectMgr->getVEnemy()[_enemyIdx]->getIndexY();
-	if (_objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR
-		&& enemyX + (enemyY - 1) * TILENUM >= 0)
+	if (enemyX + (enemyY - 1) * TILENUM >= 0
+		&& _objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY - 1);
 		return;
 	}
-	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR
-		&& enemyX + enemyY * TILENUM - 1 >= 0)
+	else if (enemyX + enemyY * TILENUM - 1 >= 0
+		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX - 1, enemyY);
 		return;
 	}
-	else if (_objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR
-		&& enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM))
+	else if (enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM)
+		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX + 1, enemyY);
 		return;
 	}
-	else if (_objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR
-		&& enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM))
+	else if (enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM)
+		&& _objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY + 1);
 		return;
@@ -524,22 +541,22 @@ void battleManager::enemyAI()
 		// 타일의 인덱스가 범위 내고, S_NONE이라면 4방향 검사해서 그쪽으로 이동한 후 공격한다.
 		if (tempTileIdx - TILENUM >= 0 && tempTileIdx - TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - TILENUM]->state == S_NONE)
 		{
-			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - TILENUM]->x, _objectMgr->getVTile()[tempTileIdx - TILENUM]->y,
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - TILENUM]->x, _objectMgr->getVTile()[tempTileIdx - TILENUM]->y, tempTileIdx,
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 		else if (tempTileIdx - 1 >= 0 && tempTileIdx - 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx - 1]->state == S_NONE)
 		{
-			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - 1]->x, _objectMgr->getVTile()[tempTileIdx - 1]->y,
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx - 1]->x, _objectMgr->getVTile()[tempTileIdx - 1]->y, tempTileIdx,
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 		else if (tempTileIdx + 1 >= 0 && tempTileIdx + 1 < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + 1]->state == S_NONE)
 		{
-			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + 1]->x, _objectMgr->getVTile()[tempTileIdx + 1]->y,
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + 1]->x, _objectMgr->getVTile()[tempTileIdx + 1]->y, tempTileIdx,
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 		else if (tempTileIdx + TILENUM >= 0 && tempTileIdx + TILENUM < TOTALTILE(TILENUM) && _objectMgr->getVTile()[tempTileIdx + TILENUM]->state == S_NONE)
 		{
-			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + TILENUM]->x, _objectMgr->getVTile()[tempTileIdx + TILENUM]->y,
+			_objectMgr->enemyMoveToAttack(_enemyIdx, _objectMgr->getVTile()[tempTileIdx + TILENUM]->x, _objectMgr->getVTile()[tempTileIdx + TILENUM]->y, tempTileIdx,
 				_objectMgr->getVTile()[tempTileIdx]->x, _objectMgr->getVTile()[tempTileIdx]->y);
 		}
 	}
@@ -554,11 +571,10 @@ void battleManager::increaseEnemyIdx()
 		_enemyIdx = 0;
 		_isPlayerTurn = true;
 		_takeTurns = false;
+		_isShowLabel = true;
 
 		// 카메라 줌 아웃 호출
 		_camera->setIsJoomOut(true);
-
-		_isShowLabel = true;
 	}
 }
 
@@ -594,14 +610,14 @@ void battleManager::increaseOrderNum()
 {
 	_orderNum++;
 
-	if (_vOrder.size() <= _orderNum)
+	if (_vOrder.size() == _orderNum)
 	{
 		_orderNum = 0;
 		_isPlayerTurn = false;
+		_takeTurns = false;
 		_vOrder.clear();
+
 		// 카메라 줌 아웃 호출
 		_camera->setIsJoomOut(true);
-
-		//_isShowLabel = true;
 	}
 }
