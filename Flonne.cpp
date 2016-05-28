@@ -18,6 +18,9 @@ HRESULT flonne::init()
 
 HRESULT flonne::init(int x, int y, gameObjectManager * gom)
 {
+	_volume = 0.f;
+	SOUNDMANAGER->play("f_step", _volume);
+
 	_name = "flonne";
 
 	loadData();
@@ -66,6 +69,8 @@ void flonne::release()
 
 void flonne::update()
 {
+	SOUNDMANAGER->setVolum("f_step",_volume);
+
 	_hpBar->setX(_x);
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
@@ -117,22 +122,27 @@ void flonne::setImage()
 	{
 	case IDLE:
 		_character = IMAGEMANAGER->findImage("flonne_idle");
+		_volume = 0;
 		break;
 
 	case WALK:
 		_character = IMAGEMANAGER->findImage("flonne_walk");
+		_volume = 1.f;
 		break;
 
 	case ATTACK:
 		_character = IMAGEMANAGER->findImage("flonne_attack");
+		_volume = 0.f;
 		break;
 
 	case LIFT:
 		_character = IMAGEMANAGER->findImage("flonne_lift");
+		_volume = 0.f;
 		break;
 
 	case PAIN:
 		_character = IMAGEMANAGER->findImage("flonne_etc");
+		_volume = 0.f;
 		break;
 	}
 

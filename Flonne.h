@@ -2,6 +2,8 @@
 #include "character.h"
 class flonne : public character
 {
+	float _volume;
+
 public:
 	flonne();
 	~flonne();

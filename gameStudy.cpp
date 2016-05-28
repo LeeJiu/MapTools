@@ -129,6 +129,9 @@ HRESULT gameStudy::init()
 	
 	//효과음
 	SOUNDMANAGER->addSound("step", "sound/step.wav", true, true);
+	SOUNDMANAGER->addSound("f_step", "sound/step.wav", true, true);
+	SOUNDMANAGER->addSound("e_step", "sound/step.wav", true, true);
+	SOUNDMANAGER->addSound("r_step", "sound/step.wav", true, true);
 	SOUNDMANAGER->addSound("sell", "sound/sell.wav", false, false);
 	SOUNDMANAGER->addSound("equip", "sound/equip.wav", false, false);
 	SOUNDMANAGER->addSound("ban", "sound/ban.wav", false, false);
@@ -138,9 +141,12 @@ HRESULT gameStudy::init()
 	SOUNDMANAGER->addSound("heal", "sound/heal.wav", false, false);
 	SOUNDMANAGER->addSound("heal2", "sound/heal2.wav", false, false);
 	SOUNDMANAGER->addSound("prinny_on", "sound/prinny_on.wav", false, false);
+	SOUNDMANAGER->addSound("etna_on", "sound/etna_on.wav", false, false);
+	SOUNDMANAGER->addSound("flonne_on", "sound/flonne_on.mp3", false, false);
+	SOUNDMANAGER->addSound("razberyl_on", "sound/razberyl_on.mp3", false, false);
 	SOUNDMANAGER->addSound("prinny_go", "sound/prinny_go.wav", false, false);
-	SOUNDMANAGER->addSound("prinny_attack", "sound/prinny_attack.wav", true, true);
 	SOUNDMANAGER->addSound("stage_clear", "sound/stage_clear.wav", false, false);
+	SOUNDMANAGER->addSound("stage_fail", "sound/stage_fail.wav", false, false);
 	SOUNDMANAGER->addSound("skill_cut", "sound/skill_cut.wav", false, false);
 
 
