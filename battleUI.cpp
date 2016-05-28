@@ -141,6 +141,7 @@ void battleUI::removeVCharList(int arrNum)
 
 void battleUI::setCharList(vector<string>& charName)
 {
+	
 	tagCharList list;
 	list.idx = 0;
 	list.name = "prinny";
