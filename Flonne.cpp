@@ -184,7 +184,7 @@ void flonne::setFrame()
 				{
 					_hp = 0;
 					_isShow = false;
-					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state == S_NONE;
+					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state = S_NONE;
 					_gameObjMgr->setCharDeath();
 				}
 				_characterState = IDLE;
