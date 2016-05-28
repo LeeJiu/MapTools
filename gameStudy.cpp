@@ -164,6 +164,7 @@ void gameStudy::release()
 
 void gameStudy::update()
 {
+	SOUNDMANAGER->update();
 	SCENEMANAGER->update();
 
 	gameNode::update();
