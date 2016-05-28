@@ -51,23 +51,17 @@ void battleManager::release()
 void battleManager::update()
 {
 	_ui->update();
-
 	if (!_setUI)
 	{
 		_ui->setCharList(_objectMgr->getVCharacter()[0]->getMercenary());
 		_setUI = true;
 	}
 
-<<<<<<< HEAD
-	setRect();
 
-	if (!_isShowLabel)
-=======
 	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
 
 	//플레이어의 턴일 때
 	if (_isPlayerTurn)
->>>>>>> refs/remotes/origin/development
 	{
 		//플레이어가 ui를 조작할 수 있다.
 		if (!_takeTurns)
@@ -145,21 +139,12 @@ void battleManager::update()
 			}
 			else
 			{
-<<<<<<< HEAD
-				//setRect();
-				orderAction();
-=======
 				return;
->>>>>>> refs/remotes/origin/development
 			}
 		}
 		else
 		{
 			//AI
-<<<<<<< HEAD
-			//setRect();
-=======
->>>>>>> refs/remotes/origin/development
 			enemyAI();
 		}
 		//실행창(턴종료, 중도포기)
@@ -167,18 +152,7 @@ void battleManager::update()
 	_count++;
 	setFrame();
 
-<<<<<<< HEAD
-		//실행창(턴종료, 중도포기)
-		if (KEYMANAGER->isOnceKeyDown('1'))
-		{
-			_takeTurns = true;
-			_onAction = false;
-			_onUI = false;
-		}
 
-		_count++;
-		setFrame();
-=======
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_takeTurns = true;
@@ -208,13 +182,12 @@ void battleManager::update()
 			SCENEMANAGER->changeScene("town");
 		}
 	}
->>>>>>> refs/remotes/origin/development
+
 
 		if (KEYMANAGER->isOnceKeyDown('2'))
 		{
 			SCENEMANAGER->changeScene("selectStage");
 		}
-	}
 }
 
 void battleManager::render()
@@ -224,20 +197,7 @@ void battleManager::render()
 	if (_onAction)
 		_action->render(getMemDC(), _rcAction.left, _rcAction.top);
 
-<<<<<<< HEAD
-	turnbarRender();	//턴바 드로우
 
-	//char str[100];
-	//sprintf_s(str, "_isShowLabel = %d , time = %f", _isShowLabel, _time);
-	//TextOut(getMemDC(), _cameraX + 10, _cameraY + 10, str, strlen(str));
-}
-
-void battleManager::setRect()
-{
-	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
-
-=======
->>>>>>> refs/remotes/origin/development
 	if (_isShowLabel)
 	{
 		_turnUIImage->render(getMemDC()
@@ -657,11 +617,7 @@ void battleManager::increaseOrderNum()
 {
 	_orderNum++;
 
-<<<<<<< HEAD
-	if (_orderNum >= _vOrder.size())
-=======
 	if (_vOrder.size() == _orderNum)
->>>>>>> refs/remotes/origin/development
 	{
 		_orderNum = 0;
 		_isPlayerTurn = false;
@@ -670,13 +626,5 @@ void battleManager::increaseOrderNum()
 
 		// 카메라 줌 아웃 호출
 		_camera->setIsJoomOut(true);
-<<<<<<< HEAD
-		
-		if (_camera->getIsJoomOut())
-		{
-			_isShowLabel = true;
-		}
-=======
->>>>>>> refs/remotes/origin/development
 	}
 }
