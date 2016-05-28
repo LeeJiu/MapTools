@@ -18,6 +18,8 @@ HRESULT raspberyl::init()
 
 HRESULT raspberyl::init(int x, int y, gameObjectManager * gom)
 {
+	_volume = 0;
+	SOUNDMANAGER->play("r_step", _volume);
 
 	_name = "raspberyl";
 	loadData();
@@ -67,6 +69,8 @@ void raspberyl::release()
 
 void raspberyl::update()
 {
+	SOUNDMANAGER->setVolum("r_step", _volume);
+
 	_hpBar->setX(_x);
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
@@ -120,22 +124,27 @@ void raspberyl::setImage()
 	{
 	case IDLE:
 		_character = IMAGEMANAGER->findImage("raspberyl_idle");
+		_volume = 0;
 		break;
 
 	case WALK:
 		_character = IMAGEMANAGER->findImage("raspberyl_walk");
+		_volume = 1;
 		break;
 
 	case ATTACK:
 		_character = IMAGEMANAGER->findImage("raspberyl_attack");
+		_volume = 0;
 		break;
 
 	case LIFT:
 		_character = IMAGEMANAGER->findImage("raspberyl_lift");
+		_volume = 0;
 		break;
 
 	case PAIN:
 		_character = IMAGEMANAGER->findImage("raspberyl_pain");
+		_volume = 0;
 		break;
 	}
 
@@ -187,7 +196,7 @@ void raspberyl::setFrame()
 				{
 					_hp = 0;
 					_isShow = false;
-					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state == S_NONE;
+					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state = S_NONE;
 					_gameObjMgr->setCharDeath();
 				}
 				_characterState = IDLE;

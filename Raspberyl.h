@@ -2,6 +2,7 @@
 #include "character.h"
 class raspberyl : public character
 {
+	float _volume;
 public:
 	raspberyl();
 	~raspberyl();

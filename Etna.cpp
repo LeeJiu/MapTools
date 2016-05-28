@@ -18,6 +18,9 @@ HRESULT etna::init()
 
 HRESULT etna::init(int x, int y, gameObjectManager * gom)
 {
+	_volume = 0;
+	SOUNDMANAGER->play("e_step", _volume);
+
 	_name = "etna";
 
 	loadData();
@@ -66,6 +69,8 @@ void etna::release()
 
 void etna::update()
 {
+	SOUNDMANAGER->setVolum("e_step", _volume);
+
 	_hpBar->setX(_x);
 	_hpBar->setY(_rc.top - 10);
 	_hpBar->update();
@@ -116,22 +121,27 @@ void etna::setImage()
 	{
 	case IDLE:
 		_character = IMAGEMANAGER->findImage("etna_idle");
+		_volume = 0;
 		break;
 
 	case WALK:
 		_character = IMAGEMANAGER->findImage("etna_walk");
+		_volume = 1;
 		break;
 
 	case ATTACK:
 		_character = IMAGEMANAGER->findImage("etna_attack");
+		_volume = 0;
 		break;
 
 	case LIFT:
 		_character = IMAGEMANAGER->findImage("etna_lift");
+		_volume = 0;
 		break;
 
 	case PAIN:
 		_character = IMAGEMANAGER->findImage("etna_etc");
+		_volume = 0;
 		break;
 	}
 
@@ -183,7 +193,7 @@ void etna::setFrame()
 				{
 					_hp = 0;
 					_isShow = false;
-					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state == S_NONE;
+					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state = S_NONE;
 					_gameObjMgr->setCharDeath();
 				}
 				_characterState = IDLE;

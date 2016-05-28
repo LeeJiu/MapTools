@@ -17,6 +17,7 @@ HRESULT battleCamera::init()
 	_isMapScrool = false;
 
 	_joomSize = 100;
+
 	_vibrateCount = 0;
 
 	return S_OK;
@@ -33,6 +34,7 @@ void battleCamera::update()
 	cameraVibrate();
 	setCameraJoomIn();
 	setCameraJoomOut();
+	cameraKeyControl();
 }
 
 void battleCamera::render()
@@ -92,6 +94,37 @@ void battleCamera::setCameraJoomOut()
 		_cameraX += _joomSize / 2;
 		_cameraY += _joomSize / 2;
 		_isJoomOut = false;
+	}
+}
+
+void battleCamera::cameraKeyControl()
+{
+	if (KEYMANAGER->isStayKeyDown('I'))
+	{
+		_sourWidth -= _joomSize / 10;
+		_sourHeight -= _joomSize / 10;
+
+		_cameraX += _joomSize / 20;
+		_cameraY += _joomSize / 20;
+	}
+
+	if (KEYMANAGER->isStayKeyDown('O'))
+	{
+		if (_sourWidth >= WINSIZEX) return;
+
+		_sourWidth += _joomSize / 10;
+		_sourHeight += _joomSize / 10;
+
+		_cameraX -= _joomSize / 20;
+		_cameraY -= _joomSize / 20;
+
+		if (_sourWidth >= WINSIZEX)
+		{
+			_sourWidth = WINSIZEX;
+			_sourHeight = WINSIZEY;
+		//	_cameraX += _joomSize / 20;
+		//	_cameraY += _joomSize / 20;
+		}
 	}
 }
 

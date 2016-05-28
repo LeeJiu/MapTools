@@ -13,6 +13,9 @@ battleManager::~battleManager()
 
 HRESULT battleManager::init()
 {
+	SOUNDMANAGER->play("stage_clear", 0);
+	SOUNDMANAGER->play("stage_fail", 0);
+
 	_cameraX = CENTERX;
 	_cameraY = CENTERY;
 
@@ -44,6 +47,8 @@ HRESULT battleManager::init()
 
 void battleManager::release()
 {
+	SOUNDMANAGER->stop("stage_clear");
+	SOUNDMANAGER->stop("stage_fail");
 	_ui->release();
 	SAFE_DELETE(_ui);
 }
@@ -51,12 +56,12 @@ void battleManager::release()
 void battleManager::update()
 {
 	_ui->update();
-
 	if (!_setUI)
 	{
 		_ui->setCharList(_objectMgr->getVCharacter()[0]->getMercenary());
 		_setUI = true;
 	}
+
 
 	_rcAction = RectMakeCenter(_cameraX + CENTERX, _cameraY + CENTERY, 250, 150);
 
@@ -147,10 +152,11 @@ void battleManager::update()
 			//AI
 			enemyAI();
 		}
+		//실행창(턴종료, 중도포기)
 	}
-
 	_count++;
 	setFrame();
+
 
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
@@ -171,9 +177,10 @@ void battleManager::update()
 	}
 
 	//플레이어 승리 / 패배
-	if ((_playerWin && !_enemyWin)
-		|| (!_playerWin && _enemyWin))
+	if (_playerWin && !_enemyWin)
 	{
+		SOUNDMANAGER->stop("battleScene_bg");
+		SOUNDMANAGER->setVolum("stage_clear", 1);
 		_time2 += TIMEMANAGER->getElapsedTime();
 		if (_time2 > 2.f)
 		{
@@ -182,10 +189,21 @@ void battleManager::update()
 		}
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('2'))
+	if (!_playerWin && _enemyWin)
 	{
-		SCENEMANAGER->changeScene("selectStage");
+		SOUNDMANAGER->stop("battleScene_bg");
+		SOUNDMANAGER->setVolum("stage_fail", 1);
+		_time2 += TIMEMANAGER->getElapsedTime();
+		if (_time2 > 2.f)
+		{
+			_time2 = 0;
+			SCENEMANAGER->changeScene("town");
+		}
 	}
+		if (KEYMANAGER->isOnceKeyDown('2'))
+		{
+			SCENEMANAGER->changeScene("selectStage");
+		}
 }
 
 void battleManager::render()
@@ -194,6 +212,7 @@ void battleManager::render()
 
 	if (_onAction)
 		_action->render(getMemDC(), _rcAction.left, _rcAction.top);
+
 
 	if (_isShowLabel)
 	{
@@ -294,6 +313,21 @@ void battleManager::UIControl()
 	{
 		if (_ui->getCharIdx() != 100)
 		{
+			switch (_ui->getCharIdx())
+			{
+			case 0:
+				SOUNDMANAGER->play("prinny_on", 1.f);
+				break;
+			case 1:
+				SOUNDMANAGER->play("flonne_on", 1.f);
+				break;
+			case 2:
+				SOUNDMANAGER->play("razberyl_on", 1.f);
+				break;
+			case 3:
+				SOUNDMANAGER->play("etna_on", 1.f);
+				break;
+			}
 			_selectCharIdx = _ui->getCharIdx();
 
 			_objectMgr->getVCharacter()[_selectCharIdx]->setIsShow(true);
@@ -365,6 +399,7 @@ void battleManager::orderAction()
 	{
 		_objectMgr->characterAttack(_vOrder[_orderNum].playerVIdx, _vOrder[_orderNum].enemyIdx.x, _vOrder[_orderNum].enemyIdx.y);
 		_objectMgr->enemyPain(_vOrder[_orderNum].enemyVIdx, _vOrder[_orderNum].playerIdx.x, _vOrder[_orderNum].playerIdx.y, _vOrder[_orderNum].damage);
+		SOUNDMANAGER->play("pain", 1);
 		_camera->setIsVibrate(true);
 	}
 }
@@ -506,24 +541,28 @@ void battleManager::enemyAI()
 		&& _objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY - 1);
+		_camera->setIsVibrate(true);
 		return;
 	}
 	else if (enemyX + enemyY * TILENUM - 1 >= 0
 		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX - 1, enemyY);
+		_camera->setIsVibrate(true);
 		return;
 	}
 	else if (enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM)
 		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX + 1, enemyY);
+		_camera->setIsVibrate(true);
 		return;
 	}
 	else if (enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM)
 		&& _objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY + 1);
+		_camera->setIsVibrate(true);
 		return;
 	}
 

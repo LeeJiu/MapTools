@@ -56,17 +56,24 @@ void gameObjectManager::update()
 
 	if (_orderList == OL_END)
 	{
-		_orderList = OL_NONE;
+		_time += TIMEMANAGER->getElapsedTime();
 
-		//플레이어 턴일 때
-		if (_battleMgr->isPlayerTurn())
+		if (_time > 1)
 		{
-			_battleMgr->increaseOrderNum();
-		}
-		//에너미 턴일 때
-		else
-		{
-			_battleMgr->increaseEnemyIdx();
+			_time = 0.f;
+			_orderList = OL_NONE;
+
+			//플레이어 턴일 때
+			if (_battleMgr->isPlayerTurn())
+			{
+				_battleMgr->increaseOrderNum();
+			}
+			//에너미 턴일 때
+			else
+			{
+				_battleMgr->increaseEnemyIdx();
+			}
+
 		}
 	}
 }
@@ -158,7 +165,18 @@ void gameObjectManager::setCharacter()
 void gameObjectManager::setEnemy()
 {
 	// 에너미파일 로드
-	DATABASE->loadDatabase("battleMap1_enm.txt");
+	if (NUMBERDATA->getSelectStageNumber() == 0)
+	{
+		DATABASE->loadDatabase("battleMap1_enm.txt");
+	}
+	if (NUMBERDATA->getSelectStageNumber() == 1)
+	{
+		DATABASE->loadDatabase("battleMap2_enm.txt");
+	}
+	if (NUMBERDATA->getSelectStageNumber() == 2)
+	{
+		DATABASE->loadDatabase("battleMap3_enm.txt");
+	}
 	
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
@@ -197,7 +215,19 @@ void gameObjectManager::setEnemy()
 
 void gameObjectManager::setObject()
 {
-	DATABASE->loadDatabase("battleMap1_obj.txt");
+	if (NUMBERDATA->getSelectStageNumber() == 0)
+	{
+		DATABASE->loadDatabase("battleMap1_obj.txt");
+	}
+	if (NUMBERDATA->getSelectStageNumber() == 1)
+	{
+		DATABASE->loadDatabase("battleMap2_obj.txt");
+	}
+	if (NUMBERDATA->getSelectStageNumber() == 2)
+	{
+		DATABASE->loadDatabase("battleMap3_obj.txt");
+	}
+	
 
 	//오브젝트 갯수만큼
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
@@ -274,6 +304,10 @@ void gameObjectManager::loadMapData()
 	{
 		DATABASE->loadDatabase("battleMap2.txt");
 	}
+	if (NUMBERDATA->getSelectStageNumber() == 2)
+	{
+		DATABASE->loadDatabase("battleMap3.txt");
+	}
 
 	for (_viTile = _vTile.begin(); _viTile != _vTile.end(); ++_viTile)
 	{
@@ -330,6 +364,7 @@ void gameObjectManager::enemyAttack(int index, int destX, int destY)
 	{
 		if (_vCharacter[i]->getIndexX() == destX && _vCharacter[i]->getIndexY() == destY)
 		{
+			SOUNDMANAGER->play("pain", 1);
 			characterPain(i, _vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), _vEnemy[index]->getAtk());
 			break;
 		}
