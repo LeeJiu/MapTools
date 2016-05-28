@@ -94,7 +94,7 @@
   <Class Name="effect" Collapsed="true">
     <Position X="4" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAACAAIAAQAABAAAIAQAAEAAAAEBAIAIAAAAAAUEAA=</HashCode>
+      <HashCode>EAAACAAIAAQAABAFAIAQAAEAAAAEBAIAIAAAAAAUEAA=</HashCode>
       <FileName>effect.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -115,14 +115,14 @@
   <Class Name="elements" Collapsed="true">
     <Position X="23" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAAQBAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAIAAAAAAAAQBAAAAAAAAAAAEAAAAAEAABgAAAAAAA=</HashCode>
       <FileName>database.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="database" Collapsed="true">
     <Position X="9.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAABAAAAAhEAAAAAAAAAAAAAAMAEAAIAAAAAAA=</HashCode>
+      <HashCode>EABAAAAABABAAAhEAAAAAAAAAAAAAAMAEAAIAAAAAAA=</HashCode>
       <FileName>database.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -136,47 +136,47 @@
   <Class Name="gameStudy" Collapsed="true">
     <Position X="9.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAgAAAAAAAAgAAAAAAAAAAAIAAEAAAAAUAAA=</HashCode>
+      <HashCode>EAAAAAAAAgAAAAAAAAgAAAAAAAAAAAIAAAAAAAAUAAA=</HashCode>
       <FileName>gameStudy.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="mapTool" Collapsed="true">
     <Position X="5.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>UFAAAAAABAAACAAAgACIAAAACIBAAAICACEABBAVAAA=</HashCode>
+      <HashCode>cFABAIwABAhAACIAqEgKACIISw1AERImAyACBBAUAAU=</HashCode>
       <FileName>mapTool.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="title" Collapsed="true">
     <Position X="1.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAQAABAAAAAAAAAAAAAAAAAAIAAAAAAAAUAAA=</HashCode>
+      <HashCode>EAAABAAIQAQBAAAMBCCAIAAQAIAAgAIQAAAAAICUAgA=</HashCode>
       <FileName>title.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="town" Collapsed="true">
     <Position X="3" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAAAAAAAUAAI=</HashCode>
+      <HashCode>UAAAAAAIAAAIAAcAgIACAAAABAAAQAIABgCBPAAVAAs=</HashCode>
       <FileName>town.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="store" Collapsed="true">
     <Position X="4.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIBAAAAAAAUAAA=</HashCode>
+      <HashCode>EwETMAGEkABAAQACAAYCAAICABAgEQJJABYgBAAUAMA=</HashCode>
       <FileName>store.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="selectStage" Collapsed="true">
     <Position X="6.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAIAAAAAAAAAAAAAIAAAAAgAAUAAA=</HashCode>
+      <HashCode>EAAAAAgARAAAAgAAJIAAAAIAAACYAIIaQiSAgASUAIA=</HashCode>
       <FileName>selectStage.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="battle" Collapsed="true">
-    <Position X="8.25" Y="5.75" Width="1.5" />
+    <Position X="4.25" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAAAAAAAAAAAAAAACAAgAAAIAAAAAAAAUAAA=</HashCode>
       <FileName>battle.h</FileName>
@@ -185,21 +185,21 @@
   <Class Name="gameObject" Collapsed="true">
     <Position X="10" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAEAAAAAIAAgAAAAAUAAA=</HashCode>
+      <HashCode>E9oEcJGePORAwUuQAbMEEQKyFAlpxgbGFmTkjig0UII=</HashCode>
       <FileName>gameObject.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="character" Collapsed="true">
     <Position X="9" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAIAAAAAAAAAAAAAAAAAAAAIAAAAAIAAAAAAAAUAAA=</HashCode>
+      <HashCode>EAgIABAGACAAAACAATAAAAACIAAIAAIgAAAAhAA0EIA=</HashCode>
       <FileName>character.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="enemy" Collapsed="true">
     <Position X="10.75" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAIAAAAIAAAAAAAAUAAI=</HashCode>
+      <HashCode>EAgAAAAEAAAAAAAAACAAAAAAAIAAAAIAAAAAAAAUAAI=</HashCode>
       <FileName>enemy.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -211,7 +211,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="player" Collapsed="true">
-    <Position X="7.25" Y="8" Width="1.5" />
+    <Position X="4.25" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAAAAAAAQAAAAAAAAAAAAAAIBAAAAAAAUAAA=</HashCode>
       <FileName>player.h</FileName>
@@ -220,29 +220,190 @@
   <Class Name="objects" Collapsed="true">
     <Position X="10.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAgAAAAAAAAAAAAQAAAAIAAAAAAAAUAAA=</HashCode>
+      <HashCode>EQgAAAAEAACAgAAAACAAAAAAARAIQAIBAACgAAAWAIA=</HashCode>
       <FileName>objects.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="item" Collapsed="true">
     <Position X="11" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAAQAAAAAACAAAAIAAAAAAAAUAAA=</HashCode>
+      <HashCode>EAAAAAAEAAAAAAAEAAQAAAAAACAAAAIAEgAAAAAUAAg=</HashCode>
       <FileName>item.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="inventory" Collapsed="true">
     <Position X="12.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJCAAAAAAAUAAA=</HashCode>
+      <HashCode>EZ4gcAqEVABIQRCgAAIAAQIAABFgEAP6QhQCDEAfUAA=</HashCode>
       <FileName>inventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="numberData" Collapsed="true">
+    <Position X="24.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAABEAAAQwAAAAAACAAAARAAAAAAA=</HashCode>
+      <FileName>numberData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="soundManager" Collapsed="true">
+    <Position X="26.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GAAEAAAAAAAAAAAAAACAAAAACACgAAIQAAAkggAEIAQ=</HashCode>
+      <FileName>soundManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gameObjectManager" Collapsed="true">
+    <Position X="26.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>NAAAiAAADCRANBAAJABKIAIAAgAAAAIIQaBgALAUAAg=</HashCode>
+      <FileName>gameObjectManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="etna" Collapsed="true">
+    <Position X="3.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAAFAEACAAAAEAATAAAAAAAAAAAAIAAAAABAA0AIA=</HashCode>
+      <FileName>etna.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="flonne" Collapsed="true">
+    <Position X="0.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAABAEACAAAAEAATABAAAAAAAAAAIAAAAABAB0AIA=</HashCode>
+      <FileName>flonne.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="prinny" Collapsed="true">
+    <Position X="11.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgEABAEJAAAoAEkITAAAAAABwAAAAKJEAAABAC0MIQ=</HashCode>
+      <FileName>prinny.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="raspberyl" Collapsed="true">
+    <Position X="14" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAABAEACAAAAEAATAAAAAAAQAABAIAAAAABAA0AIA=</HashCode>
+      <FileName>raspberyl.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="boss" Collapsed="true">
+    <Position X="18.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQgQAAAEAAAAAAAAACAAAEAAAAAIAAIAAAAAAAAUAIA=</HashCode>
+      <FileName>boss.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="catsaver" Collapsed="true">
+    <Position X="7.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAoAAAAEBAAAAAEAASAAAAAAAAAAwAIAAACgICAUAIA=</HashCode>
+      <FileName>catsaver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="orc" Collapsed="true">
+    <Position X="16.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAwAAAAEAAAAAAEAASAAAAAAACAAwAIAAAAAAAAUAIA=</HashCode>
+      <FileName>orc.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="battleManager" Collapsed="true">
+    <Position X="28.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAAAgQAAJCgoElEoBGFoJAABFRAFACIABEC44iBcQAI=</HashCode>
+      <FileName>battleManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="battleScene" Collapsed="true">
+    <Position X="30.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAIAgABEAIAAAAAACCUAAA=</HashCode>
+      <FileName>battleScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="battleCamera" Collapsed="true">
+    <Position X="33" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBASAAAAAAI0IBECAAAAAAAAEAEBAAMCCKAQAAAVAAA=</HashCode>
+      <FileName>battleCamera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="battleUI" Collapsed="true">
+    <Position X="13.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEAgAAgiAgAAAGAANCAAIIIBHAIAgIIAQAgRBBAUAkA=</HashCode>
+      <FileName>battleUI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="aStar" Collapsed="true">
+    <Position X="15.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ECAEAQAEAAFAgAQAABAAAgAAAgAAAAJAAAAFAIQVAEA=</HashCode>
+      <FileName>aStar.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="mercenaryStore" Collapsed="true">
+    <Position X="24" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EkICcACMUARAAQEAAQACAQIAAAEgQEIZAhSgDABWEkA=</HashCode>
+      <FileName>mercenaryStore.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="TagTile" Collapsed="true">
     <Position X="21.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAABAAAQAQAQAIAAAAAEAAAAAAUAABgAAAAAAA=</HashCode>
-      <FileName>mapTool.h</FileName>
+      <HashCode>AAgAAAAABAAAQARAQAIAAAAAEEAAAAAcQABgAAAAAAA=</HashCode>
+      <FileName>utils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TagObject" Collapsed="true">
+    <Position X="39" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAABAAAQAQAQAIAAAAAEEAAAAAEAABgAAAAAAA=</HashCode>
+      <FileName>utils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OBJ_Y_RENDER" Collapsed="true">
+    <Position X="39" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>utils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OBJ_NUM" Collapsed="true">
+    <Position X="37.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>utils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="tagItem" Collapsed="true">
+    <Position X="37.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAABAAAAgAAAAIAgAAAEBAFAAAAwAAQgAAAgAA=</HashCode>
+      <FileName>utils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GOBJ_Y_RENDER" Collapsed="true">
+    <Position X="35.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>gameObjectManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="tagOrder" Collapsed="true">
+    <Position X="35.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAABCAAAgAAAIAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>battleManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="tagCharList" Collapsed="true">
+    <Position X="35.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>battleUI.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Typedef Name="CALLBACK_FUNCTION" Collapsed="true">
@@ -269,8 +430,8 @@
   <Enum Name="TILESTATE" Collapsed="true">
     <Position X="21.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAI=</HashCode>
-      <FileName>mapTool.h</FileName>
+      <HashCode>AAAAACAAAQAAAAAAAAAAAAAAAIAAAAAgAAABAAAAAIA=</HashCode>
+      <FileName>utils.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="MAPNAME" Collapsed="true">
@@ -278,6 +439,55 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAARAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>mapTool.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OBJSTATE" Collapsed="true">
+    <Position X="39" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAEAAAAAAAAQAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>utils.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WEAPON_TYPE" Collapsed="true">
+    <Position X="35.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIIAAAAAQAAAABAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>utils.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CHARACTER_STATE" Collapsed="true">
+    <Position X="37.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgEAAAAAgAAAAAAAAAAgIAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>utils.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CHARACTER_DIRECTION" Collapsed="true">
+    <Position X="35.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAEAA=</HashCode>
+      <FileName>utils.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ORDERLIST" Collapsed="true">
+    <Position X="37.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAgAQAAAAAAA=</HashCode>
+      <FileName>gameObjectManager.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="STATE" Collapsed="true">
+    <Position X="39" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAIAAAAAAAABAAAAAA=</HashCode>
+      <FileName>mapTool.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ORDERKIND" Collapsed="true">
+    <Position X="35.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAQAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>battleManager.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="맑은 고딕" Size="9" />

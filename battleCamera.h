@@ -30,6 +30,7 @@ public:
 	void setCameraTile(float x, float y);
 	void setCameraJoomIn();
 	void setCameraJoomOut();
+	void cameraKeyControl();
 
 	// setÇÔ¼ö
 	void setIsVibrate(bool isVibrate) { _isVibrate = isVibrate; }
