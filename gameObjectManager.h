@@ -49,6 +49,8 @@ class gameObjectManager : public gameNode
 	int _charDeathCount;
 	int _enemyDeathCount;
 
+	float _time;
+
 public:
 	gameObjectManager();
 	~gameObjectManager();

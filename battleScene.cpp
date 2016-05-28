@@ -45,6 +45,8 @@ void battleScene::release()
 	SAFE_DELETE(_camera);
 	SAFE_DELETE(_objectMgr);
 	SAFE_DELETE(_battleMgr);
+
+	SOUNDMANAGER->stop("battleScene_bg");
 }
 
 void battleScene::update()

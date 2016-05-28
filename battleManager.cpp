@@ -162,8 +162,8 @@ void battleManager::update()
 >>>>>>> refs/remotes/origin/development
 			enemyAI();
 		}
+		//실행창(턴종료, 중도포기)
 	}
-
 	_count++;
 	setFrame();
 
@@ -549,24 +549,28 @@ void battleManager::enemyAI()
 		&& _objectMgr->getVTile()[enemyX + (enemyY - 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY - 1);
+		_camera->setIsVibrate(true);
 		return;
 	}
 	else if (enemyX + enemyY * TILENUM - 1 >= 0
 		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM - 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX - 1, enemyY);
+		_camera->setIsVibrate(true);
 		return;
 	}
 	else if (enemyX + enemyY * TILENUM + 1 < TOTALTILE(TILENUM)
 		&& _objectMgr->getVTile()[enemyX + enemyY * TILENUM + 1]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX + 1, enemyY);
+		_camera->setIsVibrate(true);
 		return;
 	}
 	else if (enemyX + (enemyY + 1) * TILENUM < TOTALTILE(TILENUM)
 		&& _objectMgr->getVTile()[enemyX + (enemyY + 1) * TILENUM]->state == S_ONCHAR)
 	{
 		_objectMgr->enemyAttack(_enemyIdx, enemyX, enemyY + 1);
+		_camera->setIsVibrate(true);
 		return;
 	}
 
