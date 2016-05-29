@@ -364,6 +364,7 @@ void gameObjectManager::enemyAttack(int index, int destX, int destY)
 	{
 		if (_vCharacter[i]->getIndexX() == destX && _vCharacter[i]->getIndexY() == destY)
 		{
+			SOUNDMANAGER->play("pain", 1);
 			characterPain(i, _vEnemy[index]->getIndexX(), _vEnemy[index]->getIndexY(), _vEnemy[index]->getAtk());
 			break;
 		}
