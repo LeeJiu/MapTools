@@ -313,21 +313,15 @@ void battleManager::UIControl()
 	{
 		if (_ui->getCharIdx() != 100)
 		{
-			switch (_ui->getCharIdx())
-			{
-			case 0:
+			if (strcmp(_objectMgr->getVCharacter()[_ui->getCharIdx()]->getName(),"prinny") == 0)
 				SOUNDMANAGER->play("prinny_on", 1.f);
-				break;
-			case 1:
+			if (strcmp(_objectMgr->getVCharacter()[_ui->getCharIdx()]->getName(), "flonne") == 0)
 				SOUNDMANAGER->play("flonne_on", 1.f);
-				break;
-			case 2:
+			if (strcmp(_objectMgr->getVCharacter()[_ui->getCharIdx()]->getName(), "raspberyl") == 0)
 				SOUNDMANAGER->play("razberyl_on", 1.f);
-				break;
-			case 3:
+			if (strcmp(_objectMgr->getVCharacter()[_ui->getCharIdx()]->getName(), "etna") == 0)
 				SOUNDMANAGER->play("etna_on", 1.f);
-				break;
-			}
+			
 			_selectCharIdx = _ui->getCharIdx();
 
 			_objectMgr->getVCharacter()[_selectCharIdx]->setIsShow(true);
