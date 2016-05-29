@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "raspberyl.h"
 #include "gameObjectManager.h"
+#include "battleCamera.h"
 
 raspberyl::raspberyl()
 {
@@ -16,7 +17,7 @@ HRESULT raspberyl::init()
 	return S_OK;
 }
 
-HRESULT raspberyl::init(int x, int y, gameObjectManager * gom)
+HRESULT raspberyl::init(int x, int y, gameObjectManager * gom, battleCamera* cam)
 {
 	_volume = 0;
 	SOUNDMANAGER->play("r_step", _volume);
@@ -46,6 +47,7 @@ HRESULT raspberyl::init(int x, int y, gameObjectManager * gom)
 	_moveSpeed = 3;
 
 	_gameObjMgr = gom;
+	_camera = cam;
 
 	_rc = RectMakeIso(_gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotX, _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY, 
 		_character->getFrameWidth(), _character->getFrameHeight());
@@ -188,6 +190,7 @@ void raspberyl::setFrame()
 			{
 				_characterState = IDLE;
 				_gameObjMgr->setOrderList(OL_END);
+				_camera->setIsJoomOut(true);
 				return;
 			}
 			else if (_characterState == PAIN)
@@ -197,6 +200,7 @@ void raspberyl::setFrame()
 					_hp = 0;
 					_isShow = false;
 					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state = S_NONE;
+					_camera->setIsJoomOut(true);
 					_gameObjMgr->setCharDeath();
 				}
 				_characterState = IDLE;

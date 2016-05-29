@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "gameObject.h"
 #include "gameObjectManager.h"
+#include "battleCamera.h"
 
 gameObject::gameObject()
 {
@@ -16,12 +17,12 @@ HRESULT gameObject::init()
 	return S_OK;
 }
 
-HRESULT gameObject::init(int x, int y, gameObjectManager * gom)
+HRESULT gameObject::init(int x, int y, gameObjectManager * gom, battleCamera* cam)
 {
 	return E_NOTIMPL;
 }
 
-HRESULT gameObject::init(const char * strkey, int x, int y, int imageNum, gameObjectManager * gom)
+HRESULT gameObject::init(const char * strkey, int x, int y, int imageNum, gameObjectManager * gom, battleCamera* cam)
 {
 	return E_NOTIMPL;
 }
@@ -84,7 +85,7 @@ void gameObject::move()
 			_indexX = _vRoute[_idx]->x;
 			_indexY = _vRoute[_idx]->y;
 			
-			if (_currentMoveCount == _mv)
+			/*if (_currentMoveCount == _mv)
 			{
 				_isMove = false;
 
@@ -106,7 +107,7 @@ void gameObject::move()
 					_gameObjMgr->setOrderList(OL_END);
 				}
 				return;
-			}
+			}*/
 			_idx++;
 		}
 	}
@@ -180,8 +181,9 @@ void gameObject::attack(int targetX, int targetY)
 		_isUp = false;
 	}
 	_characterState = ATTACK;
+	_camera->setIsJoomIn(true);
 	_cameraX = _x - _sourWidth / 2;
-	_cameraY = _y - _sourHeight / 2;
+	_cameraY = _y - _sourHeight / 2 - 100;
 	_character->setFrameX(0);
 }
 
@@ -263,6 +265,7 @@ void gameObject::setEnemyMove(int targetIdx, int targetX, int targetY, int endX,
 		_oldX = _indexX;
 		_oldY = _indexY;
 		_vRoute = vRoute;
+	
 
 		//공격할 캐릭터 위치 저장 (에너미 -> 플레이어)
 		_targetIdx = targetIdx;

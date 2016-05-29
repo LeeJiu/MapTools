@@ -43,6 +43,7 @@ HRESULT town::init()
 	_sourX = NUMBERDATA->getTownSourX();
 	_sourY = NUMBERDATA->getTownSourY();
 
+	_pixelDraw = false;
 	//¸¶À» Áß¾Ó ÁÂÇ¥
 	//_sourX = 1790;
 	//_sourY = 490;
@@ -69,13 +70,17 @@ void town::update()
 	pixelCollision(_prinny->getRect());
 	setFrame();
 
+	if (KEYMANAGER->isOnceKeyDown('M'))
+	{
+		_pixelDraw = !_pixelDraw;
+	}
+
 	enterEntrance();
 }
 
 void town::render()
 {
 	_town->render(getMemDC(), 0, 0, _sourX, _sourY, WINSIZEX, WINSIZEY);
-	//_townPixel->render(getMemDC(), 0, 0, _sourX, _sourY, WINSIZEX, WINSIZEY);
 	
 	//Æ÷Å» ÀÌ¹ÌÁö ÇÁ·¹ÀÓ
 	_battlePortal->frameRender(getMemDC(), 2061 - _sourX, 1012 - _sourY,
@@ -86,6 +91,8 @@ void town::render()
 
 	_etcPortal->frameRender(getMemDC(), 1134 - _sourX, 478 - _sourY,
 		_etcPortal->getFrameX(), _etcPortal->getFrameY());
+
+	if(_pixelDraw) _townPixel->render(getMemDC(), 0, 0, _sourX, _sourY, WINSIZEX, WINSIZEY);
 
 	_mercenaryShadow->render(getMemDC(), 1208 - _sourX - 15, 535 - _sourY + 120);
 	_storeShadow->render(getMemDC(), 1628 - _sourX - 15, 405 - _sourY + 120);

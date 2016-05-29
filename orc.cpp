@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "orc.h"
 #include "gameObjectManager.h"
+#include "battleCamera.h"
 
 orc::orc()
 {
@@ -12,7 +13,7 @@ orc::~orc()
 }
 
 
-HRESULT orc::init(int x, int y, gameObjectManager * gom)
+HRESULT orc::init(int x, int y, gameObjectManager * gom, battleCamera* cam)
 {
 	_name = "orc";
 
@@ -23,6 +24,7 @@ HRESULT orc::init(int x, int y, gameObjectManager * gom)
 	_targetY = -1;
 
 	_gameObjMgr = gom;
+	_camera = cam;
 	_shadow = IMAGEMANAGER->findImage("shadow");
 	_character = new image;
 	_character->init("image/character/orc_idle.bmp", 1080, 668, 6, 4, true, 0xff00ff);
@@ -44,7 +46,7 @@ HRESULT orc::init(int x, int y, gameObjectManager * gom)
 	_maxHp = _hp = 100;
 
 	_hpBar = new progressBar;
-	_hpBar->init(_x, _rc.top - 10, 120, 10);
+	_hpBar->init(_x, _rc.top - 10, 120, 10, false);
 	_hpBar->gauge(_hp, _maxHp);
 
 	_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
@@ -156,6 +158,7 @@ void orc::setFrame()
 			{
 				_characterState = IDLE;
 				_gameObjMgr->setOrderList(OL_END);
+				_camera->setIsJoomOut(true);
 				return;
 			}
 			else if (_characterState == PAIN)
@@ -165,6 +168,7 @@ void orc::setFrame()
 					_hp = 0;
 					_isShow = false;
 					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state = S_NONE;
+					_camera->setIsJoomOut(true);
 					_gameObjMgr->setEnemyDeath();
 				}
 				_characterState = IDLE;

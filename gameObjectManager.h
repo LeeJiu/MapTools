@@ -79,6 +79,9 @@ public:
 	void setOrderList(ORDERLIST orderList) { _orderList = orderList; }
 	void setCharDeath();
 	void setEnemyDeath();
+	//void setCameraVibrate(bool isVibrate) { _camera->setIsVibrate(isVibrate); }
+	//void setCameraJoomIn(bool isJoomIn) { _camera->setIsJoomIn(isJoomIn); }
+	//void setCameraJoomOut(bool isJoomOut) { _camera->setIsJoomOut(isJoomOut); }
 
 	//getÇÔ¼ö
 	vector<TagTile*>& getVTile() { return _vTile; }
