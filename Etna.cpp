@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "etna.h"
 #include "gameObjectManager.h"
+#include "battleCamera.h"
 
 etna::etna()
 {
@@ -16,7 +17,7 @@ HRESULT etna::init()
 	return S_OK;
 }
 
-HRESULT etna::init(int x, int y, gameObjectManager * gom)
+HRESULT etna::init(int x, int y, gameObjectManager * gom, battleCamera* cam)
 {
 	_volume = 0;
 	SOUNDMANAGER->play("e_step", _volume);
@@ -38,6 +39,7 @@ HRESULT etna::init(int x, int y, gameObjectManager * gom)
 	_isShow = false;
 
 	_gameObjMgr = gom;
+	_camera = cam;
 	
 	_oldX = _indexX = x;
 	_oldY = _indexY = y;
@@ -185,6 +187,7 @@ void etna::setFrame()
 			{
 				_characterState = IDLE;
 				_gameObjMgr->setOrderList(OL_END);
+				_camera->setIsJoomOut(true);
 				return;
 			}
 			else if (_characterState == PAIN)
@@ -194,6 +197,7 @@ void etna::setFrame()
 					_hp = 0;
 					_isShow = false;
 					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state = S_NONE;
+					_camera->setIsJoomOut(true);
 					_gameObjMgr->setCharDeath();
 				}
 				_characterState = IDLE;

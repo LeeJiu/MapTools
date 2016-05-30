@@ -25,7 +25,7 @@ public:
 	~prinny();
 
 	virtual HRESULT init();
-	virtual HRESULT init(int x, int y, gameObjectManager* gom);
+	virtual HRESULT init(int x, int y, gameObjectManager* gom, battleCamera* cam);
 	virtual void release();
 	virtual void update();
 	virtual void render();

@@ -22,6 +22,8 @@ private:
 	int _sourX, _sourY;
 	int _count;
 	
+	bool _pixelDraw;
+
 	gameObject* _prinny;
 
 public:

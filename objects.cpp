@@ -12,7 +12,7 @@ objects::~objects()
 }
 
 
-HRESULT objects::init(const char * strkey, int x, int y, int imageNum, gameObjectManager * gom)
+HRESULT objects::init(const char * strkey, int x, int y, int imageNum, gameObjectManager * gom, battleCamera* cam)
 {
 	_name = strkey;
 

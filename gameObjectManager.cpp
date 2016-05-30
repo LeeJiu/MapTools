@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "gameObjectManager.h"
 #include "battleManager.h"
-
+#include "battleCamera.h"
 
 gameObjectManager::gameObjectManager()
 {
@@ -130,7 +130,7 @@ void gameObjectManager::setCharacter()
 {
 	// 프리니정보 로드해온다 (용병 개수 + 이름)
 	gameObject* _prinny = new prinny;
-	_prinny->init(_zenPosX, _zenPosY, this);
+	_prinny->init(_zenPosX, _zenPosY, this, _camera);
 	_vCharacter.push_back(_prinny);
 	_vToTalRender.push_back(_prinny);
 
@@ -141,21 +141,21 @@ void gameObjectManager::setCharacter()
 		if (strcmp(_vCharacter[0]->getMercenary()[i].c_str(), "etna") == 0)
 		{
 			gameObject* _etna = new etna;
-			_etna->init(_zenPosX, _zenPosY, this);
+			_etna->init(_zenPosX, _zenPosY, this, _camera);
 			_vCharacter.push_back(_etna);
 			_vToTalRender.push_back(_etna);
 		}
 		else if (strcmp(_vCharacter[0]->getMercenary()[i].c_str(), "flonne") == 0)
 		{
 			gameObject* _flonne = new flonne;
-			_flonne->init(_zenPosX, _zenPosY, this);
+			_flonne->init(_zenPosX, _zenPosY, this, _camera);
 			_vCharacter.push_back(_flonne);
 			_vToTalRender.push_back(_flonne);
 		}
 		else if (strcmp(_vCharacter[0]->getMercenary()[i].c_str(), "raspberyl") == 0)
 		{
 			gameObject* _raspberyl = new raspberyl;
-			_raspberyl->init(_zenPosX, _zenPosY, this);
+			_raspberyl->init(_zenPosX, _zenPosY, this, _camera);
 			_vCharacter.push_back(_raspberyl);
 			_vToTalRender.push_back(_raspberyl);
 		}
@@ -192,14 +192,14 @@ void gameObjectManager::setEnemy()
 				enemy->init(
 					DATABASE->getElementData(std::to_string(i))->x,
 					DATABASE->getElementData(std::to_string(i))->y,
-					this);
+					this, _camera);
 				break;
 			case 2:
 				enemy = new catsaver;
 				enemy->init(
 					DATABASE->getElementData(std::to_string(i))->x,
 					DATABASE->getElementData(std::to_string(i))->y,
-					this);
+					this, _camera);
 				break;
 			default:
 				break;
@@ -263,7 +263,7 @@ void gameObjectManager::setObject()
 				DATABASE->getElementData(std::to_string(i))->x,
 				DATABASE->getElementData(std::to_string(i))->y,
 				DATABASE->getElementData(std::to_string(i))->imageNum,
-				this);
+				this, _camera);
 
 			_vToTalRender.push_back(rnd);
 		}
@@ -352,6 +352,7 @@ void gameObjectManager::characterAttack(int index, int destX, int destY)
 void gameObjectManager::characterPain(int index, int destX, int destY, int damage)
 {
 	_vCharacter[index]->pain(destX, destY, damage);
+	_camera->setIsVibrate(true);
 }
 
 void gameObjectManager::enemyAttack(int index, int destX, int destY)
@@ -395,4 +396,5 @@ void gameObjectManager::enemyMoveToAttack(int index, int destX, int destY, int t
 void gameObjectManager::enemyPain(int index, int destX, int destY, int damage)
 {
 	_vEnemy[index]->pain(destX, destY, damage);
+	_camera->setIsVibrate(true);
 }

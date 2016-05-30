@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "prinny.h"
 #include "gameObjectManager.h"
+#include "battleCamera.h"
 
 prinny::prinny()
 {
@@ -41,7 +42,7 @@ HRESULT prinny::init()
 	return S_OK;
 }
 
-HRESULT prinny::init(int x, int y, gameObjectManager * gom)
+HRESULT prinny::init(int x, int y, gameObjectManager * gom, battleCamera* cam)
 {
 	_inventory = new inventory;
 	_inventory->init();
@@ -70,6 +71,7 @@ HRESULT prinny::init(int x, int y, gameObjectManager * gom)
 	_isbattle = true;
 	
 	_gameObjMgr = gom;
+	_camera = cam;
 
 	_pivotY = _gameObjMgr->getVTile()[_indexY * TILENUM + _indexX]->pivotY;
 	_moveSpeed = 3;
@@ -337,6 +339,7 @@ void prinny::setFrame()
 			{
 				_characterState = IDLE;
 				_gameObjMgr->setOrderList(OL_END);
+				_camera->setIsJoomOut(true);
 				return;
 			}
 			else if (_characterState == PAIN)
@@ -346,6 +349,7 @@ void prinny::setFrame()
 					_hp = 0;
 					_isShow = false;
 					_gameObjMgr->getVTile()[_indexX + _indexY * TILENUM]->state = S_NONE;
+					_camera->setIsJoomOut(true);
 					_gameObjMgr->setCharDeath();
 				}
 				_characterState = IDLE;

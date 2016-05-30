@@ -8,7 +8,7 @@ public:
 	~etna();
 
 	virtual HRESULT init();
-	virtual HRESULT init(int x, int y, gameObjectManager* gom);
+	virtual HRESULT init(int x, int y, gameObjectManager* gom, battleCamera* cam);
 	void release();
 	void update();
 	void render();

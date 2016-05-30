@@ -16,7 +16,7 @@ HRESULT character::init()
 	return S_OK;
 }
 
-HRESULT character::init(int x, int y, gameObjectManager * gom)
+HRESULT character::init(int x, int y, gameObjectManager * gom, battleCamera* cam)
 {
 	return E_NOTIMPL;
 }

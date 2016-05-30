@@ -16,7 +16,7 @@ HRESULT battleCamera::init()
 
 	_isMapScrool = false;
 
-	_joomSize = 100;
+	_joomSize = 150;
 
 	_vibrateCount = 0;
 
@@ -73,7 +73,6 @@ void battleCamera::setCameraJoomIn()
 	if (_sourHeight < CENTERY + 100)
 	{
 		_isJoomIn = false;
-		_isJoomOut = true;
 	}
 }
 
