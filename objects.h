@@ -16,7 +16,7 @@ public:
 	objects();
 	~objects();
 
-	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, gameObjectManager* gom);
+	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, gameObjectManager* gom, battleCamera* cam);
 	void release();
 	void update();
 	void render();

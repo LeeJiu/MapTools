@@ -874,44 +874,44 @@ void mapTool::moveTile()
 	// 임시 맵스크롤 키 입력 만들자
 	if (KEYMANAGER->isStayKeyDown(VK_UP) && _vTile[0]->rc.top < 0)
 	{
-		_vTile[0]->pivotY += 3;
+		_vTile[0]->pivotY += 5;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
 		for (int i = 0; i < TOTALTILE(TILENUM); i++)
 		{
-			_vRender[i]->rc = RectMake(_vRender[i]->rc.left, _vRender[i]->rc.top + 3, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left, _vRender[i]->rc.top + 5, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
 		}
 	}
 
 	//다운키
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN) && _vTile[TOTALTILE(TILENUM) - 1]->rc.bottom > WINSIZEY - 15)
 	{
-		_vTile[0]->pivotY -= 3;
+		_vTile[0]->pivotY -= 5;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
 		for (int i = 0; i < TOTALTILE(TILENUM); i++)
 		{
-			_vRender[i]->rc = RectMake(_vRender[i]->rc.left, _vRender[i]->rc.top - 3, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left, _vRender[i]->rc.top - 5, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
 		}
 	}
 
 	//왼쪽키
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && _vTile[TOTALTILE(TILENUM) - TILENUM - 1]->rc.left > 300)
 	{
-		_vTile[0]->pivotX += 3;
+		_vTile[0]->pivotX += 5;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
 		for (int i = 0; i < TOTALTILE(TILENUM); i++)
 		{
-			_vRender[i]->rc = RectMake(_vRender[i]->rc.left + 3, _vRender[i]->rc.top, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left + 5, _vRender[i]->rc.top, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
 		}
 	}
 
 	//오른쪽키
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		_vTile[0]->pivotX -= 3;
+		_vTile[0]->pivotX -= 5;
 		setTile(_vTile[0]->pivotX, _vTile[0]->pivotY);
 		for (int i = 0; i < TOTALTILE(TILENUM); i++)
 		{
-			_vRender[i]->rc = RectMake(_vRender[i]->rc.left - 3, _vRender[i]->rc.top, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
+			_vRender[i]->rc = RectMake(_vRender[i]->rc.left - 5, _vRender[i]->rc.top, _vRender[i]->rc.right, _vRender[i]->rc.bottom);
 		}
 	}
 }

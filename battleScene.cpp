@@ -21,9 +21,6 @@ HRESULT battleScene::init()
 
 	_objectMgr = new gameObjectManager;
 	_objectMgr->init();
-	_objectMgr->setObject();
-	_objectMgr->setCharacter();
-	_objectMgr->setEnemy();
 
 	_battleMgr = new battleManager;
 	_battleMgr->init();
@@ -33,6 +30,10 @@ HRESULT battleScene::init()
 	_objectMgr->setbattleMgrMemoryLink(_battleMgr);
 	_battleMgr->setCameraMemoryLink(_camera);
 	_battleMgr->setObjectMgrMemoryLink(_objectMgr);
+
+	_objectMgr->setObject();
+	_objectMgr->setCharacter();
+	_objectMgr->setEnemy();
 
 	return S_OK;
 }

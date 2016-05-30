@@ -3,6 +3,7 @@
 #include "progressBar.h"
 
 class gameObjectManager;
+class battleCamera;
 
 class gameObject : public gameNode
 {
@@ -47,6 +48,7 @@ protected:
 	progressBar* _hpBar;
 
 	gameObjectManager* _gameObjMgr;
+	battleCamera* _camera;
 
 public:
 	gameObject();
@@ -56,8 +58,8 @@ public:
 	virtual HRESULT init();
 
 	//¿¸≈ı∏  init
-	virtual HRESULT init(int x, int y, gameObjectManager* gom);
-	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, gameObjectManager* gom);
+	virtual HRESULT init(int x, int y, gameObjectManager* gom, battleCamera* cam);
+	virtual HRESULT init(const char* strkey, int x, int y, int imageNum, gameObjectManager* gom, battleCamera* cam);
 	virtual void release();
 	virtual void update();
 	virtual void render();
