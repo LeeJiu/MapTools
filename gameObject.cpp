@@ -181,6 +181,7 @@ void gameObject::attack(int targetX, int targetY)
 		_isUp = false;
 	}
 	_characterState = ATTACK;
+	_curFrameX = 0;
 	_camera->setIsJoomIn(true);
 	_cameraX = _x - _sourWidth / 2;
 	_cameraY = _y - _sourHeight / 2 - 100;
@@ -216,6 +217,7 @@ void gameObject::pain(int x, int y, int damage)
 	_characterState = PAIN;
 	_hp -= (damage / 10);
 	_character->setFrameX(0);
+	_curFrameX = 0;
 }
 
 void gameObject::setImage()
