@@ -63,6 +63,7 @@ void battleScene::update()
 
 void battleScene::render()
 {
+	IMAGEMANAGER->findImage("battlebg")->render(getMemDC(), 0, 0);
 	_objectMgr->tileRender();
 	_battleMgr->selectTileRender();
 	_objectMgr->render();

@@ -215,7 +215,7 @@ void gameObject::pain(int x, int y, int damage)
 		_isUp = false;
 	}
 	_characterState = PAIN;
-	_hp -= (damage / 10);
+	_hp -= (damage / 3);
 	_character->setFrameX(0);
 	_curFrameX = 0;
 }
@@ -307,7 +307,7 @@ void gameObject::showPossibleMoveTile()
 {
 	for (int i = 0; i < TOTALTILE(TILENUM); i++)
 	{
-		if (abs(_oldX - _gameObjMgr->getVTile()[i]->x) + abs(_oldY - _gameObjMgr->getVTile()[i]->y) < _mv)
+		if (abs(_indexX - _gameObjMgr->getVTile()[i]->x) + abs(_indexY - _gameObjMgr->getVTile()[i]->y) < _mv)
 		{
 			if (_gameObjMgr->getVTile()[i]->state == S_NONE)
 				IMAGEMANAGER->findImage("walkable")->render(getMemDC(), _gameObjMgr->getVTile()[i]->rc.left, _gameObjMgr->getVTile()[i]->rc.top);

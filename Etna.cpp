@@ -142,7 +142,7 @@ void etna::setImage()
 		break;
 
 	case PAIN:
-		_character = IMAGEMANAGER->findImage("etna_etc");
+		_character = IMAGEMANAGER->findImage("etna_pain");
 		_volume = 0;
 		break;
 	}

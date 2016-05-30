@@ -60,7 +60,7 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addFrameImage("etna_idle", "image/character/etna_idle.bmp", 588, 656, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("etna_walk", "image/character/etna_walk.bmp", 588, 700, 6, 4, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("etna_attack", "image/character/etna_attack.bmp", 720, 660, 4, 4, true, 0xff00ff);
-	IMAGEMANAGER->addFrameImage("etna_pain", "image/character/etna_pain.bmp", 103, 596, 1, 4, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("etna_pain", "image/character/etna_pain.bmp", 515, 596, 5, 4, true, 0xff00ff);
 
 	//배틀씬에서 사용될 이미지 추가
 	IMAGEMANAGER->addImage("walkable", "image/battle/walkable_tile.bmp", 128, 64, true, 0xff00ff);
@@ -69,7 +69,8 @@ HRESULT gameStudy::init()
 	IMAGEMANAGER->addImage("playerTurn", "image/battleUI/ui_turnback_player.bmp", 489, 53, true, 0xff00ff);
 	IMAGEMANAGER->addImage("enemyTurn", "image/battleUI/ui_turnback_enemy.bmp", 476, 53, true, 0xff00ff);
 	IMAGEMANAGER->addImage("stageStart", "image/battleUI/ui_turnback_start.bmp", 461, 53, true, 0xff00ff);
-	
+	IMAGEMANAGER->addImage("battlebg", "image/background/battle_background.bmp", 2688, 1424, false, false);
+
 	//오브젝트 이미지 추가
 	IMAGEMANAGER->addImage("tree1", "image/mapTool/object_tree.bmp", 222, 265, true, 0xff00ff);
 	IMAGEMANAGER->addImage("tree2", "image/mapTool/object_tree2.bmp", 180, 185, true, 0xff00ff);

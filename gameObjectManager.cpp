@@ -357,6 +357,12 @@ void gameObjectManager::characterPain(int index, int destX, int destY, int damag
 
 void gameObjectManager::enemyAttack(int index, int destX, int destY)
 {
+	if (_vEnemy[index]->getHp() <= 0)
+	{
+		_orderList = OL_END;
+		return;
+	}
+
 	_vEnemy[index]->attack(destX, destY);
 
 	int charSize = _vCharacter.size();
