@@ -970,9 +970,6 @@ void mapTool::setSampleTile()
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			//TagTile* tile;
-			//_sampleTile[j][i]
-			//tile = new TagTile;
 			_sampleTile[j][i].image = new image;
 			_sampleTile[j][i].image->init("image/mapTool/mapTile_iso.bmp", 512, 1938, 4, 17, true, 0xff00ff);
 			_sampleTile[j][i].width = WIDTH;
@@ -986,10 +983,11 @@ void mapTool::setSampleTile()
 			_sampleTile[j][i].image->setFrameX(_sampleTile[j][i].number % 4);
 			_sampleTile[j][i].image->setFrameY(_sampleTile[j][i].number / 4);
 
-			if (_sampleTile[j][i].image->getFrameX() < 15)
+			if (count < 56)
 				_sampleTile[j][i].state = S_NONE;
-			else
+			else if(count >= 56)
 				_sampleTile[j][i].state = S_ETC;
+			
 			_vIsoTile.push_back(&_sampleTile[j][i]);
 
 			count++;
