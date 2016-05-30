@@ -12,7 +12,7 @@ progressBar::~progressBar()
 }
 
 
-HRESULT progressBar::init(int x, int y, int width, int height)
+HRESULT progressBar::init(int x, int y, int width, int height, bool character)
 {
 	_x = x;
 	_y = y;
@@ -20,7 +20,14 @@ HRESULT progressBar::init(int x, int y, int width, int height)
 	_rcProgress = RectMakeCenter(_x, _y, width, height);
 	
 	_progressBarFront = new image;
-	_progressBarFront->init("image/ui/ui_hpBarFront.bmp", x, y, width, height, 1, 1, true, 0xff00ff);
+	if (character == true)
+	{
+		_progressBarFront->init("image/ui/ui_hpBarFront1.bmp", x, y, width, height, 1, 1, true, 0xff00ff);
+	}
+	else
+	{
+		_progressBarFront->init("image/ui/ui_hpBarFront.bmp", x, y, width, height, 1, 1, true, 0xff00ff);
+	}
 	_progressBarBack = new image;
 	_progressBarBack->init("image/ui/ui_hpBarBack.bmp", x, y, width, height, 1, 1, true, 0xff00ff);
 

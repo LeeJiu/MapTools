@@ -16,7 +16,7 @@ HRESULT enemy::init()
 	return S_OK;
 }
 
-HRESULT enemy::init(int x, int y, gameObjectManager * gom)
+HRESULT enemy::init(int x, int y, gameObjectManager * gom, battleCamera* cam)
 {
 	return E_NOTIMPL;
 }

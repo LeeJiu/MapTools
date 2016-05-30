@@ -36,7 +36,7 @@
 using namespace MY_UTIL;
 
 /* ===== 디파인문 ===== */
-#define WINNAME (LPTSTR)(TEXT("MapTool"))
+#define WINNAME (LPTSTR)(TEXT("Disgaea"))
 #define CHILDNAME (LPTSTR)(TEXT("MapTool_Child"))
 #define WINSTARTX 10
 #define WINSTARTY 10
